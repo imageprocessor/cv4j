@@ -1,6 +1,9 @@
 package com.cv4j.core.datamodel;
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+
+import java.io.InputStream;
 
 public class ColorImage implements ImageData {
 
@@ -10,6 +13,14 @@ public class ColorImage implements ImageData {
 	private int type;
 
 	public ColorImage(Bitmap bitmap) {
+		width = bitmap.getWidth();
+		height = bitmap.getHeight();
+		pdata = new int[width*height];
+		bitmap.getPixels(pdata, 0, width, 0, 0, width, height);
+	}
+
+	public ColorImage(InputStream inputStream) {
+		Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
 		width = bitmap.getWidth();
 		height = bitmap.getHeight();
 		pdata = new int[width*height];
