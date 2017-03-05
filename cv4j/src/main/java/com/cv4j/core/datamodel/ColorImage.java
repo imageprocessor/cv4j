@@ -4,8 +4,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
 import com.cv4j.exception.CV4JException;
+import com.cv4j.image.util.IOUtils;
 
-import java.io.IOException;
 import java.io.InputStream;
 
 public class ColorImage implements ImageData {
@@ -37,11 +37,7 @@ public class ColorImage implements ImageData {
 		pdata = new int[width*height];
 		bitmap.getPixels(pdata, 0, width, 0, 0, width, height);
 
-		try {
-			inputStream.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		IOUtils.closeQuietly(inputStream);
 	}
 
 	@Override
