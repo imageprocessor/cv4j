@@ -11,7 +11,9 @@ ext {
     ]
 
     libraries = [
-            supportVersion    : "24.2.1"
+            supportVersion    : "24.2.1",
+            saf_log           : "1.0.5",
+            saf_aop           : "1.0.2"
     ]
 }
 
@@ -21,7 +23,7 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:2.2.3'
-
+        classpath 'com.hujiang.aspectjx:gradle-android-plugin-aspectjx:1.0.8'
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
