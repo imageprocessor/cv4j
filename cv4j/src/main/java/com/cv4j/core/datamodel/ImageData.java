@@ -3,30 +3,31 @@ package com.cv4j.core.datamodel;
 import android.graphics.Bitmap;
 
 public interface ImageData {
-	public final static int CV4J_IMAGE_TYPE_RGB = 1;
-	public final static int CV4J_IMAGE_TYPE_GRAY = 2;
-	public final static int CV4J_IMAGE_TYPE_HSV = 4;
-	public final static int CV4J_IMAGE_TYPE_BINARY = 8;
 
-	public int[] getPixels();
+	int CV4J_IMAGE_TYPE_RGB = 1;
+	int CV4J_IMAGE_TYPE_GRAY = 2;
+	int CV4J_IMAGE_TYPE_HSV = 4;
+	int CV4J_IMAGE_TYPE_BINARY = 8;
 
-	public int getWidth();
+	int[] getPixels();
 
-	public int getHeight();
+	int getWidth();
 
-	public int getType();
+	int getHeight();
 
-	public byte[] getChannel(int index);
+	int getType();
 
-	public void putPixels(int[] pixels);
+	byte[] getChannel(int index);
 
-	public int getPixel(int row, int col);
+	void putPixels(int[] pixels);
 
-	public void setPixel(int row, int col, int rgb);
+	int getPixel(int row, int col);
 
-	public int[] getPixelByRowNumber(int rowIndex);
+	void setPixel(int row, int col, int rgb);
 
-	public void convert2Gray();
+	int[] getPixelByRowNumber(int rowIndex);
 
-	public Bitmap toBitmap();
+	void convert2Gray();
+
+	Bitmap toBitmap();
 }

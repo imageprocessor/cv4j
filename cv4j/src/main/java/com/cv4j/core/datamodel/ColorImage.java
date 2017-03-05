@@ -3,14 +3,16 @@ package com.cv4j.core.datamodel;
 import android.graphics.Bitmap;
 
 public class ColorImage implements ImageData {
+
 	private int[] pdata;
 	private int width;
 	private int height;
 	private int type;
-	public ColorImage(Bitmap bi) {
-		width = bi.getWidth();
-		height = bi.getHeight();
-		bi.getPixels(pdata, 0, width, 0, 0, width, height);
+
+	public ColorImage(Bitmap bitmap) {
+		width = bitmap.getWidth();
+		height = bitmap.getHeight();
+		bitmap.getPixels(pdata, 0, width, 0, 0, width, height);
 	}
 
 	@Override
