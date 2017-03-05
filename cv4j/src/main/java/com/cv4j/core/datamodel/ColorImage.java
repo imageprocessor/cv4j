@@ -12,6 +12,7 @@ public class ColorImage implements ImageData {
 	public ColorImage(Bitmap bitmap) {
 		width = bitmap.getWidth();
 		height = bitmap.getHeight();
+		pdata = new int[width*height];
 		bitmap.getPixels(pdata, 0, width, 0, 0, width, height);
 	}
 
