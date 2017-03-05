@@ -1,4 +1,19 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
+ext {
+    configuration = [
+            package          : "com.cv4j",
+            buildToolsVersion: "23.0.2",
+            compileVersion   : 23,
+            minSdk           : 9,
+            targetSdk        : 23,
+            version_code     : 1,
+            version_name     : "0.0.1"
+    ]
+
+    libraries = [
+            supportVersion    : "23.1.1"
+    ]
+}
 
 buildscript {
     repositories {
