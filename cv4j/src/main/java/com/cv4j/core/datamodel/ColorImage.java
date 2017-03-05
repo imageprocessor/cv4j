@@ -3,6 +3,9 @@ package com.cv4j.core.datamodel;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
+import com.cv4j.exception.CV4JException;
+
+import java.io.IOException;
 import java.io.InputStream;
 
 public class ColorImage implements ImageData {
@@ -13,6 +16,10 @@ public class ColorImage implements ImageData {
 	private int type;
 
 	public ColorImage(Bitmap bitmap) {
+		if (bitmap == null) {
+			throw new CV4JException("bitmap is null");
+		}
+
 		width = bitmap.getWidth();
 		height = bitmap.getHeight();
 		pdata = new int[width*height];
@@ -20,11 +27,21 @@ public class ColorImage implements ImageData {
 	}
 
 	public ColorImage(InputStream inputStream) {
+		if (inputStream == null) {
+			throw new CV4JException("inputStream is null");
+		}
+
 		Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
 		width = bitmap.getWidth();
 		height = bitmap.getHeight();
 		pdata = new int[width*height];
 		bitmap.getPixels(pdata, 0, width, 0, 0, width, height);
+
+		try {
+			inputStream.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
