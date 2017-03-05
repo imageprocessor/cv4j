@@ -1,5 +1,7 @@
 package com.cv4j.image.util;
-import java.awt.Color;
+
+import android.graphics.Color;
+
 import java.io.BufferedReader;
 import java.io.StringReader;
 import java.util.Arrays;
@@ -13,13 +15,12 @@ import java.util.Vector;
 	public static final char[] hexDigits = {'0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F'};
 	
 	/** Converts a Color to an 7 byte hex string starting with '#'. */
-	public static String c2hex(Color c) {
-		int i = c.getRGB();
+	public static String c2hex(int c) {
 		char[] buf7 = new char[7];
 		buf7[0] = '#';
 		for (int pos=6; pos>=1; pos--) {
-			buf7[pos] = hexDigits[i&0xf];
-			i >>>= 4;
+			buf7[pos] = hexDigits[c&0xf];
+			c >>>= 4;
 		}
 		return new String(buf7);
 	}
