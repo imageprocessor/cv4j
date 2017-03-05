@@ -2,16 +2,16 @@
 ext {
     configuration = [
             package          : "com.cv4j",
-            buildToolsVersion: "23.0.2",
-            compileVersion   : 23,
+            buildToolsVersion: "25.0.0",
+            compileVersion   : 24,
             minSdk           : 9,
-            targetSdk        : 23,
+            targetSdk        : 24,
             version_code     : 1,
             version_name     : "0.0.1"
     ]
 
     libraries = [
-            supportVersion    : "23.1.1"
+            supportVersion    : "24.2.1"
     ]
 }
 
