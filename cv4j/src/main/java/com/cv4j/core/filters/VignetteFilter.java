@@ -26,58 +26,57 @@ public class VignetteFilter implements CommonFilter {
 		int width = src.getWidth();
         int height = src.getHeight();
 
-        int[] pixels = src.getPixels();
-        int[] output = new int[width*height];
+		int[] inPixels = src.getPixels();
+		int[] outPixels = new int[width*height];
 
-        int offset = 0;
-        for(int row=0; row<height; row++) {
-        	int ta = 0, tr = 0, tg = 0, tb = 0;
-			offset = row*width;
-        	for(int col=0; col<width; col++) {
-            	
-                int dX = Math.min(col, width - col);
-                int dY = Math.min(row, height - row);
-        		ta = (pixels[offset] >> 24) & 0xff;
-                tr = (pixels[offset] >> 16) & 0xff;
-                tg = (pixels[offset] >> 8) & 0xff;
-                tb = pixels[offset] & 0xff;
-                if ((dY <= vignetteWidth) & (dX <= vignetteWidth))
-                {
-                    double k = 1 - (double)(Math.min(dY, dX) - vignetteWidth + fade) / (double)fade;
-                    output[offset] = superpositionColor(ta, tr, tg, tb, k);
-                    continue;
-                }
+		int index = 0;
+		for(int row=0; row<height; row++) {
+			int ta = 0, tr = 0, tg = 0, tb = 0;
+			for(int col=0; col<width; col++) {
 
-                if ((dX < (vignetteWidth - fade)) | (dY < (vignetteWidth - fade)))
-                {
-                	output[offset] = (ta << 24) | (Color.red(vignetteColor) << 16) | (Color.green(vignetteColor) << 8) | Color.blue(vignetteColor);
-                }
-                else
-                {
-                    if ((dX < vignetteWidth)&(dY>vignetteWidth))
-                    {
-                        double k = 1 - (double)(dX - vignetteWidth + fade) / (double)fade;
-                        output[offset] = superpositionColor(ta, tr, tg, tb, k);
-                    }
-                    else
-                    {
-                        if ((dY < vignetteWidth)&(dX > vignetteWidth))
-                        {
-                            double k = 1 - (double)(dY - vignetteWidth + fade) / (double)fade;
-                            output[offset] = superpositionColor(ta, tr, tg, tb, k);
-                        }
-                        else
-                        {
-                        	output[offset] = (ta << 24) | (tr << 16) | (tg << 8) | tb;
-                        }
-                    }
-                }
-				offset++;
-            }
-        }
+				int dX = Math.min(col, width - col);
+				int dY = Math.min(row, height - row);
+				index = row * width + col;
+				ta = (inPixels[index] >> 24) & 0xff;
+				tr = (inPixels[index] >> 16) & 0xff;
+				tg = (inPixels[index] >> 8) & 0xff;
+				tb = inPixels[index] & 0xff;
+				if ((dY <= vignetteWidth) & (dX <= vignetteWidth))
+				{
+					double k = 1 - (double)(Math.min(dY, dX) - vignetteWidth + fade) / (double)fade;
+					outPixels[index] = superpositionColor(ta, tr, tg, tb, k);
+					continue;
+				}
+
+				if ((dX < (vignetteWidth - fade)) | (dY < (vignetteWidth - fade)))
+				{
+					outPixels[index] = (ta << 24) | (Color.red(vignetteColor) << 16) | (Color.green(vignetteColor) << 8) | Color.blue(vignetteColor);
+				}
+				else
+				{
+					if ((dX < vignetteWidth)&(dY>vignetteWidth))
+					{
+						double k = 1 - (double)(dX - vignetteWidth + fade) / (double)fade;
+						outPixels[index] = superpositionColor(ta, tr, tg, tb, k);
+					}
+					else
+					{
+						if ((dY < vignetteWidth)&(dX > vignetteWidth))
+						{
+							double k = 1 - (double)(dY - vignetteWidth + fade) / (double)fade;
+							outPixels[index] = superpositionColor(ta, tr, tg, tb, k);
+						}
+						else
+						{
+							outPixels[index] = (ta << 24) | (tr << 16) | (tg << 8) | tb;
+						}
+					}
+				}
+			}
+		}
         
-        src.putPixels(output);
-		output = null;
+        src.putPixels(outPixels);
+		outPixels = null;
         return src;
 	}
 	
