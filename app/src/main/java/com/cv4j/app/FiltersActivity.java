@@ -13,6 +13,7 @@ import android.widget.Spinner;
 
 import com.cv4j.core.datamodel.ColorImage;
 import com.cv4j.core.filters.CommonFilter;
+import com.safframework.aop.annotation.Trace;
 import com.safframework.injectview.Injector;
 import com.safframework.injectview.annotations.InjectView;
 
@@ -73,14 +74,11 @@ public class FiltersActivity extends Activity {
                     return;
                 }
 
-                image.setImageBitmap(null);
+                // 清除滤镜
+                image.clearColorFilter();
 
                 String filterName = (String) adapter.getItem(position);
-
-                ColorImage colorImage = new ColorImage(bitmap);
-                CommonFilter filter = (CommonFilter)getFilter(filterName);
-                colorImage = (ColorImage) filter.filter(colorImage);
-                image.setImageBitmap(colorImage.toBitmap());
+                changeFilter(filterName);
             }
 
             @Override
@@ -104,5 +102,13 @@ public class FiltersActivity extends Activity {
         }
 
         return object;
+    }
+
+    @Trace
+    public void changeFilter(String filterName) {
+        ColorImage colorImage = new ColorImage(bitmap);
+        CommonFilter filter = (CommonFilter)getFilter(filterName);
+        colorImage = (ColorImage) filter.filter(colorImage);
+        image.setImageBitmap(colorImage.toBitmap());
     }
 }
