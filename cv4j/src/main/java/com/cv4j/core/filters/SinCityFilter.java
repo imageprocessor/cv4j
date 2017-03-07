@@ -4,12 +4,11 @@ import android.graphics.Color;
 
 import com.cv4j.core.datamodel.ImageData;
 
-import static android.graphics.Color.RED;
-
 public class SinCityFilter implements CommonFilter {
 
 	private double threshold = 200; // default value
 	private int mainColor = Color.argb(255, 255, 0, 0);
+
 	@Override
 	public ImageData filter(ImageData src) {
 		int width = src.getWidth();
@@ -43,16 +42,16 @@ public class SinCityFilter implements CommonFilter {
         src.putPixels(output);
         return src;
 	}
-	
-	public int[] getAdjustableRGB(int tr, int tg, int tb, int gray, float rate) {
+
+	private int[] getAdjustableRGB(int tr, int tg, int tb, int gray, float rate) {
 		int[] rgb = new int[3];
 		rgb[0] = (int)(tr * rate + gray * (1.0f-rate));
 		rgb[1] = (int)(tg * rate + gray * (1.0f-rate));
 		rgb[2] = (int)(tb * rate + gray * (1.0f-rate));
 		return rgb;
 	}
-	
-	public double getDistance(int tr, int tg, int tb) {
+
+	private double getDistance(int tr, int tg, int tb) {
 		int dr = tr - Color.red(mainColor);
 		int dg = tg - Color.green(mainColor);
 		int db = tb - Color.blue(mainColor);

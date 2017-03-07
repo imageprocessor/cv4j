@@ -7,5 +7,6 @@ import com.cv4j.core.datamodel.ImageData;
  */
 
 public interface CommonFilter {
-    public ImageData filter(ImageData imagedata);
+
+    ImageData filter(ImageData imagedata);
 }

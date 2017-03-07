@@ -35,15 +35,9 @@ public class SepiaToneFilter implements CommonFilter {
 	private double colorBlend(double scale, double dest, double src) {
 	    return (scale * dest + (1.0 - scale) * src);
 	}
-	
-	public static int clamp(int c)
+
+	private int clamp(int c)
 	{
 		return c > 255 ? 255 :( (c < 0) ? 0: c);
 	}
-	
-	public String toString()
-	{
-		return "Sepia Tone Effect - Effect from Photoshop App";
-	}
-
 }

@@ -87,7 +87,7 @@ public class FloSteDitheringFilter implements CommonFilter {
 		return bestIndex;
 	}
 
-	public int clamp(int value) {
+    private int clamp(int value) {
 		return value > 255 ? 255 :(value < 0 ? 0 : value);
 	}
 }
