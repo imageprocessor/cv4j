@@ -5,6 +5,9 @@ import com.cv4j.core.datamodel.ImageData;
 public class MeansBinaryFilter implements CommonFilter {
 
 	public ImageData filter(ImageData src) {
+        if(src.getType() == ImageData.CV4J_IMAGE_TYPE_RGB) {
+            src.convert2Gray();
+        }
         // calculate means of pixel  
         int index = 0;  
         double graySum = 0;

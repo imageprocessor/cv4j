@@ -24,6 +24,9 @@ public class FloSteDitheringFilter implements CommonFilter {
 
 	@Override
 	public ImageData filter(ImageData src) {
+        if(src.getType() == ImageData.CV4J_IMAGE_TYPE_RGB) {
+            src.convert2Gray();
+        }
 		int width = src.getWidth();
         int height = src.getHeight();
         int[] output = new int[width*height];
