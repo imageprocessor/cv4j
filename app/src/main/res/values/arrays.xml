@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="filterNames">
+        <item>原图</item>
+        <item>SepiaTone</item>
+        <item>SinCity</item>
+        <item>Emboss</item>
+        <item>Vignette</item>
+    </string-array>
+</resources>

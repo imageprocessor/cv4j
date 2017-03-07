@@ -3,8 +3,6 @@ package com.cv4j.core.filters;
 import com.cv4j.core.datamodel.ImageData;
 import com.cv4j.image.util.Tools;
 
-import static com.cv4j.image.util.Tools.clamp;
-
 /**
  * algorithm -http://en.wikipedia.org/wiki/Floyd%E2%80%93Steinberg_dithering
  * http://en.literateprograms.org/Floyd-Steinberg_dithering_(C)

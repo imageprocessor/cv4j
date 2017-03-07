@@ -34,7 +34,7 @@ public class FiltersActivity extends Activity {
 
     Bitmap bitmap;
 
-    String[] filterNames = {"原图", "SepiaTone", "SinCity","Emboss","Vignette"};
+    String[] filterNames;
 
     List<String> list = new ArrayList<>();
 
@@ -51,6 +51,8 @@ public class FiltersActivity extends Activity {
 
     private void initData() {
         Resources res = getResources();
+
+        filterNames = res.getStringArray(R.array.filterNames);
         bitmap = BitmapFactory.decodeResource(res, R.drawable.test_filters);
         image.setImageBitmap(bitmap);
 
