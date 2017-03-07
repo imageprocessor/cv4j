@@ -9,6 +9,10 @@ public class SinCityFilter implements CommonFilter {
 	private double threshold = 200; // default value
 	private int mainColor = Color.argb(255, 255, 0, 0);
 
+	public void setMainColor(int argb) {
+		this.mainColor = argb;
+	}
+
 	@Override
 	public ImageData filter(ImageData src) {
 		int width = src.getWidth();

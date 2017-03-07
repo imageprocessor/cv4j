@@ -147,7 +147,7 @@ public class ColorImage implements ImageData {
 			int offset = 0;
 			for(int row=0; row < height; row++) {
 				offset = row*width;
-				int ta=0, tr=0, tg=0, tb=0;
+				int ta=255, tr=0, tg=0, tb=0;
 				for(int col=0; col<width; col++) {
 					rgb[offset] = (ta << 24) | (pdata[offset] << 16) | (pdata[offset] << 8) | pdata[offset];
 					offset++;
