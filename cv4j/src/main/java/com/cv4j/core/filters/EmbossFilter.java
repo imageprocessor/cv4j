@@ -3,10 +3,18 @@ package com.cv4j.core.filters;
 import com.cv4j.core.datamodel.ImageData;
 import com.cv4j.image.util.Tools;
 
+import static com.cv4j.image.util.Tools.clamp;
+
 
 public class EmbossFilter implements CommonFilter {
+
 	private int COLORCONSTANTS;
 	private boolean out;
+
+	public EmbossFilter() {
+		this.COLORCONSTANTS = 100;
+	}
+
 	public EmbossFilter(boolean out) {
 		this.out = out;
 		this.COLORCONSTANTS = 100;

@@ -1,7 +1,5 @@
 package com.cv4j.image.util;
 
-import android.graphics.Color;
-
 import java.io.BufferedReader;
 import java.io.StringReader;
 import java.util.Arrays;
@@ -253,5 +251,8 @@ import java.util.Vector;
 			indexes2[i] = indexes[i].intValue();
 		return indexes2;
 	}
-	
+
+	public static int clamp(int value) {
+		return value > 255 ? 255 :(value < 0 ? 0 : value);
+	}
 }

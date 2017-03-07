@@ -3,6 +3,7 @@ package com.cv4j.core.filters;
 import android.graphics.Color;
 
 import com.cv4j.core.datamodel.ImageData;
+import com.cv4j.image.util.Tools;
 
 /**
  * @author gloomy fish
@@ -84,12 +85,8 @@ public class VignetteFilter implements CommonFilter {
 		red = (int)(Color.red(vignetteColor) * k + red *(1.0-k));
 		green = (int)(Color.green(vignetteColor) * k + green *(1.0-k));
 		blue = (int)(Color.blue(vignetteColor) * k + blue *(1.0-k));
-		int color = (ta << 24) | (clamp(red) << 16) | (clamp(green) << 8) | clamp(blue);
+		int color = (ta << 24) | (Tools.clamp(red) << 16) | (Tools.clamp(green) << 8) | Tools.clamp(blue);
 		return color;
-	}
-	
-	public int clamp(int value) {
-		return value > 255 ? 255 :((value < 0) ? 0 : value);
 	}
 	
 	public int getVignetteWidth() {

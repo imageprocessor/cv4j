@@ -34,7 +34,7 @@ public class FiltersActivity extends Activity {
 
     Bitmap bitmap;
 
-    String[] filterNames = {"原图", "SepiaTone", "SinCity"};
+    String[] filterNames = {"原图", "SepiaTone", "SinCity","Emboss","Vignette"};
 
     List<String> list = new ArrayList<>();
 
@@ -80,7 +80,6 @@ public class FiltersActivity extends Activity {
                 colorImage = (ColorImage) filter.filter(colorImage);
                 image.setImageBitmap(colorImage.toBitmap());
             }
-
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
