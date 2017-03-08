@@ -2,9 +2,12 @@
 <resources>
     <string-array name="filterNames">
         <item>原图</item>
+        <item>Emboss</item>
+        <item>FloSteDithering</item>
+        <item>MeansBinary</item>
         <item>SepiaTone</item>
         <item>SinCity</item>
-        <item>Emboss</item>
         <item>Vignette</item>
+        <item>Water</item>
     </string-array>
 </resources>

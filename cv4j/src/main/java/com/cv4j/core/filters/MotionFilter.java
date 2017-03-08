@@ -1,6 +1,7 @@
 package com.cv4j.core.filters;
 
 import com.cv4j.core.datamodel.ImageData;
+import com.cv4j.image.util.Tools;
 
 public class MotionFilter implements CommonFilter  {
 
@@ -91,10 +92,10 @@ public class MotionFilter implements CommonFilter  {
         		if (count == 0) {
 					outPixels[index] = inPixels[index];
 				} else {
-					ta = clamp((int)(ta/count));
-					tr = clamp((int)(tr/count));
-					tg = clamp((int)(tg/count));
-					tb = clamp((int)(tb/count));
+					ta = Tools.clamp((int)(ta/count));
+					tr = Tools.clamp((int)(tr/count));
+					tg = Tools.clamp((int)(tg/count));
+					tb = Tools.clamp((int)(tb/count));
 					outPixels[index] = (ta << 24) | (tr << 16) | (tg << 8) | tb;
 				}
 				index++;
@@ -103,14 +104,6 @@ public class MotionFilter implements CommonFilter  {
 		src.putPixels(outPixels);
 		outPixels = null;
 		return src;
-	}
-	
-	public int clamp(int c) {
-		if (c < 0)
-			return 0;
-		if (c > 255)
-			return 255;
-		return c;
 	}
 
 }
