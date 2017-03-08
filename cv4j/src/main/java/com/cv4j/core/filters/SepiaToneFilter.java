@@ -1,7 +1,6 @@
 package com.cv4j.core.filters;
 
 import com.cv4j.core.datamodel.ImageData;
-import com.cv4j.image.util.Tools;
 
 public class SepiaToneFilter implements CommonFilter {
 
@@ -22,7 +21,7 @@ public class SepiaToneFilter implements CommonFilter {
 				int fg = (int) colorBlend(noise(), (tr * 0.349) + (tg * 0.686) + (tb * 0.168), tg);
 				int fb = (int) colorBlend(noise(), (tr * 0.272) + (tg * 0.534) + (tb * 0.131), tb);
 
-				src.getPixels()[offset] = (255 << 24) | (Tools.clamp(fr) << 16) | (Tools.clamp(fg) << 8) | Tools.clamp(fb);
+				src.getPixels()[offset] = (255 << 24) | (clamp(fr) << 16) | (clamp(fg) << 8) | clamp(fb);
 				offset++;
 			}
 		}
@@ -35,5 +34,10 @@ public class SepiaToneFilter implements CommonFilter {
 	
 	private double colorBlend(double scale, double dest, double src) {
 	    return (scale * dest + (1.0 - scale) * src);
+	}
+
+	private int clamp(int c)
+	{
+		return c > 255 ? 255 :( (c < 0) ? 0: c);
 	}
 }

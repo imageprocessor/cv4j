@@ -1,5 +1,7 @@
 package com.cv4j.image.util;
 
+import android.graphics.Color;
+
 import java.io.BufferedReader;
 import java.io.StringReader;
 import java.util.Arrays;
@@ -9,9 +11,82 @@ import java.util.Vector;
 
 /** This class contains static utility methods. */
  public class Tools {
+	/**
+	 * The value of pi as a float.
+	 */
+	public final static float PI = (float)Math.PI;
+
+	/**
+	 * The value of half pi as a float.
+	 */
+	public final static float HALF_PI = (float)Math.PI/2.0f;
+
+	/**
+	 * The value of quarter pi as a float.
+	 */
+	public final static float QUARTER_PI = (float)Math.PI/4.0f;
+
+	/**
+	 * The value of two pi as a float.
+	 */
+	public final static float TWO_PI = (float)Math.PI*2.0f;
+
 	/** This array contains the 16 hex digits '0'-'F'. */
 	public static final char[] hexDigits = {'0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F'};
-	
+
+	public static int clamp(int c)
+	{
+		return c > 255 ? 255 :( (c < 0) ? 0: c);
+	}
+
+	/**
+	 * Bilinear interpolation of ARGB values.
+	 * @param x the X interpolation parameter 0..1
+	 * @param y the y interpolation parameter 0..1
+	 * @param rgb array of four ARGB values in the order NW, NE, SW, SE
+	 * @return the interpolated value
+	 */
+	public static int bilinearInterpolate(float x, float y, int nw, int ne, int sw, int se) {
+		float m0, m1;
+		int a0 = (nw >> 24) & 0xff;
+		int r0 = (nw >> 16) & 0xff;
+		int g0 = (nw >> 8) & 0xff;
+		int b0 = nw & 0xff;
+		int a1 = (ne >> 24) & 0xff;
+		int r1 = (ne >> 16) & 0xff;
+		int g1 = (ne >> 8) & 0xff;
+		int b1 = ne & 0xff;
+		int a2 = (sw >> 24) & 0xff;
+		int r2 = (sw >> 16) & 0xff;
+		int g2 = (sw >> 8) & 0xff;
+		int b2 = sw & 0xff;
+		int a3 = (se >> 24) & 0xff;
+		int r3 = (se >> 16) & 0xff;
+		int g3 = (se >> 8) & 0xff;
+		int b3 = se & 0xff;
+
+		float cx = 1.0f-x;
+		float cy = 1.0f-y;
+
+		m0 = cx * a0 + x * a1;
+		m1 = cx * a2 + x * a3;
+		int a = (int)(cy * m0 + y * m1);
+
+		m0 = cx * r0 + x * r1;
+		m1 = cx * r2 + x * r3;
+		int r = (int)(cy * m0 + y * m1);
+
+		m0 = cx * g0 + x * g1;
+		m1 = cx * g2 + x * g3;
+		int g = (int)(cy * m0 + y * m1);
+
+		m0 = cx * b0 + x * b1;
+		m1 = cx * b2 + x * b3;
+		int b = (int)(cy * m0 + y * m1);
+
+		return (a << 24) | (r << 16) | (g << 8) | b;
+	}
+
 	/** Converts a Color to an 7 byte hex string starting with '#'. */
 	public static String c2hex(int c) {
 		char[] buf7 = new char[7];
@@ -251,8 +326,5 @@ import java.util.Vector;
 			indexes2[i] = indexes[i].intValue();
 		return indexes2;
 	}
-
-	public static int clamp(int value) {
-		return value > 255 ? 255 :(value < 0 ? 0 : value);
-	}
+	
 }

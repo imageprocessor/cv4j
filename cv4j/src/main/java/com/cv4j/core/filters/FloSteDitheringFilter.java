@@ -1,7 +1,6 @@
 package com.cv4j.core.filters;
 
 import com.cv4j.core.datamodel.ImageData;
-import com.cv4j.image.util.Tools;
 
 /**
  * algorithm -http://en.wikipedia.org/wiki/Floyd%E2%80%93Steinberg_dithering
@@ -47,28 +46,28 @@ public class FloSteDitheringFilter implements CommonFilter {
                 	k = (row + 1) * width + col - 1;
                     err = src.getPixels()[k];
                     err += (int)(er * kernelData[0]);
-                    src.getPixels()[k] = Tools.clamp(err);
+                    src.getPixels()[k] = clamp(err);
                 }
                 
                 if(col + 1 < width) {
                 	k = row * width + col + 1;
                     err = src.getPixels()[k];
                     err += (int)(er * kernelData[3]);
-                    src.getPixels()[k] = Tools.clamp(err);
+                    src.getPixels()[k] = clamp(err);
                 }
                 
                 if(row + 1 < height) {
                 	k = (row + 1) * width + col;
                     err = src.getPixels()[k];
                     err += (int)(er * kernelData[1]);
-                    src.getPixels()[k] = Tools.clamp(err);
+                    src.getPixels()[k] = clamp(err);
                 }
                 
                 if(row + 1 < height && col + 1 < width) {
                 	k = (row + 1) * width + col + 1;
-                    err = (src.getPixels()[k] >> 16) & 0xff;
+                    err = src.getPixels()[k];
                     err += (int)(er * kernelData[2]);
-                    src.getPixels()[k] = Tools.clamp(err);
+                    src.getPixels()[k] = clamp(err);
                 }
                 offset++;
         	}
@@ -81,13 +80,16 @@ public class FloSteDitheringFilter implements CommonFilter {
 		int minDistanceSquared = 255*255 + 1;
 		int bestIndex = 0;
 		for(int i=0; i<COLOR_PALETTE.length; i++) {
-			int diff = gray - COLOR_PALETTE[i];
-			int distanceSquared = diff*diff;
-			if(distanceSquared < minDistanceSquared) {
-				minDistanceSquared = distanceSquared;
+			int diff = Math.abs(gray - COLOR_PALETTE[i]);
+			if(ImageData.SQRT_LUT[diff] < minDistanceSquared) {
+				minDistanceSquared = ImageData.SQRT_LUT[diff];
 				bestIndex = i;
 			}
 		}
 		return bestIndex;
+	}
+
+    private int clamp(int value) {
+		return value > 255 ? 255 :(value < 0 ? 0 : value);
 	}
 }
