@@ -3,10 +3,13 @@
     <string-array name="filterNames">
         <item>原图</item>
         <item>Emboss</item>
+        <item>Exposure</item>
         <item>FloSteDithering</item>
         <item>MeansBinary</item>
+        <item>Nature</item>
         <item>SepiaTone</item>
         <item>SinCity</item>
+        <item>Spotlight</item>
         <item>Vignette</item>
         <item>Water</item>
     </string-array>

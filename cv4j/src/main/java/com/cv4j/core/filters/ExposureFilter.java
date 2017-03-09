@@ -3,7 +3,7 @@ package com.cv4j.core.filters;
 import com.cv4j.core.datamodel.ImageData;
 
 /**
- * Created by Administrator on 2017/3/9.
+ * Created by gloomy fish on 2017/3/9.
  */
 
 public class ExposureFilter implements CommonFilter  {

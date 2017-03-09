@@ -1,6 +1,7 @@
 package com.cv4j.core.filters;
 
 import com.cv4j.core.datamodel.ImageData;
+import com.cv4j.image.util.Tools;
 
 public class NatureFilter implements CommonFilter {
 	public static final int ATMOSPHERE_STYLE = 1;
@@ -93,7 +94,7 @@ public class NatureFilter implements CommonFilter {
 		} 
 		else if (style == BURN_STYLE) {
 			int gray = (tr + tg + tb) / 3;
-			pixel[1] = clamp(gray * 3);
+			pixel[1] = Tools.clamp(gray * 3);
 			pixel[2] = gray;
 			pixel[3] = gray / 3;
 		} 
@@ -103,9 +104,9 @@ public class NatureFilter implements CommonFilter {
 			pixel[3] = fogLookUp[tb];
 		} 
 		else if(style == FREEZE_STYLE) {
-			pixel[1] = clamp((int)Math.abs((tr - tg - tb) * 1.5));
-			pixel[2] = clamp((int)Math.abs((tg - tb - pixel[1]) * 1.5));
-	        pixel[3] = clamp((int)Math.abs((tb - pixel[1] - pixel[2]) * 1.5));
+			pixel[1] = Tools.clamp((int)Math.abs((tr - tg - tb) * 1.5));
+			pixel[2] = Tools.clamp((int)Math.abs((tg - tb - pixel[1]) * 1.5));
+	        pixel[3] = Tools.clamp((int)Math.abs((tb - pixel[1] - pixel[2]) * 1.5));
 	        
 		}
 		else if(style == LAVA_STYLE){
@@ -125,28 +126,23 @@ public class NatureFilter implements CommonFilter {
             g = g + (((g - 128) * 100) / 100f);
             b = gray + 75;
             b = b + (((b - 128) * 100) / 100f);
-			pixel[1] = clamp((int)r);
-			pixel[2] = clamp((int)g);
-	        pixel[3] = clamp((int)b);
+			pixel[1] = Tools.clamp((int)r);
+			pixel[2] = Tools.clamp((int)g);
+	        pixel[3] = Tools.clamp((int)b);
 		}
 		else if(style == OCEAN_STYLE)
 		{
 			int gray = (tr + tg + tb) / 3;
-			pixel[1] = clamp(gray / 3);
+			pixel[1] = Tools.clamp(gray / 3);
 			pixel[2] = gray;
-	        pixel[3] = clamp(gray * 3);
+	        pixel[3] = Tools.clamp(gray * 3);
 		}
 		else if(style == WATER_STYLE) {
 			int gray = (tr + tg + tb) / 3;
-			pixel[1] = clamp(gray - tg - tb);
-			pixel[2] = clamp(gray - pixel[1] - tb);
-			pixel[3] = clamp(gray - pixel[1] - pixel[2]);
+			pixel[1] = Tools.clamp(gray - tg - tb);
+			pixel[2] = Tools.clamp(gray - pixel[1] - tb);
+			pixel[3] = Tools.clamp(gray - pixel[1] - pixel[2]);
 		}
 		return pixel;
 	}
-
-	public static int clamp(int value) {
-		return (value > 255 ? 255 : (value < 0 ? 0 : value));
-	}
-
 }

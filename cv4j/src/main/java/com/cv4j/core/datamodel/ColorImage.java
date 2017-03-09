@@ -2,6 +2,7 @@ package com.cv4j.core.datamodel;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.util.Log;
 
 import com.cv4j.exception.CV4JException;
 import com.cv4j.image.util.IOUtils;
@@ -156,6 +157,7 @@ public class ColorImage implements ImageData {
 			bitmap.setPixels(rgb, 0, width, 0, 0, width, height);
 		} else {
 			// Exception
+			Log.e("ColorImage","can not convert to bitmap!");
 		}
 		return bitmap;
 	}
