@@ -108,7 +108,9 @@ public class FiltersActivity extends Activity {
     public void changeFilter(String filterName) {
         ColorImage colorImage = new ColorImage(bitmap);
         CommonFilter filter = (CommonFilter)getFilter(filterName);
-        colorImage = (ColorImage) filter.filter(colorImage);
-        image.setImageBitmap(colorImage.toBitmap());
+        if (filter!=null) {
+            colorImage = (ColorImage) filter.filter(colorImage);
+            image.setImageBitmap(colorImage.toBitmap());
+        }
     }
 }

@@ -8,8 +8,11 @@ import com.cv4j.exception.CV4JException;
 import com.cv4j.image.util.IOUtils;
 
 import java.io.InputStream;
+import java.io.Serializable;
 
-public class ColorImage implements ImageData {
+public class ColorImage implements ImageData,Serializable {
+
+	private static final long serialVersionUID = -6258992466268616924L;
 
 	private int[] pdata;
 	private int width;
