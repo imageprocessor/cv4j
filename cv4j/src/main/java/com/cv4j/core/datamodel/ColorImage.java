@@ -139,7 +139,12 @@ public class ColorImage implements ImageData {
 	}
 
 	public Bitmap toBitmap() {
-		Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+
+		return toBitmap(Bitmap.Config.RGB_565);
+	}
+
+	public Bitmap toBitmap(Bitmap.Config bitmapConfig) {
+		Bitmap bitmap = Bitmap.createBitmap(width, height, bitmapConfig);
 		if(type == CV4J_IMAGE_TYPE_RGB) {
 			bitmap.setPixels(pdata, 0, width, 0, 0, width, height);
 		} else if(CV4J_IMAGE_TYPE_GRAY == type ||
