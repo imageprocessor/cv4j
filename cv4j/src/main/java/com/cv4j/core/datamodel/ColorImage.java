@@ -44,6 +44,18 @@ public class ColorImage implements ImageData,Serializable {
 		IOUtils.closeQuietly(inputStream);
 	}
 
+	public ColorImage(byte[] bytes) {
+		if (bytes == null) {
+			throw new CV4JException("byte is null");
+		}
+
+		Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+		width = bitmap.getWidth();
+		height = bitmap.getHeight();
+		pdata = new int[width*height];
+		bitmap.getPixels(pdata, 0, width, 0, 0, width, height);
+	}
+
 	@Override
 	public int[] getPixels() {
 		return pdata;
