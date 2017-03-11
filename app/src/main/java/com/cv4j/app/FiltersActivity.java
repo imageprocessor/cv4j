@@ -1,10 +1,10 @@
 package com.cv4j.app;
 
-import android.app.Activity;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -25,7 +25,7 @@ import java.util.List;
  * Created by Tony Shen on 2017/3/7.
  */
 
-public class FiltersActivity extends Activity {
+public class FiltersActivity extends AppCompatActivity {
 
     @InjectView(R.id.image)
     ImageView image;

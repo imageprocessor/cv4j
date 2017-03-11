@@ -29,4 +29,11 @@ public class MainActivity extends AppCompatActivity {
         Intent i = new Intent(MainActivity.this,FiltersActivity.class);
         startActivity(i);
     }
+
+    @OnClick(id=R.id.text3)
+    void clickText3() {
+
+        Intent i = new Intent(MainActivity.this,CompositeFilersActivity.class);
+        startActivity(i);
+    }
 }
