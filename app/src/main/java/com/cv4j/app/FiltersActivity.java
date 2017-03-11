@@ -1,24 +1,13 @@
 package com.cv4j.app;
 
-import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ImageView;
-import android.widget.Spinner;
+import android.widget.TextView;
 
-import com.cv4j.core.datamodel.ColorImage;
-import com.cv4j.core.filters.CommonFilter;
-import com.safframework.aop.annotation.Trace;
 import com.safframework.injectview.Injector;
 import com.safframework.injectview.annotations.InjectView;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.safframework.injectview.annotations.OnClick;
 
 /**
  * 常用滤镜的使用
@@ -27,19 +16,11 @@ import java.util.List;
 
 public class FiltersActivity extends AppCompatActivity {
 
-    @InjectView(R.id.image)
-    ImageView image;
+    @InjectView(R.id.text1)
+    TextView text1;
 
-    @InjectView(R.id.spinner)
-    Spinner spinner;
-
-    Bitmap bitmap;
-
-    String[] filterNames;
-
-    List<String> list = new ArrayList<>();
-
-    ArrayAdapter adapter;
+    @InjectView(R.id.text2)
+    TextView text2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,70 +28,22 @@ public class FiltersActivity extends AppCompatActivity {
         setContentView(R.layout.activity_filters);
         Injector.injectInto(this);
 
-        initData();
     }
 
-    private void initData() {
-        Resources res = getResources();
+    @OnClick(id=R.id.text1)
+    void clickText1() {
 
-        filterNames = res.getStringArray(R.array.filterNames);
-        bitmap = BitmapFactory.decodeResource(res, R.drawable.test_filters);
-        image.setImageBitmap(bitmap);
-
-        for (String filter:filterNames) {
-            list.add(filter);
-        }
-
-        adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, list);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
-
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
-
-                if (position == 0) {
-                    image.setImageBitmap(bitmap);
-                    return;
-                }
-
-                // 清除滤镜
-                image.clearColorFilter();
-
-                String filterName = (String) adapter.getItem(position);
-                changeFilter(filterName);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
+        Intent i = new Intent(FiltersActivity.this,SelectFilterActivity.class);
+        i.putExtra("Title",text1.getText().toString());
+        startActivity(i);
     }
 
-    private Object getFilter(String filterName) {
+    @OnClick(id=R.id.text2)
+    void clickText2() {
 
-        Object object = null;
-        try {
-            object = Class.forName("com.cv4j.core.filters."+filterName+"Filter").newInstance();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        }
-
-        return object;
+        Intent i = new Intent(FiltersActivity.this,CompositeFilersActivity.class);
+        i.putExtra("Title",text2.getText().toString());
+        startActivity(i);
     }
 
-    @Trace
-    public void changeFilter(String filterName) {
-        ColorImage colorImage = new ColorImage(bitmap);
-        CommonFilter filter = (CommonFilter)getFilter(filterName);
-        if (filter!=null) {
-            colorImage = (ColorImage) filter.filter(colorImage);
-            image.setImageBitmap(colorImage.toBitmap());
-        }
-    }
 }

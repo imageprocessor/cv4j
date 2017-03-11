@@ -9,6 +9,7 @@ import android.widget.ImageView;
 
 import com.cv4j.core.datamodel.ColorImage;
 import com.safframework.injectview.Injector;
+import com.safframework.injectview.annotations.InjectExtra;
 import com.safframework.injectview.annotations.InjectView;
 
 
@@ -25,6 +26,10 @@ public class IOActivity extends AppCompatActivity {
     @InjectView(R.id.image2)
     ImageView image2;
 
+    @InjectExtra(key=TITLE)
+    String title;
+
+    public static final String TITLE = "Title";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +41,7 @@ public class IOActivity extends AppCompatActivity {
     }
 
     private void initData() {
+        setTitle(title);
 
         Resources res= getResources();
         Bitmap bitmap = BitmapFactory.decodeResource(res, R.drawable.test_io);

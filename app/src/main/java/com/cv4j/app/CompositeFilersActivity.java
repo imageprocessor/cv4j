@@ -41,7 +41,6 @@ public class CompositeFilersActivity extends AppCompatActivity {
     }
 
     private void initData() {
-        setTitle("组合滤镜");
         Resources res = getResources();
         bitmap = BitmapFactory.decodeResource(res, R.drawable.test_filters);
 
