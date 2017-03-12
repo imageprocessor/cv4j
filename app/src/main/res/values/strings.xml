@@ -1,3 +1,9 @@
 <resources>
-    <string name="app_name">CV4J</string>
+    <string name="app_name">CV4J Demo</string>
+
+    <string name="cv4j">cv4j</string>
+    <string name="io">io读写</string>
+    <string name="filters">常用滤镜</string>
+
+    <string name="finish_by_back_again">再按一次退出程序</string>
 </resources>

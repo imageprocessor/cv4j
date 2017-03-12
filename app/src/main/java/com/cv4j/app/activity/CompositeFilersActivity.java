@@ -4,10 +4,10 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
 
 import com.cv4j.app.R;
+import com.cv4j.app.app.BaseActivity;
 import com.cv4j.core.datamodel.ColorImage;
 import com.cv4j.core.filters.CompositeFilters;
 import com.cv4j.core.filters.NatureFilter;
@@ -19,7 +19,7 @@ import com.safframework.injectview.annotations.InjectView;
  * Created by Tony Shen on 2017/3/11.
  */
 
-public class CompositeFilersActivity extends AppCompatActivity {
+public class CompositeFilersActivity extends BaseActivity {
 
     @InjectView(R.id.image1)
     ImageView image1;

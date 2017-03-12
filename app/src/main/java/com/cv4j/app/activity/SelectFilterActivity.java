@@ -4,7 +4,6 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -12,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 
 import com.cv4j.app.R;
+import com.cv4j.app.app.BaseActivity;
 import com.cv4j.core.datamodel.ColorImage;
 import com.cv4j.core.filters.CommonFilter;
 import com.safframework.aop.annotation.Trace;
@@ -26,7 +26,7 @@ import java.util.List;
  * Created by Tony Shen on 2017/3/11.
  */
 
-public class SelectFilterActivity extends AppCompatActivity {
+public class SelectFilterActivity extends BaseActivity {
 
     @InjectView(R.id.image)
     ImageView image;

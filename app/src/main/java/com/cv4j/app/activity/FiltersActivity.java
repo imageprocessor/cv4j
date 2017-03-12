@@ -2,10 +2,10 @@ package com.cv4j.app.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
 import com.cv4j.app.R;
+import com.cv4j.app.app.BaseActivity;
 import com.safframework.injectview.Injector;
 import com.safframework.injectview.annotations.InjectView;
 import com.safframework.injectview.annotations.OnClick;
@@ -15,7 +15,7 @@ import com.safframework.injectview.annotations.OnClick;
  * Created by Tony Shen on 2017/3/7.
  */
 
-public class FiltersActivity extends AppCompatActivity {
+public class FiltersActivity extends BaseActivity {
 
     @InjectView(R.id.text1)
     TextView text1;
