@@ -190,7 +190,7 @@ public class ColorImage implements ImageData,Serializable {
 			bitmap.setPixels(getOutputPixels(), 0, width, 0, 0, width, height);
 		} else if(CV4J_IMAGE_TYPE_GRAY == type ||
 				CV4J_IMAGE_TYPE_BINARY == type) {
-			int[] rgb = new int[pdata.length];
+			int[] rgb = new int[width*height];
 			int offset = 0;
 			for(int row=0; row < height; row++) {
 				offset = row*width;
