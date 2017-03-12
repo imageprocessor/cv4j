@@ -11,7 +11,7 @@ ext {
     ]
 
     libraries = [
-            supportVersion    : "24.2.1",
+            supportVersion    : "25.1.1",
             saf_log           : "1.0.5",
             saf_aop           : "1.0.2"
     ]
