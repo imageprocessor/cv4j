@@ -6,6 +6,8 @@
         <item>Exposure</item>
         <item>FloSteDithering</item>
         <item>MeansBinary</item>
+        <item>Mosaic</item>
+        <!--<item>Motion</item>-->
         <item>Nature</item>
         <item>SepiaTone</item>
         <item>SinCity</item>
