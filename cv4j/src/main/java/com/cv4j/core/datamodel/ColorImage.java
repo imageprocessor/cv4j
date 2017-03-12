@@ -27,7 +27,7 @@ public class ColorImage implements ImageData,Serializable {
 		width = bitmap.getWidth();
 		height = bitmap.getHeight();
 
-		pdata = new byte[0][width * height];
+		pdata = new byte[3][width * height];
 		int[] input = new int[width * height];
 		bitmap.getPixels(input, 0, width, 0, 0, width, height);
 		backFillData(input);
