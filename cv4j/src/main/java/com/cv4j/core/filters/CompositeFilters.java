@@ -1,7 +1,5 @@
 package com.cv4j.core.filters;
 
-import android.util.Log;
-
 import com.cv4j.core.datamodel.ImageData;
 
 import java.util.ArrayList;
