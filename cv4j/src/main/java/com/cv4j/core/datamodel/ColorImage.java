@@ -159,7 +159,7 @@ public class ColorImage implements ImageData,Serializable {
 	}
 
 	public void convert2Gray() {
-		int[] gray = new int[pdata.length];
+		byte[] gray = new byte[width*height];
 		int offset = 0;
 		int g=0;
 		for(int row=0; row < height; row++) {
@@ -170,7 +170,7 @@ public class ColorImage implements ImageData,Serializable {
 				tg = pdata[1][offset] & 0xff;
 				tb = pdata[2][offset] & 0xff;
 				g= (int)(0.299 *tr + 0.587*tg + 0.114*tb);
-				gray[offset]  = g;
+				gray[offset]  = (byte)g;
 				offset++;
 			}
 		}

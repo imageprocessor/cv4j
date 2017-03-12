@@ -28,9 +28,9 @@ public class ExposureFilter implements CommonFilter  {
                 tg = 255 - tg;
                 tb = 255 - tb;
 
-                output[0][offset] = (byte)tr;
-                output[1][offset] = (byte)tg;
-                output[2][offset] = (byte)tb;
+                R[offset] = (byte)tr;
+                G[offset] = (byte)tg;
+                B[offset] = (byte)tb;
                 offset++;
             }
         }
