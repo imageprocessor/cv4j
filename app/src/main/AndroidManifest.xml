@@ -9,7 +9,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name=".activity.MainActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -20,22 +20,22 @@
         </activity>
 
         <activity
-            android:name=".IOActivity"
+            android:name=".activity.IOActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"/>
 
         <activity
-            android:name=".FiltersActivity"
+            android:name=".activity.FiltersActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"/>
 
         <activity
-            android:name=".SelectFilterActivity"
+            android:name=".activity.SelectFilterActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"/>
 
         <activity
-            android:name=".CompositeFilersActivity"
+            android:name=".activity.CompositeFilersActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"/>
     </application>
