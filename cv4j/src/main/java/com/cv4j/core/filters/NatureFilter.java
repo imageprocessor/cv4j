@@ -63,24 +63,28 @@ public class NatureFilter implements CommonFilter {
 		int width = src.getWidth();
 		int height = src.getHeight();
 
-		int[] inPixels = src.getPixels();
-		int[] outPixels = new int[width * height];
+		byte[] R = src.getChannel(0);
+		byte[] G = src.getChannel(1);
+		byte[] B = src.getChannel(2);
+		byte[][] output = new byte[3][R.length];
+
 		int index = 0;
 		for (int row = 0; row < height; row++) {
 			int ta = 0, tr = 0, tg = 0, tb = 0;
 			for (int col = 0; col < width; col++) {
 				index = row * width + col;
-				ta = (inPixels[index] >> 24) & 0xff;
-				tr = (inPixels[index] >> 16) & 0xff;
-				tg = (inPixels[index] >> 8) & 0xff;
-				tb = inPixels[index] & 0xff;
+				tr = R[index] & 0xff;
+				tg = G[index] & 0xff;
+				tb = B[index] & 0xff;
 				int[] onePixel = processOnePixel(ta, tr, tg, tb);
-				outPixels[index] = (ta << 24) | (onePixel[1] << 16) | (onePixel[2] << 8) | onePixel[3];
 
+				output[0][index] = (byte)onePixel[0];
+				output[1][index] = (byte)onePixel[1];
+				output[2][index] = (byte)onePixel[2];
 			}
 		}
-		src.putPixels(outPixels);
-		outPixels = null;
+		src.putPixels(output);
+		output = null;
 		return src;
 	}
 

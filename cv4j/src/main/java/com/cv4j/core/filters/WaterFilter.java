@@ -41,8 +41,11 @@ public class WaterFilter implements CommonFilter {
 		int width = src.getWidth();
         int height = src.getHeight();
 
-        int[] inPixels = src.getPixels();
-        int[] outPixels = new int[width*height];
+		byte[] R = src.getChannel(0);
+		byte[] G = src.getChannel(1);
+		byte[] B = src.getChannel(2);
+		int[] inPixels = convert2Pixels(src.getPixels());
+		byte[][] output = new byte[3][R.length];
 
 		icentreX = width * centreX;
 		icentreY = height * centreY;
@@ -80,13 +83,26 @@ public class WaterFilter implements CommonFilter {
 				}
 
 				// 取得对应的振幅位置P(x, y)的像素，使用双线性插值
-				outPixels[index] = Tools.bilinearInterpolate(xWeight, yWeight, nw, ne, sw, se);
+				int p = Tools.bilinearInterpolate(xWeight, yWeight, nw, ne, sw, se);
+				int r = (p >> 16) & 0xff;
+				int g = (p >> 8) & 0xff;
+				int b = (p) & 0xff;
+				output[0][index] = (byte)r;
+				output[1][index] = (byte)g;
+				output[2][index] = (byte)b;
         	}
         }
 
-        src.putPixels(outPixels);
-		outPixels = null;
+        src.putPixels(output);
+		output = null;
         return src;
+	}
+
+	private int[] convert2Pixels(byte[][] rgb) {
+		int[] pixels = new int[rgb[0].length];
+		for (int i=0; i < pixels.length; i++)
+			pixels[i] = 0xff000000 | ((rgb[0][i]&0xff)<<16) | ((rgb[1][i]&0xff)<<8) | rgb[2][i]&0xff;
+		return pixels;
 	}
 
 	private int getPixel(int[] pixels, int x, int y, int width, int height) {

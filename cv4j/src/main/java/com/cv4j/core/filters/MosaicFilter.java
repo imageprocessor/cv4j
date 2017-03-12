@@ -1,6 +1,7 @@
 package com.cv4j.core.filters;
 
 import com.cv4j.core.datamodel.ImageData;
+import com.cv4j.core.datamodel.IntIntegralImage;
 
 public class MosaicFilter implements CommonFilter {
 	private int size;
@@ -18,8 +19,10 @@ public class MosaicFilter implements CommonFilter {
 		int width = src.getWidth();
         int height = src.getHeight();
 
-        int[] inPixels = src.getPixels();
-        int[] outPixels = new int[width*height];
+		byte[] R = src.getChannel(0);
+		byte[] G = src.getChannel(1);
+		byte[] B = src.getChannel(2);
+		byte[][] output = new byte[3][R.length];
         int index = 0;
         
         int offsetX = 0, offsetY = 0;
@@ -33,6 +36,8 @@ public class MosaicFilter implements CommonFilter {
         		newX = (col/size) * size;
         		offsetX = newX + size;
         		offsetY = newY + size;
+
+
         		for(int subRow =newY; subRow < offsetY; subRow++) {
         			for(int subCol =newX; subCol < offsetX; subCol++) {
         				if(subRow <0 || subRow >= height) {
@@ -42,23 +47,24 @@ public class MosaicFilter implements CommonFilter {
         					continue;
         				}
         				index = subRow * width + subCol;
-                		ta = (inPixels[index] >> 24) & 0xff;
-                		sumred += (inPixels[index] >> 16) & 0xff;
-                		sumgreen += (inPixels[index] >> 8) & 0xff;
-                		sumblue += inPixels[index] & 0xff;
+                		sumred += R[index] & 0xff;
+                		sumgreen += G[index] & 0xff;
+                		sumblue += B[index] & 0xff;
         			}
         		}
         		index = row * width + col;
         		tr = (int)(sumred/total);
         		tg = (int)(sumgreen/total);
         		tb = (int)(sumblue/total);
-        		outPixels[index] = (ta << 24) | (tr << 16) | (tg << 8) | tb;
+        		output[0][index] = (byte)tr;
+				output[1][index] = (byte)tg;
+				output[2][index] = (byte)tb;
         		// clear for next time
         		sumred = sumgreen = sumblue = 0; 
         	}
         }
-		src.putPixels(outPixels);
-		outPixels = null;
+		src.putPixels(output);
+		output = null;
 		return src;
 	}
 

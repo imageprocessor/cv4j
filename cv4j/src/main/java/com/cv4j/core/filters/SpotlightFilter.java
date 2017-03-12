@@ -18,8 +18,10 @@ public class SpotlightFilter implements CommonFilter {
 		int width = src.getWidth();
         int height = src.getHeight();
 
-        int[] inPixels = src.getPixels();
-        int[] outPixels = new int[width*height];
+		byte[] R = src.getChannel(0);
+		byte[] G = src.getChannel(1);
+		byte[] B = src.getChannel(2);
+		byte[][] output = new byte[3][R.length];
 
         int index = 0;
         int centerX = width/2;
@@ -29,10 +31,9 @@ public class SpotlightFilter implements CommonFilter {
         	int ta = 0, tr = 0, tg = 0, tb = 0;
         	for(int col=0; col<width; col++) {
         		index = row * width + col;
-        		ta = (inPixels[index] >> 24) & 0xff;
-                tr = (inPixels[index] >> 16) & 0xff;
-                tg = (inPixels[index] >> 8) & 0xff;
-                tb = inPixels[index] & 0xff;
+                tr = R[index] & 0xff;
+                tg = G[index] & 0xff;
+                tb = B[index] & 0xff;
                 double scale = 1.0 - getDistance(centerX, centerY, col, row)/maxDistance;
                 for(int i=0; i<factor; i++) {
                 	scale = scale * scale;
@@ -42,12 +43,14 @@ public class SpotlightFilter implements CommonFilter {
             	tg = (int)(scale * tg);
             	tb = (int)(scale * tb);
                 
-                outPixels[index] = (ta << 24) | (tr << 16) | (tg << 8) | tb;
+                output[0][index] = (byte)tr;
+				output[1][index] = (byte)tg;
+				output[2][index] = (byte)tb;
                 
         	}
         }
-        src.putPixels(outPixels);
-		outPixels = null;
+        src.putPixels(output);
+		output = null;
         return src;
 	}
 	

@@ -30,50 +30,52 @@ public class FloSteDitheringFilter implements CommonFilter {
         }
 		int width = src.getWidth();
         int height = src.getHeight();
-        int[] output = new int[width*height];
+        byte[] R = src.getChannel(0);
+        byte[] output = new byte[R.length];
 
         int gray = 0;
         int err = 0;
         for(int row=0; row<height; row++) {
             int offset = row*width;
         	for(int col=0; col<width; col++) {
-                gray = src.getPixels()[offset];
+                gray = R[offset]&0xff;
                 int cIndex = getCloseColor(gray);
-                output[offset] = COLOR_PALETTE[cIndex];
+                output[offset] = (byte)COLOR_PALETTE[cIndex];
                 int er = gray - COLOR_PALETTE[cIndex];
                 int k = 0;
                 
                 if(row + 1 < height && col - 1 > 0) {
                 	k = (row + 1) * width + col - 1;
-                    err = src.getPixels()[k];
+                    err = R[k]&0xff;
                     err += (int)(er * kernelData[0]);
-                    src.getPixels()[k] = Tools.clamp(err);
+                    R[k] = (byte)Tools.clamp(err);
                 }
                 
                 if(col + 1 < width) {
                 	k = row * width + col + 1;
-                    err = src.getPixels()[k];
+                    err = R[k]&0xff;
                     err += (int)(er * kernelData[3]);
-                    src.getPixels()[k] = Tools.clamp(err);
+                    R[k] = (byte)Tools.clamp(err);
                 }
                 
                 if(row + 1 < height) {
                 	k = (row + 1) * width + col;
-                    err = src.getPixels()[k];
+                    err = R[k]&0xff;
                     err += (int)(er * kernelData[1]);
-                    src.getPixels()[k] = Tools.clamp(err);
+                    R[k] = (byte)Tools.clamp(err);
                 }
                 
                 if(row + 1 < height && col + 1 < width) {
                 	k = (row + 1) * width + col + 1;
-                    err = src.getPixels()[k];
+                    err = R[k]&0xff;
                     err += (int)(er * kernelData[2]);
-                    src.getPixels()[k] = Tools.clamp(err);
+                    R[k] = (byte)Tools.clamp(err);
                 }
                 offset++;
         	}
         }
-        src.putPixels(output);
+        src.putPixels(new byte[][]{output, output, output});
+        output = null;
         return src;
 	}
 	

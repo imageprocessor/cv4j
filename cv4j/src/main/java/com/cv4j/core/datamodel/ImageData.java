@@ -32,7 +32,7 @@ public interface ImageData {
 	int CV4J_IMAGE_TYPE_HSV = 4;
 	int CV4J_IMAGE_TYPE_BINARY = 8;
 
-	int[] getPixels();
+	byte[][] getPixels();
 
 	int getWidth();
 
@@ -42,7 +42,7 @@ public interface ImageData {
 
 	byte[] getChannel(int index);
 
-	void putPixels(int[] pixels);
+	void putPixels(byte[][] pixels);
 
 	int getPixel(int row, int col);
 

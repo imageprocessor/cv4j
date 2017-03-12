@@ -14,7 +14,7 @@ public class ColorImage implements ImageData,Serializable {
 
 	private static final long serialVersionUID = -6258992466268616924L;
 
-	private int[] pdata;
+	private byte[][] pdata; // R, B, G Channels
 	private int width;
 	private int height;
 	private int type;
@@ -26,8 +26,30 @@ public class ColorImage implements ImageData,Serializable {
 
 		width = bitmap.getWidth();
 		height = bitmap.getHeight();
-		pdata = new int[width*height];
-		bitmap.getPixels(pdata, 0, width, 0, 0, width, height);
+
+		pdata = new byte[0][width * height];
+		int[] input = new int[width * height];
+		bitmap.getPixels(input, 0, width, 0, 0, width, height);
+		backFillData(input);
+		input = null;
+	}
+
+	private void backFillData(int[] input) {
+		for(int i=0; i<input.length; i++) {
+			int r = (input[i] >> 16) & 0xff;
+			int g = (input[i] >> 8) & 0xff;
+			int b = (input[i]) & 0xff;
+			pdata[0][i] = (byte)r;
+			pdata[1][i] = (byte)g;
+			pdata[2][i] = (byte)b;
+		}
+	}
+
+	private int[] getOutputPixels() {
+		int[] pixels = new int[width*height];
+		for (int i=0; i < width*height; i++)
+			pixels[i] = 0xff000000 | ((pdata[0][i]&0xff)<<16) | ((pdata[1][i]&0xff)<<8) | pdata[2][i]&0xff;
+		return pixels;
 	}
 
 	public ColorImage(InputStream inputStream) {
@@ -38,8 +60,12 @@ public class ColorImage implements ImageData,Serializable {
 		Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
 		width = bitmap.getWidth();
 		height = bitmap.getHeight();
-		pdata = new int[width*height];
-		bitmap.getPixels(pdata, 0, width, 0, 0, width, height);
+
+		pdata = new byte[0][width * height];
+		int[] input = new int[width * height];
+		bitmap.getPixels(input, 0, width, 0, 0, width, height);
+		backFillData(input);
+		input = null;
 
 		IOUtils.closeQuietly(inputStream);
 	}
@@ -52,12 +78,15 @@ public class ColorImage implements ImageData,Serializable {
 		Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
 		width = bitmap.getWidth();
 		height = bitmap.getHeight();
-		pdata = new int[width*height];
-		bitmap.getPixels(pdata, 0, width, 0, 0, width, height);
+		pdata = new byte[0][width * height];
+		int[] input = new int[width * height];
+		bitmap.getPixels(input, 0, width, 0, 0, width, height);
+		backFillData(input);
+		input = null;
 	}
 
 	@Override
-	public int[] getPixels() {
+	public byte[][] getPixels() {
 		return pdata;
 	}
 
@@ -76,52 +105,50 @@ public class ColorImage implements ImageData,Serializable {
 		return this.type;
 	}
 
-	@Override
+	/**
+	 *
+	 * @param index, 0 -red channel, 1 - green channel, 2 - blue channel,
+	 *
+	 * @return 0, 1, 2 return byte array, otherwise null
+     */
 	public byte[] getChannel(int index) {
+		// TODO:zhigang check invalid paramter - index
 		byte[] data = new byte[width*height];
 		int len = width*height;
 		if(type == CV4J_IMAGE_TYPE_RGB) {
-			for(int i=0; i<len; i++) {
-				int c = pdata[i];
-				int b = 0;
-				if(index == 0) {
-					b = (c&0xff0000)>>16;
-				} else if(index == 1) {
-					b = (c&0xff00)>>8;
-				} else if(index == 2) {
-					b = c&0xff;
-				}
-				data[i] = (byte)b;
-			}
-
+			return pdata[index];
 		} else if(CV4J_IMAGE_TYPE_GRAY == type ||
 				CV4J_IMAGE_TYPE_BINARY == type) {
-			for(int i=0; i<len; i++) {
-				int c = pdata[i];
-				int b = 0;
-				b = (c&0xff0000)>>16;
-				data[i] = (byte)b;
-			}
+			return pdata[0];
 		}
 		return data;
 	}
 
-	@Override
-	public void putPixels(int[] pixels) {
-		System.arraycopy(pixels, 0, pdata, 0, width*height);
+	public void putPixels(byte[][] pixels) {
+		System.arraycopy(pixels[0], 0, pdata[0], 0, width*height);
+		System.arraycopy(pixels[1], 0, pdata[1], 0, width*height);
+		System.arraycopy(pixels[2], 0, pdata[2], 0, width*height);
 	}
 
 	@Override
 	public int getPixel(int row, int col) {
 		int index = row*width + col;
 		// check OutOfBoundary
-		return pdata[index];
+		int p = 0xff000000 | ((pdata[0][index]&0xff)<<16) |
+				((pdata[1][index]&0xff)<<8) |
+				pdata[2][index]&0xff;
+		return p;
 	}
 
 	@Override
 	public void setPixel(int row, int col, int rgb) {
 		int index = row*width + col;
-		pdata[index] = rgb;
+		int r = (rgb&0xff0000)>>16;
+		int g = (rgb&0xff00)>>8;
+		int b = rgb&0xff;
+		pdata[0][index] = (byte)r;
+		pdata[1][index] = (byte)g;
+		pdata[2][index] = (byte)b;
 	}
 
 	@Override
@@ -137,19 +164,18 @@ public class ColorImage implements ImageData,Serializable {
 		int g=0;
 		for(int row=0; row < height; row++) {
 			offset = row*width;
-			int ta=0, tr=0, tg=0, tb=0;
+			int tr=0, tg=0, tb=0;
 			for(int col=0; col<width; col++) {
-				ta = (pdata[offset] >> 24) & 0xff;
-				tr = (pdata[offset] >> 16) & 0xff;
-				tg = (pdata[offset] >> 8) & 0xff;
-				tb = pdata[offset] & 0xff;
+				tr = pdata[0][offset] & 0xff;
+				tg = pdata[1][offset] & 0xff;
+				tb = pdata[2][offset] & 0xff;
 				g= (int)(0.299 *tr + 0.587*tg + 0.114*tb);
 				gray[offset]  = g;
 				offset++;
 			}
 		}
 		type = CV4J_IMAGE_TYPE_GRAY;
-		System.arraycopy(gray, 0, pdata, 0, pdata.length);
+		System.arraycopy(gray, 0, pdata[0], 0, pdata.length);
 		gray = null;
 	}
 
@@ -161,7 +187,7 @@ public class ColorImage implements ImageData,Serializable {
 	public Bitmap toBitmap(Bitmap.Config bitmapConfig) {
 		Bitmap bitmap = Bitmap.createBitmap(width, height, bitmapConfig);
 		if(type == CV4J_IMAGE_TYPE_RGB) {
-			bitmap.setPixels(pdata, 0, width, 0, 0, width, height);
+			bitmap.setPixels(getOutputPixels(), 0, width, 0, 0, width, height);
 		} else if(CV4J_IMAGE_TYPE_GRAY == type ||
 				CV4J_IMAGE_TYPE_BINARY == type) {
 			int[] rgb = new int[pdata.length];
@@ -170,7 +196,7 @@ public class ColorImage implements ImageData,Serializable {
 				offset = row*width;
 				int ta=255, tr=0, tg=0, tb=0;
 				for(int col=0; col<width; col++) {
-					rgb[offset] = (ta << 24) | (pdata[offset] << 16) | (pdata[offset] << 8) | pdata[offset];
+					rgb[offset] = (ta << 24) | (pdata[0][offset] << 16) | (pdata[0][offset] << 8) | pdata[0][offset];
 					offset++;
 				}
 			}

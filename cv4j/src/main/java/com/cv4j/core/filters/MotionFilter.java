@@ -32,8 +32,10 @@ public class MotionFilter implements CommonFilter  {
 		int width = src.getWidth();
         int height = src.getHeight();
 
-        int[] inPixels = src.getPixels();
-        int[] outPixels = new int[width*height];
+		byte[] R = src.getChannel(0);
+		byte[] G = src.getChannel(1);
+		byte[] B = src.getChannel(2);
+		byte[][] output = new byte[3][R.length];
         int index = 0;
         int cx = width/2;
         int cy = height/2;
@@ -81,28 +83,30 @@ public class MotionFilter implements CommonFilter  {
 					
 					// blur the pixels, here
 					count++;
-					int rgb = inPixels[newY*width+newX];
-					ta += (rgb >> 24) & 0xff;
-					tr += (rgb >> 16) & 0xff;
-					tg += (rgb >> 8) & 0xff;
-					tb += rgb & 0xff;
+					int idx = newY*width+newX;
+					tr += R[idx] & 0xff;
+					tg += G[idx] & 0xff;
+					tb += B[idx] & 0xff;
         		}
         		
         		// fill the destination pixel with final RGB value
         		if (count == 0) {
-					outPixels[index] = inPixels[index];
+					output[0][index] = R[index];
+					output[1][index] = G[index];
+					output[2][index] = B[index];
 				} else {
-					ta = Tools.clamp((int)(ta/count));
 					tr = Tools.clamp((int)(tr/count));
 					tg = Tools.clamp((int)(tg/count));
 					tb = Tools.clamp((int)(tb/count));
-					outPixels[index] = (ta << 24) | (tr << 16) | (tg << 8) | tb;
+					output[0][index] = (byte)tr;
+					output[1][index] = (byte)tg;
+					output[2][index] = (byte)tb;
 				}
 				index++;
         	}
         }
-		src.putPixels(outPixels);
-		outPixels = null;
+		src.putPixels(output);
+		output = null;
 		return src;
 	}
 

@@ -1,1 +1,1 @@
-include ':app', ':cv4j'
+include ':cv4j'

@@ -13,25 +13,27 @@ public class MeansBinaryFilter implements CommonFilter {
         double graySum = 0;
         double total = src.getHeight() * src.getWidth();
         int gray =0;
+        byte[] R = src.getChannel(0);
+        byte[] output = new byte[R.length];
         for(int i=0; i<total; i++){
-            gray = src.getPixels()[i];
+            gray = R[i]&0xff;
             graySum += gray;
         }
         int means = (int)(graySum / total);
         System.out.println(" threshold average value = " + means);
         
         // dithering
-        int[] output = new int[src.getPixels().length];
         for(int i=0; i<total; i++) {
-            gray = src.getPixels()[i];
+            gray = R[i]&0xff;
             if (gray >= means) {
                 gray = 255;
             } else {
                 gray = 0;
             }
-            output[i] = gray;
+            output[i] = (byte)gray;
         }
-        src.putPixels(output);
+        src.putPixels(new byte[][]{output, output, output});
+        output = null;
         return src;
 	}
 }

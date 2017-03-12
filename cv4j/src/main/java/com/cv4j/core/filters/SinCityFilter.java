@@ -19,15 +19,18 @@ public class SinCityFilter implements CommonFilter {
         int height = src.getHeight();
 
         int offset = 0;
-		int[] output = new int[width*height];
+		byte[] R = src.getChannel(0);
+		byte[] G = src.getChannel(1);
+		byte[] B = src.getChannel(2);
+		byte[][] output = new byte[3][R.length];
+
         for(int row=0; row<height; row++) {
 			offset = row*width;
         	int ta = 0, tr = 0, tg = 0, tb = 0;
         	for(int col=0; col<width; col++) {
-        		ta = (src.getPixels()[offset] >> 24) & 0xff;
-                tr = (src.getPixels()[offset] >> 16) & 0xff;
-                tg = (src.getPixels()[offset] >> 8) & 0xff;
-                tb = src.getPixels()[offset] & 0xff;
+                tr = R[offset] & 0xff;
+                tg = G[offset] & 0xff;
+                tb = B[offset] & 0xff;
                 int gray = (int)(0.299 * (double)tr + 0.587 * (double)tg + 0.114 * (double)tb);
                 double distance = getDistance(tr, tg, tb);
                 if(distance < threshold) {
@@ -36,9 +39,13 @@ public class SinCityFilter implements CommonFilter {
                 	tr = rgb[0];
                 	tg = rgb[1];
                 	tb = rgb[2];
-					output[offset] = (ta << 24) | (tr << 16) | (tg << 8) | tb;
+					output[0][offset] = (byte)tr;
+					output[1][offset] = (byte)tg;
+					output[2][offset] = (byte)tb;
                 } else {
-					output[offset] = (ta << 24) | (gray << 16) | (gray << 8) | gray;
+					output[0][offset] = (byte)gray;
+					output[1][offset] = (byte)gray;
+					output[2][offset] = (byte)gray;
                 }
 				offset++;
         	}

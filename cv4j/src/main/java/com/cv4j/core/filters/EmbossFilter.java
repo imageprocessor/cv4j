@@ -25,18 +25,20 @@ public class EmbossFilter implements CommonFilter {
 		int r1=0, g1=0, b1=0;
 		int r2=0, g2=0, b2=0;
 		int r=0, g=0, b=0;
-		int[] pixels = src.getPixels();
-		int[] output = new int[pixels.length];
+		byte[] R = src.getChannel(0);
+		byte[] G = src.getChannel(1);
+		byte[] B = src.getChannel(2);
+		byte[][] output = new byte[3][R.length];
 		for ( int y = 1; y < height-1; y++ ) {
 			offset = y*width;
 			for ( int x = 1; x < width-1; x++ ) {
-				r1 = (pixels[offset] >> 16) & 0xff;
-				g1 = (pixels[offset] >> 8) & 0xff;
-				b1 = (pixels[offset]) & 0xff;
+				r1 = R[offset] & 0xff;
+				g1 = G[offset] & 0xff;
+				b1 = B[offset] & 0xff;
 
-				r2 = (pixels[offset+width] >> 16) & 0xff;
-				g2 = (pixels[offset+width] >> 8) & 0xff;
-				b2 = (pixels[offset+width]) & 0xff;
+				r2 = R[offset+width] & 0xff;
+				g2 = G[offset+width] & 0xff;
+				b2 = B[offset+width] & 0xff;
 
 				if(out) {
 					r = r1 - r2;
@@ -51,7 +53,9 @@ public class EmbossFilter implements CommonFilter {
 				g = Tools.clamp(g+COLORCONSTANTS);
 				b = Tools.clamp(b+COLORCONSTANTS);
 
-				output[offset] = (255 << 24) | (r << 16) | (g << 8) | b;
+				output[0][offset] = (byte)r;
+				output[1][offset] = (byte)g;
+				output[2][offset] = (byte)b;
 				offset++;
 			}
 		}
