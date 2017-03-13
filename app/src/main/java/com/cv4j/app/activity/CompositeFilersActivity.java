@@ -58,9 +58,11 @@ public class CompositeFilersActivity extends BaseActivity {
         image2.setImageBitmap(new SpotlightFilter().filter(ci2).toBitmap());
 
         CompositeFilters compositeFilters = new CompositeFilters();
-        Bitmap newBitmap = compositeFilters.addFilter(new NatureFilter())
+        Bitmap newBitmap = compositeFilters
+                        .addFilter(new NatureFilter())
                         .addFilter(new SpotlightFilter())
-                        .filter(new ColorImage(bitmap)).toBitmap();
+                        .filter(new ColorImage(bitmap))
+                        .toBitmap();
 
         image3.setImageBitmap(newBitmap);
 
@@ -74,7 +76,7 @@ public class CompositeFilersActivity extends BaseActivity {
                 .append(".addFilter(new NatureFilter())").append("\r\n")
                 .append(".addFilter(new SpotlightFilter())").append("\r\n")
                 .append(".filter(new ColorImage(bitmap))").append("\r\n")
-                .append("toBitmap();").append("\r\n").append("\r\n")
+                .append(".toBitmap();").append("\r\n").append("\r\n")
                 .append("image3.setImageBitmap(newBitmap);");
 
         codeView.showCode(code.toString());

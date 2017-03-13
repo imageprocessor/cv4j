@@ -15,6 +15,9 @@ import com.cv4j.core.datamodel.ColorImage;
 import com.safframework.injectview.Injector;
 import com.safframework.injectview.annotations.InjectView;
 
+import thereisnospon.codeview.CodeView;
+import thereisnospon.codeview.CodeViewTheme;
+
 /**
  * Created by Tony Shen on 2017/3/12.
  */
@@ -26,6 +29,9 @@ public class IOFragment extends BaseFragment {
 
     @InjectView(R.id.image2)
     ImageView image2;
+
+    @InjectView(R.id.codeview)
+    CodeView codeView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -45,5 +51,14 @@ public class IOFragment extends BaseFragment {
 
         ColorImage ci = new ColorImage(bitmap);
         image2.setImageBitmap(ci.toBitmap());
+
+        codeView.setTheme(CodeViewTheme.ANDROIDSTUDIO).fillColor();
+
+        StringBuilder code = new StringBuilder();
+        code.append("ColorImage ci = new ColorImage(bitmap);")
+                .append("\r\n")
+                .append("image2.setImageBitmap(ci.toBitmap());");
+
+        codeView.showCode(code.toString());
     }
 }
