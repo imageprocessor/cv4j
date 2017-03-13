@@ -65,7 +65,6 @@ public class CompositeFilersActivity extends BaseActivity {
         image3.setImageBitmap(newBitmap);
 
         codeView.setTheme(CodeViewTheme.ANDROIDSTUDIO).fillColor();
-        //这里的CODE 为需要显示的代码，类型为String，使用的时候自己替换下。
 
         StringBuilder code = new StringBuilder();
         code.append("CompositeFilters compositeFilters = new CompositeFilters();")
@@ -75,8 +74,8 @@ public class CompositeFilersActivity extends BaseActivity {
                 .append(".addFilter(new NatureFilter())").append("\r\n")
                 .append(".addFilter(new SpotlightFilter())").append("\r\n")
                 .append(".filter(new ColorImage(bitmap))").append("\r\n")
-                .append("toBitmap()").append("\r\n").append("\r\n")
-                .append("image3.setImageBitmap(newBitmap)");
+                .append("toBitmap();").append("\r\n").append("\r\n")
+                .append("image3.setImageBitmap(newBitmap);");
 
         codeView.showCode(code.toString());
     }
