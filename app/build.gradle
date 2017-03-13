@@ -42,4 +42,6 @@ dependencies {
     apt 'com.safframework.injectview:saf-injectview-compiler:1.0.0'
 
     compile 'thereisnospon.codeview:codeview:0.3.1'
+    compile 'io.reactivex:rxandroid:1.2.0'
+    compile 'io.reactivex:rxjava:1.1.5'
 }

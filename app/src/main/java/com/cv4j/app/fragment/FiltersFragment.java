@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.cv4j.app.R;
 import com.cv4j.app.activity.CompositeFilersActivity;
 import com.cv4j.app.activity.SelectFilterActivity;
+import com.cv4j.app.activity.UseFilterWithRxActivity;
 import com.cv4j.app.app.BaseFragment;
 import com.safframework.injectview.Injector;
 import com.safframework.injectview.annotations.InjectView;
@@ -26,6 +27,9 @@ public class FiltersFragment extends BaseFragment {
 
     @InjectView(R.id.text2)
     TextView text2;
+
+    @InjectView(R.id.text3)
+    TextView text3;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -48,6 +52,14 @@ public class FiltersFragment extends BaseFragment {
 
         Intent i = new Intent(mContext,CompositeFilersActivity.class);
         i.putExtra("Title",text2.getText().toString());
+        startActivity(i);
+    }
+
+    @OnClick(id=R.id.text3)
+    void clickText3() {
+
+        Intent i = new Intent(mContext,UseFilterWithRxActivity.class);
+        i.putExtra("Title",text3.getText().toString());
         startActivity(i);
     }
 }
