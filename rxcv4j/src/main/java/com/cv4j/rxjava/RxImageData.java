@@ -43,7 +43,11 @@ public class RxImageData {
 
     public Observable addFilter(final CommonFilter filter) {
 
-       return observable.map(new Func1<ColorImage,ImageData>() {
+        if (observable==null) {
+            return null;
+        }
+
+        return observable.map(new Func1<ColorImage,ImageData>() {
             @Override
             public ImageData call(ColorImage colorImage) {
                 return filter.filter(colorImage);
