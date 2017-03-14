@@ -8,14 +8,12 @@ import android.widget.ImageView;
 
 import com.cv4j.app.R;
 import com.cv4j.app.app.BaseActivity;
-import com.cv4j.app.utils.ObservableUtils;
-import com.cv4j.core.datamodel.ColorImage;
 import com.cv4j.core.datamodel.ImageData;
 import com.cv4j.core.filters.NatureFilter;
+import com.cv4j.rxjava.RxImageData;
 import com.safframework.injectview.annotations.InjectView;
 
 import rx.functions.Action1;
-import rx.functions.Func1;
 
 /**
  * Created by Tony Shen on 2017/3/13.
@@ -39,14 +37,9 @@ public class UseFilterWithRxActivity extends BaseActivity {
         Resources res = getResources();
         final Bitmap bitmap = BitmapFactory.decodeResource(res, R.drawable.test_io);
 
-        ObservableUtils.wrap(new ColorImage(bitmap))
-                .map(new Func1<ColorImage,ImageData>() {
-                    @Override
-                    public ImageData call(ColorImage ci) {
-                        return new NatureFilter().filter(ci);
-                    }
-                })
-                .compose(ObservableUtils.toMain())
+        new RxImageData(bitmap)
+                .addFilter(new NatureFilter())
+                .compose(RxImageData.toMain())
                 .subscribe(new Action1<ImageData>() {
 
             @Override

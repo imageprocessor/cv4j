@@ -1,1 +1,1 @@
-include ':app', ':cv4j'
+include ':app', ':cv4j', ':rxcv4j'
