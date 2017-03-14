@@ -22,6 +22,21 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    // 多个jar包里包含了同样的文件（NOTICE.txt）,导致打包时因为担心相互覆盖问题而提示出错, 去掉这2个文件
+    packagingOptions {
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
+    }
+
+    compileOptions {
+        sourceCompatibility = "1.7"
+        targetCompatibility = "1.7"
+    }
+
+    lintOptions {
+        abortOnError false
+    }
 }
 
 dependencies {
@@ -37,10 +52,12 @@ dependencies {
     compile project(':rxcv4j')
 
     compile "com.safframework.log:saf-log:${libs.saf_log}"
-    compile "com.safframework:saf-aop:${libs.saf_aop}"
+//    compile "com.safframework:saf-aop:${libs.saf_aop}"
 
     compile 'com.safframework.injectview:saf-injectview:1.0.0'
     apt 'com.safframework.injectview:saf-injectview-compiler:1.0.0'
 
     compile 'thereisnospon.codeview:codeview:0.3.1'
+
+    compile "tony-common:tony-common-utils:1.0.1"
 }

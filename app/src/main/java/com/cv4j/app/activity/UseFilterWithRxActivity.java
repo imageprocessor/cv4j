@@ -10,10 +10,13 @@ import com.cv4j.app.R;
 import com.cv4j.app.app.BaseActivity;
 import com.cv4j.core.datamodel.ImageData;
 import com.cv4j.core.filters.NatureFilter;
+import com.cv4j.core.filters.SpotlightFilter;
 import com.cv4j.rxjava.RxImageData;
 import com.safframework.injectview.annotations.InjectView;
 
-import rx.functions.Action1;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by Tony Shen on 2017/3/13.
@@ -37,13 +40,17 @@ public class UseFilterWithRxActivity extends BaseActivity {
         Resources res = getResources();
         final Bitmap bitmap = BitmapFactory.decodeResource(res, R.drawable.test_io);
 
-        new RxImageData(bitmap)
+
+        RxImageData.imageData(bitmap)
                 .addFilter(new NatureFilter())
-                .compose(RxImageData.toMain())
-                .subscribe(new Action1<ImageData>() {
+                .addFilter(new SpotlightFilter())
+                .toFlowable()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<ImageData>() {
 
             @Override
-            public void call(ImageData imageData) {
+            public void accept(ImageData imageData) throws Exception {
                 image.setImageBitmap(imageData.toBitmap());
             }
         });

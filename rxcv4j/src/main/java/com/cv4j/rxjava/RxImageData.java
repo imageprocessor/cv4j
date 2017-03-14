@@ -1,17 +1,13 @@
 package com.cv4j.rxjava;
 
-
 import android.graphics.Bitmap;
 
 import com.cv4j.core.datamodel.ColorImage;
 import com.cv4j.core.datamodel.ImageData;
 import com.cv4j.core.filters.CommonFilter;
 
-import rx.Observable;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Func0;
-import rx.functions.Func1;
-import rx.schedulers.Schedulers;
+import io.reactivex.Flowable;
+import io.reactivex.functions.Function;
 
 /**
  * Created by Tony Shen on 2017/3/14.
@@ -19,55 +15,46 @@ import rx.schedulers.Schedulers;
 
 public class RxImageData {
 
-    private Observable observable;
+    ColorImage colorImage;
+    Flowable flowable;
 
-    public RxImageData(final Bitmap bitmap) {
+    private RxImageData(Bitmap bitmap) {
 
-        observable = Observable.defer(new Func0() {
+        this.colorImage = new ColorImage(bitmap);
+        flowable = Flowable.just(colorImage);
+    }
+
+    private RxImageData(ColorImage colorImage) {
+
+        this.colorImage = colorImage;
+        flowable = Flowable.just(colorImage);
+    }
+
+    public static RxImageData imageData(Bitmap bitmap) {
+
+        return new RxImageData(bitmap);
+    }
+
+    public static RxImageData imageData(ColorImage colorImage) {
+
+        return new RxImageData(colorImage);
+    }
+
+    public RxImageData addFilter(final CommonFilter filter) {
+
+        flowable = flowable.map(new Function<ImageData,ImageData>() {
             @Override
-            public Observable call() {
-                return Observable.just(new ColorImage(bitmap));
+            public ImageData apply(ImageData imageData) throws Exception {
+                return filter.filter(imageData);
             }
         });
+
+        return this;
     }
 
-    public RxImageData(final ColorImage colorImage) {
+    public Flowable toFlowable() {
 
-        observable = Observable.defer(new Func0() {
-            @Override
-            public Observable call() {
-                return Observable.just(colorImage);
-            }
-        });
+        return flowable;
     }
 
-    public Observable addFilter(final CommonFilter filter) {
-
-        if (observable==null) {
-            return null;
-        }
-
-        return observable.map(new Func1<ColorImage,ImageData>() {
-            @Override
-            public ImageData call(ColorImage colorImage) {
-                return filter.filter(colorImage);
-            }
-        });
-    }
-
-    /**
-     * 跟compose()配合使用
-     * @param <T>
-     * @return
-     */
-    public static <T> Observable.Transformer<T, T> toMain() {
-        return new Observable.Transformer<T, T>() {
-            @Override
-            public Observable<T> call(Observable<T> tObservable) {
-                return tObservable
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread());
-            }
-        };
-    }
 }
