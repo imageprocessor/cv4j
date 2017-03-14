@@ -14,9 +14,7 @@ import com.cv4j.core.filters.SpotlightFilter;
 import com.cv4j.rxjava.RxImageData;
 import com.safframework.injectview.annotations.InjectView;
 
-import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
-import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by Tony Shen on 2017/3/13.
@@ -45,8 +43,7 @@ public class UseFilterWithRxActivity extends BaseActivity {
                 .addFilter(new NatureFilter())
                 .addFilter(new SpotlightFilter())
                 .toFlowable()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
+                .compose(RxImageData.toMain())
                 .subscribe(new Consumer<ImageData>() {
 
             @Override
