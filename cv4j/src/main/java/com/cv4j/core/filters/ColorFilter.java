@@ -1,6 +1,18 @@
 package com.cv4j.core.filters;
 
+import com.cv4j.core.datamodel.AutumnLUT;
+import com.cv4j.core.datamodel.BoneLUT;
+import com.cv4j.core.datamodel.CoolLUT;
+import com.cv4j.core.datamodel.HotLUT;
+import com.cv4j.core.datamodel.HsvLUT;
 import com.cv4j.core.datamodel.ImageData;
+import com.cv4j.core.datamodel.JetLUT;
+import com.cv4j.core.datamodel.WinterLUT;
+import com.cv4j.core.datamodel.OceanLUT;
+import com.cv4j.core.datamodel.PinkLUT;
+import com.cv4j.core.datamodel.RainbowLUT;
+import com.cv4j.core.datamodel.SpringLUT;
+import com.cv4j.core.datamodel.SummerLUT;
 
 /**
  * Created by Administrator on 2017/3/15.
@@ -57,29 +69,29 @@ public class ColorFilter implements CommonFilter {
 
     private int[][] getStyleLUT(int style) {
         if(style == 0) {
-            return ImageData.AUTUMN_LUT;
+            return AutumnLUT.AUTUMN_LUT;
         } else if(style == 1) {
-            return ImageData.BONE_LUT;
+            return BoneLUT.BONE_LUT;
         } else if(style == 2) {
-            return ImageData.COOL_LUT;
+            return CoolLUT.COOL_LUT;
         }else if(style == 3) {
-            return ImageData.HOT_LUT;
+            return HotLUT.HOT_LUT;
         }else if(style == 4) {
-            return ImageData.HSV_LUT;
+            return HsvLUT.HSV_LUT;
         }else if(style == 5) {
-            return ImageData.JET_LUT;
+            return JetLUT.JET_LUT;
         }else if(style == 6) {
-            return ImageData.OCEAN_LUT;
+            return OceanLUT.OCEAN_LUT;
         }else if(style == 7) {
-            return ImageData.PINK_LUT;
+            return PinkLUT.PINK_LUT;
         }else if(style == 8) {
-            return ImageData.RAINBOW_LUT;
+            return RainbowLUT.RAINBOW_LUT;
         }else if(style == 9) {
-            return ImageData.SPRING_LUT;
+            return SpringLUT.SPRING_LUT;
         }else if(style == 10) {
-            return ImageData.SUMMER_LUT;
+            return SummerLUT.SUMMER_LUT;
         }else if(style == 11) {
-            return ImageData.WINTER_LUT;
+            return WinterLUT.WINTER_LUT;
         }else {
             // Excepiton
             return null;

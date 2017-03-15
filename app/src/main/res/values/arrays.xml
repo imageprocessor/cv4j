@@ -2,6 +2,7 @@
 <resources>
     <string-array name="filterNames">
         <item>原图</item>
+        <item>Color</item>
         <item>Emboss</item>
         <item>Exposure</item>
         <item>FloSteDithering</item>

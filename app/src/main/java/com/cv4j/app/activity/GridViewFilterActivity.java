@@ -50,7 +50,7 @@ public class GridViewFilterActivity extends BaseActivity {
             list.add(filter);
         }
 
-        GridLayoutManager manager = new GridLayoutManager(GridViewFilterActivity.this, 2);
+        GridLayoutManager manager = new GridLayoutManager(GridViewFilterActivity.this, 3);
         manager.setRecycleChildrenOnDetach(true);
         recyclerview.setLayoutManager(manager);
         recyclerview.setAdapter(new GridViewFilterAdapter(GridViewFilterActivity.this,
