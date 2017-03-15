@@ -1,76 +1,69 @@
 package com.cv4j.core.filters;
-
 import com.cv4j.core.datamodel.ImageData;
 import com.cv4j.core.datamodel.IntIntegralImage;
-import com.cv4j.image.util.Tools;
+import com.cv4j.core.filters.CommonFilter;
+
 
 public class MosaicFilter implements CommonFilter {
-	private int size;
-	
+	// 窗口半径大小
+	private int r=1;
+
+
 	public MosaicFilter() {
-		size = 10; // default block size=10x10
+		r = 1;
 	}
-	
-	public MosaicFilter(int size) {
-		this.size = size;
+
+	public int getRadius() {
+		return r;
+	}
+
+	public void setRadius(int r) {
+		this.r = r;
 	}
 
 	@Override
-	public ImageData filter(ImageData src){
+	public ImageData filter(ImageData src) {
 		int width = src.getWidth();
-        int height = src.getHeight();
-
+		int height = src.getHeight();
 		byte[] R = src.getChannel(0);
 		byte[] G = src.getChannel(1);
 		byte[] B = src.getChannel(2);
+		int size = (r * 2 + 1) * (r * 2 + 1);
+		int tr = 0, tg = 0, tb = 0;
 		byte[][] output = new byte[3][R.length];
-        int index = 0;
 
-		IntIntegralImage iir = new IntIntegralImage();
-		iir.setImage(R);
-		iir.process(width, height);
+		IntIntegralImage rii = new IntIntegralImage();
+		rii.setImage(R);
+		rii.process(width, height);
+		IntIntegralImage gii = new IntIntegralImage();
+		gii.setImage(G);
+		gii.process(width, height);
+		IntIntegralImage bii = new IntIntegralImage();
+		bii.setImage(B);
+		bii.process(width, height);
 
-		IntIntegralImage iig = new IntIntegralImage();
-		iig.setImage(G);
-		iig.process(width, height);
-
-		IntIntegralImage iib = new IntIntegralImage();
-		iib.setImage(B);
-		iib.process(width, height);
-
-        
-        int offsetX = 0, offsetY = 0;
-        int newX = 0, newY = 0;
-		int len = size*2+1;
-        double sumred = 0, sumgreen = 0, sumblue = 0;
-        for(int row=0; row<height; row++) {
-        	int ta = 0, tr = 0, tg = 0, tb = 0;
-        	for(int col=0; col<width; col++) {
-        		newY = (row/len) * len;
-        		newX = (col/len) * len;
-
-				// 积分图像查找
-        		index = row * width + col;
-				sumred = iir.getBlockSum(newX-size, newY-size, size*2+1, size*2+1);
-				sumgreen = iig.getBlockSum(newX-size, newY-size, size*2+1, size*2+1);
-				sumblue = iib.getBlockSum(newX-size, newY-size, size*2+1, size*2+1);
-
-        		tr = (int)(sumred/len);
-        		tg = (int)(sumgreen/len);
-        		tb = (int)(sumblue/len);
-
-				// 赋值
-        		output[0][index] = (byte) Tools.clamp(tr);
-				output[1][index] = (byte)Tools.clamp(tg);
-				output[2][index] = (byte)Tools.clamp(tb);
-        	}
-        }
-		iir = null;
-		iig = null;
-		iib = null;
+		int offset = 0;
+		for (int row = 0; row < height; row++) {
+			offset = row*width;
+			for (int col = 0; col < width; col++) {
+				int dy = (row / size);
+				int dx = (col / size);
+				int ny = dy*size+r;
+				int nx = dx*size+r;
+				int sr = rii.getBlockSum(nx, ny, (r * 2 + 1), (r * 2 + 1));
+				int sg = gii.getBlockSum(nx, ny, (r * 2 + 1), (r * 2 + 1));
+				int sb = bii.getBlockSum(nx, ny, (r * 2 + 1), (r * 2 + 1));
+				tr = sr / size;
+				tg = sg / size;
+				tb = sb / size;
+				output[0][offset] = (byte)tr;
+				output[1][offset] = (byte)tg;
+				output[2][offset] = (byte)tb;
+				offset++;
+			}
+		}
 		src.putPixels(output);
 		output = null;
 		return src;
 	}
-
 }
