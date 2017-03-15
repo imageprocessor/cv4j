@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.cv4j.app.R;
+import com.cv4j.app.activity.ColorFilterActivity;
 import com.cv4j.app.activity.CompositeFilersActivity;
 import com.cv4j.app.activity.GridViewFilterActivity;
 import com.cv4j.app.activity.SelectFilterActivity;
@@ -34,6 +35,9 @@ public class FiltersFragment extends BaseFragment {
 
     @InjectView(R.id.text4)
     TextView text4;
+
+    @InjectView(R.id.text5)
+    TextView text5;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -72,6 +76,14 @@ public class FiltersFragment extends BaseFragment {
 
         Intent i = new Intent(mContext,GridViewFilterActivity.class);
         i.putExtra("Title",text4.getText().toString());
+        startActivity(i);
+    }
+
+    @OnClick(id=R.id.text5)
+    void clickText5() {
+
+        Intent i = new Intent(mContext,ColorFilterActivity.class);
+        i.putExtra("Title",text5.getText().toString());
         startActivity(i);
     }
 }

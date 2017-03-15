@@ -42,4 +42,13 @@
         android:gravity="center"
         android:text="显示多个滤镜的效果"/>
 
+    <TextView
+        android:id="@+id/text5"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_margin="10dp"
+        android:background="@drawable/textview_border"
+        android:gravity="center"
+        android:text="彩色滤镜效果"/>
+
 </LinearLayout>
