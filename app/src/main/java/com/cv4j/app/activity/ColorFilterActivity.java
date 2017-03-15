@@ -10,6 +10,7 @@ import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.cv4j.app.R;
 import com.cv4j.app.app.BaseActivity;
@@ -56,7 +57,7 @@ public class ColorFilterActivity extends BaseActivity {
     private void initData() {
 
         Resources res = getResources();
-        bitmap = BitmapFactory.decodeResource(res, R.drawable.test_filters);
+        bitmap = BitmapFactory.decodeResource(res, R.drawable.test_color_filter);
 
         RxImageData.imageData(bitmap).addFilter(new ColorFilter()).toFlowable().compose
                 (RxImageData.toMain()).subscribe(new Consumer<ImageData>() {
@@ -102,6 +103,8 @@ public class ColorFilterActivity extends BaseActivity {
 
                 @Override
                 public void onClick(View v) {
+
+                    Toast.makeText(ColorFilterActivity.this, colorStyles.get((int)v.getTag())+"", Toast.LENGTH_SHORT).show();
 
                     ColorFilter colorFilter = new ColorFilter();
                     colorFilter.setStyle((int)v.getTag());
