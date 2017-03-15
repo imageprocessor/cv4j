@@ -76,12 +76,13 @@ public class ColorFilterActivity extends BaseActivity {
         colorStyles.put(ColorFilter.JET_STYLE," 高亮风格 ");
         colorStyles.put(ColorFilter.OCEAN_STYLE," 海洋风格 ");
         colorStyles.put(ColorFilter.PINK_STYLE," 粉色风格 ");
-        colorStyles.put(ColorFilter.RAINBOW_STYLE," 秋天风格 ");
+        colorStyles.put(ColorFilter.RAINBOW_STYLE," 彩虹风格 ");
         colorStyles.put(ColorFilter.SPRING_STYLE," 春天风格 ");
         colorStyles.put(ColorFilter.SUMMER_STYLE," 夏天风格 ");
         colorStyles.put(ColorFilter.WINTER_STYLE," 冬天风格 ");
 
-        for (int i = 0; i < 10; i++) {
+        int len = colorStyles.size();
+        for (int i = 0; i < len; i++) {
             LinearLayout.LayoutParams linearLp = new LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
             LinearLayout myLinear = new LinearLayout(this);
