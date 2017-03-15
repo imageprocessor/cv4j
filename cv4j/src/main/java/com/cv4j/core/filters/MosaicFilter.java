@@ -24,6 +24,19 @@ public class MosaicFilter implements CommonFilter {
 		byte[] B = src.getChannel(2);
 		byte[][] output = new byte[3][R.length];
         int index = 0;
+
+		IntIntegralImage iir = new IntIntegralImage();
+		iir.setImage(R);
+		iir.process(width, height);
+
+		IntIntegralImage iig = new IntIntegralImage();
+		iig.setImage(G);
+		iig.process(width, height);
+
+		IntIntegralImage iib = new IntIntegralImage();
+		iib.setImage(B);
+		iib.process(width, height);
+
         
         int offsetX = 0, offsetY = 0;
         int newX = 0, newY = 0;
@@ -37,32 +50,24 @@ public class MosaicFilter implements CommonFilter {
         		offsetX = newX + size;
         		offsetY = newY + size;
 
-
-        		for(int subRow =newY; subRow < offsetY; subRow++) {
-        			for(int subCol =newX; subCol < offsetX; subCol++) {
-        				if(subRow <0 || subRow >= height) {
-        					continue;
-        				}
-        				if(subCol < 0 || subCol >=width) {
-        					continue;
-        				}
-        				index = subRow * width + subCol;
-                		sumred += R[index] & 0xff;
-                		sumgreen += G[index] & 0xff;
-                		sumblue += B[index] & 0xff;
-        			}
-        		}
+				// 积分图像查找
         		index = row * width + col;
+				sumred = iir.getBlockSum(newX-offsetX/2, newY-offsetY/2, offsetY, offsetX);
+				sumgreen = iig.getBlockSum(newX-offsetX/2, newY-offsetY/2, offsetY, offsetX);
+				sumblue = iib.getBlockSum(newX-offsetX/2, newY-offsetY/2, offsetY, offsetX);
         		tr = (int)(sumred/total);
         		tg = (int)(sumgreen/total);
         		tb = (int)(sumblue/total);
+
+				// 赋值
         		output[0][index] = (byte)tr;
 				output[1][index] = (byte)tg;
 				output[2][index] = (byte)tb;
-        		// clear for next time
-        		sumred = sumgreen = sumblue = 0; 
         	}
         }
+		iir = null;
+		iig = null;
+		iib = null;
 		src.putPixels(output);
 		output = null;
 		return src;
