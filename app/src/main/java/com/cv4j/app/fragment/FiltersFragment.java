@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.cv4j.app.R;
 import com.cv4j.app.activity.CompositeFilersActivity;
+import com.cv4j.app.activity.GridViewFilterActivity;
 import com.cv4j.app.activity.SelectFilterActivity;
 import com.cv4j.app.activity.UseFilterWithRxActivity;
 import com.cv4j.app.app.BaseFragment;
@@ -30,6 +31,9 @@ public class FiltersFragment extends BaseFragment {
 
     @InjectView(R.id.text3)
     TextView text3;
+
+    @InjectView(R.id.text4)
+    TextView text4;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -60,6 +64,14 @@ public class FiltersFragment extends BaseFragment {
 
         Intent i = new Intent(mContext,UseFilterWithRxActivity.class);
         i.putExtra("Title",text3.getText().toString());
+        startActivity(i);
+    }
+
+    @OnClick(id=R.id.text4)
+    void clickText4() {
+
+        Intent i = new Intent(mContext,GridViewFilterActivity.class);
+        i.putExtra("Title",text4.getText().toString());
         startActivity(i);
     }
 }

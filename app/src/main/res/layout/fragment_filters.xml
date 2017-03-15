@@ -33,4 +33,13 @@
         android:gravity="center"
         android:text="Rxjava来操作滤镜"/>
 
+    <TextView
+        android:id="@+id/text4"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_margin="10dp"
+        android:background="@drawable/textview_border"
+        android:gravity="center"
+        android:text="显示多个滤镜的效果"/>
+
 </LinearLayout>

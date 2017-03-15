@@ -14,6 +14,7 @@ import com.cv4j.app.R;
 import com.cv4j.app.app.BaseActivity;
 import com.cv4j.core.datamodel.ColorImage;
 import com.cv4j.core.filters.CommonFilter;
+import com.safframework.aop.annotation.Trace;
 import com.safframework.injectview.Injector;
 import com.safframework.injectview.annotations.InjectExtra;
 import com.safframework.injectview.annotations.InjectView;
@@ -111,7 +112,7 @@ public class SelectFilterActivity extends BaseActivity {
         return object;
     }
 
-//    @Trace
+    @Trace
     public void changeFilter(String filterName) {
         ColorImage colorImage = new ColorImage(bitmap);
         CommonFilter filter = (CommonFilter)getFilter(filterName);
