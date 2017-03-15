@@ -58,9 +58,9 @@ public class ColorFilter implements CommonFilter {
                 tg = G[offset] & 0xff;
                 tb = B[offset] & 0xff;
 
-                R[offset] = (byte)lut[0][tr];
-                G[offset] = (byte)lut[1][tg];
-                B[offset] = (byte)lut[2][tb];
+                R[offset] = (byte)lut[tr][0];
+                G[offset] = (byte)lut[tg][1];
+                B[offset] = (byte)lut[tb][2];
                 offset++;
             }
         }
