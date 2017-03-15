@@ -23,5 +23,17 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="10dp"/>
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="示例代码:"/>
+
+        <thereisnospon.codeview.CodeView
+            android:id="@+id/codeview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </thereisnospon.codeview.CodeView>
+
     </LinearLayout>
 </ScrollView>
