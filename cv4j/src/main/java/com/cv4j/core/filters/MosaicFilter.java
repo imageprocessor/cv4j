@@ -2,6 +2,7 @@ package com.cv4j.core.filters;
 
 import com.cv4j.core.datamodel.ImageData;
 import com.cv4j.core.datamodel.IntIntegralImage;
+import com.cv4j.image.util.Tools;
 
 public class MosaicFilter implements CommonFilter {
 	private int size;
@@ -40,29 +41,28 @@ public class MosaicFilter implements CommonFilter {
         
         int offsetX = 0, offsetY = 0;
         int newX = 0, newY = 0;
-        double total = size*size;
+		int len = size*2+1;
         double sumred = 0, sumgreen = 0, sumblue = 0;
         for(int row=0; row<height; row++) {
         	int ta = 0, tr = 0, tg = 0, tb = 0;
         	for(int col=0; col<width; col++) {
-        		newY = (row/size) * size;
-        		newX = (col/size) * size;
-        		offsetX = newX + size;
-        		offsetY = newY + size;
+        		newY = (row/len) * len;
+        		newX = (col/len) * len;
 
 				// 积分图像查找
         		index = row * width + col;
-				sumred = iir.getBlockSum(newX-offsetX/2, newY-offsetY/2, offsetY, offsetX);
-				sumgreen = iig.getBlockSum(newX-offsetX/2, newY-offsetY/2, offsetY, offsetX);
-				sumblue = iib.getBlockSum(newX-offsetX/2, newY-offsetY/2, offsetY, offsetX);
-        		tr = (int)(sumred/total);
-        		tg = (int)(sumgreen/total);
-        		tb = (int)(sumblue/total);
+				sumred = iir.getBlockSum(newX-size, newY-size, size*2+1, size*2+1);
+				sumgreen = iig.getBlockSum(newX-size, newY-size, size*2+1, size*2+1);
+				sumblue = iib.getBlockSum(newX-size, newY-size, size*2+1, size*2+1);
+
+        		tr = (int)(sumred/len);
+        		tg = (int)(sumgreen/len);
+        		tb = (int)(sumblue/len);
 
 				// 赋值
-        		output[0][index] = (byte)tr;
-				output[1][index] = (byte)tg;
-				output[2][index] = (byte)tb;
+        		output[0][index] = (byte) Tools.clamp(tr);
+				output[1][index] = (byte)Tools.clamp(tg);
+				output[2][index] = (byte)Tools.clamp(tb);
         	}
         }
 		iir = null;
