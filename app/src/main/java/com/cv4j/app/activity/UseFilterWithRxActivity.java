@@ -10,7 +10,6 @@ import com.cv4j.app.R;
 import com.cv4j.app.app.BaseActivity;
 import com.cv4j.core.datamodel.ImageData;
 import com.cv4j.core.filters.NatureFilter;
-import com.cv4j.core.filters.SpotlightFilter;
 import com.cv4j.rxjava.RxImageData;
 import com.safframework.injectview.annotations.InjectView;
 
@@ -41,7 +40,6 @@ public class UseFilterWithRxActivity extends BaseActivity {
 
         RxImageData.imageData(bitmap)
                 .addFilter(new NatureFilter())
-                .addFilter(new SpotlightFilter())
                 .toFlowable()
                 .compose(RxImageData.toMain())
                 .subscribe(new Consumer<ImageData>() {

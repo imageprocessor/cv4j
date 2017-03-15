@@ -69,10 +69,10 @@ public class ColorFilterActivity extends BaseActivity {
         });
 
         colorStyles.put(ColorFilter.AUTUMN_STYLE," 秋天风格 ");
-        colorStyles.put(ColorFilter.BONE_STYLE," 骨头风格 ");
+        colorStyles.put(ColorFilter.BONE_STYLE," 硬朗风格 ");
         colorStyles.put(ColorFilter.COOL_STYLE," 凉爽风格 ");
         colorStyles.put(ColorFilter.HOT_STYLE," 热带风格 ");
-        colorStyles.put(ColorFilter.HSV_STYLE," HSV风格 ");
+        colorStyles.put(ColorFilter.HSV_STYLE," 色彩空间变换风格 ");
         colorStyles.put(ColorFilter.JET_STYLE," 高亮风格 ");
         colorStyles.put(ColorFilter.OCEAN_STYLE," 海洋风格 ");
         colorStyles.put(ColorFilter.PINK_STYLE," 粉色风格 ");
