@@ -39,6 +39,10 @@ import java.util.Vector;
 		return c > 255 ? 255 :( (c < 0) ? 0: c);
 	}
 
+	public static int clamp(int x, int a, int b) {
+		return (x < a) ? a : (x > b) ? b : x;
+	}
+
 	/**
 	 * Bilinear interpolation of ARGB values.
 	 * @param x the X interpolation parameter 0..1
