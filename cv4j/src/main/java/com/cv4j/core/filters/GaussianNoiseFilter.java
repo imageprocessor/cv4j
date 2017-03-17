@@ -43,6 +43,7 @@ public class GaussianNoiseFilter implements CommonFilter  {
 				R[offset] = (byte) Tools.clamp(r);
 				G[offset] = (byte) Tools.clamp(g);
 				B[offset] = (byte) Tools.clamp(b);
+				offset++;
 			}
 		}
 		return src;

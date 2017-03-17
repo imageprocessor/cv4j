@@ -5,8 +5,8 @@ import com.cv4j.image.util.Tools;
 
 public class BoxBlurFilter implements CommonFilter {
 
-	private int hRadius;
-	private int vRadius;
+	private int hRadius=5;
+	private int vRadius=5;
 	private int iterations = 1;
 
     @Override
