@@ -1,18 +1,7 @@
 package com.cv4j.core.filters;
 
-import com.cv4j.core.datamodel.AutumnLUT;
-import com.cv4j.core.datamodel.BoneLUT;
-import com.cv4j.core.datamodel.CoolLUT;
-import com.cv4j.core.datamodel.HotLUT;
-import com.cv4j.core.datamodel.HsvLUT;
 import com.cv4j.core.datamodel.ImageData;
-import com.cv4j.core.datamodel.JetLUT;
-import com.cv4j.core.datamodel.OceanLUT;
-import com.cv4j.core.datamodel.PinkLUT;
-import com.cv4j.core.datamodel.RainbowLUT;
-import com.cv4j.core.datamodel.SpringLUT;
-import com.cv4j.core.datamodel.SummerLUT;
-import com.cv4j.core.datamodel.WinterLUT;
+import com.cv4j.core.datamodel.lut.LUT;
 
 /**
  * Created by gloomy fish on 2017/3/15.
@@ -70,45 +59,6 @@ public class ColorFilter implements CommonFilter {
 
     private int[][] getStyleLUT(int style) {
 
-        switch(style) {
-            case AUTUMN_STYLE:
-                return AutumnLUT.AUTUMN_LUT;
-
-            case BONE_STYLE:
-                return BoneLUT.BONE_LUT;
-
-            case COOL_STYLE:
-                return CoolLUT.COOL_LUT;
-
-            case HOT_STYLE:
-                return HotLUT.HOT_LUT;
-
-            case HSV_STYLE:
-                return HsvLUT.HSV_LUT;
-
-            case JET_STYLE:
-                return JetLUT.JET_LUT;
-
-            case OCEAN_STYLE:
-                return OceanLUT.OCEAN_LUT;
-
-            case PINK_STYLE:
-                return PinkLUT.PINK_LUT;
-
-            case RAINBOW_STYLE:
-                return RainbowLUT.RAINBOW_LUT;
-
-            case SPRING_STYLE:
-                return SpringLUT.SPRING_LUT;
-
-            case SUMMER_STYLE:
-                return SummerLUT.SUMMER_LUT;
-
-            case WINTER_STYLE:
-                return WinterLUT.WINTER_LUT;
-
-            default:
-                return AutumnLUT.AUTUMN_LUT;
-        }
+        return LUT.getColorFilterLUT(style);
     }
 }

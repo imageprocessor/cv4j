@@ -2,10 +2,13 @@
 <resources>
     <string-array name="filterNames">
         <item>原图</item>
+        <item>BoxBlur</item>
         <item>Color</item>
+        <item>ConBri</item>
         <item>Emboss</item>
         <item>Exposure</item>
         <item>FloSteDithering</item>
+        <item>GaussianNoise</item>
         <item>MeansBinary</item>
         <item>Mosaic</item>
         <!--<item>Motion</item>-->

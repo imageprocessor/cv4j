@@ -1,4 +1,4 @@
-package com.cv4j.core.datamodel;
+package com.cv4j.core.datamodel.lut;
 
 /**
  * Created by Tony Shen on 2017/3/15.
