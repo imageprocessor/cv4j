@@ -3,7 +3,7 @@ package com.cv4j.core.filters;
 import com.cv4j.core.datamodel.ImageData;
 
 /**
- * Created by Administrator on 2017/3/21.
+ * Created by gloomy fish on 2017/3/21.
  */
 
 public class GaussianBlurFilter implements CommonFilter {
@@ -25,7 +25,7 @@ public class GaussianBlurFilter implements CommonFilter {
         byte[] G = src.getChannel(1);
         byte[] B = src.getChannel(2);
 
-        GaussianByteProcessor byteProcessor = new GaussianByteProcessor();
+        GaussianByteProcessor byteProcessor = new GaussianByteProcessor(radius);
         byteProcessor.process(R, width, height);
         byteProcessor.process(G, width, height);
         byteProcessor.process(B, width, height);

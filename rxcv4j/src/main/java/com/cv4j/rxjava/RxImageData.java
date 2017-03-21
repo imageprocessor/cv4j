@@ -25,7 +25,6 @@ public class RxImageData {
 
     ColorImage colorImage;
     Flowable flowable;
-    int placeHolderId;
 
     private RxImageData(Bitmap bitmap) {
 

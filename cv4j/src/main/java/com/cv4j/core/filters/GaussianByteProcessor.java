@@ -10,7 +10,7 @@ class GaussianByteProcessor implements ByteProcessor {
 	}
 
 	protected GaussianByteProcessor(int radius) {
-		radius = 10;
+		this.radius = radius;
 		setupKernal(radius, 15.0f);
 	}
 
