@@ -39,6 +39,12 @@ import java.util.Vector;
 		return c > 255 ? 255 :( (c < 0) ? 0: c);
 	}
 
+	public static int clamp(float c)
+	{
+		float p =  (c > 255 ? 255 :( (c < 0) ? 0: c));
+		return (int)p;
+	}
+
 	public static int clamp(int x, int a, int b) {
 		return (x < a) ? a : (x > b) ? b : x;
 	}
