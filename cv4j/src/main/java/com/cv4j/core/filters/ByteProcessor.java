@@ -5,5 +5,6 @@ package com.cv4j.core.filters;
  */
 
 public interface ByteProcessor {
-    public byte[] process(byte[] data, int width, int height);
+
+    byte[] process(byte[] data, int width, int height);
 }

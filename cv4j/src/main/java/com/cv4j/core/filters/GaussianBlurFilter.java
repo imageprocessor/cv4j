@@ -6,14 +6,14 @@ import com.cv4j.core.datamodel.ImageData;
  * Created by Administrator on 2017/3/21.
  */
 
-public class GaussianBlur implements CommonFilter {
+public class GaussianBlurFilter implements CommonFilter {
     private int radius=5;
 
-    public GaussianBlur(int radius) {
-        this.radius = 5;
+    public GaussianBlurFilter(int radius) {
+        this.radius = radius;
     }
 
-    public GaussianBlur() {
+    public GaussianBlurFilter() {
         this(5);
     }
 

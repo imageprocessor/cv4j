@@ -2,7 +2,7 @@ package com.cv4j.core.filters;
 
 import com.cv4j.image.util.Tools;
 // never try to use it directly, internal class for this package
-public class GaussianByteProcessor implements ByteProcessor {
+class GaussianByteProcessor implements ByteProcessor {
 	private float[] kernal;
 	private int radius=10;
 	protected GaussianByteProcessor() {
