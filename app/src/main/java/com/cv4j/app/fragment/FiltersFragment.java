@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.cv4j.app.R;
 import com.cv4j.app.activity.ColorFilterActivity;
 import com.cv4j.app.activity.CompositeFilersActivity;
+import com.cv4j.app.activity.GaussianBlurActivity;
 import com.cv4j.app.activity.GridViewFilterActivity;
 import com.cv4j.app.activity.SelectFilterActivity;
 import com.cv4j.app.activity.UseFilterWithRxActivity;
@@ -38,6 +39,9 @@ public class FiltersFragment extends BaseFragment {
 
     @InjectView(R.id.text5)
     TextView text5;
+
+    @InjectView(R.id.text6)
+    TextView text6;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -83,6 +87,14 @@ public class FiltersFragment extends BaseFragment {
     void clickText5() {
 
         Intent i = new Intent(mContext,ColorFilterActivity.class);
+        i.putExtra("Title",text5.getText().toString());
+        startActivity(i);
+    }
+
+    @OnClick(id=R.id.text6)
+    void clickText6() {
+
+        Intent i = new Intent(mContext,GaussianBlurActivity.class);
         i.putExtra("Title",text5.getText().toString());
         startActivity(i);
     }

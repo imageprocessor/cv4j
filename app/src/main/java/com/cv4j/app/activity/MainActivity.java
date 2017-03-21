@@ -109,6 +109,10 @@ public class MainActivity extends BaseActivity {
             case R.id.drawer_filters:
                 menuManager.show(MenuManager.MenuType.FILTERS);
                 break;
+
+            case R.id.spatial_conv:
+                menuManager.show(MenuManager.MenuType.SPTIAL_CONV);
+                break;
             default:
                 break;
         }

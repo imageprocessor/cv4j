@@ -10,11 +10,15 @@ android {
     buildToolsVersion cfg.buildToolsVersion
     defaultConfig {
         applicationId "com.cv4j.app"
-        minSdkVersion 14
+        minSdkVersion 17
         targetSdkVersion cfg.targetSdk
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        // 以下是高斯模糊相关的API
+        renderscriptTargetApi 22
+        renderscriptSupportModeEnabled true
     }
     buildTypes {
         release {

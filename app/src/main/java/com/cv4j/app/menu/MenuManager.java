@@ -8,6 +8,7 @@ import com.cv4j.app.R;
 import com.cv4j.app.fragment.FiltersFragment;
 import com.cv4j.app.fragment.HomeFragment;
 import com.cv4j.app.fragment.IOFragment;
+import com.cv4j.app.fragment.SpitalConvFragment;
 
 /**
  * Created by tony on 2016/11/20.
@@ -23,7 +24,8 @@ public class MenuManager {
 
         HOME("CV4J介绍",false),
         IO("io读写",true),
-        FILTERS("常用过滤器",true);
+        FILTERS("常用过滤器",true),
+        SPTIAL_CONV("空间卷积功能",true);
 
         public final String title;
         public final boolean removed;
@@ -94,6 +96,10 @@ public class MenuManager {
 
             case FILTERS:
                 fragment = new FiltersFragment();
+                break;
+
+            case SPTIAL_CONV:
+                fragment = new SpitalConvFragment();
                 break;
 
             default:

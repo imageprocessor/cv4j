@@ -37,5 +37,10 @@
             android:icon="@drawable/menu_general_anno"
             android:title="@string/filters"/>
 
+        <item
+            android:id="@+id/spatial_conv"
+            android:icon="@drawable/menu_general_anno"
+            android:title="@string/spatial_conv"/>
+
     </group>
 </menu>

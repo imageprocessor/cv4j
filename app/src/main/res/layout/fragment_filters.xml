@@ -51,4 +51,13 @@
         android:gravity="center"
         android:text="彩色滤镜效果"/>
 
+    <TextView
+        android:id="@+id/text6"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_margin="10dp"
+        android:background="@drawable/textview_border"
+        android:gravity="center"
+        android:text="高斯模糊"/>
+
 </LinearLayout>
