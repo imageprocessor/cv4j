@@ -61,7 +61,10 @@ public class GaussianBlurActivity extends BaseActivity {
     @Trace
     private void useCV4j() {
 
-        RxImageData.imageData(bitmap).addFilter(new GaussianBlurFilter(20)).into(image2);
+        RxImageData.imageData(bitmap)
+                .placeHolder(image2, R.drawable.test_filters)
+                .addFilter(new GaussianBlurFilter(20))
+                .into(image2);
     }
 
     /**

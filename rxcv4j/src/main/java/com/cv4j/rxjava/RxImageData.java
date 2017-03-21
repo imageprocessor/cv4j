@@ -25,6 +25,7 @@ public class RxImageData {
 
     ColorImage colorImage;
     Flowable flowable;
+    int placeHolderId;
 
     private RxImageData(Bitmap bitmap) {
 
@@ -63,6 +64,24 @@ public class RxImageData {
     public Flowable toFlowable() {
 
         return flowable;
+    }
+
+    /**
+     * 占位符，必须在addFilter()之前
+     * @param imageview
+     * @param resId
+     * @return
+     */
+    public RxImageData placeHolder(final ImageView imageview,final int resId) {
+
+        flowable = this.toFlowable().doOnNext(new Consumer<ImageData>() {
+            @Override
+            public void accept(@NonNull ImageData imageData) throws Exception {
+                imageview.setImageResource(resId);
+            }
+        });
+
+        return this;
     }
 
     /**
