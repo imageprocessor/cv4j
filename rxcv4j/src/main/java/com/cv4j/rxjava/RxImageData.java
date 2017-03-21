@@ -1,6 +1,7 @@
 package com.cv4j.rxjava;
 
 import android.graphics.Bitmap;
+import android.widget.ImageView;
 
 import com.cv4j.core.datamodel.ColorImage;
 import com.cv4j.core.datamodel.ImageData;
@@ -11,6 +12,8 @@ import org.reactivestreams.Publisher;
 import io.reactivex.Flowable;
 import io.reactivex.FlowableTransformer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
@@ -60,6 +63,20 @@ public class RxImageData {
     public Flowable toFlowable() {
 
         return flowable;
+    }
+
+    /**
+     * RxImageData.imageData(bitmap).addFilter(new ColorFilter()).into(view);
+     * @param imageview
+     */
+    public void into(final ImageView imageview) {
+
+        this.toFlowable().compose(toMain()).subscribe(new Consumer<ImageData>() {
+            @Override
+            public void accept(@NonNull ImageData imgaeData) throws Exception {
+                imageview.setImageBitmap(imgaeData.toBitmap());
+            }
+        });
     }
 
     /**

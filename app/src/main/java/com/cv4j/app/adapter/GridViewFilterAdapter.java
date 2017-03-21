@@ -9,15 +9,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.cv4j.app.R;
-import com.cv4j.core.datamodel.ImageData;
 import com.cv4j.core.filters.CommonFilter;
 import com.cv4j.rxjava.RxImageData;
 import com.safframwork.tony.common.utils.Preconditions;
 
 import java.util.List;
-
-import io.reactivex.annotations.NonNull;
-import io.reactivex.functions.Consumer;
 
 /**
  * Created by Tony Shen on 2017/3/15.
@@ -51,16 +47,7 @@ public class GridViewFilterAdapter extends RecyclerView.Adapter<GridViewFilterAd
                 CommonFilter filter = (CommonFilter)getFilter(filterName);
                 RxImageData.imageData(mBitmap)
                         .addFilter(filter)
-                        .toFlowable()
-                        .compose(RxImageData.toMain())
-                        .subscribe(new Consumer<ImageData>() {
-
-                            @Override
-                            public void accept(@NonNull ImageData imageData) throws Exception {
-
-                                holder.image.setImageBitmap(imageData.toBitmap());
-                            }
-                        });
+                        .into(holder.image);
             }
         }
     }

@@ -14,7 +14,6 @@ import android.widget.Toast;
 
 import com.cv4j.app.R;
 import com.cv4j.app.app.BaseActivity;
-import com.cv4j.core.datamodel.ImageData;
 import com.cv4j.core.filters.ColorFilter;
 import com.cv4j.rxjava.RxImageData;
 import com.safframework.injectview.Injector;
@@ -22,9 +21,6 @@ import com.safframework.injectview.annotations.InjectView;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import io.reactivex.annotations.NonNull;
-import io.reactivex.functions.Consumer;
 
 /**
  * Created by Tony Shen on 2017/3/15.
@@ -59,15 +55,7 @@ public class ColorFilterActivity extends BaseActivity {
         Resources res = getResources();
         bitmap = BitmapFactory.decodeResource(res, R.drawable.test_color_filter);
 
-        RxImageData.imageData(bitmap).addFilter(new ColorFilter()).toFlowable().compose
-                (RxImageData.toMain()).subscribe(new Consumer<ImageData>() {
-
-            @Override
-            public void accept(@NonNull ImageData imgaeData) throws Exception {
-
-                image.setImageBitmap(imgaeData.toBitmap());
-            }
-        });
+        RxImageData.imageData(bitmap).addFilter(new ColorFilter()).into(image);
 
         colorStyles.put(ColorFilter.AUTUMN_STYLE," 秋天风格 ");
         colorStyles.put(ColorFilter.BONE_STYLE," 硬朗风格 ");
@@ -109,15 +97,7 @@ public class ColorFilterActivity extends BaseActivity {
                     ColorFilter colorFilter = new ColorFilter();
                     colorFilter.setStyle((int)v.getTag());
 
-                    RxImageData.imageData(bitmap).addFilter(colorFilter).toFlowable().compose
-                            (RxImageData.toMain()).subscribe(new Consumer<ImageData>() {
-
-                        @Override
-                        public void accept(@NonNull ImageData imgaeData) throws Exception {
-
-                            image.setImageBitmap(imgaeData.toBitmap());
-                        }
-                    });
+                    RxImageData.imageData(bitmap).addFilter(colorFilter).into(image);
                 }
             });
         }

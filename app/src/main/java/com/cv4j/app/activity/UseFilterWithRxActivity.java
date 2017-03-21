@@ -8,12 +8,10 @@ import android.widget.ImageView;
 
 import com.cv4j.app.R;
 import com.cv4j.app.app.BaseActivity;
-import com.cv4j.core.datamodel.ImageData;
 import com.cv4j.core.filters.NatureFilter;
 import com.cv4j.rxjava.RxImageData;
 import com.safframework.injectview.annotations.InjectView;
 
-import io.reactivex.functions.Consumer;
 import thereisnospon.codeview.CodeView;
 import thereisnospon.codeview.CodeViewTheme;
 
@@ -45,15 +43,7 @@ public class UseFilterWithRxActivity extends BaseActivity {
 
         RxImageData.imageData(bitmap)
                 .addFilter(new NatureFilter())
-                .toFlowable()
-                .compose(RxImageData.toMain())
-                .subscribe(new Consumer<ImageData>() {
-
-            @Override
-            public void accept(ImageData imageData) throws Exception {
-                image.setImageBitmap(imageData.toBitmap());
-            }
-        });
+                .into(image);
 
         codeView.setTheme(CodeViewTheme.ANDROIDSTUDIO).fillColor();
 
@@ -62,14 +52,7 @@ public class UseFilterWithRxActivity extends BaseActivity {
                 .append("\r\n")
                 .append("    .addFilter(new NatureFilter())")
                 .append("\r\n")
-                .append("    .toFlowable()").append("\r\n")
-                .append("    .compose(RxImageData.toMain())").append("\r\n")
-                .append("    .subscribe(new Consumer<ImageData>() {").append("\r\n").append("\r\n")
-                .append("  @Override").append("\r\n")
-                .append("  public void accept(ImageData imageData) throws Exception {").append("\r\n")
-                .append("     image.setImageBitmap(imageData.toBitmap());").append("\r\n")
-                .append("  }").append("\r\n")
-                .append("});");
+                .append("    .into(image)");
 
         codeView.showCode(code.toString());
     }

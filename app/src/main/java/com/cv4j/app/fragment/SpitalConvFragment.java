@@ -7,5 +7,5 @@ import com.cv4j.app.app.BaseFragment;
  */
 
 public class SpitalConvFragment extends BaseFragment {
-    
+
 }
