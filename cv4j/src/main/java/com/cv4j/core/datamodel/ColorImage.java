@@ -192,9 +192,9 @@ public class ColorImage implements ImageData,Serializable {
 				CV4J_IMAGE_TYPE_BINARY == type) {
 			int[] rgb = new int[width*height];
 			int offset = 0;
+			int ta=255, tr=0, tg=0, tb=0;
 			for(int row=0; row < height; row++) {
 				offset = row*width;
-				int ta=255, tr=0, tg=0, tb=0;
 				for(int col=0; col<width; col++) {
 					rgb[offset] = (ta << 24) | (pdata[0][offset] << 16) | (pdata[0][offset] << 8) | pdata[0][offset];
 					offset++;

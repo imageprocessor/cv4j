@@ -66,7 +66,7 @@ public class RxImageData {
     }
 
     /**
-     * 占位符，必须在addFilter()之前
+     * 占位符，必须在addFilter()之前，因为滤镜操作会花费时间
      * @param imageview
      * @param resId
      * @return
