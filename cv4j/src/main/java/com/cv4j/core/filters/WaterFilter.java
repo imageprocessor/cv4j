@@ -1,6 +1,6 @@
 package com.cv4j.core.filters;
 
-import com.cv4j.core.datamodel.ImageData;
+import com.cv4j.core.datamodel.ImageProcessor;
 import com.cv4j.image.util.Tools;
 
 public class WaterFilter implements CommonFilter {
@@ -37,7 +37,7 @@ public class WaterFilter implements CommonFilter {
 	}
 
 	@Override
-	public ImageData filter(ImageData src){
+	public ImageProcessor filter(ImageProcessor src){
 		int width = src.getWidth();
         int height = src.getHeight();
 

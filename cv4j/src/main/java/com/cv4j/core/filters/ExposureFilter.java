@@ -1,6 +1,6 @@
 package com.cv4j.core.filters;
 
-import com.cv4j.core.datamodel.ImageData;
+import com.cv4j.core.datamodel.ImageProcessor;
 
 /**
  * Created by gloomy fish on 2017/3/9.
@@ -9,7 +9,7 @@ import com.cv4j.core.datamodel.ImageData;
 public class ExposureFilter implements CommonFilter  {
 
     @Override
-    public ImageData filter(ImageData src) {
+    public ImageProcessor filter(ImageProcessor src) {
         int width = src.getWidth();
         int height = src.getHeight();
         byte[] R = src.getChannel(0);

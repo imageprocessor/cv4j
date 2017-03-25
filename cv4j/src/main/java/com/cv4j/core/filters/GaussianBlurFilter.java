@@ -1,6 +1,6 @@
 package com.cv4j.core.filters;
 
-import com.cv4j.core.datamodel.ImageData;
+import com.cv4j.core.datamodel.ImageProcessor;
 import com.cv4j.image.util.TaskUtils;
 
 import java.util.concurrent.Callable;
@@ -29,7 +29,7 @@ public class GaussianBlurFilter implements CommonFilter {
     }
 
     @Override
-    public ImageData filter(ImageData src) {
+    public ImageProcessor filter(ImageProcessor src) {
         final int width = src.getWidth();
         final int height = src.getHeight();
         final byte[] R = src.getChannel(0);
@@ -37,23 +37,16 @@ public class GaussianBlurFilter implements CommonFilter {
         final byte[] B = src.getChannel(2);
 
         final GaussianByteProcessor byteProcessor = new GaussianByteProcessor(radius);
-//        byteProcessor.process(R, width, height);
-//        byteProcessor.process(G, width, height);
-//        byteProcessor.process(B, width, height);
-
-
         service.submit(new Callable<byte[]>() {
             public byte[] call() throws Exception {
                 return byteProcessor.process(R, width, height);
             }
         });
-
         service.submit(new Callable<byte[]>() {
             public byte[] call() throws Exception {
                 return byteProcessor.process(G, width, height);
             }
         });
-
         service.submit(new Callable<byte[]>() {
             public byte[] call() throws Exception {
                 return byteProcessor.process(B, width, height);

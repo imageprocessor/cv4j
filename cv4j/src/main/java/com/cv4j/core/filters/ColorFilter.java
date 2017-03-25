@@ -1,6 +1,7 @@
 package com.cv4j.core.filters;
 
-import com.cv4j.core.datamodel.ImageData;
+import com.cv4j.core.datamodel.ColorProcessor;
+import com.cv4j.core.datamodel.ImageProcessor;
 import com.cv4j.core.datamodel.lut.LUT;
 
 /**
@@ -32,33 +33,28 @@ public class ColorFilter implements CommonFilter {
     }
 
     @Override
-    public ImageData filter(ImageData src) {
+    public ImageProcessor filter(ColorProcessor src) {
         int width = src.getWidth();
         int height = src.getHeight();
-        byte[] R = src.getChannel(0);
-        byte[] G = src.getChannel(1);
-        byte[] B = src.getChannel(2);
-        byte[][] output = new byte[3][R.length];
+        byte[] R = src.getRed();
+        byte[] G = src.getGreen();
+        byte[] B = src.getBlue();
         int tr=0, tg=0, tb=0;
         int[][] lut = getStyleLUT(style);
-        for(int row=0; row<height; row++) {
-            int offset = row*width;
-            for(int col=0; col<width; col++) {
-                tr = R[offset] & 0xff;
-                tg = G[offset] & 0xff;
-                tb = B[offset] & 0xff;
+        int size = R.length;
+        for(int i=0; i<size; i++) {
+            tr = R[i] & 0xff;
+            tg = G[i] & 0xff;
+            tb = B[i] & 0xff;
 
-                R[offset] = (byte)lut[tr][0];
-                G[offset] = (byte)lut[tg][1];
-                B[offset] = (byte)lut[tb][2];
-                offset++;
-            }
+            R[i] = (byte)lut[tr][0];
+            G[i] = (byte)lut[tg][1];
+            B[i] = (byte)lut[tb][2];
         }
         return src;
     }
 
     private int[][] getStyleLUT(int style) {
-
         return LUT.getColorFilterLUT(style);
     }
 }

@@ -1,6 +1,7 @@
 package com.cv4j.core.filters;
 
-import com.cv4j.core.datamodel.ImageData;
+import com.cv4j.core.datamodel.ColorProcessor;
+import com.cv4j.core.datamodel.ImageProcessor;
 import com.cv4j.image.util.Tools;
 
 /**
@@ -16,70 +17,57 @@ public class ConBriFilter implements CommonFilter  {
 	private float brightness = 0.7f; // default value;
 
 	@Override
-	public ImageData filter(ImageData src) {
+	public ImageProcessor filter(ColorProcessor src) {
 		int width = src.getWidth();
 		int height = src.getHeight();
-		byte[] R = src.getChannel(0);
-		byte[] G = src.getChannel(1);
-		byte[] B = src.getChannel(2);
+		byte[] R = src.getRed();
+		byte[] G = src.getGreen();
+		byte[] B = src.getBlue();
 		byte[][] output = new byte[3][R.length];
         
         // calculate RED, GREEN, BLUE means of pixel
 		int index = 0;
 		int[] rgbmeans = new int[3];
 		double redSum = 0, greenSum = 0, blueSum = 0;
-		double total = height * width;
-        for(int row=0; row<height; row++) {
-        	int tr = 0, tg = 0, tb = 0;
-        	for(int col=0; col<width; col++) {
-        		index = row * width + col;
-                tr = R[index] & 0xff;
-                tg = G[index] & 0xff;
-                tb = B[index] & 0xff;
-                redSum += tr;
-                greenSum += tg;
-                blueSum +=tb;
-        	}
+		int total = height * width;
+		int r=0, g=0, b=0;
+        for(int i=0; i<total; i++) {
+			r = R[i] & 0xff;
+			g = G[i] & 0xff;
+			b = B[i] & 0xff;
+			redSum += r;
+			greenSum += g;
+			blueSum +=b;
         }
-        
         rgbmeans[0] = (int)(redSum / total);
         rgbmeans[1] = (int)(greenSum / total);
         rgbmeans[2] = (int)(blueSum / total);
         
         // adjust contrast and brightness algorithm, here
-        for(int row=0; row<height; row++) {
-        	int ta = 0, tr = 0, tg = 0, tb = 0;
-        	for(int col=0; col<width; col++) {
-        		index = row * width + col;
-				tr = R[index] & 0xff;
-				tg = G[index] & 0xff;
-				tb = B[index] & 0xff;
-                
-                // remove means
-                tr -=rgbmeans[0];
-                tg -=rgbmeans[1];
-                tb -=rgbmeans[2];
-                
-                // adjust contrast now !!!
-                tr = (int)(tr * getContrast());
-                tg = (int)(tg * getContrast());
-                tb = (int)(tb * getContrast());
-                
-                // adjust brightness
-                tr += (int)(rgbmeans[0] * getBrightness());
-                tg += (int)(rgbmeans[1] * getBrightness());
-                tb += (int)(rgbmeans[2] * getBrightness());
+        for(int i=0; i<total; i++) {
+			r = R[i] & 0xff;
+			g = G[i] & 0xff;
+			b = B[i] & 0xff;
 
-                output[0][index] = (byte)Tools.clamp(tr);
-				output[1][index] = (byte)Tools.clamp(tr);
-				output[2][index] = (byte)Tools.clamp(tr);
-        	}
+			// remove means
+			r -=rgbmeans[0];
+			g -=rgbmeans[1];
+			b -=rgbmeans[2];
+
+			// adjust contrast now !!!
+			r = (int)(r * getContrast());
+			g = (int)(g * getContrast());
+			b = (int)(b * getContrast());
+
+			// adjust brightness
+			r += (int)(rgbmeans[0] * getBrightness());
+			g += (int)(rgbmeans[1] * getBrightness());
+			b += (int)(rgbmeans[2] * getBrightness());
+
+			R[i] = (byte)Tools.clamp(r);
+			G[i] = (byte)Tools.clamp(g);
+			B[i] = (byte)Tools.clamp(b);
         }
-		src.putPixels(output);
-		output[0] = null;
-		output[1] = null;
-		output[2] = null;
-		output = null;
         return src;
 	}
 

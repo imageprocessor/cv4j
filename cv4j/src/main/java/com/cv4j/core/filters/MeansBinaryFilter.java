@@ -1,11 +1,11 @@
 package com.cv4j.core.filters;
 
-import com.cv4j.core.datamodel.ImageData;
+import com.cv4j.core.datamodel.ImageProcessor;
 
 public class MeansBinaryFilter implements CommonFilter {
 
-	public ImageData filter(ImageData src) {
-        if(src.getType() == ImageData.CV4J_IMAGE_TYPE_RGB) {
+	public ImageProcessor filter(ImageProcessor src) {
+        if(src.getType() == ImageProcessor.CV4J_IMAGE_TYPE_RGB) {
             src.convert2Gray();
         }
         // calculate means of pixel  

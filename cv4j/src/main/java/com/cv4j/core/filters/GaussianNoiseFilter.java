@@ -1,6 +1,6 @@
 package com.cv4j.core.filters;
 /** 随机噪声滤镜 **/
-import com.cv4j.core.datamodel.ImageData;
+import com.cv4j.core.datamodel.ImageProcessor;
 import com.cv4j.image.util.Tools;
 
 public class GaussianNoiseFilter implements CommonFilter  {
@@ -18,7 +18,7 @@ public class GaussianNoiseFilter implements CommonFilter  {
 		this.sigma = sigma;
 	}
 
-	public ImageData filter(ImageData src) {
+	public ImageProcessor filter(ImageProcessor src) {
 		int width = src.getWidth();
 		int height = src.getHeight();
 		byte[] R = src.getChannel(0);

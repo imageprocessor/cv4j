@@ -1,6 +1,6 @@
 package com.cv4j.core.filters;
 
-import com.cv4j.core.datamodel.ImageData;
+import com.cv4j.core.datamodel.ImageProcessor;
 import com.cv4j.image.util.Tools;
 
 /**
@@ -24,8 +24,8 @@ public class FloSteDitheringFilter implements CommonFilter {
 	public final static int[] COLOR_PALETTE = new int[] {0, 255};
 
 	@Override
-	public ImageData filter(ImageData src) {
-        if(src.getType() == ImageData.CV4J_IMAGE_TYPE_RGB) {
+	public ImageProcessor filter(ImageProcessor src) {
+        if(src.getType() == ImageProcessor.CV4J_IMAGE_TYPE_RGB) {
             src.convert2Gray();
         }
 		int width = src.getWidth();
@@ -84,8 +84,8 @@ public class FloSteDitheringFilter implements CommonFilter {
 		int bestIndex = 0;
 		for(int i=0; i<COLOR_PALETTE.length; i++) {
 			int diff = Math.abs(gray - COLOR_PALETTE[i]);
-			if(ImageData.SQRT_LUT[diff] < minDistanceSquared) {
-				minDistanceSquared = ImageData.SQRT_LUT[diff];
+			if(ImageProcessor.SQRT_LUT[diff] < minDistanceSquared) {
+				minDistanceSquared = ImageProcessor.SQRT_LUT[diff];
 				bestIndex = i;
 			}
 		}

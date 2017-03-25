@@ -1,6 +1,7 @@
 package com.cv4j.core.filters;
 
-import com.cv4j.core.datamodel.ImageData;
+import com.cv4j.core.datamodel.ColorProcessor;
+import com.cv4j.core.datamodel.ImageProcessor;
 
 /**
  * Created by gloomy fish on 2017/3/5.
@@ -8,5 +9,5 @@ import com.cv4j.core.datamodel.ImageData;
 
 public interface CommonFilter {
 
-    ImageData filter(ImageData imagedata);
+    ImageProcessor filter(ColorProcessor imagedata);
 }

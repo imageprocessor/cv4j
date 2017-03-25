@@ -1,11 +1,11 @@
 package com.cv4j.core.filters;
 
-import com.cv4j.core.datamodel.ImageData;
+import com.cv4j.core.datamodel.ImageProcessor;
 
 public class SepiaToneFilter implements CommonFilter {
 
 	@Override
-	public ImageData filter(ImageData src) {
+	public ImageProcessor filter(ImageProcessor src) {
 		int width = src.getWidth();
         int height = src.getHeight();
 

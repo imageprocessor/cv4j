@@ -1,6 +1,6 @@
 package com.cv4j.core.spatial.conv;
 
-import com.cv4j.core.datamodel.ImageData;
+import com.cv4j.core.datamodel.ImageProcessor;
 import com.cv4j.core.filters.CommonFilter;
 
 import static com.cv4j.image.util.Tools.clamp;
@@ -14,7 +14,7 @@ public class FindEdgeFilter implements CommonFilter {
 	}
 
 	@Override
-	public ImageData filter(ImageData src) {
+	public ImageProcessor filter(ImageProcessor src) {
 		int width = src.getWidth();
 		int height = src.getHeight();
 		byte[] R = src.getChannel(0);

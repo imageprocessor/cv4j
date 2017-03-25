@@ -1,6 +1,6 @@
 package com.cv4j.core.filters;
 
-import com.cv4j.core.datamodel.ImageData;
+import com.cv4j.core.datamodel.ImageProcessor;
 import com.cv4j.image.util.Tools;
 
 public class BoxBlurFilter implements CommonFilter {
@@ -10,7 +10,7 @@ public class BoxBlurFilter implements CommonFilter {
 	private int iterations = 1;
 
     @Override
-    public ImageData filter(ImageData src) {
+    public ImageProcessor filter(ImageProcessor src) {
         int width = src.getWidth();
         int height = src.getHeight();
         byte[][] input = src.getPixels();

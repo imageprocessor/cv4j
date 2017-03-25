@@ -1,6 +1,6 @@
 package com.cv4j.core.filters;
 
-import com.cv4j.core.datamodel.ImageData;
+import com.cv4j.core.datamodel.ImageProcessor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +25,7 @@ public class CompositeFilters {
         return this;
     }
 
-    public ImageData filter(ImageData imageData) {
+    public ImageProcessor filter(ImageProcessor imageData) {
 
         if (lists!=null && lists.size()>0) {
             return filter(imageData,lists.size());
@@ -34,7 +34,7 @@ public class CompositeFilters {
         return imageData;
     }
 
-    private ImageData filter(ImageData imageData,int size) {
+    private ImageProcessor filter(ImageProcessor imageData, int size) {
 
         if (size==1) {
             CommonFilter filter = lists.get(0);

@@ -2,7 +2,7 @@ package com.cv4j.core.filters;
 
 import android.graphics.Color;
 
-import com.cv4j.core.datamodel.ImageData;
+import com.cv4j.core.datamodel.ImageProcessor;
 
 /**
  * @author gloomy fish
@@ -22,7 +22,7 @@ public class VignetteFilter implements CommonFilter {
 	}
 	
 	@Override
-	public ImageData filter(ImageData src){
+	public ImageProcessor filter(ImageProcessor src){
 		int width = src.getWidth();
         int height = src.getHeight();
 
