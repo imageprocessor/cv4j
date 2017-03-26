@@ -11,7 +11,7 @@ import android.widget.ImageView;
 
 import com.cv4j.app.R;
 import com.cv4j.app.app.BaseFragment;
-import com.cv4j.core.datamodel.ColorImage;
+import com.cv4j.core.datamodel.CV4JImage;
 import com.safframework.injectview.Injector;
 import com.safframework.injectview.annotations.InjectView;
 
@@ -49,7 +49,7 @@ public class IOFragment extends BaseFragment {
         Bitmap bitmap = BitmapFactory.decodeResource(res, R.drawable.test_io);
         image1.setImageBitmap(bitmap);
 
-        ColorImage ci = new ColorImage(bitmap);
+        CV4JImage ci = new CV4JImage(bitmap);
         image2.setImageBitmap(ci.toBitmap());
 
         codeView.setTheme(CodeViewTheme.ANDROIDSTUDIO).fillColor();

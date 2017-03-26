@@ -40,5 +40,7 @@ public interface ImageData {
 
     void convert2Gray();
 
+    Bitmap toBitmap();
+
     Bitmap toBitmap(Bitmap.Config bitmapConfig);
 }

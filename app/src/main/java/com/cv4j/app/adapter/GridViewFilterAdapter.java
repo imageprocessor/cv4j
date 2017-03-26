@@ -45,7 +45,7 @@ public class GridViewFilterAdapter extends RecyclerView.Adapter<GridViewFilterAd
             String filterName = mList.get(position);
             if (Preconditions.isNotBlank(filterName)) {
                 CommonFilter filter = (CommonFilter)getFilter(filterName);
-                RxImageData.imageData(mBitmap)
+                RxImageData.bitmap(mBitmap)
                         .addFilter(filter)
                         .into(holder.image);
             }

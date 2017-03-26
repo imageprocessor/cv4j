@@ -55,7 +55,7 @@ public class ColorFilterActivity extends BaseActivity {
         Resources res = getResources();
         bitmap = BitmapFactory.decodeResource(res, R.drawable.test_color_filter);
 
-        RxImageData.imageData(bitmap).addFilter(new ColorFilter()).into(image);
+        RxImageData.bitmap(bitmap).addFilter(new ColorFilter()).into(image);
 
         colorStyles.put(ColorFilter.AUTUMN_STYLE," 秋天风格 ");
         colorStyles.put(ColorFilter.BONE_STYLE," 硬朗风格 ");
@@ -97,7 +97,7 @@ public class ColorFilterActivity extends BaseActivity {
                     ColorFilter colorFilter = new ColorFilter();
                     colorFilter.setStyle((int)v.getTag());
 
-                    RxImageData.imageData(bitmap).addFilter(colorFilter).into(image);
+                    RxImageData.bitmap(bitmap).addFilter(colorFilter).into(image);
                 }
             });
         }

@@ -89,6 +89,11 @@ public class CV4JImage implements ImageData, Serializable{
     }
 
     @Override
+    public Bitmap toBitmap() {
+        return toBitmap(Bitmap.Config.RGB_565);
+    }
+
+    @Override
     public Bitmap toBitmap(Bitmap.Config bitmapConfig) {
         int width = processor.getWidth();
         int height = processor.getHeight();

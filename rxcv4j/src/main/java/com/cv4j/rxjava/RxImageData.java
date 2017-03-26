@@ -3,8 +3,9 @@ package com.cv4j.rxjava;
 import android.graphics.Bitmap;
 import android.widget.ImageView;
 
-import com.cv4j.core.datamodel.ColorImage;
+import com.cv4j.core.datamodel.CV4JImage;
 import com.cv4j.core.datamodel.ImageData;
+import com.cv4j.core.datamodel.ImageProcessor;
 import com.cv4j.core.filters.CommonFilter;
 
 import org.reactivestreams.Publisher;
@@ -23,37 +24,37 @@ import io.reactivex.schedulers.Schedulers;
 
 public class RxImageData {
 
-    ColorImage colorImage;
+    CV4JImage image;
     Flowable flowable;
 
     private RxImageData(Bitmap bitmap) {
 
-        this.colorImage = new ColorImage(bitmap);
-        flowable = Flowable.just(colorImage);
+        this.image = new CV4JImage(bitmap);
+        flowable = Flowable.just(image);
     }
 
-    private RxImageData(ColorImage colorImage) {
+    private RxImageData(CV4JImage image) {
 
-        this.colorImage = colorImage;
-        flowable = Flowable.just(colorImage);
+        this.image = image;
+        flowable = Flowable.just(image);
     }
 
-    public static RxImageData imageData(Bitmap bitmap) {
+    public static RxImageData bitmap(Bitmap bitmap) {
 
         return new RxImageData(bitmap);
     }
 
-    public static RxImageData colorImage(ColorImage colorImage) {
+    public static RxImageData image(CV4JImage image) {
 
-        return new RxImageData(colorImage);
+        return new RxImageData(image);
     }
 
     public RxImageData addFilter(final CommonFilter filter) {
 
-        flowable = flowable.map(new Function<ImageData,ImageData>() {
+        flowable = flowable.map(new Function<CV4JImage,ImageProcessor>() {
             @Override
-            public ImageData apply(ImageData imageData) throws Exception {
-                return filter.filter(imageData);
+            public ImageProcessor apply(CV4JImage imageData) throws Exception {
+                return filter.filter(imageData.getProcessor());
             }
         });
 
@@ -84,21 +85,21 @@ public class RxImageData {
     }
 
     /**
-     * RxImageData.imageData(bitmap).addFilter(new ColorFilter()).into(view);
+     * RxImageData.bitmap(bitmap).addFilter(new ColorFilter()).into(view);
      * @param imageview
      */
     public void into(final ImageView imageview) {
 
-        this.toFlowable().compose(toMain()).subscribe(new Consumer<ImageData>() {
+        this.toFlowable().compose(toMain()).subscribe(new Consumer<ImageProcessor>() {
             @Override
-            public void accept(@NonNull ImageData imgaeData) throws Exception {
-                imageview.setImageBitmap(imgaeData.toBitmap());
+            public void accept(@NonNull ImageProcessor imgaeData) throws Exception {
+                imageview.setImageBitmap(imgaeData.getImage().toBitmap());
             }
         });
     }
 
     /**
-     * RxImageData.imageData(bitmap).addFilter(new ColorFilter()).toFlowable().compose
+     * RxImageData.bitmap(bitmap).addFilter(new ColorFilter()).toFlowable().compose
      *     (RxImageData.toMain()).subscribe(new Consumer<ImageData>() {
      *
      *

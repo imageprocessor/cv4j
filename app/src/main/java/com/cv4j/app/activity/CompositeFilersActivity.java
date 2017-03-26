@@ -8,7 +8,7 @@ import android.widget.ImageView;
 
 import com.cv4j.app.R;
 import com.cv4j.app.app.BaseActivity;
-import com.cv4j.core.datamodel.ColorImage;
+import com.cv4j.core.datamodel.CV4JImage;
 import com.cv4j.core.filters.CompositeFilters;
 import com.cv4j.core.filters.NatureFilter;
 import com.cv4j.core.filters.SpotlightFilter;
@@ -51,17 +51,18 @@ public class CompositeFilersActivity extends BaseActivity {
         Resources res = getResources();
         bitmap = BitmapFactory.decodeResource(res, R.drawable.test_filters);
 
-        ColorImage ci1 = new ColorImage(bitmap);
-        image1.setImageBitmap(new NatureFilter().filter(ci1).toBitmap());
+        CV4JImage ci1 = new CV4JImage(bitmap);
+        image1.setImageBitmap(new NatureFilter().filter(ci1.getProcessor()).getImage().toBitmap());
 
-        ColorImage ci2 = new ColorImage(bitmap);
-        image2.setImageBitmap(new SpotlightFilter().filter(ci2).toBitmap());
+        CV4JImage ci2 = new CV4JImage(bitmap);
+        image2.setImageBitmap(new SpotlightFilter().filter(ci2.getProcessor()).getImage().toBitmap());
 
         CompositeFilters compositeFilters = new CompositeFilters();
         Bitmap newBitmap = compositeFilters
                         .addFilter(new NatureFilter())
                         .addFilter(new SpotlightFilter())
-                        .filter(new ColorImage(bitmap))
+                        .filter(new CV4JImage(bitmap).getProcessor())
+                        .getImage()
                         .toBitmap();
 
         image3.setImageBitmap(newBitmap);

@@ -8,7 +8,6 @@
         <item>Emboss</item>
         <item>Exposure</item>
         <item>FloSteDithering</item>
-        <item>GaussianBlur</item>
         <item>GaussianNoise</item>
         <item>MeansBinary</item>
         <item>Mosaic</item>

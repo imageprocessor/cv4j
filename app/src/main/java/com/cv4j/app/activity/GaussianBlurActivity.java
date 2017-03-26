@@ -12,8 +12,6 @@ import android.widget.ImageView;
 
 import com.cv4j.app.R;
 import com.cv4j.app.app.BaseActivity;
-import com.cv4j.core.filters.GaussianBlurFilter;
-import com.cv4j.rxjava.RxImageData;
 import com.safframework.aop.annotation.Trace;
 import com.safframework.injectview.Injector;
 import com.safframework.injectview.annotations.InjectView;
@@ -61,10 +59,10 @@ public class GaussianBlurActivity extends BaseActivity {
     @Trace
     private void useCV4j() {
 
-        RxImageData.imageData(bitmap)
-                .placeHolder(image2, R.drawable.test_filters)
-                .addFilter(new GaussianBlurFilter(20))
-                .into(image2);
+//        RxImageData.imageData(bitmap)
+//                .placeHolder(image2, R.drawable.test_filters)
+//                .addFilter(new GaussianBlurFilter(20))
+//                .into(image2);
     }
 
     /**

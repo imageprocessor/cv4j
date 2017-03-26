@@ -40,8 +40,7 @@ public class UseFilterWithRxActivity extends BaseActivity {
         Resources res = getResources();
         final Bitmap bitmap = BitmapFactory.decodeResource(res, R.drawable.test_io);
 
-
-        RxImageData.imageData(bitmap)
+        RxImageData.bitmap(bitmap)
                 .addFilter(new NatureFilter())
                 .into(image);
 

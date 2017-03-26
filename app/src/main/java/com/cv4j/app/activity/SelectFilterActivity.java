@@ -12,7 +12,7 @@ import android.widget.Spinner;
 
 import com.cv4j.app.R;
 import com.cv4j.app.app.BaseActivity;
-import com.cv4j.core.datamodel.ColorImage;
+import com.cv4j.core.datamodel.CV4JImage;
 import com.cv4j.core.filters.CommonFilter;
 import com.safframework.aop.annotation.Trace;
 import com.safframework.injectview.Injector;
@@ -114,11 +114,11 @@ public class SelectFilterActivity extends BaseActivity {
 
     @Trace
     public void changeFilter(String filterName) {
-        ColorImage colorImage = new ColorImage(bitmap);
+        CV4JImage colorImage = new CV4JImage(bitmap);
         CommonFilter filter = (CommonFilter)getFilter(filterName);
         if (filter!=null) {
-            colorImage = (ColorImage) filter.filter(colorImage);
-            image.setImageBitmap(colorImage.toBitmap());
+
+            image.setImageBitmap(filter.filter(colorImage.getProcessor()).getImage().toBitmap());
         }
     }
 }
