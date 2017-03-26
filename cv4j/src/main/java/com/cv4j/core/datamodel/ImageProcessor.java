@@ -17,4 +17,6 @@ public interface ImageProcessor {
 
 	/** get all pixels */
 	public int[] getPixels();
+
+	public ImageData getImage();
 }

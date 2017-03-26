@@ -1,5 +1,6 @@
 package com.cv4j.core.filters;
 
+import com.cv4j.core.datamodel.ColorProcessor;
 import com.cv4j.core.datamodel.ImageProcessor;
 import com.cv4j.image.util.Tools;
 
@@ -13,9 +14,11 @@ public class BoxBlurFilter implements CommonFilter {
     public ImageProcessor filter(ImageProcessor src) {
         int width = src.getWidth();
         int height = src.getHeight();
-        byte[][] input = src.getPixels();
+        byte[] R = ((ColorProcessor)src).getRed();
+        byte[] G = ((ColorProcessor)src).getGreen();
+        byte[] B = ((ColorProcessor)src).getBlue();
         byte[][] output = new byte[3][width*height];
-
+        byte[][] input = new byte[][]{R, G, B};
         for (int i = 0; i < iterations; i++ ) {
             blur( input, output, width, height, hRadius );
             blur( output, input, height, width, vRadius );

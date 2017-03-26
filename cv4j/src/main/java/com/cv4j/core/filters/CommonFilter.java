@@ -9,5 +9,5 @@ import com.cv4j.core.datamodel.ImageProcessor;
 
 public interface CommonFilter {
 
-    ImageProcessor filter(ColorProcessor imagedata);
+    ImageProcessor filter(ImageProcessor src);
 }

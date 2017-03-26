@@ -1,4 +1,5 @@
 package com.cv4j.core.filters;
+import com.cv4j.core.datamodel.ColorProcessor;
 import com.cv4j.core.datamodel.ImageProcessor;
 import com.cv4j.core.datamodel.IntIntegralImage;
 
@@ -6,7 +7,6 @@ import com.cv4j.core.datamodel.IntIntegralImage;
 public class MosaicFilter implements CommonFilter {
 	// 窗口半径大小
 	private int r=1;
-
 
 	public MosaicFilter() {
 		r = 1;
@@ -24,9 +24,9 @@ public class MosaicFilter implements CommonFilter {
 	public ImageProcessor filter(ImageProcessor src) {
 		int width = src.getWidth();
 		int height = src.getHeight();
-		byte[] R = src.getChannel(0);
-		byte[] G = src.getChannel(1);
-		byte[] B = src.getChannel(2);
+		byte[] R = ((ColorProcessor)src).getRed();
+		byte[] G = ((ColorProcessor)src).getGreen();
+		byte[] B = ((ColorProcessor)src).getBlue();
 		int size = (r * 2 + 1) * (r * 2 + 1);
 		int tr = 0, tg = 0, tb = 0;
 		byte[][] output = new byte[3][R.length];
@@ -61,7 +61,7 @@ public class MosaicFilter implements CommonFilter {
 				offset++;
 			}
 		}
-		src.putPixels(output);
+		((ColorProcessor) src).putRGB(R, G, B);
 		output = null;
 		return src;
 	}

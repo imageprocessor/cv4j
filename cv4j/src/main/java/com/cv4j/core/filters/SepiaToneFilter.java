@@ -1,5 +1,6 @@
 package com.cv4j.core.filters;
 
+import com.cv4j.core.datamodel.ColorProcessor;
 import com.cv4j.core.datamodel.ImageProcessor;
 
 public class SepiaToneFilter implements CommonFilter {
@@ -9,26 +10,23 @@ public class SepiaToneFilter implements CommonFilter {
 		int width = src.getWidth();
         int height = src.getHeight();
 
-        int offset = 0;
-		byte[] R = src.getChannel(0);
-		byte[] G = src.getChannel(1);
-		byte[] B = src.getChannel(2);
-        for(int row=0; row<height; row++) {
-			offset = row * width;
-			int tr = 0, tg = 0, tb = 0;
-			for (int col = 0; col < width; col++) {
-				tr = R[offset] & 0xff;
-				tg = G[offset] & 0xff;
-				tb = B[offset] & 0xff;
-				int fr = (int) colorBlend(noise(), (tr * 0.393) + (tg * 0.769) + (tb * 0.189), tr);
-				int fg = (int) colorBlend(noise(), (tr * 0.349) + (tg * 0.686) + (tb * 0.168), tg);
-				int fb = (int) colorBlend(noise(), (tr * 0.272) + (tg * 0.534) + (tb * 0.131), tb);
+        int total = width*height;
+		byte[] R = ((ColorProcessor)src).getRed();
+		byte[] G = ((ColorProcessor)src).getGreen();
+		byte[] B = ((ColorProcessor)src).getBlue();
+		int r=0, g=0, b=0;
+        for(int i=0; i<total; i++) {
+			r = R[i] & 0xff;
+			g = G[i] & 0xff;
+			b = B[i] & 0xff;
 
-				R[offset] = (byte)clamp(fr);
-				G[offset] = (byte)clamp(fg);
-				B[offset] = (byte)clamp(fb);
-				offset++;
-			}
+			r = (int) colorBlend(noise(), (r * 0.393) + (g * 0.769) + (b * 0.189), r);
+			g = (int) colorBlend(noise(), (r * 0.349) + (g * 0.686) + (b * 0.168), g);
+			b = (int) colorBlend(noise(), (r * 0.272) + (g * 0.534) + (b * 0.131), b);
+
+			R[i] = (byte)clamp(r);
+			G[i] = (byte)clamp(g);
+			B[i] = (byte)clamp(b);
 		}
         return src;
 	}

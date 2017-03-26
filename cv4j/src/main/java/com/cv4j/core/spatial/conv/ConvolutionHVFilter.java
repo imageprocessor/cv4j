@@ -1,5 +1,6 @@
 package com.cv4j.core.spatial.conv;
 
+import com.cv4j.core.datamodel.ColorProcessor;
 import com.cv4j.core.datamodel.ImageProcessor;
 import com.cv4j.core.filters.CommonFilter;
 
@@ -11,10 +12,11 @@ public class ConvolutionHVFilter implements CommonFilter {
 	public ImageProcessor filter(ImageProcessor src) {
 		int width = src.getWidth();
 		int height = src.getHeight();
-		byte[] R = src.getChannel(0);
-		byte[] G = src.getChannel(1);
-		byte[] B = src.getChannel(2);
-		byte[][] output = new byte[3][R.length];
+		int total = width*height;
+		byte[] R = ((ColorProcessor)src).getRed();
+		byte[] G = ((ColorProcessor)src).getGreen();
+		byte[] B = ((ColorProcessor)src).getBlue();
+		byte[][] output = new byte[3][total];
 		int r=0, g=0, b=0;
 		for(int row=0; row<height; row++) {
 			int offset = row*width;

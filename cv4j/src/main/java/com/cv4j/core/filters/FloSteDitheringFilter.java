@@ -1,5 +1,8 @@
 package com.cv4j.core.filters;
 
+import com.cv4j.core.datamodel.ByteProcessor;
+import com.cv4j.core.datamodel.ColorProcessor;
+import com.cv4j.core.datamodel.ImageData;
 import com.cv4j.core.datamodel.ImageProcessor;
 import com.cv4j.image.util.Tools;
 
@@ -25,20 +28,21 @@ public class FloSteDitheringFilter implements CommonFilter {
 
 	@Override
 	public ImageProcessor filter(ImageProcessor src) {
-        if(src.getType() == ImageProcessor.CV4J_IMAGE_TYPE_RGB) {
-            src.convert2Gray();
+        if(src instanceof ColorProcessor) {
+            src.getImage().convert2Gray();
+            src = src.getImage().getProcessor();
         }
 		int width = src.getWidth();
         int height = src.getHeight();
-        byte[] R = src.getChannel(0);
-        byte[] output = new byte[R.length];
+        byte[] GRAY = ((ByteProcessor)src).getGray();
+        byte[] output = new byte[GRAY.length];
 
         int gray = 0;
         int err = 0;
         for(int row=0; row<height; row++) {
             int offset = row*width;
         	for(int col=0; col<width; col++) {
-                gray = R[offset]&0xff;
+                gray = GRAY[offset]&0xff;
                 int cIndex = getCloseColor(gray);
                 output[offset] = (byte)COLOR_PALETTE[cIndex];
                 int er = gray - COLOR_PALETTE[cIndex];
@@ -46,36 +50,36 @@ public class FloSteDitheringFilter implements CommonFilter {
                 
                 if(row + 1 < height && col - 1 > 0) {
                 	k = (row + 1) * width + col - 1;
-                    err = R[k]&0xff;
+                    err = GRAY[k]&0xff;
                     err += (int)(er * kernelData[0]);
-                    R[k] = (byte)Tools.clamp(err);
+                    GRAY[k] = (byte)Tools.clamp(err);
                 }
                 
                 if(col + 1 < width) {
                 	k = row * width + col + 1;
-                    err = R[k]&0xff;
+                    err = GRAY[k]&0xff;
                     err += (int)(er * kernelData[3]);
-                    R[k] = (byte)Tools.clamp(err);
+                    GRAY[k] = (byte)Tools.clamp(err);
                 }
                 
                 if(row + 1 < height) {
                 	k = (row + 1) * width + col;
-                    err = R[k]&0xff;
+                    err = GRAY[k]&0xff;
                     err += (int)(er * kernelData[1]);
-                    R[k] = (byte)Tools.clamp(err);
+                    GRAY[k] = (byte)Tools.clamp(err);
                 }
                 
                 if(row + 1 < height && col + 1 < width) {
                 	k = (row + 1) * width + col + 1;
-                    err = R[k]&0xff;
+                    err = GRAY[k]&0xff;
                     err += (int)(er * kernelData[2]);
-                    R[k] = (byte)Tools.clamp(err);
+                    GRAY[k] = (byte)Tools.clamp(err);
                 }
                 offset++;
         	}
         }
-        src.putPixels(new byte[][]{output, output, output});
-        output = null;
+        ((ByteProcessor)src).putGray(GRAY);
+        GRAY = null;
         return src;
 	}
 	
@@ -84,8 +88,8 @@ public class FloSteDitheringFilter implements CommonFilter {
 		int bestIndex = 0;
 		for(int i=0; i<COLOR_PALETTE.length; i++) {
 			int diff = Math.abs(gray - COLOR_PALETTE[i]);
-			if(ImageProcessor.SQRT_LUT[diff] < minDistanceSquared) {
-				minDistanceSquared = ImageProcessor.SQRT_LUT[diff];
+			if(ImageData.SQRT_LUT[diff] < minDistanceSquared) {
+				minDistanceSquared = ImageData.SQRT_LUT[diff];
 				bestIndex = i;
 			}
 		}

@@ -33,12 +33,12 @@ public class ColorFilter implements CommonFilter {
     }
 
     @Override
-    public ImageProcessor filter(ColorProcessor src) {
+    public ImageProcessor filter(ImageProcessor src) {
         int width = src.getWidth();
         int height = src.getHeight();
-        byte[] R = src.getRed();
-        byte[] G = src.getGreen();
-        byte[] B = src.getBlue();
+        byte[] R = ((ColorProcessor)src).getRed();
+        byte[] G = ((ColorProcessor)src).getGreen();
+        byte[] B = ((ColorProcessor)src).getBlue();
         int tr=0, tg=0, tb=0;
         int[][] lut = getStyleLUT(style);
         int size = R.length;

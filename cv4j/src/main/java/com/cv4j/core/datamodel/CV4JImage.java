@@ -26,6 +26,7 @@ public class CV4JImage implements ImageData, Serializable{
         int[] input = new int[width * height];
         bitmap.getPixels(input, 0, width, 0, 0, width, height);
         processor = new ColorProcessor(input,width, height);
+        ((ColorProcessor)processor).setCallBack(this);
         input = null;
     }
 
@@ -40,6 +41,7 @@ public class CV4JImage implements ImageData, Serializable{
         int[] input = new int[width * height];
         bitmap.getPixels(input, 0, width, 0, 0, width, height);
         processor = new ColorProcessor(input,width, height);
+        ((ColorProcessor)processor).setCallBack(this);
         input = null;
         IOUtils.closeQuietly(inputStream);
     }
@@ -55,6 +57,7 @@ public class CV4JImage implements ImageData, Serializable{
         int[] input = new int[width * height];
         bitmap.getPixels(input, 0, width, 0, 0, width, height);
         processor = new ColorProcessor(input,width, height);
+        ((ColorProcessor)processor).setCallBack(this);
         input = null;
     }
 
@@ -81,6 +84,7 @@ public class CV4JImage implements ImageData, Serializable{
                 gray[i] = (byte) c;
             }
             processor = new ByteProcessor(gray, width, height);
+            ((ByteProcessor)processor).setCallBack(this);
         }
     }
 

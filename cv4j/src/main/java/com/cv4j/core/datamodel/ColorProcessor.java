@@ -5,6 +5,7 @@ public class ColorProcessor implements ImageProcessor,Serializable {
     private byte[] R;
     private byte[] G;
     private byte[] B;
+    private ImageData image;
 
     private int width;
     private int height;
@@ -81,5 +82,13 @@ public class ColorProcessor implements ImageProcessor,Serializable {
         for (int i=0; i < size; i++)
             pixels[i] = 0xff000000 | ((R[i]&0xff)<<16) | ((G[i]&0xff)<<8) | B[i]&0xff;
         return pixels;
+    }
+
+    protected void setCallBack(ImageData data) {
+        this.image = data;
+    }
+
+    public ImageData getImage() {
+        return this.image;
     }
 }

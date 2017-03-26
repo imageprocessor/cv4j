@@ -1,39 +1,33 @@
 package com.cv4j.core.filters;
 
+import com.cv4j.core.datamodel.ByteProcessor;
+import com.cv4j.core.datamodel.ColorProcessor;
 import com.cv4j.core.datamodel.ImageProcessor;
 
 public class MeansBinaryFilter implements CommonFilter {
 
 	public ImageProcessor filter(ImageProcessor src) {
-        if(src.getType() == ImageProcessor.CV4J_IMAGE_TYPE_RGB) {
-            src.convert2Gray();
+        if(src instanceof ColorProcessor) {
+            src.getImage().convert2Gray();
+            src = src.getImage().getProcessor();
         }
-        // calculate means of pixel  
-        int index = 0;  
-        double graySum = 0;
-        double total = src.getHeight() * src.getWidth();
-        int gray =0;
-        byte[] R = src.getChannel(0);
-        byte[] output = new byte[R.length];
+        int width = src.getWidth();
+        int height = src.getHeight();
+        byte[] GRAY = ((ByteProcessor)src).getGray();
+
+        float graySum = 0;
+        int total = width * height;
         for(int i=0; i<total; i++){
-            gray = R[i]&0xff;
-            graySum += gray;
+            graySum += GRAY[i]&0xff;
         }
         int means = (int)(graySum / total);
-        System.out.println(" threshold average value = " + means);
         
         // dithering
+        int c = 0;
         for(int i=0; i<total; i++) {
-            gray = R[i]&0xff;
-            if (gray >= means) {
-                gray = 255;
-            } else {
-                gray = 0;
-            }
-            output[i] = (byte)gray;
+            c = ((GRAY[i]&0xff) >= means) ? 255 : 0;
+            GRAY[i] = (byte)c;
         }
-        src.putPixels(new byte[][]{output, output, output});
-        output = null;
         return src;
 	}
 }

@@ -1,5 +1,6 @@
 package com.cv4j.core.filters;
 
+import com.cv4j.core.datamodel.ColorProcessor;
 import com.cv4j.core.datamodel.ImageProcessor;
 import com.cv4j.image.util.Tools;
 
@@ -41,11 +42,9 @@ public class WaterFilter implements CommonFilter {
 		int width = src.getWidth();
         int height = src.getHeight();
 
-		byte[] R = src.getChannel(0);
-		byte[] G = src.getChannel(1);
-		byte[] B = src.getChannel(2);
-		int[] inPixels = convert2Pixels(src.getPixels());
-		byte[][] output = new byte[3][R.length];
+		int total = width*height;
+		int[] inPixels = src.getPixels();
+		byte[][] output = new byte[3][total];
 
 		icentreX = width * centreX;
 		icentreY = height * centreY;
@@ -92,17 +91,10 @@ public class WaterFilter implements CommonFilter {
 				output[2][index] = (byte)b;
         	}
         }
-
-        src.putPixels(output);
+		((ColorProcessor)src).putRGB(output[0], output[1], output[2]);
+		inPixels = null;
 		output = null;
         return src;
-	}
-
-	private int[] convert2Pixels(byte[][] rgb) {
-		int[] pixels = new int[rgb[0].length];
-		for (int i=0; i < pixels.length; i++)
-			pixels[i] = 0xff000000 | ((rgb[0][i]&0xff)<<16) | ((rgb[1][i]&0xff)<<8) | rgb[2][i]&0xff;
-		return pixels;
 	}
 
 	private int getPixel(int[] pixels, int x, int y, int width, int height) {

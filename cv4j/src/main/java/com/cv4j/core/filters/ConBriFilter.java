@@ -17,12 +17,12 @@ public class ConBriFilter implements CommonFilter  {
 	private float brightness = 0.7f; // default value;
 
 	@Override
-	public ImageProcessor filter(ColorProcessor src) {
+	public ImageProcessor filter(ImageProcessor src) {
 		int width = src.getWidth();
 		int height = src.getHeight();
-		byte[] R = src.getRed();
-		byte[] G = src.getGreen();
-		byte[] B = src.getBlue();
+		byte[] R = ((ColorProcessor)src).getRed();
+		byte[] G = ((ColorProcessor)src).getGreen();
+		byte[] B = ((ColorProcessor)src).getBlue();
 		byte[][] output = new byte[3][R.length];
         
         // calculate RED, GREEN, BLUE means of pixel

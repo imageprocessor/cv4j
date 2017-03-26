@@ -2,6 +2,8 @@ package com.cv4j.core.filters;
 
 import android.graphics.Color;
 
+import com.cv4j.core.datamodel.ColorProcessor;
+import com.cv4j.core.datamodel.ImageData;
 import com.cv4j.core.datamodel.ImageProcessor;
 
 public class SinCityFilter implements CommonFilter {
@@ -18,39 +20,33 @@ public class SinCityFilter implements CommonFilter {
 		int width = src.getWidth();
         int height = src.getHeight();
 
-        int offset = 0;
-		byte[] R = src.getChannel(0);
-		byte[] G = src.getChannel(1);
-		byte[] B = src.getChannel(2);
-		byte[][] output = new byte[3][R.length];
+        int total = width*height;
+		byte[] R = ((ColorProcessor)src).getRed();
+		byte[] G = ((ColorProcessor)src).getGreen();
+		byte[] B = ((ColorProcessor)src).getBlue();
 
-        for(int row=0; row<height; row++) {
-			offset = row*width;
-        	int ta = 0, tr = 0, tg = 0, tb = 0;
-        	for(int col=0; col<width; col++) {
-                tr = R[offset] & 0xff;
-                tg = G[offset] & 0xff;
-                tb = B[offset] & 0xff;
-                int gray = (int)(0.299 * (double)tr + 0.587 * (double)tg + 0.114 * (double)tb);
-                double distance = getDistance(tr, tg, tb);
-                if(distance < threshold) {
-                	double k = distance / threshold;
-                	int[] rgb = getAdjustableRGB(tr, tg, tb, gray, (float)k);
-                	tr = rgb[0];
-                	tg = rgb[1];
-                	tb = rgb[2];
-					output[0][offset] = (byte)tr;
-					output[1][offset] = (byte)tg;
-					output[2][offset] = (byte)tb;
-                } else {
-					output[0][offset] = (byte)gray;
-					output[1][offset] = (byte)gray;
-					output[2][offset] = (byte)gray;
-                }
-				offset++;
-        	}
+		int tr=0, tg=0, tb=0;
+        for(int i=0; i<total; i++) {
+			tr = R[i] & 0xff;
+			tg = G[i] & 0xff;
+			tb = B[i] & 0xff;
+			int gray = (int)(0.299 * (double)tr + 0.587 * (double)tg + 0.114 * (double)tb);
+			double distance = getDistance(tr, tg, tb);
+			if(distance < threshold) {
+				double k = distance / threshold;
+				int[] rgb = getAdjustableRGB(tr, tg, tb, gray, (float)k);
+				tr = rgb[0];
+				tg = rgb[1];
+				tb = rgb[2];
+				R[i] = (byte)tr;
+				G[i] = (byte)tg;
+				B[i] = (byte)tb;
+			} else {
+				R[i] = (byte)gray;
+				G[i] = (byte)gray;
+				B[i] = (byte)gray;
+			}
         }
-        src.putPixels(output);
         return src;
 	}
 
@@ -66,7 +62,9 @@ public class SinCityFilter implements CommonFilter {
 		int dr = tr - Color.red(mainColor);
 		int dg = tg - Color.green(mainColor);
 		int db = tb - Color.blue(mainColor);
-		int distance = dr * dr + dg * dg + db * db;
+		int distance = ImageData.SQRT_LUT[Math.abs(dr)] +
+				ImageData.SQRT_LUT[Math.abs(dg)] +
+				ImageData.SQRT_LUT[Math.abs(db)];
 		return Math.sqrt(distance);		
 	}
 

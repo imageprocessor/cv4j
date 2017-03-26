@@ -12,6 +12,7 @@ public class ByteProcessor implements ImageProcessor,Serializable {
     private int height;
     private byte[] GRAY;
     private int[] hist;
+    private ImageData image;
 
     public ByteProcessor(byte[] data, int width, int height) {
         this.width = width;
@@ -22,6 +23,10 @@ public class ByteProcessor implements ImageProcessor,Serializable {
         for(int i=0; i<data.length; i++) {
             hist[data[i]&0xff]++;
         }
+    }
+
+    protected void setCallBack(ImageData data) {
+        this.image = data;
     }
 
     @Override
@@ -65,4 +70,8 @@ public class ByteProcessor implements ImageProcessor,Serializable {
             pixels[i] = 0xff000000 | ((GRAY[i]&0xff)<<16) | ((GRAY[i]&0xff)<<8) | GRAY[i]&0xff;
         return pixels;
     }
+    public ImageData getImage() {
+        return this.image;
+    }
+
 }

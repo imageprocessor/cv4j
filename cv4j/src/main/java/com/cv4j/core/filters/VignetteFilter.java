@@ -2,6 +2,7 @@ package com.cv4j.core.filters;
 
 import android.graphics.Color;
 
+import com.cv4j.core.datamodel.ColorProcessor;
 import com.cv4j.core.datamodel.ImageProcessor;
 
 /**
@@ -26,10 +27,11 @@ public class VignetteFilter implements CommonFilter {
 		int width = src.getWidth();
         int height = src.getHeight();
 
-		byte[] R = src.getChannel(0);
-		byte[] G = src.getChannel(1);
-		byte[] B = src.getChannel(2);
-		byte[][] output = new byte[3][R.length];
+		int total = width*height;
+		byte[] R = ((ColorProcessor)src).getRed();
+		byte[] G = ((ColorProcessor)src).getGreen();
+		byte[] B = ((ColorProcessor)src).getBlue();
+		byte[][] output = new byte[3][total];
 
 		int index = 0;
 		for(int row=0; row<height; row++) {
@@ -89,7 +91,7 @@ public class VignetteFilter implements CommonFilter {
 			}
 		}
         
-        src.putPixels(output);
+        ((ColorProcessor) src).putRGB(R, G, B);
 		output = null;
         return src;
 	}

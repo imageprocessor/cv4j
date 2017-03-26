@@ -1,5 +1,6 @@
 package com.cv4j.core.spatial.conv;
 
+import com.cv4j.core.datamodel.ColorProcessor;
 import com.cv4j.core.datamodel.ImageProcessor;
 import com.cv4j.core.filters.CommonFilter;
 
@@ -17,10 +18,11 @@ public class FindEdgeFilter implements CommonFilter {
 	public ImageProcessor filter(ImageProcessor src) {
 		int width = src.getWidth();
 		int height = src.getHeight();
-		byte[] R = src.getChannel(0);
-		byte[] G = src.getChannel(1);
-		byte[] B = src.getChannel(2);
-		byte[][] output = new byte[3][R.length];
+		int total = width*height;
+		byte[] R = ((ColorProcessor)src).getRed();
+		byte[] G = ((ColorProcessor)src).getGreen();
+		byte[] B = ((ColorProcessor)src).getBlue();
+		byte[][] output = new byte[3][total];
 
 		int offset = 0;
 		int x0 = sobel_x[0];
@@ -134,7 +136,7 @@ public class FindEdgeFilter implements CommonFilter {
 				xb=0;
 			}
 		}
-		src.putPixels(output);
+		((ColorProcessor) src).putRGB(output[0], output[1], output[2]);
 		output[0] = null;
 		output[1] = null;
 		output[2] = null;
