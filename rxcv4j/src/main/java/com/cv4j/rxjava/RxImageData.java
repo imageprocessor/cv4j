@@ -49,6 +49,11 @@ public class RxImageData {
         return new RxImageData(image);
     }
 
+    /**
+     * 使用滤镜
+     * @param filter
+     * @return
+     */
     public RxImageData addFilter(final CommonFilter filter) {
 
         flowable = flowable.map(new Function<CV4JImage,ImageProcessor>() {
@@ -92,8 +97,8 @@ public class RxImageData {
 
         this.toFlowable().compose(toMain()).subscribe(new Consumer<ImageProcessor>() {
             @Override
-            public void accept(@NonNull ImageProcessor imgaeData) throws Exception {
-                imageview.setImageBitmap(imgaeData.getImage().toBitmap());
+            public void accept(@NonNull ImageProcessor imgaeProcessor) throws Exception {
+                imageview.setImageBitmap(imgaeProcessor.getImage().toBitmap());
             }
         });
     }
@@ -104,9 +109,9 @@ public class RxImageData {
      *
      *
      *         @Override
-     *        public void accept(@NonNull ImageData imgaeData) throws Exception {
+     *        public void accept(@NonNull ImageProcessor imgaeProcessor) throws Exception {
      *
-     *           image.setImageBitmap(imgaeData.toBitmap());
+     *           image.setImageBitmap(imgaeProcessor.getImage().toBitmap());
      *       }
      * });
      * @param <T>

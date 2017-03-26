@@ -76,7 +76,8 @@ public class CompositeFilersActivity extends BaseActivity {
                 .append("\r\n")
                 .append(".addFilter(new NatureFilter())").append("\r\n")
                 .append(".addFilter(new SpotlightFilter())").append("\r\n")
-                .append(".filter(new ColorImage(bitmap))").append("\r\n")
+                .append(".filter(new CV4JImage(bitmap).getProcessor())").append("\r\n")
+                .append(".getImage()").append("\r\n")
                 .append(".toBitmap();").append("\r\n").append("\r\n")
                 .append("image3.setImageBitmap(newBitmap);");
 
