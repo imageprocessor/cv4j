@@ -15,6 +15,7 @@ import java.io.Serializable;
  */
 
 public class CV4JImage implements ImageData, Serializable{
+
     private ImageProcessor processor;
 
     public CV4JImage(Bitmap bitmap) {

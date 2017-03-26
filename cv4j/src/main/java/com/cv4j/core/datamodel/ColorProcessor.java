@@ -1,7 +1,5 @@
 package com.cv4j.core.datamodel;
-import java.io.Serializable;
-
-public class ColorProcessor implements ImageProcessor,Serializable {
+public class ColorProcessor implements ImageProcessor {
     private byte[] R;
     private byte[] G;
     private byte[] B;
