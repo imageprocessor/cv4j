@@ -91,7 +91,7 @@ public class VignetteFilter implements CommonFilter {
 			}
 		}
         
-        ((ColorProcessor) src).putRGB(R, G, B);
+        ((ColorProcessor) src).putRGB(output[0], output[1], output[2]);
 		output = null;
         return src;
 	}
