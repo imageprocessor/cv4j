@@ -68,25 +68,20 @@ public class NatureFilter implements CommonFilter {
 		byte[] R = ((ColorProcessor)src).getRed();
 		byte[] G = ((ColorProcessor)src).getGreen();
 		byte[] B = ((ColorProcessor)src).getBlue();
-		byte[][] output = new byte[3][total];
 
 		int index = 0;
-		for (int row = 0; row < height; row++) {
-			int ta = 0, tr = 0, tg = 0, tb = 0;
-			for (int col = 0; col < width; col++) {
-				index = row * width + col;
-				tr = R[index] & 0xff;
-				tg = G[index] & 0xff;
-				tb = B[index] & 0xff;
-				int[] onePixel = processOnePixel(ta, tr, tg, tb);
+		int ta = 0, tr = 0, tg = 0, tb = 0;
+		for (int i=0; i<total; i++) {
+			tr = R[i] & 0xff;
+			tg = G[i] & 0xff;
+			tb = B[i] & 0xff;
+			int[] onePixel = processOnePixel(ta, tr, tg, tb);
 
-				output[0][index] = (byte)onePixel[0];
-				output[1][index] = (byte)onePixel[1];
-				output[2][index] = (byte)onePixel[2];
-			}
+			R[i] = (byte)onePixel[0];
+			G[i] = (byte)onePixel[1];
+			B[i] = (byte)onePixel[2];
 		}
 		((ColorProcessor) src).putRGB(R, G, B);
-		output = null;
 		return src;
 	}
 
