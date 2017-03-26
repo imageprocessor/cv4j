@@ -1,5 +1,6 @@
 package com.cv4j.core.filters;
 
+import com.cv4j.core.datamodel.ColorProcessor;
 import com.cv4j.core.datamodel.ImageProcessor;
 import com.cv4j.image.util.Tools;
 
@@ -17,7 +18,7 @@ public class EmbossFilter implements CommonFilter {
 	}
 
 	@Override
-	public ImageProcessor filter(ImageProcessor src){
+	public ImageProcessor filter(ColorProcessor src){
 		int width = src.getWidth();
         int height = src.getHeight();
 
@@ -25,9 +26,9 @@ public class EmbossFilter implements CommonFilter {
 		int r1=0, g1=0, b1=0;
 		int r2=0, g2=0, b2=0;
 		int r=0, g=0, b=0;
-		byte[] R = src.getChannel(0);
-		byte[] G = src.getChannel(1);
-		byte[] B = src.getChannel(2);
+		byte[] R = src.getRed();
+		byte[] G = src.getGreen();
+		byte[] B = src.getBlue();
 		byte[][] output = new byte[3][R.length];
 		for ( int y = 1; y < height-1; y++ ) {
 			offset = y*width;
@@ -59,7 +60,7 @@ public class EmbossFilter implements CommonFilter {
 				offset++;
 			}
 		}
-		src.putPixels(output);
+		src.putRGB(output[0], output[1], output[2]);
 		output = null;
 		return src;
 	}

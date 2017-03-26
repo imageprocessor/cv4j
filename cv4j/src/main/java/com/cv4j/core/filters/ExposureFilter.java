@@ -1,5 +1,6 @@
 package com.cv4j.core.filters;
 
+import com.cv4j.core.datamodel.ColorProcessor;
 import com.cv4j.core.datamodel.ImageProcessor;
 
 /**
@@ -9,30 +10,18 @@ import com.cv4j.core.datamodel.ImageProcessor;
 public class ExposureFilter implements CommonFilter  {
 
     @Override
-    public ImageProcessor filter(ImageProcessor src) {
+    public ImageProcessor filter(ColorProcessor src) {
         int width = src.getWidth();
         int height = src.getHeight();
-        byte[] R = src.getChannel(0);
-        byte[] G = src.getChannel(1);
-        byte[] B = src.getChannel(2);
-        byte[][] output = new byte[3][R.length];
+        byte[] R = src.getRed();
+        byte[] G = src.getGreen();
+        byte[] B = src.getBlue();
         int tr=0, tg=0, tb=0;
-        for(int row=0; row<height; row++) {
-            int offset = row*width;
-            for(int col=0; col<width; col++) {
-                tr = R[offset] & 0xff;
-                tg = G[offset] & 0xff;
-                tb = B[offset] & 0xff;
-
-                tr = 255 - tr;
-                tg = 255 - tg;
-                tb = 255 - tb;
-
-                R[offset] = (byte)tr;
-                G[offset] = (byte)tg;
-                B[offset] = (byte)tb;
-                offset++;
-            }
+        int size = R.length;
+        for(int i=0; i<height; i++) {
+            R[i] = (byte)~R[i];
+            G[i] = (byte)~G[i];
+            B[i] = (byte)~B[i];
         }
         return src;
     }
