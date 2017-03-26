@@ -1,12 +1,10 @@
 package com.cv4j.core.datamodel;
 
-import java.io.Serializable;
-
 /**
  * Created by gloomyfish on 2017/3/25.
  */
 
-public class ByteProcessor implements ImageProcessor,Serializable {
+public class ByteProcessor implements ImageProcessor {
 
     private int width;
     private int height;

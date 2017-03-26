@@ -18,7 +18,7 @@ public class ExposureFilter implements CommonFilter  {
         byte[] B = ((ColorProcessor)src).getBlue();
         int tr=0, tg=0, tb=0;
         int size = R.length;
-        for(int i=0; i<height; i++) {
+        for(int i=0; i<size; i++) {
             R[i] = (byte)~R[i];
             G[i] = (byte)~G[i];
             B[i] = (byte)~B[i];
