@@ -19,4 +19,16 @@
         <item>Vignette</item>
         <item>Water</item>
     </string-array>
+
+    <string-array name="spatialConvNames">
+        <item>ConvolutionHV</item>
+        <item>FindEdge</item>
+        <item>Laplas</item>
+        <item>Medima</item>
+        <item>MinMax</item>
+        <item>SAPNoise</item>
+        <item>Sharp</item>
+        <item>Sobel</item>
+        <item>Variance</item>
+    </string-array>
 </resources>
