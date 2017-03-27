@@ -34,16 +34,16 @@ public class SpitalConvAdapter extends RecyclerView.Adapter<SpitalConvAdapter.Vi
         mList = data;
         mBitmap = bitmap;
         map = new HashMap<>();
-        map.put(0," 原图 ");
-        map.put(1," 卷积 ");
-        map.put(2," 寻找边缘 ");
-        map.put(3," 拉普拉斯 ");
-        map.put(4," 中值滤波 ");
-        map.put(5," 最大最小值滤波 ");
-        map.put(6," 椒盐噪声 ");
-        map.put(7," 锐化 ");
-        map.put(8," 梯度 ");
-        map.put(9," 方差滤波 ");
+        map.put(0,"原图");
+        map.put(1,"卷积");
+        map.put(2,"寻找边缘");
+        map.put(3,"拉普拉斯");
+        map.put(4,"中值滤波");
+        map.put(5,"最大最小值滤波");
+        map.put(6,"椒盐噪声");
+        map.put(7,"锐化");
+        map.put(8,"梯度");
+        map.put(9,"方差滤波");
     }
 
     @Override
