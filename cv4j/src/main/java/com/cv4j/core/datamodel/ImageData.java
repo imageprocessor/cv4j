@@ -3,7 +3,7 @@ package com.cv4j.core.datamodel;
 import android.graphics.Bitmap;
 
 /**
- * Created by Administrator on 2017/3/25.
+ * Created by gloomyfish on 2017/3/25.
  */
 
 public interface ImageData {

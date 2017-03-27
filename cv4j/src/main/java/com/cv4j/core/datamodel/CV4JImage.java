@@ -11,19 +11,21 @@ import java.io.InputStream;
 import java.io.Serializable;
 
 /**
- * Created by Administrator on 2017/3/25.
+ * Created by gloomyfish on 2017/3/25.
  */
 
 public class CV4JImage implements ImageData, Serializable{
 
+    private int width;
+    private int height;
     private ImageProcessor processor;
 
     public CV4JImage(Bitmap bitmap) {
         if (bitmap == null) {
             throw new CV4JException("bitmap is null");
         }
-        int width = bitmap.getWidth();
-        int height = bitmap.getHeight();
+        width = bitmap.getWidth();
+        height = bitmap.getHeight();
         int[] input = new int[width * height];
         bitmap.getPixels(input, 0, width, 0, 0, width, height);
         processor = new ColorProcessor(input,width, height);
@@ -37,8 +39,8 @@ public class CV4JImage implements ImageData, Serializable{
         }
 
         Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
-        int width = bitmap.getWidth();
-        int height = bitmap.getHeight();
+        width = bitmap.getWidth();
+        height = bitmap.getHeight();
         int[] input = new int[width * height];
         bitmap.getPixels(input, 0, width, 0, 0, width, height);
         processor = new ColorProcessor(input,width, height);
@@ -53,8 +55,8 @@ public class CV4JImage implements ImageData, Serializable{
         }
 
         Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-        int width = bitmap.getWidth();
-        int height = bitmap.getHeight();
+        width = bitmap.getWidth();
+        height = bitmap.getHeight();
         int[] input = new int[width * height];
         bitmap.getPixels(input, 0, width, 0, 0, width, height);
         processor = new ColorProcessor(input,width, height);
@@ -70,8 +72,7 @@ public class CV4JImage implements ImageData, Serializable{
     @Override
     public void convert2Gray() {
         if(processor instanceof ColorProcessor) {
-            int width = processor.getWidth();
-            int height = processor.getHeight();
+
             byte[] gray = new byte[width * height];
             int tr=0, tg=0, tb=0, c=0;
             byte[] R = ((ColorProcessor) processor).getRed();
@@ -96,8 +97,7 @@ public class CV4JImage implements ImageData, Serializable{
 
     @Override
     public Bitmap toBitmap(Bitmap.Config bitmapConfig) {
-        int width = processor.getWidth();
-        int height = processor.getHeight();
+
         Bitmap bitmap = Bitmap.createBitmap(width, height, bitmapConfig);
         if(processor instanceof ColorProcessor || processor instanceof ByteProcessor) {
             bitmap.setPixels(processor.getPixels(), 0, width, 0, 0, width, height);
