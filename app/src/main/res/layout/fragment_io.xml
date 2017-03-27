@@ -40,10 +40,22 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="示例代码:"/>
+            android:text="一般的实现方式:"/>
 
         <thereisnospon.codeview.CodeView
-            android:id="@+id/codeview"
+            android:id="@+id/codeview1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </thereisnospon.codeview.CodeView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="使用Rxjava的方式来实现:"/>
+
+        <thereisnospon.codeview.CodeView
+            android:id="@+id/codeview2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
         </thereisnospon.codeview.CodeView>

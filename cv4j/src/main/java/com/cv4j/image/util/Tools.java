@@ -1,7 +1,5 @@
 package com.cv4j.image.util;
 
-import android.graphics.Color;
-
 import java.io.BufferedReader;
 import java.io.StringReader;
 import java.util.Arrays;
