@@ -1,32 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
 
-    <ImageView
-        android:id="@+id/image"
-        android:layout_width="300dp"
-        android:layout_height="400dp"
-        android:layout_centerInParent="true"/>
+    <com.cv4j.app.ui.GridRecyclerView
+        android:id="@+id/recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center">
 
-    <HorizontalScrollView
-        android:id="@+id/scroll_view"
-        android:layout_width="wrap_content"
-        android:layout_height="60dp"
-        android:background="#AA444444"
-        android:layout_below="@+id/image"
-        android:layout_marginTop="60dp"
-        android:scrollbars="none"
-        android:layout_alignParentBottom="true">
+    </com.cv4j.app.ui.GridRecyclerView>
 
-        <LinearLayout
-            android:id="@+id/linear"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:orientation="horizontal">
-        </LinearLayout>
-    </HorizontalScrollView>
-
-</RelativeLayout>
+</LinearLayout>

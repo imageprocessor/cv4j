@@ -1,6 +1,7 @@
 package com.cv4j.rxjava;
 
 import android.graphics.Bitmap;
+import android.util.Log;
 import android.widget.ImageView;
 
 import com.cv4j.core.datamodel.CV4JImage;
@@ -55,6 +56,12 @@ public class RxImageData {
      * @return
      */
     public RxImageData addFilter(final CommonFilter filter) {
+
+        if (filter==null) {
+
+            Log.e("RxImageData","filter is null");
+            return this;
+        }
 
         flowable = flowable.map(new Function<CV4JImage,ImageProcessor>() {
             @Override
