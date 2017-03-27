@@ -23,12 +23,12 @@
     <string-array name="spatialConvNames">
         <item>原图</item>
         <item>ConvolutionHV</item>
-        <item>FindEdge</item>
-        <item>Laplas</item>
-        <item>Medima</item>
         <item>MinMax</item>
         <item>SAPNoise</item>
         <item>Sharp</item>
+        <item>Medima</item>
+        <item>Laplas</item>
+        <item>FindEdge</item>
         <item>Sobel</item>
         <item>Variance</item>
     </string-array>
