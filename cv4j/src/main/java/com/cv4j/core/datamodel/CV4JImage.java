@@ -38,7 +38,13 @@ public class CV4JImage implements ImageData, Serializable{
             throw new CV4JException("inputStream is null");
         }
 
-        Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+        Bitmap bitmap = null;
+        try {
+            bitmap = BitmapFactory.decodeStream(inputStream);
+        } catch (OutOfMemoryError e) {
+            return;
+        }
+
         width = bitmap.getWidth();
         height = bitmap.getHeight();
         int[] input = new int[width * height];
@@ -54,7 +60,13 @@ public class CV4JImage implements ImageData, Serializable{
             throw new CV4JException("byte is null");
         }
 
-        Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+        Bitmap bitmap = null;
+        try {
+            bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+        } catch (OutOfMemoryError e) {
+            return;
+        }
+
         width = bitmap.getWidth();
         height = bitmap.getHeight();
         int[] input = new int[width * height];
