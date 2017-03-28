@@ -11,13 +11,10 @@ import android.widget.ImageView;
 
 import com.cv4j.app.R;
 import com.cv4j.app.app.BaseFragment;
-import com.cv4j.core.datamodel.CV4JImage;
 import com.cv4j.rxjava.RxImageData;
 import com.safframework.injectview.Injector;
 import com.safframework.injectview.annotations.InjectView;
 
-import io.reactivex.annotations.NonNull;
-import io.reactivex.functions.Consumer;
 import thereisnospon.codeview.CodeView;
 import thereisnospon.codeview.CodeViewTheme;
 
@@ -55,16 +52,7 @@ public class IOFragment extends BaseFragment {
         Bitmap bitmap = BitmapFactory.decodeResource(res, R.drawable.test_io);
         image1.setImageBitmap(bitmap);
 
-        RxImageData.bitmap(bitmap)
-                .toFlowable()
-                .compose(RxImageData.toMain())
-                .subscribe(new Consumer<CV4JImage>() {
-
-            @Override
-            public void accept(@NonNull CV4JImage imageData) throws Exception {
-                image2.setImageBitmap(imageData.toBitmap());
-            }
-        });
+        RxImageData.bitmap(bitmap).into(image2);
 
 
         codeView1.setTheme(CodeViewTheme.ANDROIDSTUDIO).fillColor();
@@ -79,24 +67,7 @@ public class IOFragment extends BaseFragment {
         codeView2.setTheme(CodeViewTheme.ANDROIDSTUDIO).fillColor();
 
         code = new StringBuilder();
-        code.append("RxImageData.bitmap(bitmap)")
-                .append("\r\n")
-                .append("   .toFlowable()")
-                .append("\r\n")
-                .append("   .compose(RxImageData.toMain())")
-                .append("\r\n")
-                .append("  .subscribe(new Consumer<CV4JImage>() {")
-                .append("\r\n")
-                .append("\r\n")
-                .append("     @Override")
-                .append("\r\n")
-                .append("     public void accept(@NonNull CV4JImage imageData) throws Exception {")
-                .append("\r\n")
-                .append("        image2.setImageBitmap(imageData.toBitmap());")
-                .append("\r\n")
-                .append("     }")
-                .append("\r\n")
-                .append("});");
+        code.append("RxImageData.bitmap(bitmap).into(image2);");
 
         codeView2.showCode(code.toString());
     }
