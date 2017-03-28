@@ -102,10 +102,16 @@ public class RxImageData {
      */
     public void into(final ImageView imageview) {
 
-        this.toFlowable().compose(toMain()).subscribe(new Consumer<ImageProcessor>() {
+        this.toFlowable().compose(toMain()).subscribe(new Consumer() {
             @Override
-            public void accept(@NonNull ImageProcessor imgaeProcessor) throws Exception {
-                imageview.setImageBitmap(imgaeProcessor.getImage().toBitmap());
+            public void accept(@NonNull Object o) throws Exception {
+
+                if (o instanceof ImageData) {
+                    imageview.setImageBitmap(((ImageData)o).toBitmap());
+                } else if (o instanceof ImageProcessor) {
+                    imageview.setImageBitmap(((ImageProcessor)o).getImage().toBitmap());
+                }
+
             }
         });
     }
