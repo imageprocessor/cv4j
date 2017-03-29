@@ -61,6 +61,7 @@ public class SpitalConvAdapter extends RecyclerView.Adapter<SpitalConvAdapter.Vi
             if (Preconditions.isNotBlank(filterName)) {
                 CommonFilter filter = (CommonFilter)getFilter(filterName);
                 RxImageData.bitmap(mBitmap)
+                        .placeHolder(holder.image,R.drawable.test_spital_conv)
                         .addFilter(filter)
                         .into(holder.image);
             }
