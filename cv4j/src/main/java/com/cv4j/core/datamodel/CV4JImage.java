@@ -7,6 +7,10 @@ import android.util.Log;
 import com.cv4j.exception.CV4JException;
 import com.cv4j.image.util.IOUtils;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
 
@@ -118,5 +122,27 @@ public class CV4JImage implements ImageData, Serializable{
             Log.e("ColorImage","can not convert to bitmap!");
         }
         return bitmap;
+    }
+
+
+    /**
+     * 保存图片到指定路径
+     * @param bitmap
+     * @param format 支持jpg、png、webp
+     * @param path
+     */
+    public void savePic(Bitmap bitmap, Bitmap.CompressFormat format, String path) {
+        File file = new File(path);
+        try {
+            FileOutputStream out = new FileOutputStream(file);
+            if (bitmap.compress(format, 100, out)) {
+                out.flush();
+                out.close();
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
