@@ -19,9 +19,7 @@ import com.safframework.injectview.Injector;
 import com.safframework.injectview.annotations.InjectView;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by Tony Shen on 2017/3/21.
@@ -37,8 +35,6 @@ public class SpitalConvFragment extends BaseFragment {
     String[] filterNames;
 
     List<String> list = new ArrayList<>();
-
-    Map map = new HashMap();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

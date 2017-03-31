@@ -36,6 +36,8 @@ public class IOFragment extends BaseFragment {
     @InjectView(R.id.codeview2)
     CodeView codeView2;
 
+    RxImageData rxImageData;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_io, container, false);
@@ -52,8 +54,8 @@ public class IOFragment extends BaseFragment {
         Bitmap bitmap = BitmapFactory.decodeResource(res, R.drawable.test_io);
         image1.setImageBitmap(bitmap);
 
-        RxImageData.bitmap(bitmap).into(image2);
-
+        rxImageData = RxImageData.bitmap(bitmap);
+        rxImageData.into(image2);
 
         codeView1.setTheme(CodeViewTheme.ANDROIDSTUDIO).fillColor();
 

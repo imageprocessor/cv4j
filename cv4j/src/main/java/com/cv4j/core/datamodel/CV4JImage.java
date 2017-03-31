@@ -23,6 +23,7 @@ public class CV4JImage implements ImageData, Serializable{
     private int width;
     private int height;
     private ImageProcessor processor;
+    private Bitmap bitmap;
 
     public CV4JImage(Bitmap bitmap) {
         if (bitmap == null) {
@@ -114,7 +115,9 @@ public class CV4JImage implements ImageData, Serializable{
     @Override
     public Bitmap toBitmap(Bitmap.Config bitmapConfig) {
 
-        Bitmap bitmap = Bitmap.createBitmap(width, height, bitmapConfig);
+        if (bitmap!=null) return bitmap;
+
+        bitmap = Bitmap.createBitmap(width, height, bitmapConfig);
         if(processor instanceof ColorProcessor || processor instanceof ByteProcessor) {
             bitmap.setPixels(processor.getPixels(), 0, width, 0, 0, width, height);
         } else {
