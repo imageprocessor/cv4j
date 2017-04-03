@@ -17,4 +17,14 @@ public interface ImageProcessor {
 	int[] getPixels();
 
 	ImageData getImage();
+
+	/** Returns float array with one channel of image by index*/
+	float[] toFloat(int index);
+
+	/** Returns int array with one channel of image by index*/
+	int[] toInt(int index);
+
+	/** Returns byte array with one channel of image by index*/
+	byte[] toByte(int index);
+
 }

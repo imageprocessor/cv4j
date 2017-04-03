@@ -1,4 +1,7 @@
 package com.cv4j.core.datamodel;
+
+import com.cv4j.exception.CV4JException;
+
 public class ColorProcessor implements ImageProcessor {
     private byte[] R;
     private byte[] G;
@@ -88,5 +91,69 @@ public class ColorProcessor implements ImageProcessor {
 
     public ImageData getImage() {
         return this.image;
+    }
+
+    @Override
+    public float[] toFloat(int index) {
+        if(index == 0) {
+            float[] data = new float[R.length];
+            for(int i=0; i<data.length; i++)
+                data[i] = R[i]&0xff;
+            return data;
+        }
+        else if(index == 1) {
+            float[] data = new float[G.length];
+            for(int i=0; i<data.length; i++)
+                data[i] = G[i]&0xff;
+            return data;
+        }
+        else if(index == 2) {
+            float[] data = new float[B.length];
+            for(int i=0; i<data.length; i++)
+                data[i] = B[i]&0xff;
+            return data;
+        } else {
+            throw new CV4JException("invalid argument...");
+        }
+
+    }
+
+    @Override
+    public int[] toInt(int index) {
+        if(index == 0) {
+            int[] data = new int[R.length];
+            for(int i=0; i<data.length; i++)
+                data[i] = R[i]&0xff;
+            return data;
+        }
+        else if(index == 1) {
+            int[] data = new int[G.length];
+            for(int i=0; i<data.length; i++)
+                data[i] = G[i]&0xff;
+            return data;
+        }
+        else if(index == 2) {
+            int[] data = new int[B.length];
+            for(int i=0; i<data.length; i++)
+                data[i] = B[i]&0xff;
+            return data;
+        } else {
+            throw new CV4JException("invalid argument...");
+        }
+    }
+
+    @Override
+    public byte[] toByte(int index) {
+        if(index == 0) {
+            return R;
+        }
+        else if(index == 1) {
+            return G;
+        }
+        else if(index == 2) {
+            return B;
+        } else {
+            throw new CV4JException("invalid argument...");
+        }
     }
 }

@@ -72,4 +72,25 @@ public class ByteProcessor implements ImageProcessor {
         return this.image;
     }
 
+    @Override
+    public float[] toFloat(int index) {
+        float[] data = new float[GRAY.length];
+        for(int i=0; i<data.length; i++)
+            data[i] = GRAY[i]&0xff;
+        return data;
+    }
+
+    @Override
+    public int[] toInt(int index) {
+        int[] data = new int[GRAY.length];
+        for(int i=0; i<data.length; i++)
+            data[i] = GRAY[i]&0xff;
+        return data;
+    }
+
+    @Override
+    public byte[] toByte(int index) {
+        return GRAY;
+    }
+
 }
