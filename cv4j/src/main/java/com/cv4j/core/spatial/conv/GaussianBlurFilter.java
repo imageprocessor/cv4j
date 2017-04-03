@@ -30,6 +30,7 @@ public class GaussianBlurFilter implements CommonFilter {
         int[] outPixels = new int[width*height];
         blur( inPixels, outPixels, width, height); // H Gaussian
         blur( outPixels, inPixels, height, width); // V Gaussain
+
         // save result
         byte[] R = ((ColorProcessor)src).getRed();
         byte[] G = ((ColorProcessor)src).getGreen();
@@ -64,6 +65,7 @@ public class GaussianBlurFilter implements CommonFilter {
         int subCol = 0;
         int index = 0, index2 = 0;
         float redSum=0, greenSum=0, blueSum=0;
+        int k = kernel.length-1;
         for(int row=0; row<height; row++) {
             int ta = 0, tr = 0, tg = 0, tb = 0;
             index = row;
@@ -72,7 +74,7 @@ public class GaussianBlurFilter implements CommonFilter {
                 redSum=0;
                 greenSum=0;
                 blueSum=0;
-                for(int m = 0; m< kernel.length; m++) {
+                for(int m = -k; m< kernel.length; m++) {
                     subCol = col + m;
                     if(subCol < 0 || subCol >= width) {
                         subCol = 0;
@@ -82,9 +84,9 @@ public class GaussianBlurFilter implements CommonFilter {
                     tr = (inPixels[index2] >> 16) & 0xff;
                     tg = (inPixels[index2] >> 8) & 0xff;
                     tb = inPixels[index2] & 0xff;
-                    redSum += (tr * kernel[m]);
-                    greenSum += (tg * kernel[m]);
-                    blueSum += (tb * kernel[m]);
+                    redSum += (tr * kernel[Math.abs(m)]);
+                    greenSum += (tg * kernel[Math.abs(m)]);
+                    blueSum += (tb * kernel[Math.abs(m)]);
                 }
                 outPixels[index] = (ta << 24) | (Tools.clamp(redSum) << 16) | (Tools.clamp(greenSum) << 8) | Tools.clamp(blueSum);
                 index += height;// correct index at here!!!, out put pixels matrix,
