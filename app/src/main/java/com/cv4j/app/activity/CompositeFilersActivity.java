@@ -4,6 +4,7 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.widget.ImageView;
 
 import com.cv4j.app.R;
@@ -13,6 +14,7 @@ import com.cv4j.core.filters.CompositeFilters;
 import com.cv4j.core.filters.NatureFilter;
 import com.cv4j.core.filters.SpotlightFilter;
 import com.safframework.injectview.Injector;
+import com.safframework.injectview.annotations.InjectExtra;
 import com.safframework.injectview.annotations.InjectView;
 
 import thereisnospon.codeview.CodeView;
@@ -36,6 +38,12 @@ public class CompositeFilersActivity extends BaseActivity {
     @InjectView(R.id.codeview)
     CodeView codeView;
 
+    @InjectView(R.id.toolbar)
+    Toolbar toolbar;
+
+    @InjectExtra(key = "Title")
+    String title;
+
     Bitmap bitmap;
 
     @Override
@@ -44,7 +52,12 @@ public class CompositeFilersActivity extends BaseActivity {
         setContentView(R.layout.activity_composite_filters);
         Injector.injectInto(this);
 
+        initViews();
         initData();
+    }
+
+    private void initViews() {
+        toolbar.setTitle(title);
     }
 
     private void initData() {

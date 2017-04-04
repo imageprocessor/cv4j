@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 
 import com.cv4j.app.R;
 import com.cv4j.app.adapter.GridViewFilterAdapter;
@@ -13,6 +14,7 @@ import com.cv4j.app.app.BaseActivity;
 import com.cv4j.app.ui.DividerGridItemDecoration;
 import com.cv4j.app.ui.GridRecyclerView;
 import com.safframework.injectview.Injector;
+import com.safframework.injectview.annotations.InjectExtra;
 import com.safframework.injectview.annotations.InjectView;
 
 import java.util.ArrayList;
@@ -27,6 +29,12 @@ public class GridViewFilterActivity extends BaseActivity {
     @InjectView(R.id.recyclerview)
     GridRecyclerView recyclerview;
 
+    @InjectView(R.id.toolbar)
+    Toolbar toolbar;
+
+    @InjectExtra(key = "Title")
+    String title;
+
     Bitmap bitmap;
 
     String[] filterNames;
@@ -39,7 +47,12 @@ public class GridViewFilterActivity extends BaseActivity {
         setContentView(R.layout.activity_gridview_filter);
         Injector.injectInto(this);
 
+        initViews();
         initData();
+    }
+
+    private void initViews() {
+        toolbar.setTitle(title);
     }
 
     private void initData() {

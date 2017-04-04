@@ -8,6 +8,7 @@ import android.renderscript.Allocation;
 import android.renderscript.Element;
 import android.renderscript.RenderScript;
 import android.renderscript.ScriptIntrinsicBlur;
+import android.support.v7.widget.Toolbar;
 import android.widget.ImageView;
 
 import com.cv4j.app.R;
@@ -15,6 +16,7 @@ import com.cv4j.app.app.BaseActivity;
 import com.cv4j.core.filters.GaussianBlurFilter;
 import com.cv4j.rxjava.RxImageData;
 import com.safframework.injectview.Injector;
+import com.safframework.injectview.annotations.InjectExtra;
 import com.safframework.injectview.annotations.InjectView;
 
 
@@ -29,6 +31,12 @@ public class GaussianBlurActivity extends BaseActivity {
 
     @InjectView(R.id.image2)
     ImageView image2;
+
+    @InjectView(R.id.toolbar)
+    Toolbar toolbar;
+
+    @InjectExtra(key = "Title")
+    String title;
 
     Resources res;
     Bitmap bitmap;
@@ -47,7 +55,7 @@ public class GaussianBlurActivity extends BaseActivity {
     }
 
     private void initData() {
-
+        toolbar.setTitle(title);
         res = getResources();
         bitmap = BitmapFactory.decodeResource(res, R.drawable.test_filters);
     }

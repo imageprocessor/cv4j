@@ -31,5 +31,7 @@
         <item>FindEdge</item>
         <item>Sobel</item>
         <item>Variance</item>
+        <item>MaerOperator</item>
+        <item>USM</item>
     </string-array>
 </resources>

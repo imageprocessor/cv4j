@@ -4,6 +4,7 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -34,10 +35,11 @@ public class SelectFilterActivity extends BaseActivity {
     @InjectView(R.id.spinner)
     Spinner spinner;
 
-    @InjectExtra(key=TITLE)
-    String title;
+    @InjectView(R.id.toolbar)
+    Toolbar toolbar;
 
-    public static final String TITLE = "Title";
+    @InjectExtra(key = "Title")
+    String title;
 
     Bitmap bitmap;
 
@@ -53,12 +55,15 @@ public class SelectFilterActivity extends BaseActivity {
         setContentView(R.layout.activity_select_filter);
         Injector.injectInto(this);
 
+        initViews();
         initData();
     }
 
-    private void initData() {
-        setTitle(title);
+    private void initViews() {
+        toolbar.setTitle(title);
+    }
 
+    private void initData() {
         Resources res = getResources();
 
         filterNames = res.getStringArray(R.array.filterNames);
