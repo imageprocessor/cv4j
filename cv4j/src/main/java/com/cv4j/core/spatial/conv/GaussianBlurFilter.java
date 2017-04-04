@@ -24,32 +24,18 @@ public class GaussianBlurFilter implements CommonFilter {
     public ImageProcessor filter(ImageProcessor src){
         int width = src.getWidth();
         int height = src.getHeight();
+        int size = width*height;
+        int dims = src.getChannels();
         makeGaussianKernel(sigma, 0.002, (int)Math.min(width, height));
 
-        int[] inPixels = src.getPixels();
-        int[] outPixels = new int[width*height];
-        blur( inPixels, outPixels, width, height); // H Gaussian
-        blur( outPixels, inPixels, height, width); // V Gaussain
-
         // save result
-        byte[] R = ((ColorProcessor)src).getRed();
-        byte[] G = ((ColorProcessor)src).getGreen();
-        byte[] B = ((ColorProcessor)src).getBlue();
-        getRGB(width, height, inPixels, R, G, B);
-        return src;
-    }
-
-    public void getRGB(int width, int height, int[] pixels, byte[] R, byte[] G, byte[] B) {
-        int c, r, g, b;
-        for (int i=0; i < width*height; i++) {
-            c = pixels[i];
-            r = (c&0xff0000)>>16;
-            g = (c&0xff00)>>8;
-            b = c&0xff;
-            R[i] = (byte)r;
-            G[i] = (byte)g;
-            B[i] = (byte)b;
+        for(int i=0; i<dims; i++) {
+            byte[] inPixels = src.toByte(i);
+            byte[] temp = new byte[size];
+            blur(inPixels, temp, width, height); // H Gaussian
+            blur(temp, inPixels, height, width); // V Gaussain
         }
+        return src;
     }
 
     /**
@@ -60,36 +46,28 @@ public class GaussianBlurFilter implements CommonFilter {
      * @param width
      * @param height
      */
-    private void blur(int[] inPixels, int[] outPixels, int width, int height)
+    private void blur(byte[] inPixels, byte[] outPixels, int width, int height)
     {
         int subCol = 0;
         int index = 0, index2 = 0;
-        float redSum=0, greenSum=0, blueSum=0;
+        float sum = 0;
         int k = kernel.length-1;
         for(int row=0; row<height; row++) {
-            int ta = 0, tr = 0, tg = 0, tb = 0;
+            int c = 0;
             index = row;
             for(int col=0; col<width; col++) {
-                // index = row * width + col;
-                redSum=0;
-                greenSum=0;
-                blueSum=0;
+                sum = 0;
                 for(int m = -k; m< kernel.length; m++) {
                     subCol = col + m;
                     if(subCol < 0 || subCol >= width) {
                         subCol = 0;
                     }
                     index2 = row * width + subCol;
-                    ta = (inPixels[index2] >> 24) & 0xff;
-                    tr = (inPixels[index2] >> 16) & 0xff;
-                    tg = (inPixels[index2] >> 8) & 0xff;
-                    tb = inPixels[index2] & 0xff;
-                    redSum += (tr * kernel[Math.abs(m)]);
-                    greenSum += (tg * kernel[Math.abs(m)]);
-                    blueSum += (tb * kernel[Math.abs(m)]);
+                    c = inPixels[index2] & 0xff;
+                    sum += c * kernel[Math.abs(m)];
                 }
-                outPixels[index] = (ta << 24) | (Tools.clamp(redSum) << 16) | (Tools.clamp(greenSum) << 8) | Tools.clamp(blueSum);
-                index += height;// correct index at here!!!, out put pixels matrix,
+                outPixels[index] = (byte)Tools.clamp(sum);
+                index += height;
             }
         }
     }
