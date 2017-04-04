@@ -95,7 +95,7 @@ public class FiltersFragment extends BaseFragment {
     void clickText6() {
 
         Intent i = new Intent(mContext,GaussianBlurActivity.class);
-        i.putExtra("Title",text5.getText().toString());
+        i.putExtra("Title",text6.getText().toString());
         startActivity(i);
     }
 }

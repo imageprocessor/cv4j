@@ -30,6 +30,7 @@ public class RxImageData {
     CV4JImage image;
     Flowable flowable;
     MemCache memCache;
+    boolean useCache = true;
 
     ImageView imageView;
     List<CommonFilter> filters;
@@ -83,6 +84,17 @@ public class RxImageData {
     }
 
     /**
+     * 判断是否使用缓存，默认情况使用缓存。
+     * @param useCache
+     * @return
+     */
+    public RxImageData isUseCache(boolean useCache) {
+
+        this.useCache = useCache;
+        return this;
+    }
+
+    /**
      * RxImageData.bitmap(bitmap).addFilter(new ColorFilter()).into(view);
      * @param imageview
      */
@@ -113,18 +125,23 @@ public class RxImageData {
                 public ImageProcessor apply(@NonNull WrappedCV4JImage wrap) throws
                         Exception {
 
-                    String key = wrap.filters.get(0).getClass().getName()+imageView.getId();
+                    if (useCache) {
+                        String key = wrap.filters.get(0).getClass().getName()+imageView.getId();
 
-                    if (memCache.get(key)==null) {
+                        if (memCache.get(key)==null) {
 
-                        ImageProcessor imageProcessor = wrap.filters.get(0).filter(image.getProcessor());
-                        memCache.put(key,imageProcessor.getImage().toBitmap());
+                            ImageProcessor imageProcessor = wrap.filters.get(0).filter(image.getProcessor());
+                            memCache.put(key,imageProcessor.getImage().toBitmap());
 
-                        return imageProcessor;
+                            return imageProcessor;
+                        } else {
+
+                            image.getProcessor().getImage().setBitmap(memCache.get(key));
+                            return image.getProcessor();
+                        }
                     } else {
 
-                        image.getProcessor().getImage().setBitmap(memCache.get(key));
-                        return image.getProcessor();
+                        return wrap.filters.get(0).filter(image.getProcessor());
                     }
                 }
             }).compose(RxImageData.toMain()).subscribe(new Consumer<ImageProcessor>() {
