@@ -4,6 +4,7 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.HorizontalScrollView;
@@ -17,6 +18,7 @@ import com.cv4j.app.app.BaseActivity;
 import com.cv4j.core.filters.ColorFilter;
 import com.cv4j.rxjava.RxImageData;
 import com.safframework.injectview.Injector;
+import com.safframework.injectview.annotations.InjectExtra;
 import com.safframework.injectview.annotations.InjectView;
 
 import java.util.HashMap;
@@ -37,6 +39,12 @@ public class ColorFilterActivity extends BaseActivity {
     @InjectView(R.id.linear)
     LinearLayout linear;
 
+    @InjectView(R.id.toolbar)
+    Toolbar toolbar;
+
+    @InjectExtra(key = "Title")
+    String title;
+
     Bitmap bitmap;
 
     Map colorStyles = new HashMap();
@@ -47,7 +55,12 @@ public class ColorFilterActivity extends BaseActivity {
         setContentView(R.layout.activity_color_filter);
         Injector.injectInto(this);
 
+        initViews();
         initData();
+    }
+
+    private void initViews() {
+        toolbar.setTitle(title);
     }
 
     private void initData() {
