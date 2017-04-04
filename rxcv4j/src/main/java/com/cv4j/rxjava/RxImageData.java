@@ -5,11 +5,13 @@ import android.util.Log;
 import android.widget.ImageView;
 
 import com.cv4j.core.datamodel.CV4JImage;
-import com.cv4j.core.datamodel.ImageData;
 import com.cv4j.core.datamodel.ImageProcessor;
 import com.cv4j.core.filters.CommonFilter;
 
 import org.reactivestreams.Publisher;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import io.reactivex.Flowable;
 import io.reactivex.FlowableTransformer;
@@ -27,17 +29,30 @@ public class RxImageData {
 
     CV4JImage image;
     Flowable flowable;
+    MemCache memCache;
+
+    ImageView imageView;
+    List<CommonFilter> filters;
+    WrappedCV4JImage wrappedCV4JImage;
 
     private RxImageData(Bitmap bitmap) {
 
         this.image = new CV4JImage(bitmap);
-        flowable = Flowable.just(image);
+        filters = new ArrayList<>();
+        memCache = MemCache.getInstance();
+
+        wrappedCV4JImage = new WrappedCV4JImage(image,filters);
+        flowable = Flowable.just(wrappedCV4JImage);
     }
 
     private RxImageData(CV4JImage image) {
 
         this.image = image;
-        flowable = Flowable.just(image);
+        filters = new ArrayList<>();
+        memCache = MemCache.getInstance();
+
+        wrappedCV4JImage = new WrappedCV4JImage(image,filters);
+        flowable = Flowable.just(wrappedCV4JImage);
     }
 
     public static RxImageData bitmap(Bitmap bitmap) {
@@ -63,13 +78,7 @@ public class RxImageData {
             return this;
         }
 
-        flowable = flowable.map(new Function<CV4JImage,ImageProcessor>() {
-            @Override
-            public ImageProcessor apply(CV4JImage imageData) throws Exception {
-                return filter.filter(imageData.getProcessor());
-            }
-        });
-
+        filters.add(filter);
         return this;
     }
 
@@ -79,41 +88,92 @@ public class RxImageData {
     }
 
     /**
-     * 占位符，必须在addFilter()之前，因为滤镜操作会花费时间
-     * @param imageview
-     * @param resId
-     * @return
-     */
-    public RxImageData placeHolder(final ImageView imageview,final int resId) {
-
-        flowable = this.toFlowable().doOnNext(new Consumer<ImageData>() {
-            @Override
-            public void accept(@NonNull ImageData imageData) throws Exception {
-                imageview.setImageResource(resId);
-            }
-        });
-
-        return this;
-    }
-
-    /**
      * RxImageData.bitmap(bitmap).addFilter(new ColorFilter()).into(view);
      * @param imageview
      */
     public void into(final ImageView imageview) {
 
-        this.toFlowable().compose(toMain()).subscribe(new Consumer() {
-            @Override
-            public void accept(@NonNull Object o) throws Exception {
+        this.imageView = imageview;
+        render();
+    }
 
-                if (o instanceof ImageData) {
-                    imageview.setImageBitmap(((ImageData)o).toBitmap());
-                } else if (o instanceof ImageProcessor) {
-                    imageview.setImageBitmap(((ImageProcessor)o).getImage().toBitmap());
+    public void render() {
+
+        if (imageView == null) {
+            return;
+        }
+
+        if (filters.size()==0) {
+            this.flowable.compose(RxImageData.toMain()).subscribe(new Consumer<WrappedCV4JImage>() {
+                @Override
+                public void accept(@NonNull WrappedCV4JImage wrapped) throws Exception {
+                    imageView.setImageBitmap(wrapped.image.toBitmap());
                 }
+            });
+        } else if (filters.size() == 1) {
+            this.flowable
+                    .map(new Function<WrappedCV4JImage,ImageProcessor>() {
 
-            }
-        });
+                @Override
+                public ImageProcessor apply(@NonNull WrappedCV4JImage wrap) throws
+                        Exception {
+
+//                    String key = wrap.filters.get(0).getClass().getName()+imageView.getId();
+//                    if (memCache.get(key)==null) {
+                        return wrap.filters.get(0).filter(image.getProcessor());
+//                    } else {
+//
+//                        image.getProcessor().
+//                    }
+                }
+            }).compose(RxImageData.toMain()).subscribe(new Consumer<ImageProcessor>() {
+                @Override
+                public void accept(@NonNull ImageProcessor processor) throws Exception {
+                    imageView.setImageBitmap((processor.getImage().toBitmap()));
+                }
+            });
+
+        } else {
+
+            this.flowable.map(new Function<WrappedCV4JImage,List<CommonFilter>>() {
+                @Override
+                public List<CommonFilter> apply(@NonNull WrappedCV4JImage wrap) throws Exception {
+                    return wrap.filters;
+                }
+            }).map(new Function<List<CommonFilter>,ImageProcessor>() {
+                @Override
+                public ImageProcessor apply(@NonNull List<CommonFilter> filters) throws Exception {
+                    return filter(image.getProcessor());
+                }
+            }).compose(RxImageData.toMain()).subscribe(new Consumer<ImageProcessor>() {
+                @Override
+                public void accept(@NonNull ImageProcessor processor) throws Exception {
+                    imageView.setImageBitmap((processor.getImage().toBitmap()));
+                }
+            });
+        }
+    }
+
+    private ImageProcessor filter(ImageProcessor imageData) {
+
+        if (filters.size()>0) {
+            return filter(imageData,filters.size());
+        }
+
+        return imageData;
+    }
+
+    private ImageProcessor filter(ImageProcessor imageData, int size) {
+
+        if (size==1) {
+            CommonFilter filter = filters.get(0);
+            return filter.filter(imageData);
+        }
+
+        CommonFilter filter = filters.get(size-1);
+        imageData = filter.filter(imageData);
+
+        return filter(imageData,size-1);
     }
 
     /**
