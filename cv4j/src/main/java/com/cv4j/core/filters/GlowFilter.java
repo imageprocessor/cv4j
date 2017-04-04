@@ -1,7 +1,6 @@
-/*
-** Copyright 2005 Huxtable.com. All rights reserved.
-*/
-
+/**
+ * gloomy-fish
+ */
 package com.cv4j.core.filters;
 
 import com.cv4j.core.datamodel.ColorProcessor;
