@@ -64,7 +64,7 @@ public class GaussianBlurActivity extends BaseActivity {
         filter.setSigma(10);
 
         RxImageData.bitmap(bitmap)
-                .placeHolder(R.drawable.test_filters)
+//                .placeHolder(R.drawable.test_filters)
                 .addFilter(filter)
                 .into(image2);
     }
