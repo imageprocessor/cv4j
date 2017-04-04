@@ -82,11 +82,6 @@ public class RxImageData {
         return this;
     }
 
-    public Flowable toFlowable() {
-
-        return flowable;
-    }
-
     /**
      * RxImageData.bitmap(bitmap).addFilter(new ColorFilter()).into(view);
      * @param imageview
@@ -97,7 +92,7 @@ public class RxImageData {
         render();
     }
 
-    public void render() {
+    private void render() {
 
         if (imageView == null) {
             return;
@@ -177,20 +172,11 @@ public class RxImageData {
     }
 
     /**
-     * RxImageData.bitmap(bitmap).addFilter(new ColorFilter()).toFlowable().compose
-     *     (RxImageData.toMain()).subscribe(new Consumer<ImageData>() {
-     *
-     *
-     *         @Override
-     *        public void accept(@NonNull ImageProcessor imgaeProcessor) throws Exception {
-     *
-     *           image.setImageBitmap(imgaeProcessor.getImage().toBitmap());
-     *       }
-     * });
+     * 
      * @param <T>
      * @return
      */
-    public static <T> FlowableTransformer<T, T> toMain() {
+    private static <T> FlowableTransformer<T, T> toMain() {
 
         return new FlowableTransformer<T, T>() {
 

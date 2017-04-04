@@ -1,9 +1,13 @@
-package com.cv4j.core.spatial.conv;
+package com.cv4j.core.filters;
 
-import com.cv4j.core.datamodel.ColorProcessor;
 import com.cv4j.core.datamodel.ImageProcessor;
-import com.cv4j.core.filters.CommonFilter;
+import com.cv4j.image.util.TaskUtils;
 import com.cv4j.image.util.Tools;
+
+import java.util.concurrent.Callable;
+import java.util.concurrent.CompletionService;
+import java.util.concurrent.ExecutorCompletionService;
+import java.util.concurrent.ExecutorService;
 
 /**
  * Created by Administrator on 2017/3/26.
@@ -12,6 +16,9 @@ import com.cv4j.image.util.Tools;
 public class GaussianBlurFilter implements CommonFilter {
     private float[] kernel;
     private double sigma = 2;
+    ExecutorService mExecutor;
+    CompletionService<Void> service;;
+
     public GaussianBlurFilter() {
         kernel = new float[0];
     }
@@ -21,20 +28,40 @@ public class GaussianBlurFilter implements CommonFilter {
     }
 
     @Override
-    public ImageProcessor filter(ImageProcessor src){
-        int width = src.getWidth();
-        int height = src.getHeight();
-        int size = width*height;
+    public ImageProcessor filter(final ImageProcessor src){
+        final int width = src.getWidth();
+        final int height = src.getHeight();
+        final int size = width*height;
         int dims = src.getChannels();
         makeGaussianKernel(sigma, 0.002, (int)Math.min(width, height));
 
+        mExecutor = TaskUtils.newFixedThreadPool("cv4j",dims);
+        service = new ExecutorCompletionService<>(mExecutor);
+
         // save result
         for(int i=0; i<dims; i++) {
-            byte[] inPixels = src.toByte(i);
-            byte[] temp = new byte[size];
-            blur(inPixels, temp, width, height); // H Gaussian
-            blur(temp, inPixels, height, width); // V Gaussain
+
+            final int temp = i;
+            service.submit(new Callable<Void>() {
+                public Void call() throws Exception {
+                    byte[] inPixels = src.toByte(temp);
+                    byte[] temp = new byte[size];
+                    blur(inPixels, temp, width, height); // H Gaussian
+                    blur(temp, inPixels, height, width); // V Gaussain
+                    return null;
+                }
+            });
         }
+
+        for (int i = 0; i < dims; i++) {
+            try {
+                service.take();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+        mExecutor.shutdown();
         return src;
     }
 
