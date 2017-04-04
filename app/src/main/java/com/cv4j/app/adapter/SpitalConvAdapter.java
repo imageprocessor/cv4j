@@ -44,6 +44,8 @@ public class SpitalConvAdapter extends RecyclerView.Adapter<SpitalConvAdapter.Vi
         map.put(7,"寻找边缘");
         map.put(8,"梯度");
         map.put(9,"方差滤波");
+        map.put(10,"马尔操作");
+        map.put(11,"USM");
     }
 
     @Override
