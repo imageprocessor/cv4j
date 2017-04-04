@@ -113,18 +113,24 @@ public class RxImageData {
                 public ImageProcessor apply(@NonNull WrappedCV4JImage wrap) throws
                         Exception {
 
-//                    String key = wrap.filters.get(0).getClass().getName()+imageView.getId();
-//                    if (memCache.get(key)==null) {
-                        return wrap.filters.get(0).filter(image.getProcessor());
-//                    } else {
-//
-//                        image.getProcessor().
-//                    }
+                    String key = wrap.filters.get(0).getClass().getName()+imageView.getId();
+
+                    if (memCache.get(key)==null) {
+
+                        ImageProcessor imageProcessor = wrap.filters.get(0).filter(image.getProcessor());
+                        memCache.put(key,imageProcessor.getImage().toBitmap());
+
+                        return imageProcessor;
+                    } else {
+
+                        image.getProcessor().getImage().setBitmap(memCache.get(key));
+                        return image.getProcessor();
+                    }
                 }
             }).compose(RxImageData.toMain()).subscribe(new Consumer<ImageProcessor>() {
                 @Override
                 public void accept(@NonNull ImageProcessor processor) throws Exception {
-                    imageView.setImageBitmap((processor.getImage().toBitmap()));
+                    imageView.setImageBitmap(processor.getImage().toBitmap());
                 }
             });
 

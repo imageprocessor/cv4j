@@ -43,4 +43,6 @@ public interface ImageData {
     Bitmap toBitmap();
 
     Bitmap toBitmap(Bitmap.Config bitmapConfig);
+
+    void setBitmap(Bitmap bitmap);
 }

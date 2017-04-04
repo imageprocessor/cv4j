@@ -51,7 +51,7 @@ public class GaussianBlurActivity extends BaseActivity {
         res = getResources();
         bitmap = BitmapFactory.decodeResource(res, R.drawable.test_filters);
     }
-    
+
     private void useRenderScript() {
         image1.setImageBitmap(blur(bitmap));
     }
