@@ -67,7 +67,7 @@ public class RxImageData {
     }
 
     /**
-     * 使用滤镜
+     * 使用滤镜，支持链式调用多个滤镜
      * @param filter
      * @return
      */
@@ -84,7 +84,8 @@ public class RxImageData {
     }
 
     /**
-     * 判断是否使用缓存，默认情况使用缓存。
+     * 判断是否使用缓存，默认情况下是使用缓存。
+     * 该方法需要在into()方法之前使用。
      * @param useCache
      * @return
      */
@@ -104,6 +105,9 @@ public class RxImageData {
         render();
     }
 
+    /**
+     * 渲染imageview
+     */
     private void render() {
 
         if (imageView == null) {
@@ -126,7 +130,7 @@ public class RxImageData {
                         Exception {
 
                     if (useCache) {
-                        String key = wrap.filters.get(0).getClass().getName()+imageView.getId();
+                        String key = wrap.filters.get(0).getClass().getSimpleName()+imageView.getId();
 
                         if (memCache.get(key)==null) {
 
