@@ -28,8 +28,7 @@ public class WhiteImageFilter implements CommonFilter {
 		byte[] B = ((ColorProcessor)src).getBlue();
 
 		int index = 0;
-		long stt = System.nanoTime();
-		
+
 		// make LUT
 		int[] lut = new int[256];
 		for(int i=0; i<256; i++) {

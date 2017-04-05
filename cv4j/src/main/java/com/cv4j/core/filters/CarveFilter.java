@@ -2,6 +2,7 @@ package com.cv4j.core.filters;
 
 import com.cv4j.core.datamodel.ColorProcessor;
 import com.cv4j.core.datamodel.ImageProcessor;
+import com.cv4j.image.util.Tools;
 
 public class CarveFilter implements CommonFilter {
 	private boolean isCarve;
@@ -55,17 +56,13 @@ public class CarveFilter implements CommonFilter {
 	                tg = bg - ag + 128;
 	                tb = bb - ab + 128; 
                 }
-				output[0][index] = (byte)clamp(tr);
-				output[1][index] = (byte)clamp(tg);
-				output[2][index] = (byte)clamp(tb);
+				output[0][index] = (byte)Tools.clamp(tr);
+				output[1][index] = (byte)Tools.clamp(tg);
+				output[2][index] = (byte)Tools.clamp(tb);
         	}
         }
 		((ColorProcessor) src).putRGB(output[0], output[1], output[2]);
 		output = null;
 		return src;
-	}
-
-	public static int clamp(int p) {
-		return p < 0 ? 0 : ((p > 255) ? 255 : p);
 	}
 }

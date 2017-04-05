@@ -9,13 +9,8 @@ import com.cv4j.image.util.Tools;
 
 public class GlowFilter extends GaussianBlurFilter{
 
-	static final long serialVersionUID = 5377089073023183684L;
-
 	private float amount = 0.2f;
 	private int radius;
-	public GlowFilter() {
-		super();
-	}
 	
 	public void setAmount( float amount ) {
 		this.amount = amount;
