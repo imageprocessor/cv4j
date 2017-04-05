@@ -10,7 +10,7 @@ import java.util.concurrent.ExecutorCompletionService;
 import java.util.concurrent.ExecutorService;
 
 /**
- * Created by Administrator on 2017/3/26.
+ * Created by gloomyfish on 2017/3/26.
  */
 
 public class GaussianBlurFilter implements CommonFilter {

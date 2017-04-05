@@ -55,6 +55,7 @@ public class UseFilterWithRxActivity extends BaseActivity {
 
         RxImageData.bitmap(bitmap)
                 .addFilter(new NatureFilter())
+                .isUseCache(false)
                 .into(image);
 
         codeView.setTheme(CodeViewTheme.ANDROIDSTUDIO).fillColor();
