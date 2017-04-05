@@ -3,12 +3,16 @@
     <string-array name="filterNames">
         <item>原图</item>
         <item>BoxBlur</item>
+        <item>Carve</item>
         <item>Color</item>
         <item>ConBri</item>
         <item>Emboss</item>
         <item>Exposure</item>
         <item>FloSteDithering</item>
+        <item>Gamma</item>
+        <item>GaussianBlur</item>
         <item>GaussianNoise</item>
+        <item>Glow</item>
         <item>MeansBinary</item>
         <item>Mosaic</item>
         <!--<item>Motion</item>-->
@@ -18,6 +22,7 @@
         <item>Spotlight</item>
         <item>Vignette</item>
         <item>Water</item>
+        <item>WhiteImage</item>
     </string-array>
 
     <string-array name="spatialConvNames">
