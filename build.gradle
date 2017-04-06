@@ -15,7 +15,7 @@ ext {
             saf_log           : "1.0.5",
             saf_aop           : "1.1.0",
 
-            tony_common_utils   : "1.0.1"
+            tony_common_utils   : "1.0.2"
     ]
 }
 
