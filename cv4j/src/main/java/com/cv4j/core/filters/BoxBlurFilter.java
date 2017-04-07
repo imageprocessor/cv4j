@@ -26,7 +26,7 @@ public class BoxBlurFilter implements CommonFilter {
         return src;
     }
 
-    public static void blur( byte[][] in, byte[][] out, int width, int height, int radius ) {
+    private void blur( byte[][] in, byte[][] out, int width, int height, int radius ) {
         int widthMinus1 = width-1;
         int tableSize = 2*radius+1;
         int divide[] = new int[256*tableSize];
@@ -112,9 +112,5 @@ public class BoxBlurFilter implements CommonFilter {
 	
 	public int getIterations() {
 		return iterations;
-	}
-	
-	public String toString() {
-		return "Blur/Box Blur...";
 	}
 }
