@@ -20,6 +20,7 @@ import java.io.Serializable;
 
 public class CV4JImage implements ImageData, Serializable{
 
+    private static final long serialVersionUID = -8832812623741546452L;
     private int width;
     private int height;
     private ImageProcessor processor;
