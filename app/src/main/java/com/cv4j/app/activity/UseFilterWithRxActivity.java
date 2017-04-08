@@ -13,6 +13,7 @@ import com.cv4j.core.filters.NatureFilter;
 import com.cv4j.rxjava.RxImageData;
 import com.safframework.injectview.annotations.InjectExtra;
 import com.safframework.injectview.annotations.InjectView;
+import com.safframework.injectview.annotations.OnClick;
 
 import thereisnospon.codeview.CodeView;
 import thereisnospon.codeview.CodeViewTheme;
@@ -45,7 +46,7 @@ public class UseFilterWithRxActivity extends BaseActivity {
     }
 
     private void initViews() {
-        toolbar.setTitle(title);
+        toolbar.setTitle("< "+title);
     }
 
     private void initData() {
@@ -68,5 +69,11 @@ public class UseFilterWithRxActivity extends BaseActivity {
                 .append("    .into(image)");
 
         codeView.showCode(code.toString());
+    }
+
+    @OnClick(id= R.id.toolbar)
+    void clickToolbar() {
+
+        finish();
     }
 }

@@ -19,6 +19,7 @@ import com.safframework.aop.annotation.Trace;
 import com.safframework.injectview.Injector;
 import com.safframework.injectview.annotations.InjectExtra;
 import com.safframework.injectview.annotations.InjectView;
+import com.safframework.injectview.annotations.OnClick;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,7 +61,7 @@ public class SelectFilterActivity extends BaseActivity {
     }
 
     private void initViews() {
-        toolbar.setTitle(title);
+        toolbar.setTitle("< "+title);
     }
 
     private void initData() {
@@ -125,5 +126,11 @@ public class SelectFilterActivity extends BaseActivity {
 
             image.setImageBitmap(filter.filter(colorImage.getProcessor()).getImage().toBitmap());
         }
+    }
+
+    @OnClick(id= R.id.toolbar)
+    void clickToolbar() {
+
+        finish();
     }
 }

@@ -18,6 +18,7 @@ import com.cv4j.rxjava.RxImageData;
 import com.safframework.injectview.Injector;
 import com.safframework.injectview.annotations.InjectExtra;
 import com.safframework.injectview.annotations.InjectView;
+import com.safframework.injectview.annotations.OnClick;
 
 
 /**
@@ -55,7 +56,7 @@ public class GaussianBlurActivity extends BaseActivity {
     }
 
     private void initData() {
-        toolbar.setTitle(title);
+        toolbar.setTitle("< "+title);
         res = getResources();
         bitmap = BitmapFactory.decodeResource(res, R.drawable.test_filters);
     }
@@ -102,5 +103,11 @@ public class GaussianBlurActivity extends BaseActivity {
 
         return outBitmap;
 
+    }
+
+    @OnClick(id= R.id.toolbar)
+    void clickToolbar() {
+
+        finish();
     }
 }

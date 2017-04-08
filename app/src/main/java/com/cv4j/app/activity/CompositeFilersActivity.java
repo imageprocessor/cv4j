@@ -16,6 +16,7 @@ import com.cv4j.core.filters.SpotlightFilter;
 import com.safframework.injectview.Injector;
 import com.safframework.injectview.annotations.InjectExtra;
 import com.safframework.injectview.annotations.InjectView;
+import com.safframework.injectview.annotations.OnClick;
 
 import thereisnospon.codeview.CodeView;
 import thereisnospon.codeview.CodeViewTheme;
@@ -57,7 +58,7 @@ public class CompositeFilersActivity extends BaseActivity {
     }
 
     private void initViews() {
-        toolbar.setTitle(title);
+        toolbar.setTitle("< "+title);
     }
 
     private void initData() {
@@ -95,5 +96,11 @@ public class CompositeFilersActivity extends BaseActivity {
                 .append("image3.setImageBitmap(newBitmap);");
 
         codeView.showCode(code.toString());
+    }
+
+    @OnClick(id= R.id.toolbar)
+    void clickToolbar() {
+
+        finish();
     }
 }

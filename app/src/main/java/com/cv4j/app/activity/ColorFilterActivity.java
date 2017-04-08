@@ -20,6 +20,7 @@ import com.cv4j.rxjava.RxImageData;
 import com.safframework.injectview.Injector;
 import com.safframework.injectview.annotations.InjectExtra;
 import com.safframework.injectview.annotations.InjectView;
+import com.safframework.injectview.annotations.OnClick;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -60,7 +61,7 @@ public class ColorFilterActivity extends BaseActivity {
     }
 
     private void initViews() {
-        toolbar.setTitle(title);
+        toolbar.setTitle("< "+title);
     }
 
     private void initData() {
@@ -116,5 +117,9 @@ public class ColorFilterActivity extends BaseActivity {
         }
     }
 
+    @OnClick(id= R.id.toolbar)
+    void clickToolbar() {
 
+        finish();
+    }
 }

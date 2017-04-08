@@ -16,6 +16,7 @@ import com.cv4j.app.ui.GridRecyclerView;
 import com.safframework.injectview.Injector;
 import com.safframework.injectview.annotations.InjectExtra;
 import com.safframework.injectview.annotations.InjectView;
+import com.safframework.injectview.annotations.OnClick;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,7 +53,8 @@ public class GridViewFilterActivity extends BaseActivity {
     }
 
     private void initViews() {
-        toolbar.setTitle(title);
+
+        toolbar.setTitle("< "+title);
     }
 
     private void initData() {
@@ -70,6 +72,12 @@ public class GridViewFilterActivity extends BaseActivity {
                 list,bitmap));
         recyclerview.addItemDecoration(new DividerGridItemDecoration(GridViewFilterActivity.this));
         recyclerview.setRecycledViewPool(myPool);
+    }
+
+    @OnClick(id= R.id.toolbar)
+    void clickToolbar() {
+
+        finish();
     }
 
     static RecyclerView.RecycledViewPool myPool = new RecyclerView.RecycledViewPool();
