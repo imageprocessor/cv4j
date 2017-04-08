@@ -130,7 +130,17 @@ public class RxImageData {
                         Exception {
 
                     if (useCache) {
-                        String key = wrap.filters.get(0).getClass().getSimpleName()+imageView.getId();
+
+                        StringBuilder sb = new StringBuilder();
+                        if (imageView.getContext()!=null) {
+                            sb.append(imageView.getContext().getClass().getSimpleName());
+                        }
+
+                        sb.append(wrap.filters.get(0).getClass().getSimpleName()).append(imageView.getId());
+
+                        String key = Utils.md5(sb.toString());
+
+                        Log.i("RxImageData",key);
 
                         if (memCache.get(key)==null) {
 
