@@ -23,7 +23,7 @@ public class ConBriFilter implements CommonFilter  {
 		byte[] R = ((ColorProcessor)src).getRed();
 		byte[] G = ((ColorProcessor)src).getGreen();
 		byte[] B = ((ColorProcessor)src).getBlue();
-		byte[][] output = new byte[3][R.length];
+//		byte[][] output = new byte[3][R.length];
         
         // calculate RED, GREEN, BLUE means of pixel
 		int index = 0;
