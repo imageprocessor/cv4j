@@ -138,9 +138,8 @@ public class RxImageData {
 
                         sb.append(wrap.filters.get(0).getClass().getSimpleName()).append(imageView.getId());
 
+                        // 目前key采用activity name + filter name + imageView id
                         String key = Utils.md5(sb.toString());
-
-                        Log.i("RxImageData",key);
 
                         if (memCache.get(key)==null) {
 
