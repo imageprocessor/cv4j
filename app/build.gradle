@@ -58,8 +58,8 @@ dependencies {
     compile "com.safframework.log:saf-log:${libs.saf_log}"
     compile "com.safframework:saf-aop:${libs.saf_aop}"
 
-    compile 'com.safframework.injectview:saf-injectview:1.0.0'
-    apt 'com.safframework.injectview:saf-injectview-compiler:1.0.0'
+    compile 'com.safframework.injectview:saf-injectview:1.1.0'
+    apt 'com.safframework.injectview:saf-injectview-compiler:1.1.0'
 
     compile 'thereisnospon.codeview:codeview:0.3.1'
 

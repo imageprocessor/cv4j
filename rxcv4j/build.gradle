@@ -1,5 +1,5 @@
 apply plugin: 'com.android.library'
-apply plugin: 'com.novoda.bintray-release'
+//apply plugin: 'com.novoda.bintray-release'
 
 def cfg = rootProject.ext.configuration // 配置
 def libs = rootProject.ext.libraries // 库
@@ -40,28 +40,28 @@ dependencies {
     compile project(':cv4j')
 }
 
-repositories {
-    jcenter()
-}
-
-allprojects {
-    repositories {
-        jcenter()
-    }
-    //加上这些
-    tasks.withType(Javadoc) {
-        options{ encoding "UTF-8"
-            charSet 'UTF-8'
-            links "http://docs.oracle.com/javase/7/docs/api"
-        }
-    }
-}
-
-publish{
-    userOrg = 'fengzhizi715'
-    groupId = 'com.cv4j'
-    artifactId = 'rxcv4j'
-    publishVersion = '0.1.0'
-    desc = 'this is a rxjava library for cv4j'
-    website = 'https://github.com/imageprocessor/cv4j'
-}
+//repositories {
+//    jcenter()
+//}
+//
+//allprojects {
+//    repositories {
+//        jcenter()
+//    }
+//    //加上这些
+//    tasks.withType(Javadoc) {
+//        options{ encoding "UTF-8"
+//            charSet 'UTF-8'
+//            links "http://docs.oracle.com/javase/7/docs/api"
+//        }
+//    }
+//}
+//
+//publish{
+//    userOrg = 'fengzhizi715'
+//    groupId = 'com.cv4j'
+//    artifactId = 'rxcv4j'
+//    publishVersion = '0.1.0'
+//    desc = 'this is a rxjava library for cv4j'
+//    website = 'https://github.com/imageprocessor/cv4j'
+//}

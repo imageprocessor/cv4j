@@ -51,3 +51,7 @@ allprojects {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+
+tasks.getByPath(":cv4j:checkstyle").enabled = false
+tasks.getByPath(":cv4j:releaseAndroidJavadocs").enabled = false
+tasks.getByPath(":rxcv4j:lint").enabled = false
