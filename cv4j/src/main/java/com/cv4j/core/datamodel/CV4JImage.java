@@ -88,7 +88,7 @@ public class CV4JImage implements ImageData, Serializable{
     }
 
     @Override
-    public void convert2Gray() {
+    public CV4JImage convert2Gray() {
         if(processor instanceof ColorProcessor) {
 
             byte[] gray = new byte[width * height];
@@ -106,6 +106,8 @@ public class CV4JImage implements ImageData, Serializable{
             processor = new ByteProcessor(gray, width, height);
             ((ByteProcessor)processor).setCallBack(this);
         }
+
+        return this;
     }
 
     @Override

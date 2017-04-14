@@ -38,7 +38,7 @@ public interface ImageData {
 
     ImageProcessor getProcessor();
 
-    void convert2Gray();
+    CV4JImage convert2Gray();
 
     Bitmap toBitmap();
 
