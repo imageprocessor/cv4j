@@ -21,7 +21,7 @@ public class ConnectedAreaLabel {
 
 	public ConnectedAreaLabel() {
 		numOfPixels = 100;
-		filterNoise = true;
+		filterNoise = false;
 	}
 
 	public void setNoiseArea(int numOfPixels) {
@@ -32,13 +32,7 @@ public class ConnectedAreaLabel {
 		this.filterNoise = filterNoise;
 	}
 
-	/**
-	 *
-	 * @param binary - binary image data
-	 * @param labelMask - label for each pixel point
-     * @return int - total labels of image
-     */
-	public int process(ByteProcessor binary, byte[] labelMask) {
+	public int process(ByteProcessor binary, byte[] labelMask, List<Rect> rectangles, boolean drawBounding) {
 		int width = binary.getWidth();
 		int height = binary.getHeight();
 		byte[] data = binary.getGray();
@@ -70,7 +64,7 @@ public class ConnectedAreaLabel {
 						ul = pixels[offset-width] < 0 ? -1 : labels[pixels[offset-width]];
 						twoLabels[1] = ul;
 					}
-					
+
 					if(ll < 0 && ul < 0) {
 						pixels[offset] = currlabel;
 						labels[currlabel] = currlabel;
@@ -83,89 +77,105 @@ public class ConnectedAreaLabel {
 							smallestLabel = twoLabels[1];
 						}
 						pixels[offset] = smallestLabel;
-						
+
 						for(int k=0; k<twoLabels.length; k++) {
 							if(twoLabels[k] < 0) {
 								continue;
 							}
 							int tempLabel = twoLabels[k];
 							int oldSmallestLabe = labels[tempLabel];
-							if (oldSmallestLabe > smallestLabel)  
-	                        {                             
+							if (oldSmallestLabe > smallestLabel)
+							{
 								labels[oldSmallestLabe] = smallestLabel ;
 								labels[tempLabel] = smallestLabel;
-	                        }                         
-	                        else if (oldSmallestLabe < smallestLabel)  
-	                        {  
-	                        	labels[smallestLabel] = oldSmallestLabe ;  
-	                        } 
+							}
+							else if (oldSmallestLabe < smallestLabel)
+							{
+								labels[smallestLabel] = oldSmallestLabe ;
+							}
 						}
 					}
 				}
 				offset++;
 			}
 		}
-		
+
 		int[] labelSet = new int[currlabel];
 		System.arraycopy(labels, 0, labelSet, 0, currlabel);
 		labels = null;
-		for (int i = 2; i < labelSet.length; i++)  
-	    {  
-	        int curLabel = labelSet[i];  
-	        int preLabel = labelSet[curLabel];  
-	        while (preLabel != curLabel)  
-	        {  
-	            curLabel = preLabel;  
-	            preLabel = labelSet[preLabel];  
-	        }  
-	        labelSet[i] = curLabel;  
-	    } 
-		
+		for (int i = 2; i < labelSet.length; i++)
+		{
+			int curLabel = labelSet[i];
+			int preLabel = labelSet[curLabel];
+			while (preLabel != curLabel)
+			{
+				curLabel = preLabel;
+				preLabel = labelSet[preLabel];
+			}
+			labelSet[i] = curLabel;
+		}
+
 		// 2. second pass
 		// aggregation the pixels with same label index
 		Map<Integer, List<PixelNode>> aggregationMap = new HashMap<Integer, List<PixelNode>>();
-	    for (int i = 0; i < height; i++)  
-	    {  
-	    	offset = i * width;
-	        for (int j = 0; j < width; j++)  
-	        {  
-	        	int pixelLabel = pixels[offset+j]; 
-	        	// skip background
-	        	if(pixelLabel < 0) {
-	        		continue;
-	        	}
-	        	// label each area
-	        	pixels[offset+j] = labelSet[pixelLabel];
-	        	List<PixelNode> pixelList = aggregationMap.get(labelSet[pixelLabel]);
-	        	if(pixelList == null) {
-	        		pixelList = new ArrayList<PixelNode>();
-	        		aggregationMap.put(labelSet[pixelLabel], pixelList);
-	        	}
-	        	PixelNode pn = new PixelNode();
-	        	pn.row = i;
-	        	pn.col = j;
-	        	pn.index = offset+j;
-	        	pixelList.add(pn);
-	        }  
-	    }
-	    
+		for (int i = 0; i < height; i++)
+		{
+			offset = i * width;
+			for (int j = 0; j < width; j++)
+			{
+				int pixelLabel = pixels[offset+j];
+				// skip background
+				if(pixelLabel < 0) {
+					continue;
+				}
+				// label each area
+				pixels[offset+j] = labelSet[pixelLabel];
+				List<PixelNode> pixelList = aggregationMap.get(labelSet[pixelLabel]);
+				if(pixelList == null) {
+					pixelList = new ArrayList<PixelNode>();
+					aggregationMap.put(labelSet[pixelLabel], pixelList);
+				}
+				PixelNode pn = new PixelNode();
+				pn.row = i;
+				pn.col = j;
+				pn.index = offset+j;
+				pixelList.add(pn);
+			}
+		}
+
 		// assign labels
-	    Integer[] keys = aggregationMap.keySet().toArray(new Integer[0]);
+		Integer[] keys = aggregationMap.keySet().toArray(new Integer[0]);
 		Arrays.fill(labelMask, (byte)0);
-	    for(Integer key : keys) {
-	    	List<PixelNode> pixelList = aggregationMap.get(key);
+		for(Integer key : keys) {
+			List<PixelNode> pixelList = aggregationMap.get(key);
 			if(filterNoise && pixelList.size() < numOfPixels) {
 				continue;
 			}
 			// tag each pixel
 			for(PixelNode pnode : pixelList) {
-				labelMask[pnode.index] = (byte)255;
+				labelMask[pnode.index] = (byte)key.intValue();
+			}
+
+			// return each label rectangle
+			if(drawBounding && rectangles != null) {
+				rectangles.add(boundingRect(pixelList));
 			}
 		}
+
 		return keys.length;
 	}
 
-	public static Rect boundingRect(List<PixelNode> pixelList) {
+	/**
+	 *
+	 * @param binary - binary image data
+	 * @param labelMask - label for each pixel point
+     * @return int - total labels of image
+     */
+	public int process(ByteProcessor binary, byte[] labelMask) {
+		return process(binary, labelMask, null, false);
+	}
+
+	private Rect boundingRect(List<PixelNode> pixelList) {
 		int minx = 10000, maxx = 0;
 		int miny = 10000, maxy = 0;
 		for(PixelNode pn : pixelList) {
