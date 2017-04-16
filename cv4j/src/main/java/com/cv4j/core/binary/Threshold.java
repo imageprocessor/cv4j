@@ -8,9 +8,9 @@ import com.cv4j.core.datamodel.ByteProcessor;
 
 public class Threshold {
     /** binary image */
-    public static int THRESH_BINARY = 0;
+    public static int METHOD_THRESH_BINARY = 0;
     /** invert binary image */
-    public static int THRESH_BINARY_INV = 1;
+    public static int METHOD_THRESH_BINARY_INV = 1;
 
     /** it is not reasonable method to convert binary image */
     public static int THRESH_MEANS = 1;
@@ -27,7 +27,7 @@ public class Threshold {
      * @param type - binary segmentation method, int
      */
     public void process(ByteProcessor gray, int type) {
-        process(gray, type, THRESH_BINARY, 0);
+        process(gray, type, METHOD_THRESH_BINARY, 0);
     }
 
     /**
@@ -56,9 +56,9 @@ public class Threshold {
         for(int i=0; i<data.length; i++) {
             c = data[i]&0xff;
             if(c <= tvalue) {
-                data[i] = (method == THRESH_BINARY_INV)?(byte)255 : (byte)0;
+                data[i] = (method == METHOD_THRESH_BINARY_INV)?(byte)255 : (byte)0;
             } else {
-                data[i] = (method == THRESH_BINARY_INV)?(byte)0 : (byte)255;
+                data[i] = (method == METHOD_THRESH_BINARY_INV)?(byte)0 : (byte)255;
             }
         }
     }

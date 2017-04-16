@@ -8,6 +8,11 @@ public class Size {
     public int cols;
     public int rows;
 
+    public Size(int num) {
+        this.cols = num;
+        this.rows = num;
+    }
+
     public Size(int width, int height) {
         this.cols = width;
         this.rows = height;

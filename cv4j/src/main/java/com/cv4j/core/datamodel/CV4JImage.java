@@ -141,6 +141,9 @@ public class CV4JImage implements ImageData, Serializable{
         input = null;
     }
 
+    public void resetBitmap() {
+        this.bitmap = null;
+    }
 
     /**
      * 保存图片到指定路径

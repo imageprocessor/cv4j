@@ -9,10 +9,8 @@ import android.widget.ImageView;
 
 import com.cv4j.app.R;
 import com.cv4j.app.app.BaseActivity;
-import com.cv4j.core.binary.CourtEdge;
-import com.cv4j.core.binary.Threshold;
-import com.cv4j.core.datamodel.ByteProcessor;
-import com.cv4j.core.datamodel.CV4JImage;
+import com.cv4j.core.filters.NatureFilter;
+import com.cv4j.rxjava.RxImageData;
 import com.safframework.injectview.annotations.InjectExtra;
 import com.safframework.injectview.annotations.InjectView;
 import com.safframework.injectview.annotations.OnClick;
@@ -56,19 +54,10 @@ public class UseFilterWithRxActivity extends BaseActivity {
         Resources res = getResources();
         final Bitmap bitmap = BitmapFactory.decodeResource(res, R.drawable.test_io);
 
-//        RxImageData.bitmap(bitmap)
-//                .addFilter(new NatureFilter())
-//                .isUseCache(false)
-//                .into(image);
-
-        CV4JImage cv4JImage = new CV4JImage(bitmap);
-        Threshold threshold = new Threshold();
-        threshold.process((ByteProcessor)(cv4JImage.convert2Gray().getProcessor()),Threshold.THRESH_MEANS);
-        CourtEdge courtEdge = new CourtEdge();
-
-        courtEdge.process((ByteProcessor)(cv4JImage.convert2Gray().getProcessor()));
-
-        image.setImageBitmap(cv4JImage.getProcessor().getImage().toBitmap());
+        RxImageData.bitmap(bitmap)
+                .addFilter(new NatureFilter())
+                .isUseCache(false)
+                .into(image);
 
         codeView.setTheme(CodeViewTheme.ANDROIDSTUDIO).fillColor();
 
