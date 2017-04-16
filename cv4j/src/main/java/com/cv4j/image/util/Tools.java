@@ -1,9 +1,18 @@
 package com.cv4j.image.util;
 
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.support.annotation.NonNull;
+
+import com.cv4j.core.datamodel.Rect;
+
 import java.io.BufferedReader;
 import java.io.StringReader;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.List;
 import java.util.StringTokenizer;
 import java.util.Vector;
 
@@ -333,6 +342,18 @@ import java.util.Vector;
 		for (int i=0; i<n; i++)
 			indexes2[i] = indexes[i].intValue();
 		return indexes2;
+	}
+
+	public static void drawRects(@NonNull Bitmap bitmap, @NonNull List<Rect> rectangles) {
+
+		Canvas canvas = new Canvas(bitmap);
+		Paint paint = new Paint();
+		paint.setStyle(Paint.Style.STROKE);
+		paint.setColor(Color.RED);
+
+		for (Rect rect:rectangles) {
+			canvas.drawRect(rect.x,rect.y,rect.br().x,rect.br().y,paint);
+		}
 	}
 
 }

@@ -3,9 +3,6 @@ package com.cv4j.app.fragment;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,8 +18,10 @@ import com.cv4j.core.datamodel.ByteProcessor;
 import com.cv4j.core.datamodel.CV4JImage;
 import com.cv4j.core.datamodel.Rect;
 import com.cv4j.core.datamodel.Size;
+import com.cv4j.image.util.Tools;
 import com.safframework.injectview.Injector;
 import com.safframework.injectview.annotations.InjectView;
+import com.safframwork.tony.common.utils.Preconditions;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -79,14 +78,10 @@ public class BinaryFragment extends BaseFragment {
         cv4JImage.resetBitmap();
         Bitmap newBitmap = cv4JImage.getProcessor().getImage().toBitmap();
 
-        Canvas canvas = new Canvas(newBitmap);
-        Paint paint = new Paint();
-        paint.setStyle(Paint.Style.STROKE);
-        paint.setColor(Color.RED);
-
-        for (Rect rect:rectangles) {
-            canvas.drawRect(rect.x,rect.y,rect.br().x,rect.br().y,paint);
+        if (Preconditions.isNotBlank(rectangles)) {
+            Tools.drawRects(newBitmap,rectangles);
         }
+
         image3.setImageBitmap(newBitmap);
     }
 }

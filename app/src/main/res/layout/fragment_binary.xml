@@ -29,7 +29,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="20dp"
-            android:text="第一步："/>
+            android:text="第一步二值化："/>
 
         <ImageView
             android:id="@+id/image1"
@@ -43,7 +43,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="20dp"
-            android:text="第二步："/>
+            android:text="第二步开操作："/>
 
         <ImageView
             android:id="@+id/image2"
@@ -57,7 +57,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="20dp"
-            android:text="第三步："/>
+            android:text="第三步连通组件标记："/>
 
         <ImageView
             android:id="@+id/image3"
