@@ -19,6 +19,7 @@ import com.cv4j.core.datamodel.CV4JImage;
 import com.cv4j.core.datamodel.Size;
 import com.safframework.injectview.annotations.InjectExtra;
 import com.safframework.injectview.annotations.InjectView;
+import com.safframework.injectview.annotations.OnClick;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -108,5 +109,11 @@ public class CoinsActivity extends BaseActivity {
         image3.setImageBitmap(newBitmap);
 
         numTextView.setText(String.format("总计%d个硬币",num));
+    }
+
+    @OnClick(id= R.id.toolbar)
+    void clickToolbar() {
+
+        finish();
     }
 }
