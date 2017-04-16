@@ -165,4 +165,12 @@ public class CV4JImage implements ImageData, Serializable{
             e.printStackTrace();
         }
     }
+
+    /**
+     * 释放资源
+     */
+    public void recycle() {
+        processor = null;
+        bitmap = null;
+    }
 }
