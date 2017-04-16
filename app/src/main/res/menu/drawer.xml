@@ -38,9 +38,15 @@
             android:title="@string/filters"/>
 
         <item
-            android:id="@+id/spatial_conv"
+            android:id="@+id/drawer_spatial_conv"
             android:icon="@drawable/menu_general_anno"
             android:title="@string/spatial_conv"/>
+
+        <item
+            android:id="@+id/drawer_binary"
+            android:icon="@drawable/menu_general_anno"
+            android:title="@string/binary"/>
+
 
     </group>
 </menu>

@@ -5,6 +5,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
 import com.cv4j.app.R;
+import com.cv4j.app.fragment.BinaryFragment;
 import com.cv4j.app.fragment.FiltersFragment;
 import com.cv4j.app.fragment.HomeFragment;
 import com.cv4j.app.fragment.IOFragment;
@@ -25,7 +26,8 @@ public class MenuManager {
         HOME("CV4J介绍",false),
         IO("io读写",true),
         FILTERS("常用过滤器",true),
-        SPTIAL_CONV("空间卷积功能",true);
+        SPTIAL_CONV("空间卷积功能",true),
+        BINARY("二值分析",true);
 
         public final String title;
         public final boolean removed;
@@ -100,6 +102,10 @@ public class MenuManager {
 
             case SPTIAL_CONV:
                 fragment = new SpitalConvFragment();
+                break;
+
+            case BINARY:
+                fragment = new BinaryFragment();
                 break;
 
             default:
