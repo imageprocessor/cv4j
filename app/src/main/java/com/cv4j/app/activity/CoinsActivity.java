@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.SparseIntArray;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -21,8 +22,6 @@ import com.safframework.injectview.annotations.InjectExtra;
 import com.safframework.injectview.annotations.InjectView;
 import com.safframework.injectview.annotations.OnClick;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Random;
 
 /**
@@ -81,7 +80,7 @@ public class CoinsActivity extends BaseActivity {
 
         int num = connectedAreaLabel.process((ByteProcessor)cv4JImage.getProcessor(),mask,null,false); // 获取连通组件的个数
 
-        Map<Integer,Integer> colors = new HashMap<>();
+        SparseIntArray colors = new SparseIntArray();
         Random random = new Random();
 
         int height = cv4JImage.getProcessor().getHeight();
@@ -105,10 +104,10 @@ public class CoinsActivity extends BaseActivity {
             }
         }
 
-
         image3.setImageBitmap(newBitmap);
 
-        numTextView.setText(String.format("总计%d个硬币",num));
+        if (num>0)
+            numTextView.setText(String.format("总计识别出%d个硬币",num));
     }
 
     @OnClick(id= R.id.toolbar)
