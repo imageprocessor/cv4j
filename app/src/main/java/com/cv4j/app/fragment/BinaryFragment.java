@@ -3,6 +3,9 @@ package com.cv4j.app.fragment;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,13 +14,18 @@ import android.widget.ImageView;
 
 import com.cv4j.app.R;
 import com.cv4j.app.app.BaseFragment;
+import com.cv4j.core.binary.ConnectedAreaLabel;
 import com.cv4j.core.binary.MorphOpen;
 import com.cv4j.core.binary.Threshold;
 import com.cv4j.core.datamodel.ByteProcessor;
 import com.cv4j.core.datamodel.CV4JImage;
+import com.cv4j.core.datamodel.Rect;
 import com.cv4j.core.datamodel.Size;
 import com.safframework.injectview.Injector;
 import com.safframework.injectview.annotations.InjectView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Tony Shen on 2017/4/16.
@@ -33,6 +41,9 @@ public class BinaryFragment extends BaseFragment {
 
     @InjectView(R.id.image2)
     ImageView image2;
+
+    @InjectView(R.id.image3)
+    ImageView image3;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -60,5 +71,22 @@ public class BinaryFragment extends BaseFragment {
         morphOpen.process((ByteProcessor)cv4JImage.getProcessor(),new Size(5));
 
         image2.setImageBitmap(cv4JImage.getProcessor().getImage().toBitmap());
+
+        ConnectedAreaLabel connectedAreaLabel = new ConnectedAreaLabel();
+        byte[] mask = new byte[cv4JImage.getProcessor().getWidth()*cv4JImage.getProcessor().getHeight()];
+        List<Rect> rectangles = new ArrayList<>();
+        connectedAreaLabel.process((ByteProcessor)cv4JImage.getProcessor(),mask,rectangles,true);
+        cv4JImage.resetBitmap();
+        Bitmap newBitmap = cv4JImage.getProcessor().getImage().toBitmap();
+
+        Canvas canvas = new Canvas(newBitmap);
+        Paint paint = new Paint();
+        paint.setStyle(Paint.Style.STROKE);
+        paint.setColor(Color.RED);
+
+        for (Rect rect:rectangles) {
+            canvas.drawRect(rect.x,rect.y,rect.br().x,rect.br().y,paint);
+        }
+        image3.setImageBitmap(newBitmap);
     }
 }

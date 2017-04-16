@@ -55,7 +55,7 @@ public class ConnectedAreaLabel {
 				p3 = data[offset-width]&0xff; // upper
 				Arrays.fill(twoLabels, -1);
 				ll = -1; ul=-1;
-				if(p1 == 0) {
+				if(p1 == 255) {
 					if(p1 == p2) {
 						ll = pixels[offset-1] < 0 ? -1 : labels[pixels[offset-1]];
 						twoLabels[0] = ll;
