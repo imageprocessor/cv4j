@@ -8,18 +8,18 @@ import com.cv4j.core.datamodel.ByteProcessor;
 
 public class Threshold {
     /** binary image */
-    public int THRESH_BINARY = 0;
+    public static int THRESH_BINARY = 0;
     /** invert binary image */
-    public int THRESH_BINARY_INV = 1;
+    public static int THRESH_BINARY_INV = 1;
 
     /** it is not reasonable method to convert binary image */
-    public int THRESH_MEANS = 1;
+    public static int THRESH_MEANS = 1;
     /** it is popular binary method in OPENCV and MATLAB */
-    public int THRESH_OTSU = 2;
+    public static int THRESH_OTSU = 2;
     /** histogram statistic threshold method*/
-    public int THRESH_TRIANGLE = 3;
+    public static int THRESH_TRIANGLE = 3;
     /**based on 1D mean shift, CV4J custom binary method, sometimes it is very slow...*/
-    public int THRESH_MEANSHIFT = 4;
+    public static int THRESH_MEANSHIFT = 4;
 
     /**
      *
