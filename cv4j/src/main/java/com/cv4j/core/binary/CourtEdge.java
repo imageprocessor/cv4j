@@ -8,7 +8,7 @@ public class CourtEdge {
 	public void process(ByteProcessor binary) {
 		int width = binary.getWidth();
 		int height = binary.getHeight();
-		
+
 		byte[] input1 = new byte[width*height];
 		System.arraycopy(binary.getGray(), 0, input1, 0, input1.length);
 
