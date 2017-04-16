@@ -13,7 +13,6 @@ import com.cv4j.core.datamodel.CV4JImage;
 import com.cv4j.core.filters.CompositeFilters;
 import com.cv4j.core.filters.NatureFilter;
 import com.cv4j.core.filters.SpotlightFilter;
-import com.safframework.injectview.Injector;
 import com.safframework.injectview.annotations.InjectExtra;
 import com.safframework.injectview.annotations.InjectView;
 import com.safframework.injectview.annotations.OnClick;
@@ -51,7 +50,6 @@ public class CompositeFilersActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_composite_filters);
-        Injector.injectInto(this);
 
         initViews();
         initData();

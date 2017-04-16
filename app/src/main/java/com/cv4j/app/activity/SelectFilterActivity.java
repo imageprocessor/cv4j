@@ -16,7 +16,6 @@ import com.cv4j.app.app.BaseActivity;
 import com.cv4j.core.datamodel.CV4JImage;
 import com.cv4j.core.filters.CommonFilter;
 import com.safframework.aop.annotation.Trace;
-import com.safframework.injectview.Injector;
 import com.safframework.injectview.annotations.InjectExtra;
 import com.safframework.injectview.annotations.InjectView;
 import com.safframework.injectview.annotations.OnClick;
@@ -54,7 +53,6 @@ public class SelectFilterActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_filter);
-        Injector.injectInto(this);
 
         initViews();
         initData();

@@ -13,7 +13,6 @@ import com.cv4j.app.adapter.GridViewFilterAdapter;
 import com.cv4j.app.app.BaseActivity;
 import com.cv4j.app.ui.DividerGridItemDecoration;
 import com.cv4j.app.ui.GridRecyclerView;
-import com.safframework.injectview.Injector;
 import com.safframework.injectview.annotations.InjectExtra;
 import com.safframework.injectview.annotations.InjectView;
 import com.safframework.injectview.annotations.OnClick;
@@ -46,7 +45,6 @@ public class GridViewFilterActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gridview_filter);
-        Injector.injectInto(this);
 
         initViews();
         initData();

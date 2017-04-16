@@ -17,7 +17,6 @@ import com.cv4j.app.R;
 import com.cv4j.app.app.BaseActivity;
 import com.cv4j.core.filters.ColorFilter;
 import com.cv4j.rxjava.RxImageData;
-import com.safframework.injectview.Injector;
 import com.safframework.injectview.annotations.InjectExtra;
 import com.safframework.injectview.annotations.InjectView;
 import com.safframework.injectview.annotations.OnClick;
@@ -54,7 +53,6 @@ public class ColorFilterActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_color_filter);
-        Injector.injectInto(this);
 
         initViews();
         initData();
