@@ -223,4 +223,15 @@ public class RxImageData {
             }
         };
     }
+
+    /**
+     * 释放资源
+     */
+    public void recycle() {
+
+        if (image!=null) {
+            image.recycle();
+            image = null;
+        }
+    }
 }

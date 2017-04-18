@@ -49,6 +49,8 @@ public class ColorFilterActivity extends BaseActivity {
 
     Map colorStyles = new HashMap();
 
+    RxImageData rxImageData;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,7 +69,8 @@ public class ColorFilterActivity extends BaseActivity {
         Resources res = getResources();
         bitmap = BitmapFactory.decodeResource(res, R.drawable.test_color_filter);
 
-        RxImageData.bitmap(bitmap).addFilter(new ColorFilter()).isUseCache(false).into(image);
+        rxImageData = RxImageData.bitmap(bitmap);
+        rxImageData.addFilter(new ColorFilter()).isUseCache(false).into(image);
 
         colorStyles.put(ColorFilter.AUTUMN_STYLE," 秋天风格 ");
         colorStyles.put(ColorFilter.BONE_STYLE," 硬朗风格 ");
@@ -109,7 +112,9 @@ public class ColorFilterActivity extends BaseActivity {
                     ColorFilter colorFilter = new ColorFilter();
                     colorFilter.setStyle((int)v.getTag());
 
-                    RxImageData.bitmap(bitmap).addFilter(colorFilter).isUseCache(false).into(image);
+                    rxImageData.recycle();
+                    rxImageData = rxImageData.bitmap(bitmap);
+                    rxImageData.addFilter(colorFilter).isUseCache(false).into(image);
                 }
             });
         }
@@ -119,5 +124,11 @@ public class ColorFilterActivity extends BaseActivity {
     void clickToolbar() {
 
         finish();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        rxImageData.recycle();
     }
 }
