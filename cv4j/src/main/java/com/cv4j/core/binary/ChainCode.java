@@ -1,6 +1,8 @@
 package com.cv4j.core.binary;
 
 import com.cv4j.core.datamodel.ByteProcessor;
+import com.cv4j.exception.CV4JException;
+
 import java.util.Arrays;
 
 public class ChainCode extends CourtEdge {
@@ -11,7 +13,7 @@ public class ChainCode extends CourtEdge {
 		int height = binary.getHeight();
 		if(codeMap.length != (width*height))
 		{
-			throw new RuntimeException("chain code map length assert failure");
+			throw new CV4JException("chain code map length assert failure");
 		}
 		byte[] input = binary.getGray();
 		byte[] output = new byte[width*height];
