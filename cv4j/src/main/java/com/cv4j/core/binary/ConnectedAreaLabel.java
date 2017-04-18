@@ -121,6 +121,8 @@ public class ConnectedAreaLabel {
 		for (int i = 0; i < height; i++)
 		{
 			offset = i * width;
+			List<PixelNode> pixelList = null;
+			PixelNode pn = null;
 			for (int j = 0; j < width; j++)
 			{
 				int pixelLabel = pixels[offset+j];
@@ -130,12 +132,12 @@ public class ConnectedAreaLabel {
 				}
 				// label each area
 				pixels[offset+j] = labelSet[pixelLabel];
-				List<PixelNode> pixelList = aggregationMap.get(labelSet[pixelLabel]);
+				pixelList = aggregationMap.get(labelSet[pixelLabel]);
 				if(pixelList == null) {
 					pixelList = new ArrayList<PixelNode>();
 					aggregationMap.put(labelSet[pixelLabel], pixelList);
 				}
-				PixelNode pn = new PixelNode();
+				pn = new PixelNode();
 				pn.row = i;
 				pn.col = j;
 				pn.index = offset+j;
@@ -146,8 +148,9 @@ public class ConnectedAreaLabel {
 		// assign labels
 		Integer[] keys = aggregationMap.keySet().toArray(new Integer[0]);
 		Arrays.fill(labelMask, (byte)0);
+		List<PixelNode> pixelList = null;
 		for(Integer key : keys) {
-			List<PixelNode> pixelList = aggregationMap.get(key);
+			pixelList = aggregationMap.get(key);
 			if(filterNoise && pixelList.size() < numOfPixels) {
 				continue;
 			}
