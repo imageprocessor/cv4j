@@ -5,13 +5,9 @@ package com.cv4j.core.datamodel;
  */
 
 public class Vec3i {
-    public int x;
-    public int y;
-    public int z;
 
-    public Vec3i() {
-        x = 0;
-        y = 0;
-        z = 0;
-    }
+    public int x = 0;
+    public int y = 0;
+    public int z = 0;
+
 }

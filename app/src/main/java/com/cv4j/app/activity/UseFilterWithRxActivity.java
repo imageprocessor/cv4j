@@ -36,6 +36,8 @@ public class UseFilterWithRxActivity extends BaseActivity {
     @InjectExtra(key = "Title")
     String title;
 
+    RxImageData rxImageData;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,8 +56,9 @@ public class UseFilterWithRxActivity extends BaseActivity {
         Resources res = getResources();
         final Bitmap bitmap = BitmapFactory.decodeResource(res, R.drawable.test_io);
 
-        RxImageData.bitmap(bitmap)
-                .addFilter(new NatureFilter())
+        rxImageData = RxImageData.bitmap(bitmap);
+
+        rxImageData.addFilter(new NatureFilter())
                 .isUseCache(false)
                 .into(image);
 
@@ -75,5 +78,11 @@ public class UseFilterWithRxActivity extends BaseActivity {
     void clickToolbar() {
 
         finish();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        rxImageData.recycle();
     }
 }
