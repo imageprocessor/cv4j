@@ -23,7 +23,8 @@ public class ColorProcessor implements ImageProcessor {
 
     private void backFillData(int[] input) {
         int c=0, r=0, g=0, b=0;
-        for(int i=0; i<input.length; i++) {
+        int length = input.length;
+        for(int i=0; i<length; i++) {
             c = input[i];
             r = (c&0xff0000)>>16;
             g = (c&0xff00)>>8;
@@ -82,6 +83,7 @@ public class ColorProcessor implements ImageProcessor {
         int[] pixels = new int[size];
         for (int i=0; i < size; i++)
             pixels[i] = 0xff000000 | ((R[i]&0xff)<<16) | ((G[i]&0xff)<<8) | B[i]&0xff;
+
         return pixels;
     }
 
@@ -97,19 +99,22 @@ public class ColorProcessor implements ImageProcessor {
     public float[] toFloat(int index) {
         if(index == 0) {
             float[] data = new float[R.length];
-            for(int i=0; i<data.length; i++)
+            int length = data.length;
+            for(int i=0; i<length; i++)
                 data[i] = R[i]&0xff;
             return data;
         }
         else if(index == 1) {
             float[] data = new float[G.length];
-            for(int i=0; i<data.length; i++)
+            int length = data.length;
+            for(int i=0; i<length; i++)
                 data[i] = G[i]&0xff;
             return data;
         }
         else if(index == 2) {
             float[] data = new float[B.length];
-            for(int i=0; i<data.length; i++)
+            int length = data.length;
+            for(int i=0; i<length; i++)
                 data[i] = B[i]&0xff;
             return data;
         } else {
@@ -122,19 +127,22 @@ public class ColorProcessor implements ImageProcessor {
     public int[] toInt(int index) {
         if(index == 0) {
             int[] data = new int[R.length];
-            for(int i=0; i<data.length; i++)
+            int length = data.length;
+            for(int i=0; i<length; i++)
                 data[i] = R[i]&0xff;
             return data;
         }
         else if(index == 1) {
             int[] data = new int[G.length];
-            for(int i=0; i<data.length; i++)
+            int length = data.length;
+            for(int i=0; i<length; i++)
                 data[i] = G[i]&0xff;
             return data;
         }
         else if(index == 2) {
             int[] data = new int[B.length];
-            for(int i=0; i<data.length; i++)
+            int length = data.length;
+            for(int i=0; i<length; i++)
                 data[i] = B[i]&0xff;
             return data;
         } else {
