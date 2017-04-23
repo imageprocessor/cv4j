@@ -356,4 +356,16 @@ import java.util.Vector;
 		}
 	}
 
+	public static void release(Object ... objects) {
+
+		if (objects!=null && objects.length>0) {
+
+			for (Object obj:objects) {
+
+				if (obj!=null) {
+					obj = null;
+				}
+			}
+		}
+	}
 }

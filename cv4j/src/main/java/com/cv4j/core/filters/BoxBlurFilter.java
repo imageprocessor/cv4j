@@ -1,25 +1,17 @@
 package com.cv4j.core.filters;
 
-import com.cv4j.core.datamodel.ColorProcessor;
 import com.cv4j.core.datamodel.ImageProcessor;
 import com.cv4j.image.util.Tools;
 
-public class BoxBlurFilter implements CommonFilter {
+public class BoxBlurFilter extends BaseFilter {
 
 	private int hRadius=5;
 	private int vRadius=5;
 	private int iterations = 1;
 
     @Override
-    public ImageProcessor filter(ImageProcessor src) {
+    public ImageProcessor doFilter(ImageProcessor src) {
 
-        if (!(src instanceof ColorProcessor)) return src;
-
-        int width = src.getWidth();
-        int height = src.getHeight();
-        byte[] R = ((ColorProcessor)src).getRed();
-        byte[] G = ((ColorProcessor)src).getGreen();
-        byte[] B = ((ColorProcessor)src).getBlue();
         byte[][] output = new byte[3][width*height];
         byte[][] input = new byte[][]{R, G, B};
         for (int i = 0; i < iterations; i++ ) {
