@@ -62,9 +62,9 @@ public class BeautySkinFilter implements CommonFilter {
 		int wx = (xr * 2 + 1);
 		int size = wx * wy;
 		int r = 0;
-		for (int row = 0; row < height; row++) {
+		for (int row = yr; row < height-yr; row++) {
 			offset = row * width;
-			for (int col = 0; col < width; col++) {
+			for (int col = xr; col < width-xr; col++) {
 				int sr = input.getBlockSum(col, row, wy, wx);
 				float a = input.getBlockSquareSum(col, row, wy, wx);
 				float b = sr / size;
