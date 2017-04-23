@@ -30,14 +30,14 @@ public class WhiteImageFilter implements CommonFilter {
 		byte[] G = ((ColorProcessor)src).getGreen();
 		byte[] B = ((ColorProcessor)src).getBlue();
 
-		int index = 0;
-
 		// make LUT
 		int[] lut = new int[256];
 		for(int i=0; i<256; i++) {
 			lut[i] = imageMath(i);
 		}
-		
+
+		int index = 0;
+
 		for (int row = 0; row < height; row++) {
 			for (int col = 0; col < width; col++) {
 				index = row * width + col;

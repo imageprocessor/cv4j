@@ -10,6 +10,9 @@ import com.cv4j.core.filters.CommonFilter;
 public class ConvolutionHVFilter implements CommonFilter {
 	@Override
 	public ImageProcessor filter(ImageProcessor src) {
+
+		if (!(src instanceof ColorProcessor)) return src;
+
 		int width = src.getWidth();
 		int height = src.getHeight();
 		int total = width*height;

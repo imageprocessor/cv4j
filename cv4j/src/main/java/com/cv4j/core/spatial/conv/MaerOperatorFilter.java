@@ -24,6 +24,9 @@ public class MaerOperatorFilter extends GaussianBlurFilter {
 
 	@Override
 	public ImageProcessor filter(ImageProcessor src){
+
+		if (!(src instanceof ColorProcessor)) return src;
+
 		// 高斯模糊
 		src = super.filter(src);
 		

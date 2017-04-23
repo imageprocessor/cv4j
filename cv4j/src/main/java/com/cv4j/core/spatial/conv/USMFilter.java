@@ -22,6 +22,9 @@ public class USMFilter extends GaussianBlurFilter {
 
 	@Override
 	public ImageProcessor filter(ImageProcessor src){
+
+		if (!(src instanceof ColorProcessor)) return src;
+
 		int width = src.getWidth();
 		int height = src.getHeight();
 
