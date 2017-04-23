@@ -54,4 +54,3 @@ task clean(type: Delete) {
 
 tasks.getByPath(":cv4j:checkstyle").enabled = false
 tasks.getByPath(":cv4j:releaseAndroidJavadocs").enabled = false
-tasks.getByPath(":rxcv4j:lint").enabled = false
