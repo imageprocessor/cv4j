@@ -7,29 +7,6 @@ import com.cv4j.image.util.Tools;
  * 
  * @author gloomy-fish
  * @date 2012-06-11
- * 
- * prewitt operator 
- * X-direction
- * -1, 0, 1
- * -1, 0, 1
- * -1, 0, 1
- * 
- * Y-direction
- * -1, -1, -1
- *  0,  0,  0
- *  1,  1,  1
- *  
- * sobel operator
- * X-direction
- * -1, 0, 1
- * -2, 0, 2
- * -1, 0, 1
- * 
- * Y-direction
- * -1, -2, -1
- *  0,  0,  0
- *  1,  2,  1
- *
  */
 public class GradientFilter {
 	// sobel operator

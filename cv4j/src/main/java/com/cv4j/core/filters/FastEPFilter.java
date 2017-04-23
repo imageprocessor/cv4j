@@ -45,6 +45,7 @@ public class FastEPFilter implements CommonFilter {
 		byte[] output = new byte[width*height];
 		IntIntegralImage ii = new IntIntegralImage();
 		for(int i=0; i<src.getChannels(); i++) {
+			System.arraycopy(src.toByte(i), 0, output, 0, output.length);
 			ii.setImage(src.toByte(i));
 			ii.process(width, height, true);
 			processSingleChannel(width, height, ii, output);
