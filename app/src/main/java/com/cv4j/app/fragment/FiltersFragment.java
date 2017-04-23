@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.cv4j.app.R;
+import com.cv4j.app.activity.BeautySkinActivity;
 import com.cv4j.app.activity.ColorFilterActivity;
 import com.cv4j.app.activity.CompositeFilersActivity;
 import com.cv4j.app.activity.GaussianBlurActivity;
@@ -42,6 +43,9 @@ public class FiltersFragment extends BaseFragment {
 
     @InjectView(R.id.text6)
     TextView text6;
+
+    @InjectView(R.id.text7)
+    TextView text7;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -96,6 +100,14 @@ public class FiltersFragment extends BaseFragment {
 
         Intent i = new Intent(mContext,GaussianBlurActivity.class);
         i.putExtra("Title",text6.getText().toString());
+        startActivity(i);
+    }
+
+    @OnClick(id=R.id.text7)
+    void clickText7() {
+
+        Intent i = new Intent(mContext,BeautySkinActivity.class);
+        i.putExtra("Title",text7.getText().toString());
         startActivity(i);
     }
 }
