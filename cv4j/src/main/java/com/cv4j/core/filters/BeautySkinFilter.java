@@ -1,78 +1,62 @@
 package com.cv4j.core.filters;
 
-import com.cv4j.core.datamodel.ColorProcessor;
+import com.cv4j.core.datamodel.ByteProcessor;
 import com.cv4j.core.datamodel.ImageProcessor;
-import com.cv4j.core.datamodel.IntIntegralImage;
-import com.cv4j.image.util.Tools;
 
 /**
- * good method try to smooth the minor noise
- * @author zhigang jia
- * @date 2017-04-23
- *
+ * Created by gloomy fish on 2017/4/23.
  */
+
 public class BeautySkinFilter implements CommonFilter {
+    @Override
+    public ImageProcessor filter(ImageProcessor src) {
+        int width = src.getWidth();
+        int height = src.getHeight();
+        byte[] R = new byte[width*height];
+        byte[] G = new byte[width*height];
+        byte[] B = new byte[width*height];
+        System.arraycopy(src.toByte(0), 0, R, 0, R.length);
+        System.arraycopy(src.toByte(1), 0, G, 0, G.length);
+        System.arraycopy(src.toByte(2), 0, B, 0, B.length);
 
-	private int xr;
-	private int yr;
-	private float sigma;
-	public BeautySkinFilter() {
-		sigma = 30.0f; // by default
-		xr = 5;
-		yr = 5;
-	}
-	
-	public void setWinsize(int radius) {
-		this.xr = radius;
-		this.yr = radius;
-	}
+        FastEPFilter epFilter = new FastEPFilter();
+        epFilter.filter(src);
+        ISkinDetection skinDetector = new DefaultSkinDetection();
+        int r = 0, g = 0, b = 0;
+        for(int i=0; i<R.length; i++) {
+            r = R[i]&0xff;
+            g = G[i]&0xff;
+            b = B[i]&0xff;
+            if(!skinDetector.isSkin(r, g, b)) {
+                src.toByte(0)[i] = (byte)r;
+                src.toByte(1)[i] = (byte)g;
+                src.toByte(2)[i] = (byte)b;
+            }
+        }
 
-	public float getSigma() {
-		return sigma;
-	}
+        byte[] gray = new byte[width*height];
+        int c = 0;
+        for(int i=0; i<R.length; i++) {
+            r = R[i] & 0xff;
+            g = G[i] & 0xff;
+            b = B[i] & 0xff;
+            c = (int)(0.299 *r + 0.587*g + 0.114*b);
+            gray[i] = (byte)c;
+        }
 
-	public void setSigma(float sigma) {
-		this.sigma = sigma;
-	}
-
-	@Override
-	public ImageProcessor filter(ImageProcessor src) {
-		// get image data
-		int width = src.getWidth();
-		int height = src.getHeight();
-
-		// start ep process
-		byte[] output = new byte[width*height];
-		IntIntegralImage ii = new IntIntegralImage();
-		for(int i=0; i<src.getChannels(); i++) {
-			ii.setImage(src.toByte(i));
-			ii.process(width, height, true);
-			processSingleChannel(width, height, ii, output);
-			System.arraycopy(output, 0, src.toByte(i), 0, output.length);
-		}
-		// release memory
-		output = null;
-		return src;
-	}
-
-	public void processSingleChannel(int width, int height, IntIntegralImage input, byte[] output) {
-		float sigma2 = sigma*sigma;
-		int offset = 0;
-		int wy = (yr * 2 + 1);
-		int wx = (xr * 2 + 1);
-		int size = wx * wy;
-		int r = 0;
-		for (int row = yr; row < height-yr; row++) {
-			offset = row * width;
-			for (int col = xr; col < width-xr; col++) {
-				int sr = input.getBlockSum(col, row, wy, wx);
-				float a = input.getBlockSquareSum(col, row, wy, wx);
-				float b = sr / size;
-				float c = (a - (sr*sr)/size)/size;
-				float d = c / (c+sigma2);
-				r = (int)((1-d)*b + d*r);
-				output[offset + col] = (byte)Tools.clamp(r);
-			}
-		}
-	}
+        GradientFilter gradientFilter = new GradientFilter();
+        int[] gradient = gradientFilter.gradient(new ByteProcessor(gray, width, height));
+        gray = null;
+        for(int i=0; i<R.length; i++) {
+            r = R[i]&0xff;
+            g = G[i]&0xff;
+            b = B[i]&0xff;
+            if(gradient[i] > 50) {
+                src.toByte(0)[i] = (byte)r;
+                src.toByte(1)[i] = (byte)g;
+                src.toByte(2)[i] = (byte)b;
+            }
+        }
+        return src;
+    }
 }

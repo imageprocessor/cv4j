@@ -368,4 +368,15 @@ import java.util.Vector;
 			}
 		}
 	}
+
+	public static int[] rgbToYcrCb(int tr, int tg, int tb) {
+		double sum = tr + tg + tb;
+		double r = ((double)tr)/sum;
+		double g = ((double)tg)/sum;
+		double b = ((double)tb)/sum;
+		double y = 65.481 * r + 128.553 * g + 24.966 * b + 16.0d;
+		double Cr = -37.7745 * r - 74.1592 * g + 111.9337 * b + 128.0d;
+		double Cb = 111.9581 * r -93.7509 * g -18.2072 * b + 128.0d;
+		return new int[]{(int)y, (int)Cr, (int)Cb};
+	}
 }
