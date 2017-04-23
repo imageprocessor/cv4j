@@ -21,8 +21,14 @@ import com.safframework.injectview.annotations.OnClick;
 
 public class BeautySkinActivity extends BaseActivity {
 
+    @InjectView(R.id.origin_image1)
+    ImageView originImage1;
+
     @InjectView(R.id.image1)
     ImageView image1;
+
+    @InjectView(R.id.origin_image2)
+    ImageView originImage2;
 
     @InjectView(R.id.image2)
     ImageView image2;
@@ -46,8 +52,14 @@ public class BeautySkinActivity extends BaseActivity {
     private void initData() {
         toolbar.setTitle("< "+title);
         Resources res= getResources();
-        Bitmap bitmap = BitmapFactory.decodeResource(res, R.drawable.test_beauty_skin2);
-        image1.setImageBitmap(bitmap);
+        Bitmap bitmap = BitmapFactory.decodeResource(res, R.drawable.test_beauty_skin1);
+        originImage1.setImageBitmap(bitmap);
+
+        rxImageData = RxImageData.bitmap(bitmap);
+        rxImageData.addFilter(new BeautySkinFilter()).into(image1);
+
+        bitmap = BitmapFactory.decodeResource(res, R.drawable.test_beauty_skin2);
+        originImage2.setImageBitmap(bitmap);
 
         rxImageData = RxImageData.bitmap(bitmap);
         rxImageData.addFilter(new BeautySkinFilter()).into(image2);
