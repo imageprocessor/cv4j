@@ -1,6 +1,5 @@
 package com.cv4j.core.filters;
 
-import com.cv4j.core.datamodel.ColorProcessor;
 import com.cv4j.core.datamodel.ImageProcessor;
 import com.cv4j.image.util.Tools;
 
@@ -11,22 +10,13 @@ import com.cv4j.image.util.Tools;
  * @author gloomy fish
  *
  */
-public class ConBriFilter implements CommonFilter  {
+public class ConBriFilter extends BaseFilter  {
 
 	private float contrast = 1.2f; // default value;
 	private float brightness = 0.7f; // default value;
 
 	@Override
-	public ImageProcessor filter(ImageProcessor src) {
-
-		if (!(src instanceof ColorProcessor)) return src;
-
-		int width = src.getWidth();
-		int height = src.getHeight();
-		byte[] R = ((ColorProcessor)src).getRed();
-		byte[] G = ((ColorProcessor)src).getGreen();
-		byte[] B = ((ColorProcessor)src).getBlue();
-//		byte[][] output = new byte[3][R.length];
+	public ImageProcessor doFilter(ImageProcessor src) {
         
         // calculate RED, GREEN, BLUE means of pixel
 		int index = 0;

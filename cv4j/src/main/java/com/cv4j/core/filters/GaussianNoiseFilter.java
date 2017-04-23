@@ -1,10 +1,9 @@
 package com.cv4j.core.filters;
 /** 随机噪声滤镜 **/
-import com.cv4j.core.datamodel.ColorProcessor;
 import com.cv4j.core.datamodel.ImageProcessor;
 import com.cv4j.image.util.Tools;
 
-public class GaussianNoiseFilter implements CommonFilter  {
+public class GaussianNoiseFilter extends BaseFilter {
 	private int sigma;
 	
 	public GaussianNoiseFilter() {
@@ -19,15 +18,7 @@ public class GaussianNoiseFilter implements CommonFilter  {
 		this.sigma = sigma;
 	}
 
-	public ImageProcessor filter(ImageProcessor src) {
-
-		if (!(src instanceof ColorProcessor)) return src;
-
-		int width = src.getWidth();
-		int height = src.getHeight();
-		byte[] R = ((ColorProcessor)src).getRed();
-		byte[] G = ((ColorProcessor)src).getGreen();
-		byte[] B = ((ColorProcessor)src).getBlue();
+	public ImageProcessor doFilter(ImageProcessor src) {
 
 		int r=0, g=0, b=0;
 		int offset = 0;

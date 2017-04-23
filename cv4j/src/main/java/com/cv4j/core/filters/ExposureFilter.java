@@ -1,24 +1,16 @@
 package com.cv4j.core.filters;
 
-import com.cv4j.core.datamodel.ColorProcessor;
 import com.cv4j.core.datamodel.ImageProcessor;
 
 /**
  * Created by gloomy fish on 2017/3/9.
  */
 
-public class ExposureFilter implements CommonFilter  {
+public class ExposureFilter extends BaseFilter  {
 
     @Override
-    public ImageProcessor filter(ImageProcessor src) {
+    public ImageProcessor doFilter(ImageProcessor src) {
 
-        if (!(src instanceof ColorProcessor)) return src;
-
-        int width = src.getWidth();
-        int height = src.getHeight();
-        byte[] R = ((ColorProcessor)src).getRed();
-        byte[] G = ((ColorProcessor)src).getGreen();
-        byte[] B = ((ColorProcessor)src).getBlue();
         int tr=0, tg=0, tb=0;
         int size = R.length;
         for(int i=0; i<size; i++) {

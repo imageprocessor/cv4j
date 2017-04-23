@@ -13,7 +13,8 @@ import java.util.concurrent.ExecutorService;
  * Created by gloomyfish on 2017/3/26.
  */
 
-public class GaussianBlurFilter implements CommonFilter {
+public class GaussianBlurFilter extends BaseFilter {
+
     private float[] kernel;
     private double sigma = 2;
     ExecutorService mExecutor;
@@ -28,9 +29,8 @@ public class GaussianBlurFilter implements CommonFilter {
     }
 
     @Override
-    public ImageProcessor filter(final ImageProcessor src){
-        final int width = src.getWidth();
-        final int height = src.getHeight();
+    public ImageProcessor doFilter(final ImageProcessor src){
+
         final int size = width*height;
         int dims = src.getChannels();
         makeGaussianKernel(sigma, 0.002, Math.min(width, height));

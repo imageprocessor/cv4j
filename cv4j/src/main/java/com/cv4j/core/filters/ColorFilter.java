@@ -1,6 +1,5 @@
 package com.cv4j.core.filters;
 
-import com.cv4j.core.datamodel.ColorProcessor;
 import com.cv4j.core.datamodel.ImageProcessor;
 import com.cv4j.core.datamodel.lut.LUT;
 
@@ -8,7 +7,7 @@ import com.cv4j.core.datamodel.lut.LUT;
  * Created by gloomy fish on 2017/3/15.
  */
 
-public class ColorFilter implements CommonFilter {
+public class ColorFilter extends BaseFilter {
     public static final int AUTUMN_STYLE = 0;
     public static final int BONE_STYLE = 1;
     public static final int COOL_STYLE = 2;
@@ -33,15 +32,8 @@ public class ColorFilter implements CommonFilter {
     }
 
     @Override
-    public ImageProcessor filter(ImageProcessor src) {
+    public ImageProcessor doFilter(ImageProcessor src) {
 
-        if (!(src instanceof ColorProcessor)) return src;
-
-        int width = src.getWidth();
-        int height = src.getHeight();
-        byte[] R = ((ColorProcessor)src).getRed();
-        byte[] G = ((ColorProcessor)src).getGreen();
-        byte[] B = ((ColorProcessor)src).getBlue();
         int tr=0, tg=0, tb=0;
         int[][] lut = getStyleLUT(style);
         int size = R.length;

@@ -1,9 +1,9 @@
 package com.cv4j.core.filters;
 
-import com.cv4j.core.datamodel.ColorProcessor;
 import com.cv4j.core.datamodel.ImageProcessor;
 
-public class GammaFilter implements CommonFilter {
+public class GammaFilter extends BaseFilter {
+
 	private int[] lut;
 	private double gamma;
 
@@ -13,15 +13,8 @@ public class GammaFilter implements CommonFilter {
 	}
 
 	@Override
-	public ImageProcessor filter(ImageProcessor src) {
+	public ImageProcessor doFilter(ImageProcessor src) {
 
-		if (!(src instanceof ColorProcessor)) return src;
-
-		int width = src.getWidth();
-		int height = src.getHeight();
-		byte[] R = ((ColorProcessor)src).getRed();
-		byte[] G = ((ColorProcessor)src).getGreen();
-		byte[] B = ((ColorProcessor)src).getBlue();
 		// setup LUT
 		setupGammaLut();
 		int index = 0;
@@ -43,9 +36,9 @@ public class GammaFilter implements CommonFilter {
 	}
 
 	private void setupGammaLut() {
+
 		for (int i = 0; i < 256; i++) {
 			lut[i] = (int) (Math.exp(Math.log(i / 255.0) * gamma) * 255.0);
 		}
-
 	}
 }
