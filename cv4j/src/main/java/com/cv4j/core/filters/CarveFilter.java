@@ -4,7 +4,7 @@ import com.cv4j.core.datamodel.ColorProcessor;
 import com.cv4j.core.datamodel.ImageProcessor;
 import com.cv4j.image.util.Tools;
 
-public class CarveFilter implements CommonFilter {
+public class CarveFilter extends BaseFilter{
 	private boolean isCarve;
 	
 	public CarveFilter()
@@ -17,16 +17,8 @@ public class CarveFilter implements CommonFilter {
 		isCarve =carve;
 	}
 	@Override
-	public ImageProcessor filter(ImageProcessor src) {
+	public ImageProcessor doFilter(ImageProcessor src) {
 
-		if (!(src instanceof ColorProcessor)) return src;
-
-		int width = src.getWidth();
-		int height = src.getHeight();
-
-		byte[] R = ((ColorProcessor)src).getRed();
-		byte[] G = ((ColorProcessor)src).getGreen();
-		byte[] B = ((ColorProcessor)src).getBlue();
 		byte[][] output = new byte[3][R.length];
 
         int index = 0;
@@ -65,6 +57,7 @@ public class CarveFilter implements CommonFilter {
         	}
         }
 		((ColorProcessor) src).putRGB(output[0], output[1], output[2]);
+
 		output = null;
 		return src;
 	}
