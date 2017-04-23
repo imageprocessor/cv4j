@@ -4,7 +4,7 @@ import com.cv4j.core.datamodel.ColorProcessor;
 import com.cv4j.core.datamodel.ImageProcessor;
 import com.cv4j.image.util.Tools;
 
-public class MotionFilter implements CommonFilter  {
+public class MotionFilter extends BaseFilter  {
 
 	private float distance = 10;// default;
 	private float onePI = (float)Math.PI;
@@ -29,17 +29,9 @@ public class MotionFilter implements CommonFilter  {
 
 	
 	@Override
-	public ImageProcessor filter(ImageProcessor src){
-
-		if (!(src instanceof ColorProcessor)) return src;
-
-		int width = src.getWidth();
-        int height = src.getHeight();
+	public ImageProcessor doFilter(ImageProcessor src){
 
 		int total = width*height;
-		byte[] R = ((ColorProcessor)src).getRed();
-		byte[] G = ((ColorProcessor)src).getGreen();
-		byte[] B = ((ColorProcessor)src).getBlue();
 		byte[][] output = new byte[3][total];
         int index = 0;
         int cx = width/2;

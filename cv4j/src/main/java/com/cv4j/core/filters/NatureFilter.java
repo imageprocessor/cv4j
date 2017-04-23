@@ -4,7 +4,7 @@ import com.cv4j.core.datamodel.ColorProcessor;
 import com.cv4j.core.datamodel.ImageProcessor;
 import com.cv4j.image.util.Tools;
 
-public class NatureFilter implements CommonFilter {
+public class NatureFilter extends BaseFilter {
 	public static final int ATMOSPHERE_STYLE = 1;
 	public static final int BURN_STYLE = 2;
 	public static final int FOG_STYLE = 3;
@@ -60,18 +60,9 @@ public class NatureFilter implements CommonFilter {
 	}
 
 	@Override
-	public ImageProcessor filter(ImageProcessor src){
-
-		if (!(src instanceof ColorProcessor)) return src;
-
-		int width = src.getWidth();
-		int height = src.getHeight();
+	public ImageProcessor doFilter(ImageProcessor src){
 
 		int total = width*height;
-		byte[] R = ((ColorProcessor)src).getRed();
-		byte[] G = ((ColorProcessor)src).getGreen();
-		byte[] B = ((ColorProcessor)src).getBlue();
-
 		int index = 0;
 		int ta = 0, tr = 0, tg = 0, tb = 0;
 		for (int i=0; i<total; i++) {
