@@ -1,4 +1,7 @@
 package com.cv4j.core.filters;
+
+import com.cv4j.image.util.Tools;
+
 /**
  * RGB to YCrCb Color space transform
  * 
@@ -38,7 +41,7 @@ public class FastSkinDetection implements ISkinDetection {
 
 	@Override
 	public boolean isSkin(int tr, int tg, int tb) {
-		int[] ycrcb = ColorUtil.rgbToYcrCb(tr, tg, tb);
+		int[] ycrcb = Tools.rgbToYcrCb(tr, tg, tb);
 		if(ycrcb[1] > 133 && ycrcb[1] < 173 && 77 < ycrcb[2] && ycrcb[2] < 127) {
 			return true;
 		}
