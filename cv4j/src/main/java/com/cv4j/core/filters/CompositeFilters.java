@@ -1,5 +1,6 @@
 package com.cv4j.core.filters;
 
+import com.cv4j.core.datamodel.ColorProcessor;
 import com.cv4j.core.datamodel.ImageProcessor;
 
 import java.util.ArrayList;
@@ -26,6 +27,8 @@ public class CompositeFilters {
     }
 
     public ImageProcessor filter(ImageProcessor imageData) {
+
+        if (!(imageData instanceof ColorProcessor)) return imageData;
 
         if (lists!=null && lists.size()>0) {
             return filter(imageData,lists.size());

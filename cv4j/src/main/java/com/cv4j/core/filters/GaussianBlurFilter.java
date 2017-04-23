@@ -33,7 +33,7 @@ public class GaussianBlurFilter implements CommonFilter {
         final int height = src.getHeight();
         final int size = width*height;
         int dims = src.getChannels();
-        makeGaussianKernel(sigma, 0.002, (int)Math.min(width, height));
+        makeGaussianKernel(sigma, 0.002, Math.min(width, height));
 
         mExecutor = TaskUtils.newFixedThreadPool("cv4j",dims);
         service = new ExecutorCompletionService<>(mExecutor);

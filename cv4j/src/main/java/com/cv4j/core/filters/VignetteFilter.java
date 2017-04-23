@@ -6,8 +6,6 @@ import com.cv4j.core.datamodel.ColorProcessor;
 import com.cv4j.core.datamodel.ImageProcessor;
 import com.cv4j.image.util.Tools;
 
-import static com.cv4j.image.util.Tools.clamp;
-
 /**
  * @author gloomy fish
  * Vignette - a photograph whose edges shade off gradually
@@ -27,6 +25,9 @@ public class VignetteFilter implements CommonFilter {
 	
 	@Override
 	public ImageProcessor filter(ImageProcessor src){
+
+		if (!(src instanceof ColorProcessor)) return src;
+
 		int width = src.getWidth();
         int height = src.getHeight();
 

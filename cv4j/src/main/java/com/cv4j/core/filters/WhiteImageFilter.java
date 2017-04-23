@@ -20,6 +20,9 @@ public class WhiteImageFilter implements CommonFilter {
 
 	@Override
 	public ImageProcessor filter(ImageProcessor src) {
+
+		if (!(src instanceof ColorProcessor)) return src;
+
 		int width = src.getWidth();
 		int height = src.getHeight();
 
