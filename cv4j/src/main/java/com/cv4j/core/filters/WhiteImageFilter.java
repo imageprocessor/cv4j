@@ -1,9 +1,8 @@
 package com.cv4j.core.filters;
 
-import com.cv4j.core.datamodel.ColorProcessor;
 import com.cv4j.core.datamodel.ImageProcessor;
 
-public class WhiteImageFilter implements CommonFilter {
+public class WhiteImageFilter extends BaseFilter {
 	private double beta;
 
 	public WhiteImageFilter() {
@@ -19,16 +18,7 @@ public class WhiteImageFilter implements CommonFilter {
 	}
 
 	@Override
-	public ImageProcessor filter(ImageProcessor src) {
-
-		if (!(src instanceof ColorProcessor)) return src;
-
-		int width = src.getWidth();
-		int height = src.getHeight();
-
-		byte[] R = ((ColorProcessor)src).getRed();
-		byte[] G = ((ColorProcessor)src).getGreen();
-		byte[] B = ((ColorProcessor)src).getBlue();
+	public ImageProcessor doFilter(ImageProcessor src) {
 
 		// make LUT
 		int[] lut = new int[256];

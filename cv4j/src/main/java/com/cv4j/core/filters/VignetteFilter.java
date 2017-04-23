@@ -11,7 +11,7 @@ import com.cv4j.image.util.Tools;
  * Vignette - a photograph whose edges shade off gradually
  * 
  */
-public class VignetteFilter implements CommonFilter {
+public class VignetteFilter extends BaseFilter {
 		
 	private int vignetteWidth;
 	private int fade;
@@ -24,17 +24,9 @@ public class VignetteFilter implements CommonFilter {
 	}
 	
 	@Override
-	public ImageProcessor filter(ImageProcessor src){
-
-		if (!(src instanceof ColorProcessor)) return src;
-
-		int width = src.getWidth();
-        int height = src.getHeight();
+	public ImageProcessor doFilter(ImageProcessor src){
 
 		int total = width*height;
-		byte[] R = ((ColorProcessor)src).getRed();
-		byte[] G = ((ColorProcessor)src).getGreen();
-		byte[] B = ((ColorProcessor)src).getBlue();
 		byte[][] output = new byte[3][total];
 
 		int index = 0;

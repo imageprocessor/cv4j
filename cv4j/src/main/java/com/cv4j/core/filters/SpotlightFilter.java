@@ -1,9 +1,8 @@
 package com.cv4j.core.filters;
 
-import com.cv4j.core.datamodel.ColorProcessor;
 import com.cv4j.core.datamodel.ImageProcessor;
 
-public class SpotlightFilter implements CommonFilter {
+public class SpotlightFilter extends BaseFilter {
 	// attenuation coefficient, default is 1 means line decrease...
 	private int factor;
 	public SpotlightFilter() {
@@ -15,17 +14,7 @@ public class SpotlightFilter implements CommonFilter {
 	}
 
 	@Override
-	public ImageProcessor filter(ImageProcessor src){
-
-		if (!(src instanceof ColorProcessor)) return src;
-
-		int width = src.getWidth();
-        int height = src.getHeight();
-
-		int total = width*height;
-		byte[] R = ((ColorProcessor)src).getRed();
-		byte[] G = ((ColorProcessor)src).getGreen();
-		byte[] B = ((ColorProcessor)src).getBlue();
+	public ImageProcessor doFilter(ImageProcessor src){
 
         int offset = 0;
         int centerX = width/2;

@@ -4,7 +4,7 @@ import com.cv4j.core.datamodel.ColorProcessor;
 import com.cv4j.core.datamodel.ImageProcessor;
 import com.cv4j.image.util.Tools;
 
-public class WaterFilter implements CommonFilter {
+public class WaterFilter extends BaseFilter {
 	private float wavelength = 16;
 
 	public float getWavelength() {
@@ -21,10 +21,6 @@ public class WaterFilter implements CommonFilter {
 	private float icentreX;
 	private float icentreY;
 	
-	public WaterFilter() {
-
-	}
-	
 	public void setRadius(float radius) {
 		this.radius = radius;
 	}
@@ -38,12 +34,7 @@ public class WaterFilter implements CommonFilter {
 	}
 
 	@Override
-	public ImageProcessor filter(ImageProcessor src){
-
-		if (!(src instanceof ColorProcessor)) return src;
-
-		int width = src.getWidth();
-        int height = src.getHeight();
+	public ImageProcessor doFilter(ImageProcessor src){
 
 		int total = width*height;
 		int[] inPixels = src.getPixels();

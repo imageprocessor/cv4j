@@ -2,11 +2,10 @@ package com.cv4j.core.filters;
 
 import android.graphics.Color;
 
-import com.cv4j.core.datamodel.ColorProcessor;
 import com.cv4j.core.datamodel.ImageData;
 import com.cv4j.core.datamodel.ImageProcessor;
 
-public class SinCityFilter implements CommonFilter {
+public class SinCityFilter extends BaseFilter {
 
 	private double threshold = 200; // default value
 	private int mainColor = Color.argb(255, 255, 0, 0);
@@ -16,18 +15,9 @@ public class SinCityFilter implements CommonFilter {
 	}
 
 	@Override
-	public ImageProcessor filter(ImageProcessor src) {
-
-		if (!(src instanceof ColorProcessor)) return src;
-
-		int width = src.getWidth();
-        int height = src.getHeight();
+	public ImageProcessor doFilter(ImageProcessor src) {
 
         int total = width*height;
-		byte[] R = ((ColorProcessor)src).getRed();
-		byte[] G = ((ColorProcessor)src).getGreen();
-		byte[] B = ((ColorProcessor)src).getBlue();
-
 		int tr=0, tg=0, tb=0;
         for(int i=0; i<total; i++) {
 			tr = R[i] & 0xff;
