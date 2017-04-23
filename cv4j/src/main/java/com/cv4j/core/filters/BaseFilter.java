@@ -18,6 +18,8 @@ public abstract class BaseFilter implements CommonFilter {
     @Override
     public ImageProcessor filter(ImageProcessor src) {
 
+        if (src == null) return null;
+
         if (!(src instanceof ColorProcessor)) return src;
 
         width = src.getWidth();
