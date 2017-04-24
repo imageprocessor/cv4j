@@ -48,8 +48,7 @@ public class MaerOperatorFilter extends GaussianBlurFilter {
 			k6 = FOUR[6];
 			k7 = FOUR[7];
 			k8 = FOUR[8];
-		}
-		else {
+		} else {
 			k0 = EIGHT[0];
 			k1 = EIGHT[1];
 			k2 = EIGHT[2];

@@ -2,26 +2,18 @@ package com.cv4j.core.spatial.conv;
 
 import com.cv4j.core.datamodel.ColorProcessor;
 import com.cv4j.core.datamodel.ImageProcessor;
-import com.cv4j.core.filters.CommonFilter;
+import com.cv4j.core.filters.BaseFilter;
 import com.cv4j.image.util.Tools;
 
-public class SharpFilter implements CommonFilter {
+public class SharpFilter extends BaseFilter {
+
 	public static int[] kernel=new int[]{-1,-1,-1, -1, 12, -1, -1,-1,-1};
 
 	@Override
-	public ImageProcessor filter(ImageProcessor src){
-
-		if (!(src instanceof ColorProcessor)) return src;
-
-		int width = src.getWidth();
-		int height = src.getHeight();
+	public ImageProcessor doFilter(ImageProcessor src){
 
 		int total = width*height;
-		byte[] R = ((ColorProcessor)src).getRed();
-		byte[] G = ((ColorProcessor)src).getGreen();
-		byte[] B = ((ColorProcessor)src).getBlue();
 		byte[][] output = new byte[3][total];
-
 
 		int offset=0;
 		int k0=kernel[0], k1=kernel[1], k2=kernel[2];

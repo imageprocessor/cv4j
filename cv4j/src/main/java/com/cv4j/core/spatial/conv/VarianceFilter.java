@@ -2,10 +2,10 @@ package com.cv4j.core.spatial.conv;
 
 import com.cv4j.core.datamodel.ColorProcessor;
 import com.cv4j.core.datamodel.ImageProcessor;
-import com.cv4j.core.filters.CommonFilter;
+import com.cv4j.core.filters.BaseFilter;
 import com.cv4j.image.util.Tools;
 
-public class VarianceFilter implements CommonFilter {
+public class VarianceFilter extends BaseFilter {
 	private int radius;
 
 	public VarianceFilter() {
@@ -20,17 +20,9 @@ public class VarianceFilter implements CommonFilter {
 		return radius;
 	}
 
-	public ImageProcessor filter(ImageProcessor src) {
-
-		if (!(src instanceof ColorProcessor)) return src;
-
-		int width = src.getWidth();
-		int height = src.getHeight();
+	public ImageProcessor doFilter(ImageProcessor src) {
 
 		int numOfPixels = width * height;
-		byte[] R = ((ColorProcessor)src).getRed();
-		byte[] G = ((ColorProcessor)src).getGreen();
-		byte[] B = ((ColorProcessor)src).getBlue();
 		byte[][] output = new byte[3][numOfPixels];
 
 		int size = radius * 2 + 1;
