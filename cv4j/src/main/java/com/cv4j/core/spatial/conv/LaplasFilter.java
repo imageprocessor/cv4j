@@ -2,10 +2,11 @@ package com.cv4j.core.spatial.conv;
 
 import com.cv4j.core.datamodel.ColorProcessor;
 import com.cv4j.core.datamodel.ImageProcessor;
-import com.cv4j.core.filters.CommonFilter;
+import com.cv4j.core.filters.BaseFilter;
 import com.cv4j.image.util.Tools;
 
-public class LaplasFilter implements CommonFilter {
+public class LaplasFilter extends BaseFilter {
+
 	public static int[] FOUR = new int[] { 0, -1, 0, -1, 4, -1, 0, -1, 0 };
 	public static int[] EIGHT = new int[] { -1, -1, -1, -1, 8, -1, -1, -1, -1};
 	private boolean _4direction;
@@ -23,17 +24,9 @@ public class LaplasFilter implements CommonFilter {
 	}
 
 	@Override
-	public ImageProcessor filter(ImageProcessor src){
-
-		if (!(src instanceof ColorProcessor)) return src;
-
-		int width = src.getWidth();
-		int height = src.getHeight();
+	public ImageProcessor doFilter(ImageProcessor src){
 
 		int total = width*height;
-		byte[] R = ((ColorProcessor)src).getRed();
-		byte[] G = ((ColorProcessor)src).getGreen();
-		byte[] B = ((ColorProcessor)src).getBlue();
 		byte[][] output = new byte[3][total];
 
 		int offset = 0;
@@ -50,8 +43,7 @@ public class LaplasFilter implements CommonFilter {
 			k6 = FOUR[6];
 			k7 = FOUR[7];
 			k8 = FOUR[8];
-		}
-		else {
+		} else {
 			k0 = EIGHT[0];
 			k1 = EIGHT[1];
 			k2 = EIGHT[2];

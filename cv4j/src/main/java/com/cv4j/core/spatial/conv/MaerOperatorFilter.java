@@ -6,6 +6,7 @@ import com.cv4j.core.filters.GaussianBlurFilter;
 import com.cv4j.image.util.Tools;
 
 public class MaerOperatorFilter extends GaussianBlurFilter {
+
 	public static int[] FOUR = new int[] { 0, -1, 0, -1, 4, -1, 0, -1, 0 };
 	public static int[] EIGHT = new int[] { -1, -1, -1, -1, 8, -1, -1, -1, -1};
 	private boolean _4direction;
@@ -25,19 +26,12 @@ public class MaerOperatorFilter extends GaussianBlurFilter {
 	@Override
 	public ImageProcessor filter(ImageProcessor src){
 
-		if (!(src instanceof ColorProcessor)) return src;
-
 		// 高斯模糊
 		src = super.filter(src);
 		
 		// 拉普拉斯算子 ，发现边缘
-		int width = src.getWidth();
-		int height = src.getHeight();
 
 		int total = width*height;
-		byte[] R = ((ColorProcessor)src).getRed();
-		byte[] G = ((ColorProcessor)src).getGreen();
-		byte[] B = ((ColorProcessor)src).getBlue();
 		byte[][] output = new byte[3][total];
 
 		int offset = 0;

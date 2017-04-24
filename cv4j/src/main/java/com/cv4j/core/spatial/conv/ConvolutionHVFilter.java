@@ -1,24 +1,17 @@
 package com.cv4j.core.spatial.conv;
 
-import com.cv4j.core.datamodel.ColorProcessor;
 import com.cv4j.core.datamodel.ImageProcessor;
-import com.cv4j.core.filters.CommonFilter;
+import com.cv4j.core.filters.BaseFilter;
 
 /***
  * can iteration this operation multiple, make it more blur
  */
-public class ConvolutionHVFilter implements CommonFilter {
+public class ConvolutionHVFilter extends BaseFilter {
+
 	@Override
-	public ImageProcessor filter(ImageProcessor src) {
+	public ImageProcessor doFilter(ImageProcessor src) {
 
-		if (!(src instanceof ColorProcessor)) return src;
-
-		int width = src.getWidth();
-		int height = src.getHeight();
 		int total = width*height;
-		byte[] R = ((ColorProcessor)src).getRed();
-		byte[] G = ((ColorProcessor)src).getGreen();
-		byte[] B = ((ColorProcessor)src).getBlue();
 		byte[][] output = new byte[3][total];
 		int r=0, g=0, b=0;
 		for(int row=0; row<height; row++) {

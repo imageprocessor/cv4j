@@ -5,6 +5,7 @@ import com.cv4j.core.datamodel.ImageProcessor;
 import com.cv4j.image.util.Tools;
 
 public class NatureFilter extends BaseFilter {
+
 	public static final int ATMOSPHERE_STYLE = 1;
 	public static final int BURN_STYLE = 2;
 	public static final int FOG_STYLE = 3;
@@ -17,8 +18,7 @@ public class NatureFilter extends BaseFilter {
 	private int[] fogLookUp;
 
 	public NatureFilter() {
-		this.style = ATMOSPHERE_STYLE;
-		buildFogLookupTable();
+		this(ATMOSPHERE_STYLE);
 	}
 
 	public NatureFilter(int style) {

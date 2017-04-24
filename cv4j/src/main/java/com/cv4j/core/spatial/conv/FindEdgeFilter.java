@@ -2,28 +2,19 @@ package com.cv4j.core.spatial.conv;
 
 import com.cv4j.core.datamodel.ColorProcessor;
 import com.cv4j.core.datamodel.ImageProcessor;
-import com.cv4j.core.filters.CommonFilter;
+import com.cv4j.core.filters.BaseFilter;
 
 import static com.cv4j.image.util.Tools.clamp;
 
-public class FindEdgeFilter implements CommonFilter {
+public class FindEdgeFilter extends BaseFilter {
+
 	public static int[] sobel_y = new int[] { -1, -2, -1, 0, 0, 0, 1, 2, 1 };
 	public static int[] sobel_x = new int[] { -1, 0, 1, -2, 0, 2, -1, 0, 1 };
 
-	public FindEdgeFilter() {
-	}
-
 	@Override
-	public ImageProcessor filter(ImageProcessor src) {
+	public ImageProcessor doFilter(ImageProcessor src) {
 
-		if (!(src instanceof ColorProcessor)) return src;
-
-		int width = src.getWidth();
-		int height = src.getHeight();
 		int total = width*height;
-		byte[] R = ((ColorProcessor)src).getRed();
-		byte[] G = ((ColorProcessor)src).getGreen();
-		byte[] B = ((ColorProcessor)src).getBlue();
 		byte[][] output = new byte[3][total];
 
 		int offset = 0;
