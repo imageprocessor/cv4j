@@ -5,6 +5,7 @@ import com.cv4j.core.filters.GaussianBlurFilter;
 import com.cv4j.image.util.Tools;
 
 public class USMFilter extends GaussianBlurFilter {
+
 	private double weight;
 	
 	public USMFilter() {
@@ -19,29 +20,21 @@ public class USMFilter extends GaussianBlurFilter {
 		this.weight = weight;
 	}
 
-
 	@Override
-	public ImageProcessor filter(ImageProcessor src){
-
-		if (!(src instanceof ColorProcessor)) return src;
-
-		int width = src.getWidth();
-		int height = src.getHeight();
+	public ImageProcessor doFilter(ImageProcessor src){
 
 		int total = width*height;
-		byte[] R = new byte[total];((ColorProcessor)src).getRed();
-		byte[] G = new byte[total]; ((ColorProcessor)src).getGreen();
-		byte[] B = new byte[total]; ((ColorProcessor)src).getBlue();
-		System.arraycopy(((ColorProcessor)src).getRed(), 0, R, 0, total);
-		System.arraycopy(((ColorProcessor)src).getGreen(), 0, G, 0, total);
-		System.arraycopy(((ColorProcessor)src).getBlue(), 0, B, 0, total);
+		byte[] R1 = new byte[total];
+		byte[] G1 = new byte[total];
+		byte[] B1 = new byte[total];
+		System.arraycopy(R, 0, R1, 0, total);
+		System.arraycopy(G, 0, G1, 0, total);
+		System.arraycopy(B, 0, B1, 0, total);
 		byte[][] output = new byte[3][total];
 		
 		// 高斯模糊
-		ImageProcessor blurImage = super.filter(src);
-		byte[] R2 = new byte[total];((ColorProcessor)blurImage).getRed();
-		byte[] G2 = new byte[total]; ((ColorProcessor)blurImage).getGreen();
-		byte[] B2 = new byte[total]; ((ColorProcessor)blurImage).getBlue();
+		super.doFilter(src);
+
 		int r=0, g=0, b=0;
 		int r1=0, g1=0, b1=0;
 		int r2=0, g2=0, b2=0;
@@ -50,9 +43,9 @@ public class USMFilter extends GaussianBlurFilter {
 			g1 = G[i]&0xff;
 			b1 = B[i]&0xff;
 			
-			r2 = R2[i]&0xff;
-			g2 = G2[i]&0xff;
-			b2 = B2[i]&0xff;
+			r2 = R1[i]&0xff;
+			g2 = G1[i]&0xff;
+			b2 = B1[i]&0xff;
 			
 			r = (int)((r1-weight*r2)/(1-weight));
 			g = (int)((g1-weight*g2)/(1-weight));

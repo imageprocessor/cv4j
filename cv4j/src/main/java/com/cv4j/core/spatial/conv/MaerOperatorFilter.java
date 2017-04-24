@@ -24,10 +24,10 @@ public class MaerOperatorFilter extends GaussianBlurFilter {
 	}
 
 	@Override
-	public ImageProcessor filter(ImageProcessor src){
+	public ImageProcessor doFilter(ImageProcessor src){
 
 		// 高斯模糊
-		src = super.filter(src);
+		src = super.doFilter(src);
 		
 		// 拉普拉斯算子 ，发现边缘
 
