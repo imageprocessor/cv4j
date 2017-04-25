@@ -1,6 +1,5 @@
 package com.cv4j.core.filters;
 
-import com.cv4j.core.datamodel.ColorProcessor;
 import com.cv4j.core.datamodel.ImageProcessor;
 import com.cv4j.core.datamodel.IntIntegralImage;
 import com.cv4j.image.util.Tools;
@@ -62,18 +61,36 @@ public class FastEPFilter implements CommonFilter {
 		int offset = 0;
 		int wy = (yr * 2 + 1);
 		int wx = (xr * 2 + 1);
-		int size = wx * wy;
 		int r = 0;
-		for (int row = yr; row < height-yr; row++) {
+		int size = 0;
+		for (int row = 0; row < height; row++) {
 			offset = row * width;
-			for (int col = xr; col < width-xr; col++) {
-				int sr = input.getBlockSum(col, row, wy, wx);
+			for (int col = 0; col < width; col++) {
+				int swx = col + xr;
+				int swy = row + yr;
+				int nex = col-xr-1;
+				int ney = row-yr-1;
+				if(swx >= width) {
+					swx = width - 1;
+				}
+				if(swy >= height) {
+					swy = height - 1;
+				}
+				if(nex < 0) {
+					nex = 0;
+				}
+				if(ney < 0) {
+					ney = 0;
+				}
+				size = (swx - nex)*(swy - ney);
+				int sr = input.getBlockSum2(ney, nex, swy, swx);
 				float a = input.getBlockSquareSum(col, row, wy, wx);
+				// fix issue, size is not cover the whole block
 				float b = sr / size;
 				float c = (a - (sr*sr)/size)/size;
 				float d = c / (c+sigma2);
 				r = (int)((1-d)*b + d*r);
-				output[offset + col] = (byte)Tools.clamp(r);
+				output[offset + col] = (byte) Tools.clamp(r);
 			}
 		}
 	}

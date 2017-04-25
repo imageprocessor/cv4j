@@ -16,7 +16,16 @@ public class IntIntegralImage {
 	public void setImage(byte[] image) {
 		this.image = image;
 	}
-	
+
+	public int getBlockSum2(int ney, int nex, int swy, int swx) {
+		int sum1, sum2, sum3, sum4;
+		sum1 = sum[ney*width+nex];
+		sum4 = sum[swy*width+swx];
+		sum2 = sum[swy*width+nex];
+		sum3 = sum[ney*width+swx];
+		return ((sum1 + sum4) - sum2 - sum3);
+	}
+
 	public int getBlockSum(int x, int y, int m, int n) {
 		int swx = x + n/2;
 		int swy = y + m/2;
