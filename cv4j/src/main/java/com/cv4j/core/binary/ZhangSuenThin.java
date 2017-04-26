@@ -70,8 +70,19 @@ public class ZhangSuenThin {
 				p9 = (p9 == 255) ? 1 : 0;
 				
 				int con1 = p2+p3+p4+p5+p6+p7+p8+p9;
-				String sequence = "" + String.valueOf(p2) + String.valueOf(p3) + String.valueOf(p4) + String.valueOf(p5) +
-						String.valueOf(p6) + String.valueOf(p7) + String.valueOf(p8) + String.valueOf(p9) + String.valueOf(p2);
+
+				StringBuilder sb = new StringBuilder();
+				sb.append(String.valueOf(p2))
+						.append(String.valueOf(p3))
+						.append(String.valueOf(p4))
+						.append(String.valueOf(p5))
+						.append(String.valueOf(p6))
+						.append(String.valueOf(p7))
+						.append(String.valueOf(p8))
+						.append(String.valueOf(p9))
+						.append(String.valueOf(p2));
+
+				String sequence = sb.toString();
 				int index1 = sequence.indexOf("01");
 				int index2 = sequence.lastIndexOf("01");
 				
@@ -119,8 +130,19 @@ public class ZhangSuenThin {
 				p9 = (p9 == 255) ? 1 : 0;
 				
 				int con1 = p2+p3+p4+p5+p6+p7+p8+p9;
-				String sequence = "" + String.valueOf(p2) + String.valueOf(p3) + String.valueOf(p4) + String.valueOf(p5) +
-						String.valueOf(p6) + String.valueOf(p7) + String.valueOf(p8) + String.valueOf(p9) + String.valueOf(p2);
+
+				StringBuilder sb = new StringBuilder();
+				sb.append(String.valueOf(p2))
+						.append(String.valueOf(p3))
+						.append(String.valueOf(p4))
+						.append(String.valueOf(p5))
+						.append(String.valueOf(p6))
+						.append(String.valueOf(p7))
+						.append(String.valueOf(p8))
+						.append(String.valueOf(p9))
+						.append(String.valueOf(p2));
+
+				String sequence = sb.toString();
 				int index1 = sequence.indexOf("01");
 				int index2 = sequence.lastIndexOf("01");
 				

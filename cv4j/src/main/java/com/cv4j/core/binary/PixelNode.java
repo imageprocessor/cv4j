@@ -1,9 +1,10 @@
 package com.cv4j.core.binary;
 
 public class PixelNode implements Comparable<PixelNode> {
-	protected int index;
-	protected int row;
-	protected int col;
+
+	public int index;
+	public int row;
+	public int col;
 	
 	@Override
 	public int compareTo(PixelNode p) {
