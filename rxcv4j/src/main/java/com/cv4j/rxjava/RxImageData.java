@@ -21,8 +21,6 @@ import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
-import static android.R.attr.bitmap;
-
 /**
  * Created by Tony Shen on 2017/3/14.
  */
@@ -39,23 +37,11 @@ public class RxImageData {
     WrappedCV4JImage wrappedCV4JImage;
 
     private RxImageData(byte[] bytes) {
-
-        this.image = new CV4JImage(bytes);
-        filters = new ArrayList<>();
-        memCache = MemCache.getInstance();
-
-        wrappedCV4JImage = new WrappedCV4JImage(image,filters);
-        flowable = Flowable.just(wrappedCV4JImage);
+        this(new CV4JImage(bytes));
     }
 
     private RxImageData(Bitmap bitmap) {
-
-        this.image = new CV4JImage(bitmap);
-        filters = new ArrayList<>();
-        memCache = MemCache.getInstance();
-
-        wrappedCV4JImage = new WrappedCV4JImage(image,filters);
-        flowable = Flowable.just(wrappedCV4JImage);
+        this(new CV4JImage(bitmap));
     }
 
     private RxImageData(CV4JImage image) {
