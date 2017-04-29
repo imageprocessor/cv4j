@@ -9,4 +9,5 @@ The target is to set up a high quality and real-time image process and machine l
 目前已经实现的功能：
 ![](cv4j.png)
 
+# 联系方式
 CV4J QQ交流群：492962708
