@@ -149,6 +149,7 @@ public class ConnectedAreaLabel {
 		Integer[] keys = aggregationMap.keySet().toArray(new Integer[0]);
 		Arrays.fill(labelMask, -1);
 		List<PixelNode> pixelList = null;
+		int number = 0;
 		for(Integer key : keys) {
 			pixelList = aggregationMap.get(key);
 			if(filterNoise && pixelList.size() < numOfPixels) {
@@ -163,9 +164,10 @@ public class ConnectedAreaLabel {
 			if(drawBounding && rectangles != null) {
 				rectangles.add(boundingRect(pixelList));
 			}
+			number++;
 		}
 
-		return keys.length;
+		return number;
 	}
 
 	/**
