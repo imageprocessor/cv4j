@@ -65,6 +65,11 @@
             android:screenOrientation="portrait"/>
 
         <activity
+            android:name=".activity.LineDetectionActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"/>
+
+        <activity
             android:name=".activity.BeautySkinActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"/>
