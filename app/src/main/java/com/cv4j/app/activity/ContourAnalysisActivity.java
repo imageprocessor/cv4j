@@ -3,32 +3,36 @@ package com.cv4j.app.activity;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.SparseIntArray;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.cv4j.app.R;
 import com.cv4j.app.app.BaseActivity;
 import com.cv4j.core.binary.ConnectedAreaLabel;
-import com.cv4j.core.binary.Erode;
+import com.cv4j.core.binary.ContourAnalysis;
 import com.cv4j.core.binary.Threshold;
 import com.cv4j.core.datamodel.ByteProcessor;
 import com.cv4j.core.datamodel.CV4JImage;
-import com.cv4j.core.datamodel.Size;
+import com.cv4j.core.datamodel.MeasureData;
 import com.safframework.injectview.annotations.InjectExtra;
 import com.safframework.injectview.annotations.InjectView;
 import com.safframework.injectview.annotations.OnClick;
+import com.safframework.log.L;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 /**
- * Created by Tony Shen on 2017/4/16.
+ * Created by Tony Shen on 2017/5/1.
  */
 
-public class CoinsActivity extends BaseActivity {
+public class ContourAnalysisActivity extends BaseActivity {
 
     @InjectView(R.id.image0)
     ImageView image0;
@@ -42,9 +46,6 @@ public class CoinsActivity extends BaseActivity {
     @InjectView(R.id.image3)
     ImageView image3;
 
-    @InjectView(R.id.num)
-    TextView numTextView;
-
     @InjectView(R.id.toolbar)
     Toolbar toolbar;
 
@@ -54,7 +55,7 @@ public class CoinsActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_coins);
+        setContentView(R.layout.activity_contour_analysis);
 
         initData();
     }
@@ -62,23 +63,19 @@ public class CoinsActivity extends BaseActivity {
     private void initData() {
         toolbar.setTitle("< "+title);
         Resources res = getResources();
-        final Bitmap bitmap = BitmapFactory.decodeResource(res, R.drawable.test_coins);
+        final Bitmap bitmap = BitmapFactory.decodeResource(res, R.drawable.test_ca);
         image0.setImageBitmap(bitmap);
 
         CV4JImage cv4JImage = new CV4JImage(bitmap);
         Threshold threshold = new Threshold();
-        threshold.process((ByteProcessor)(cv4JImage.convert2Gray().getProcessor()),Threshold.THRESH_OTSU,Threshold.METHOD_THRESH_BINARY_INV,255);
+        threshold.process((ByteProcessor)(cv4JImage.convert2Gray().getProcessor()),Threshold.THRESH_OTSU,Threshold.METHOD_THRESH_BINARY,255);
         image1.setImageBitmap(cv4JImage.getProcessor().getImage().toBitmap());
 
-        Erode erode = new Erode();
-        cv4JImage.resetBitmap();
-        erode.process((ByteProcessor)cv4JImage.getProcessor(),new Size(3),10);
-        image2.setImageBitmap(cv4JImage.getProcessor().getImage().toBitmap());
-
         ConnectedAreaLabel connectedAreaLabel = new ConnectedAreaLabel();
+        connectedAreaLabel.setFilterNoise(true);
         int[] mask = new int[cv4JImage.getProcessor().getWidth() * cv4JImage.getProcessor().getHeight()];
-
-        int num = connectedAreaLabel.process((ByteProcessor)cv4JImage.getProcessor(),mask,null,false); // 获取连通组件的个数
+        int riceNum = connectedAreaLabel.process((ByteProcessor)cv4JImage.getProcessor(),mask,null,false);
+        L.i("riceNum="+riceNum);
 
         SparseIntArray colors = new SparseIntArray();
         Random random = new Random();
@@ -89,7 +86,7 @@ public class CoinsActivity extends BaseActivity {
         for (int i = 0;i<size;i++) {
             int c = mask[i];
             if (c>=0) {
-                colors.put(c,Color.argb(255, random.nextInt(255),random.nextInt(255),random.nextInt(255)));
+                colors.put(c, Color.argb(255, random.nextInt(255),random.nextInt(255),random.nextInt(255)));
             }
         }
 
@@ -106,10 +103,21 @@ public class CoinsActivity extends BaseActivity {
             }
         }
 
-        image3.setImageBitmap(newBitmap);
+        image2.setImageBitmap(newBitmap);
 
-        if (num>0)
-            numTextView.setText(String.format("总计识别出%d个硬币",num));
+        // 轮廓分析
+        Bitmap thirdBitmap = Bitmap.createBitmap(newBitmap);
+        ContourAnalysis ca = new ContourAnalysis();
+        List<MeasureData> measureDatas = new ArrayList<>();
+        ca.process((ByteProcessor)(cv4JImage.convert2Gray().getProcessor()),mask,measureDatas);
+
+        Canvas canvas = new Canvas(thirdBitmap);
+        Paint paint = new Paint();
+        paint.setColor(Color.WHITE);
+        for (MeasureData data:measureDatas) {
+            canvas.drawText(data.toString(),data.getCp().x,data.getCp().y,paint);
+        }
+        image3.setImageBitmap(thirdBitmap);
     }
 
     @OnClick(id= R.id.toolbar)

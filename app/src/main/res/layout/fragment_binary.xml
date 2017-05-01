@@ -24,4 +24,13 @@
         android:gravity="center"
         android:text="硬币计数"/>
 
+    <TextView
+        android:id="@+id/text3"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_margin="10dp"
+        android:background="@drawable/textview_border"
+        android:gravity="center"
+        android:text="轮廓分析(CA)"/>
+
 </LinearLayout>

@@ -1,5 +1,8 @@
 package com.cv4j.core.datamodel;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+
 /**
  * Created by gloomy fish on 2017/5/1.
  */
@@ -44,5 +47,17 @@ public class MeasureData {
 
     public void setRoundness(double roundness) {
         this.roundness = roundness;
+    }
+
+    @Override
+    public String toString() {
+
+        NumberFormat format = new DecimalFormat("#.00");
+        StringBuilder sb = new StringBuilder();
+        sb.append("Point:").append(cp.x).append(",").append(cp.y).append("\n")
+                .append("angle:").append(format.format(angle)).append("\n")
+                .append("area:").append((int)area).append("\n")
+                .append("roundness:").append(format.format(roundness));
+        return sb.toString();
     }
 }

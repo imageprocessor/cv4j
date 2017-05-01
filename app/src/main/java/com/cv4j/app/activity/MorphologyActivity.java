@@ -75,7 +75,7 @@ public class MorphologyActivity extends BaseActivity {
         image2.setImageBitmap(cv4JImage.getProcessor().getImage().toBitmap());
 
         ConnectedAreaLabel connectedAreaLabel = new ConnectedAreaLabel();
-        byte[] mask = new byte[cv4JImage.getProcessor().getWidth() * cv4JImage.getProcessor().getHeight()];
+        int[] mask = new int[cv4JImage.getProcessor().getWidth() * cv4JImage.getProcessor().getHeight()];
         List<Rect> rectangles = new ArrayList<>();
         connectedAreaLabel.process((ByteProcessor)cv4JImage.getProcessor(),mask,rectangles,true);
         cv4JImage.resetBitmap();

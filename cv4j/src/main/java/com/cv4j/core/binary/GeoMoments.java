@@ -42,8 +42,8 @@ public class GeoMoments {
     private Point getCenterPoint(List<PixelNode> pixelList)
     {
         double m00 = moments(pixelList, 0, 0);
-        double xCr = moments(pixelList, 1, 0) / m00; // row
-        double yCr = moments(pixelList, 0, 1) / m00; // column
+        double yCr = moments(pixelList, 1, 0) / m00; // row
+        double xCr = moments(pixelList, 0, 1) / m00; // column
         return new Point((int)xCr, (int)yCr);
     }
 
@@ -62,14 +62,14 @@ public class GeoMoments {
     private double centralMoments(List<PixelNode> pixelList, int p, int q)
     {
         double m00 = moments(pixelList, 0, 0);
-        double xCr = moments(pixelList, 1, 0) / m00;
-        double yCr = moments(pixelList, 0, 1) / m00;
+        double yCr = moments(pixelList, 1, 0) / m00;
+        double xCr = moments(pixelList, 0, 1) / m00;
         double cMpq = 0.0;
-        int index = 0;
+
         for(PixelNode pixel : pixelList) {
             int row = pixel.row;
             int col = pixel.col;
-            cMpq += Math.pow(row - xCr, p) * Math.pow(col - yCr, q);
+            cMpq += Math.pow(row - yCr, p) * Math.pow(col - xCr, q);
         }
         return cMpq;
     }

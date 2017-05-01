@@ -93,7 +93,7 @@ public class BeautySkinFilter implements CommonFilter {
             w = wc/255.0f;
 
             r = (int)((R[i]&0xff)*w+(src.toByte(0)[i]&0xff)*(1.0f-w));
-            g = (int)((G[i]&0xff)*w+(src.toByte(1)[i]&0xff)*(1.f-w));
+            g = (int)((G[i]&0xff)*w+(src.toByte(1)[i]&0xff)*(1.0f-w));
             b = (int)((B[i]&0xff)*w+(src.toByte(2)[i]&0xff)*(1.0f-w));
 
             src.toByte(0)[i] = (byte)r;
