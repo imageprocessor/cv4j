@@ -13,9 +13,8 @@ public class HoughLinesP {
 		// 初始化霍夫空间,0, 179, 90
 		int p=0;
 		int offset = 0;
-		int[] hspace = new int[]{0, 1, 2, 89, 90, 91, 178, 179};
 		int rmax = (int) Math.sqrt(width * width + height * height);
-		int[] houghspace = new int[rmax * hspace.length];
+		int[] houghspace = new int[rmax * 180];
 		// 建立查找表
 		double[] sinlut = setupSinLUT(); // new double[180];
 		double[] coslut = setupCosLUT(); // new double[180];
@@ -26,10 +25,10 @@ public class HoughLinesP {
 			for (int col = 0; col < width; col++) {
 				p=data[offset]&0xff;
 				if(p==255) {
-					for(int hs=0; hs<hspace.length; hs++) {
-						h1 = (int)(col*coslut[hspace[hs]] + row*sinlut[hspace[hs]]);
+					for(int hs=0; hs<180; hs++) {
+						h1 = (int)(col*coslut[hs] + row*sinlut[hs]);
 						if ((h1 > 0) && (h1 <= rmax)) {
-							houghspace[h1*hspace.length+hs]++;
+							houghspace[h1*180+hs]++;
 						}
 					}
 				}
@@ -41,17 +40,28 @@ public class HoughLinesP {
 		int[] result = new int[numLines*3];
 		int max = 0;
 		for(int a=0; a<rmax; a++) {
-			for(int t=0; t<8; t++) {
-				int h = houghspace[a*hspace.length+t];
-				if(h > max) {
-					max = h;
-					result[3] = result[0];
-					result[4] = result[1];
-					result[5] = result[2];
-					
-					result[0] = max;
-					result[1] = hspace[t]; // 角度
-					result[2] = a; // 半径
+			for(int t=0; t<180; t++) {
+				int acc = houghspace[a*180+t];
+				// if its higher than lowest value add it and then sort
+				if (acc > result[(numLines - 1) * 3]) {
+
+					// add to bottom of array
+					result[(numLines - 1) * 3] = acc; // 累积和
+					result[(numLines - 1) * 3 + 1] = a;// 半径长度
+					result[(numLines - 1) * 3 + 2] = t;// 角度
+
+					// shift up until its in right place
+					int i = (numLines - 2) * 3;
+					while ((i >= 0) && (result[i + 3] > result[i])) {
+						for (int j = 0; j < 3; j++) {
+							int temp = result[i + j];
+							result[i + j] = result[i + 3 + j];
+							result[i + 3 + j] = temp;
+						}
+						i = i - 3;
+						if (i < 0)
+							break;
+					}
 				}
 			}
 		}
@@ -63,8 +73,8 @@ public class HoughLinesP {
 				p=data[offset]&0xff;
 				if(p==255) {
 					for(int i=0; i<numLines; i++) {
-						h1 = (int)(col*coslut[result[i*3+1]] + row*sinlut[result[i*3+1]]);
-						if ((h1 - result[i*3+2]) == 0) {
+						h1 = (int)(col*coslut[result[i*3+2]] + row*sinlut[result[i*3+2]]);
+						if ((h1 - result[i*3+1]) == 0) {
 							data[offset] = (byte)255;
 							if(lines[i] == null) {
 								lines[i] = new Line();
