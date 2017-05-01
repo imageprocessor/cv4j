@@ -33,9 +33,9 @@ public class GeoMoments {
 
         double ra = Math.sqrt((2*a1)/Math.abs(pixelList.size()));
         double rb = Math.sqrt((2*a2)/Math.abs(pixelList.size()));
-        double angle = Math.atan((2*m11)/(m20 - m02))/2.0;
+        double angle = ((m20 - m02) == 0) ? Math.PI/4.0 : Math.atan((2*m11)/(m20 - m02))/2.0;
         measures.setAngle(angle);
-        measures.setRoundness(ra/rb);
+        measures.setRoundness(rb == 0? Double.MAX_VALUE : ra/rb);
         return measures;
     }
 
