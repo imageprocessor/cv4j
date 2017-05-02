@@ -22,7 +22,6 @@ import com.cv4j.core.datamodel.MeasureData;
 import com.safframework.injectview.annotations.InjectExtra;
 import com.safframework.injectview.annotations.InjectView;
 import com.safframework.injectview.annotations.OnClick;
-import com.safframework.log.L;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -74,8 +73,7 @@ public class ContourAnalysisActivity extends BaseActivity {
         ConnectedAreaLabel connectedAreaLabel = new ConnectedAreaLabel();
         connectedAreaLabel.setFilterNoise(true);
         int[] mask = new int[cv4JImage.getProcessor().getWidth() * cv4JImage.getProcessor().getHeight()];
-        int riceNum = connectedAreaLabel.process((ByteProcessor)cv4JImage.getProcessor(),mask,null,false);
-        L.i("riceNum="+riceNum);
+        connectedAreaLabel.process((ByteProcessor)cv4JImage.getProcessor(),mask,null,false);
 
         SparseIntArray colors = new SparseIntArray();
         Random random = new Random();

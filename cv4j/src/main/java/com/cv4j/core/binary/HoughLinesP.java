@@ -112,11 +112,11 @@ public class HoughLinesP {
 			for (int y = 0; y < height; y++) {
 				int temp = (int) (x * Math.cos(((theta) * Math.PI) / 180) + y * Math.sin(((theta) * Math.PI) / 180));
 				if ((temp - r) == 0) {// 变换坐标并绘制
-					if(x1 > x && y1 > y) {
+					if(x1 > x) { // 最小
 						x1 = x;
 						y1 = y;
 					}
-					if(x2 < x && y2 < y) {
+					if(x2 < x) { // 最大
 						x2 = x;
 						y2 = y;
 					}
