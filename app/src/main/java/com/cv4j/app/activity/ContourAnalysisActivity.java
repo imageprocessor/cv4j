@@ -22,6 +22,7 @@ import com.cv4j.core.datamodel.MeasureData;
 import com.safframework.injectview.annotations.InjectExtra;
 import com.safframework.injectview.annotations.InjectView;
 import com.safframework.injectview.annotations.OnClick;
+import com.safframework.log.L;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -114,6 +115,7 @@ public class ContourAnalysisActivity extends BaseActivity {
         paint.setColor(Color.WHITE);
         for (MeasureData data:measureDatas) {
             canvas.drawText(data.toString(),data.getCp().x,data.getCp().y,paint);
+            L.i(data.toString());
         }
         image3.setImageBitmap(thirdBitmap);
     }
