@@ -134,45 +134,37 @@ public class HoughLinesP {
 			for (int y = 0; y < height; y++) {
 				int temp = (int) (x * coslut[theta] + y * sinlut[theta]);
 				if ((temp - r) == 0) {// 变换坐标并绘制
-					<<<<<<<HEAD
-					if (x > x2) {
-						=======
-						if (x1 > x) { // 最小
-							x1 = x;
-							y1 = y;
-						}
-						if (x2 < x) { // 最大
-							>>>>>>>04f bceeec7b517663903aa4f091f381552d5ab46
-									x2 = x;
-							y2 = y;
-						}
-						if (x < x1) {
-							x1 = x;
-							y1 = y;
-						}
+					if(x > x2) {
+						x2 = x;
+						y2 = y;
+					}
+					if(x < x1) {
+						x1 = x;
+						y1 = y;
 					}
 				}
 			}
+		}
 		/*System.out.println(" [ x1 = " + x1 + " y1 = " + y1 + " ] ");
 		System.out.println(" [ x2 = " + x2 + " y2 = " + y2 + " ] ");
 		System.out.println();*/
 			return new Line(x1, y1, x2, y2);
-		}
-
-		private double[] setupCosLUT () {
-			coslut = new double[180];
-			for (int theta = 0; theta < 180; theta++) {
-				coslut[theta] = Math.cos((theta * Math.PI) / 180.0);
-			}
-			return coslut;
-		}
-
-		private double[] setupSinLUT () {
-			sinlut = new double[180];
-			for (int theta = 0; theta < 180; theta++) {
-				sinlut[theta] = Math.sin((theta * Math.PI) / 180.0);
-			}
-			return sinlut;
-		}
 	}
+
+	private double[] setupCosLUT () {
+		coslut = new double[180];
+		for (int theta = 0; theta < 180; theta++) {
+			coslut[theta] = Math.cos((theta * Math.PI) / 180.0);
+		}
+		return coslut;
+	}
+
+	private double[] setupSinLUT () {
+		sinlut = new double[180];
+		for (int theta = 0; theta < 180; theta++) {
+			sinlut[theta] = Math.sin((theta * Math.PI) / 180.0);
+		}
+		return sinlut;
+	}
+
 }
