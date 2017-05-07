@@ -52,8 +52,8 @@ public class VarianceFilter extends BaseFilter {
 				b = calculateVar(subpixels[2]); // blue
 
 				output[0][row * width + col] = (byte)Tools.clamp(r);
-				output[1][row * width + col] = (byte)Tools.clamp(r);
-				output[2][row * width + col] = (byte)Tools.clamp(r);
+				output[1][row * width + col] = (byte)Tools.clamp(g);
+				output[2][row * width + col] = (byte)Tools.clamp(b);
 			}
 		}
 
