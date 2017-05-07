@@ -69,4 +69,13 @@
         android:gravity="center"
         android:text="人脸磨皮"/>
 
+    <TextView
+        android:id="@+id/text8"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_margin="10dp"
+        android:background="@drawable/textview_border"
+        android:gravity="center"
+        android:text="油画效果"/>
+
 </LinearLayout>
