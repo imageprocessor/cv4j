@@ -6,6 +6,18 @@ import com.cv4j.core.datamodel.Line;
 import java.util.List;
 
 public class HoughLinesP {
+	private double[] coslut;
+	private double[] sinlut;
+	private int accSize;
+	private int width;
+	private int height;
+	private int accThreshold;
+
+	public HoughLinesP(){
+		setupCosLUT();
+		setupSinLUT();
+	}
+
 	/**
 	 * 1. 初始化霍夫变换空间
 	 * 2. 将图像的2D空间转换到霍夫空间,每个像素坐标都要转换到霍夫极坐标的对应强度值
@@ -14,9 +26,11 @@ public class HoughLinesP {
 	 * 5. 根据输入前accSize值,画出前accSize个信号最强的直线
 	 * @return
 	 */
-	public void process(ByteProcessor binary, List<Line> lines, int numLines, int accThreshold, boolean filterByThreshold) {
-		int width = binary.getWidth();
-		int height = binary.getHeight();
+	public void process(ByteProcessor binary, int accSize, int minGap, int minAcc, List<Line> lines) {
+		this.width = binary.getWidth();
+		this.height = binary.getHeight();
+		this.accSize = accSize; // 前K=accSize个累积值
+		this.accThreshold = minAcc;// 最小累积值
 		int rmax = (int) Math.sqrt(width * width + height * height);
 		int[] acc = new int[rmax * 180]; // 0 ~ 180角度范围
 		int r;
@@ -28,7 +42,7 @@ public class HoughLinesP {
 				if ((input[y * width + x] & 0xff) == 255) {
 
 					for (int theta = 0; theta < 180; theta++) {
-						r = (int) (x * Math.cos(((theta) * Math.PI) / 180) + y * Math.sin(((theta) * Math.PI) / 180)); // 计算出极坐标
+						r = (int) (x * coslut[theta] + y * sinlut[theta]); // 计算出极坐标
 						if ((r > 0) && (r <= rmax))
 							acc[r * 180 + theta] = acc[r * 180 + theta] + 1; // 在斜率范围内的点，极坐标相同
 					}
@@ -59,29 +73,35 @@ public class HoughLinesP {
 		}
 
 		// 发现前N个信号最强的点，转换为平面坐标，得到直线
-		findMaxima(acc, lines, width, height, numLines);
+		findMaxima(acc, lines);
+
+		// filter by min gap
+		// TODO: zhigaang
+
+
 	}
 
-	private void findMaxima(int[] acc, List<Line> lines, int width, int height, int numLines) {
+	private int[] findMaxima(int[] acc, List<Line> lines) {
 
 		// 初始化
 		int rmax = (int) Math.sqrt(width * width + height * height);
-		int[] results = new int[numLines * 3];
+		int[] results = new int[accSize * 3];
+		int[] output = new int[width * height];
 		// 开始寻找前N个最强信号点，记录极坐标坐标位置
 		for (int r = 0; r < rmax; r++) {
 			for (int theta = 0; theta < 180; theta++) {
 				int value = (acc[r * 180 + theta] & 0xff);
 
 				// if its higher than lowest value add it and then sort
-				if (value > results[(numLines - 1) * 3]) {
+				if (value > results[(accSize - 1) * 3]) {
 
 					// add to bottom of array
-					results[(numLines - 1) * 3] = value;
-					results[(numLines - 1) * 3 + 1] = r;
-					results[(numLines - 1) * 3 + 2] = theta;
+					results[(accSize - 1) * 3] = value;
+					results[(accSize - 1) * 3 + 1] = r;
+					results[(accSize - 1) * 3 + 2] = theta;
 
 					// shift up until its in right place
-					int i = (numLines - 2) * 3;
+					int i = (accSize - 2) * 3;
 					while ((i >= 0) && (results[i + 3] > results[i])) {
 						for (int j = 0; j < 3; j++) {
 							int temp = results[i + j];
@@ -98,36 +118,51 @@ public class HoughLinesP {
 
 
 		// 绘制像素坐标
-		//System.out.println("Total " + numLines + " matches:");
-		for (int i = numLines - 1; i >= 0; i--) {
-			drawPolarLine(results[i * 3], results[i * 3 + 1],results[i * 3 + 2], lines, width, height);
+		System.out.println("Total " + accSize + " matches:");
+		for (int i = accSize - 1; i >= 0; i--) {
+			Line line = drawPolarLine(results[i * 3], results[i * 3 + 1],results[i * 3 + 2]);
+			lines.add(line);
 		}
+		return output;
 	}
 
 	// 变换极坐标为平面坐标，并绘制
-	private void drawPolarLine(int value, int r, int theta, List<Line> lines, int width, int height) {
-		int x1 = 10000, y1 = 100000;
-		int x2 = 0, y2 = 0;
+	private Line drawPolarLine(int value, int r, int theta) {
+		int x1=100000, y1=0, x2=0, y2=0;
 		for (int x = 0; x < width; x++) {
 			for (int y = 0; y < height; y++) {
-				int temp = (int) (x * Math.cos(((theta) * Math.PI) / 180) + y * Math.sin(((theta) * Math.PI) / 180));
+				int temp = (int) (x * coslut[theta] + y * sinlut[theta]);
 				if ((temp - r) == 0) {// 变换坐标并绘制
-					if(x1 > x && y1 > y) {
-						x1 = x;
-						y1 = y;
-					}
-					if(x2 < x && y2 < y) {
+					if(x > x2) {
 						x2 = x;
 						y2 = y;
+					}
+					if(x < x1) {
+						x1 = x;
+						y1 = y;
 					}
 				}
 			}
 		}
-		Line line = new Line();
-		line.x1 = x1;
-		line.y1 = y1;
-		line.x2 = x2;
-		line.y2 = y2;
-		lines.add(line);
+		/*System.out.println(" [ x1 = " + x1 + " y1 = " + y1 + " ] ");
+		System.out.println(" [ x2 = " + x2 + " y2 = " + y2 + " ] ");
+		System.out.println();*/
+		return new Line(x1, y1, x2, y2);
+	}
+
+	private double[] setupCosLUT() {
+		coslut = new double[180];
+		for (int theta = 0; theta < 180; theta++) {
+			coslut[theta] = Math.cos((theta * Math.PI) / 180.0);
+		}
+		return coslut;
+	}
+
+	private double[] setupSinLUT() {
+		sinlut = new double[180];
+		for (int theta = 0; theta < 180; theta++) {
+			sinlut[theta] = Math.sin((theta * Math.PI) / 180.0);
+		}
+		return sinlut;
 	}
 }
