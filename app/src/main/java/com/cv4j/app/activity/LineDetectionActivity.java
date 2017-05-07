@@ -66,11 +66,12 @@ public class LineDetectionActivity extends BaseActivity {
         HoughLinesP houghLinesP = new HoughLinesP();
 
         List<Line> lines = new ArrayList();
-        houghLinesP.process((ByteProcessor)cv4JImage.getProcessor(),lines,6,50,false);
+        houghLinesP.process((ByteProcessor)cv4JImage.getProcessor(),12,10,50,lines);
         Bitmap bm2 = Bitmap.createBitmap(cv4JImage.getProcessor().getImage().toBitmap());
         Canvas canvas = new Canvas(bm2);
         Paint paint = new Paint();
-        paint.setStrokeWidth(2);
+        paint.setStyle(Paint.Style.FILL_AND_STROKE);
+        paint.setStrokeWidth(4);
         paint.setColor(Color.RED);
         for(Line line:lines) {
             canvas.drawLine(line.x1,line.y1,line.x2,line.y2,paint);
