@@ -1,4 +1,4 @@
-package com.cv4j.core.filters;
+package com.cv4j.core.filters.face;
 
 import com.cv4j.image.util.Tools;
 

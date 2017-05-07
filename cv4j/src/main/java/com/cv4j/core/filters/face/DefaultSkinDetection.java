@@ -1,4 +1,4 @@
-package com.cv4j.core.filters;
+package com.cv4j.core.filters.face;
 
 /**
  * based on RGB Color Model, statistic skin detection algorithm

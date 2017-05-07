@@ -1,4 +1,4 @@
-package com.cv4j.core.filters;
+package com.cv4j.core.filters.face;
 
 
 public interface ISkinDetection {

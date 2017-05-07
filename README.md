@@ -39,6 +39,6 @@ The target is to set up a high quality and real-time image process and machine l
 
 
 # 联系方式
-CV4J QQ交流群：492962708
+cv4j QQ交流群：492962708
 
 cv4j的系列文章：http://www.jianshu.com/nb/10401400

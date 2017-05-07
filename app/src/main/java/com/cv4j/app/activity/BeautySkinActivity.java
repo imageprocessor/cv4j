@@ -9,7 +9,7 @@ import android.widget.ImageView;
 
 import com.cv4j.app.R;
 import com.cv4j.app.app.BaseActivity;
-import com.cv4j.core.filters.BeautySkinFilter;
+import com.cv4j.core.filters.face.BeautySkinFilter;
 import com.cv4j.rxjava.RxImageData;
 import com.safframework.injectview.annotations.InjectExtra;
 import com.safframework.injectview.annotations.InjectView;
