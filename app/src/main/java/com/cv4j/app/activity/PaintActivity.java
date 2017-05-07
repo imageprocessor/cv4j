@@ -21,7 +21,7 @@ import java.util.List;
  * Created by Tony Shen on 2017/5/7.
  */
 
-public class OilPaintActivity extends BaseActivity {
+public class PaintActivity extends BaseActivity {
 
     @InjectView(R.id.tablayout)
     TabLayout mTabLayout;

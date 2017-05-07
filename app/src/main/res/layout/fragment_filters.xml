@@ -76,6 +76,6 @@
         android:layout_margin="10dp"
         android:background="@drawable/textview_border"
         android:gravity="center"
-        android:text="油画效果"/>
+        android:text="画风效果"/>
 
 </LinearLayout>

@@ -13,7 +13,7 @@ import com.cv4j.app.activity.ColorFilterActivity;
 import com.cv4j.app.activity.CompositeFilersActivity;
 import com.cv4j.app.activity.GaussianBlurActivity;
 import com.cv4j.app.activity.GridViewFilterActivity;
-import com.cv4j.app.activity.OilPaintActivity;
+import com.cv4j.app.activity.PaintActivity;
 import com.cv4j.app.activity.SelectFilterActivity;
 import com.cv4j.app.activity.UseFilterWithRxActivity;
 import com.cv4j.app.app.BaseFragment;
@@ -118,7 +118,7 @@ public class FiltersFragment extends BaseFragment {
     @OnClick(id=R.id.text8)
     void clickText8() {
 
-        Intent i = new Intent(mContext,OilPaintActivity.class);
+        Intent i = new Intent(mContext,PaintActivity.class);
         i.putExtra("Title",text8.getText().toString());
         startActivity(i);
     }
