@@ -13,6 +13,7 @@ import com.cv4j.app.activity.ColorFilterActivity;
 import com.cv4j.app.activity.CompositeFilersActivity;
 import com.cv4j.app.activity.GaussianBlurActivity;
 import com.cv4j.app.activity.GridViewFilterActivity;
+import com.cv4j.app.activity.OilPaintActivity;
 import com.cv4j.app.activity.SelectFilterActivity;
 import com.cv4j.app.activity.UseFilterWithRxActivity;
 import com.cv4j.app.app.BaseFragment;
@@ -46,6 +47,9 @@ public class FiltersFragment extends BaseFragment {
 
     @InjectView(R.id.text7)
     TextView text7;
+
+    @InjectView(R.id.text8)
+    TextView text8;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -108,6 +112,14 @@ public class FiltersFragment extends BaseFragment {
 
         Intent i = new Intent(mContext,BeautySkinActivity.class);
         i.putExtra("Title",text7.getText().toString());
+        startActivity(i);
+    }
+
+    @OnClick(id=R.id.text8)
+    void clickText8() {
+
+        Intent i = new Intent(mContext,OilPaintActivity.class);
+        i.putExtra("Title",text8.getText().toString());
         startActivity(i);
     }
 }

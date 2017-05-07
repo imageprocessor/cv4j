@@ -17,6 +17,7 @@ import com.cv4j.app.ui.DividerGridItemDecoration;
 import com.cv4j.app.ui.GridRecyclerView;
 import com.safframework.injectview.Injector;
 import com.safframework.injectview.annotations.InjectView;
+import com.safframwork.tony.common.utils.Preconditions;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,8 +53,10 @@ public class SpitalConvFragment extends BaseFragment {
         bitmap = BitmapFactory.decodeResource(res, R.drawable.test_spital_conv);
 
         filterNames = res.getStringArray(R.array.spatialConvNames);
-        for (String filter:filterNames) {
-            list.add(filter);
+        if (Preconditions.isNotBlank(filterNames)) {
+            for (String filter:filterNames) {
+                list.add(filter);
+            }
         }
 
         GridLayoutManager manager = new GridLayoutManager(mContext, 3);

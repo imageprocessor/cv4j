@@ -13,7 +13,7 @@ public class HoughLinesP {
 	private int height;
 	private int accThreshold;
 
-	public HoughLinesP(){
+	public HoughLinesP() {
 		setupCosLUT();
 		setupSinLUT();
 	}
@@ -24,6 +24,7 @@ public class HoughLinesP {
 	 * 3. 找出霍夫极坐标空间的最大强度值
 	 * 4. 根据最大强度值归一化,范围为0 ~ 255
 	 * 5. 根据输入前accSize值,画出前accSize个信号最强的直线
+	 *
 	 * @return
 	 */
 	public void process(ByteProcessor binary, int accSize, int minGap, int minAcc, List<Line> lines) {
@@ -120,7 +121,7 @@ public class HoughLinesP {
 		// 绘制像素坐标
 		System.out.println("Total " + accSize + " matches:");
 		for (int i = accSize - 1; i >= 0; i--) {
-			Line line = drawPolarLine(results[i * 3], results[i * 3 + 1],results[i * 3 + 2]);
+			Line line = drawPolarLine(results[i * 3], results[i * 3 + 1], results[i * 3 + 2]);
 			lines.add(line);
 		}
 		return output;
@@ -128,41 +129,50 @@ public class HoughLinesP {
 
 	// 变换极坐标为平面坐标，并绘制
 	private Line drawPolarLine(int value, int r, int theta) {
-		int x1=100000, y1=0, x2=0, y2=0;
+		int x1 = 100000, y1 = 0, x2 = 0, y2 = 0;
 		for (int x = 0; x < width; x++) {
 			for (int y = 0; y < height; y++) {
 				int temp = (int) (x * coslut[theta] + y * sinlut[theta]);
 				if ((temp - r) == 0) {// 变换坐标并绘制
-					if(x > x2) {
-						x2 = x;
-						y2 = y;
-					}
-					if(x < x1) {
-						x1 = x;
-						y1 = y;
+					<<<<<<<HEAD
+					if (x > x2) {
+						=======
+						if (x1 > x) { // 最小
+							x1 = x;
+							y1 = y;
+						}
+						if (x2 < x) { // 最大
+							>>>>>>>04f bceeec7b517663903aa4f091f381552d5ab46
+									x2 = x;
+							y2 = y;
+						}
+						if (x < x1) {
+							x1 = x;
+							y1 = y;
+						}
 					}
 				}
 			}
-		}
 		/*System.out.println(" [ x1 = " + x1 + " y1 = " + y1 + " ] ");
 		System.out.println(" [ x2 = " + x2 + " y2 = " + y2 + " ] ");
 		System.out.println();*/
-		return new Line(x1, y1, x2, y2);
-	}
-
-	private double[] setupCosLUT() {
-		coslut = new double[180];
-		for (int theta = 0; theta < 180; theta++) {
-			coslut[theta] = Math.cos((theta * Math.PI) / 180.0);
+			return new Line(x1, y1, x2, y2);
 		}
-		return coslut;
-	}
 
-	private double[] setupSinLUT() {
-		sinlut = new double[180];
-		for (int theta = 0; theta < 180; theta++) {
-			sinlut[theta] = Math.sin((theta * Math.PI) / 180.0);
+		private double[] setupCosLUT () {
+			coslut = new double[180];
+			for (int theta = 0; theta < 180; theta++) {
+				coslut[theta] = Math.cos((theta * Math.PI) / 180.0);
+			}
+			return coslut;
 		}
-		return sinlut;
+
+		private double[] setupSinLUT () {
+			sinlut = new double[180];
+			for (int theta = 0; theta < 180; theta++) {
+				sinlut[theta] = Math.sin((theta * Math.PI) / 180.0);
+			}
+			return sinlut;
+		}
 	}
 }

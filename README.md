@@ -9,5 +9,36 @@ The target is to set up a high quality and real-time image process and machine l
 目前已经实现的功能：
 ![](cv4j.png)
 
+# 支持的滤镜
+
+| 滤镜名称        | 作用          | 备注          |
+| ------------- |:-------------:| :-------------:|
+|BoxBlurFilter||
+|CarveFilter||
+|ColorFilter||
+|ConBriFilter||
+|EmbossFilter||
+|ExposureFilter||
+|FastEPFilter||
+|FloSteDitheringFilter||
+|GammaFilter||
+|GaussianBlurFilter||
+|GaussianNoiseFilter||
+|GlowFilter||
+|GradientFilter||
+|MeansBinaryFilter||
+|MosaicFilter||
+|MotionFilter||
+|NatureFilter||
+|SepiaToneFilter||
+|SinCityFilter||
+|SpotlightFilter||
+|VignetteFilter||
+|WaterFilter||
+|WhiteImageFilter||
+
+
 # 联系方式
-CV4J QQ交流群：492962708
+cv4j QQ交流群：492962708
+
+cv4j的系列文章：http://www.jianshu.com/nb/10401400

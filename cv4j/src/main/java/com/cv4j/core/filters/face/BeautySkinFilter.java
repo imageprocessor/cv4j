@@ -1,10 +1,13 @@
-package com.cv4j.core.filters;
+package com.cv4j.core.filters.face;
 
 import com.cv4j.core.binary.Erode;
 import com.cv4j.core.datamodel.ByteProcessor;
 import com.cv4j.core.datamodel.ImageProcessor;
 import com.cv4j.core.datamodel.IntIntegralImage;
 import com.cv4j.core.datamodel.Size;
+import com.cv4j.core.filters.CommonFilter;
+import com.cv4j.core.filters.FastEPFilter;
+import com.cv4j.core.filters.GradientFilter;
 
 import java.util.Arrays;
 
@@ -17,9 +20,10 @@ public class BeautySkinFilter implements CommonFilter {
     public ImageProcessor filter(ImageProcessor src) {
         int width = src.getWidth();
         int height = src.getHeight();
-        byte[] R = new byte[width*height];
-        byte[] G = new byte[width*height];
-        byte[] B = new byte[width*height];
+        int length = width*height;
+        byte[] R = new byte[length];
+        byte[] G = new byte[length];
+        byte[] B = new byte[length];
         System.arraycopy(src.toByte(0), 0, R, 0, R.length);
         System.arraycopy(src.toByte(1), 0, G, 0, G.length);
         System.arraycopy(src.toByte(2), 0, B, 0, B.length);
@@ -28,7 +32,7 @@ public class BeautySkinFilter implements CommonFilter {
         epFilter.filter(src);
 
         ISkinDetection skinDetector = new DefaultSkinDetection();
-        byte[] mask = new byte[width*height];
+        byte[] mask = new byte[length];
         Arrays.fill(mask, (byte)0);
         int r = 0, g = 0, b = 0;
         for(int i=0; i<R.length; i++) {

@@ -20,6 +20,9 @@ import com.cv4j.core.datamodel.Line;
 import com.safframework.injectview.annotations.InjectExtra;
 import com.safframework.injectview.annotations.InjectView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by Tony Shen on 2017/5/1.
  */
@@ -62,8 +65,8 @@ public class LineDetectionActivity extends BaseActivity {
 
         HoughLinesP houghLinesP = new HoughLinesP();
 
-        Line[] lines = new Line[6];
-        houghLinesP.process((ByteProcessor)cv4JImage.getProcessor(),lines,6);
+        List<Line> lines = new ArrayList();
+        houghLinesP.process((ByteProcessor)cv4JImage.getProcessor(),lines,6,50,false);
         Bitmap bm2 = Bitmap.createBitmap(cv4JImage.getProcessor().getImage().toBitmap());
         Canvas canvas = new Canvas(bm2);
         Paint paint = new Paint();

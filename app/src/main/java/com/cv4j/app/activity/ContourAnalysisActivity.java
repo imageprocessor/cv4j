@@ -74,8 +74,7 @@ public class ContourAnalysisActivity extends BaseActivity {
         ConnectedAreaLabel connectedAreaLabel = new ConnectedAreaLabel();
         connectedAreaLabel.setFilterNoise(true);
         int[] mask = new int[cv4JImage.getProcessor().getWidth() * cv4JImage.getProcessor().getHeight()];
-        int riceNum = connectedAreaLabel.process((ByteProcessor)cv4JImage.getProcessor(),mask,null,false);
-        L.i("riceNum="+riceNum);
+        connectedAreaLabel.process((ByteProcessor)cv4JImage.getProcessor(),mask,null,false);
 
         SparseIntArray colors = new SparseIntArray();
         Random random = new Random();
@@ -116,6 +115,7 @@ public class ContourAnalysisActivity extends BaseActivity {
         paint.setColor(Color.WHITE);
         for (MeasureData data:measureDatas) {
             canvas.drawText(data.toString(),data.getCp().x,data.getCp().y,paint);
+            L.i(data.toString());
         }
         image3.setImageBitmap(thirdBitmap);
     }
