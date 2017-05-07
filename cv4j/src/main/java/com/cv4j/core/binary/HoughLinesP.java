@@ -3,7 +3,10 @@ package com.cv4j.core.binary;
 import com.cv4j.core.datamodel.ByteProcessor;
 import com.cv4j.core.datamodel.Line;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class HoughLinesP {
 	private double[] coslut;
@@ -82,12 +85,11 @@ public class HoughLinesP {
 
 	}
 
-	private int[] findMaxima(int[] acc, List<Line> lines) {
+	private void findMaxima(int[] acc, List<Line> lines) {
 
 		// 初始化
 		int rmax = (int) Math.sqrt(width * width + height * height);
 		int[] results = new int[accSize * 3];
-		int[] output = new int[width * height];
 		// 开始寻找前N个最强信号点，记录极坐标坐标位置
 		for (int r = 0; r < rmax; r++) {
 			for (int theta = 0; theta < 180; theta++) {
@@ -120,11 +122,37 @@ public class HoughLinesP {
 
 		// 绘制像素坐标
 		System.out.println("Total " + accSize + " matches:");
+		List<Line> tempLines = new ArrayList<>();
 		for (int i = accSize - 1; i >= 0; i--) {
 			Line line = drawPolarLine(results[i * 3], results[i * 3 + 1], results[i * 3 + 2]);
-			lines.add(line);
+			tempLines.add(line);
 		}
-		return output;
+
+		// 计算斜率
+		double[] karray = new double[tempLines.size()];
+		int index = 0;
+		int[] labels = new int[karray.length];
+		for(Line oneLine : tempLines) {
+			labels[index] = index;
+			karray[index++] = oneLine.getSlope();
+		}
+
+		// 合并
+		for(int i=0; i<karray.length-1; i++) {
+			for(int j=i+1; j<karray.length; j++) {
+				double distance = Math.abs(karray[i]-karray[j]);
+				if(distance < 0.1) {
+					labels[i] = i;
+					labels[j] = i;
+				}
+			}
+		}
+		Map<Integer, Line> lineMap = new HashMap<>();
+		for(int i=0; i<labels.length; i++) {
+			lineMap.put(labels[i], tempLines.get(i));
+		}
+		lines.addAll(lineMap.values());
+		return;
 	}
 
 	// 变换极坐标为平面坐标，并绘制

@@ -18,9 +18,17 @@ public class Line
         this.y2 = y2;
     }
 
-    public Line() {
+    public Line() {}
 
+    public double getSlope() {
+        double dy = y2 - y1;
+        double dx = x2 - x1;
+        if(dx == 0) {
+            return Double.NaN;
+        }
+        return (dy/dx);
     }
+
     public Point getPoint1() {
         return new Point(x1, y1);
     }
