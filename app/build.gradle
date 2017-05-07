@@ -52,7 +52,6 @@ dependencies {
     compile "com.android.support:design:${libs.supportVersion}"
     testCompile 'junit:junit:4.12'
 
-//    compile project(':cv4j')
     compile project(':rxcv4j')
 
     compile "com.safframework.log:saf-log:${libs.saf_log}"

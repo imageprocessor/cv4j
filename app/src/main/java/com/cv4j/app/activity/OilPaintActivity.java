@@ -4,10 +4,13 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.widget.ImageView;
 
 import com.cv4j.app.R;
+import com.cv4j.app.adapter.PaintAdapter;
 import com.cv4j.app.app.BaseActivity;
 import com.cv4j.core.filters.OilPaintFilter;
 import com.cv4j.rxjava.RxImageData;
@@ -21,19 +24,17 @@ import com.safframework.injectview.annotations.OnClick;
 
 public class OilPaintActivity extends BaseActivity {
 
-    @InjectView(R.id.origin_image)
-    ImageView image1;
+    @InjectView(R.id.tablayout)
+    TabLayout mTabLayout;
 
-    @InjectView(R.id.oilpaint_image)
-    ImageView image2;
+    @InjectView(R.id.viewpager)
+    ViewPager mViewPager;
 
     @InjectView(R.id.toolbar)
     Toolbar toolbar;
 
     @InjectExtra(key = "Title")
     String title;
-
-    RxImageData rxImageData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,23 +47,14 @@ public class OilPaintActivity extends BaseActivity {
     private void initData() {
 
         toolbar.setTitle("< "+title);
-        Resources res= getResources();
-        Bitmap bitmap = BitmapFactory.decodeResource(res, R.drawable.test_oil_paint);
-        image1.setImageBitmap(bitmap);
 
-        rxImageData = RxImageData.bitmap(bitmap);
-        rxImageData.addFilter(new OilPaintFilter()).into(image2);
+        mViewPager.setAdapter(new PaintAdapter(this, this.getSupportFragmentManager()));
+        mTabLayout.setupWithViewPager(mViewPager);
     }
 
     @OnClick(id= R.id.toolbar)
     void clickToolbar() {
 
         finish();
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        rxImageData.recycle();
     }
 }
