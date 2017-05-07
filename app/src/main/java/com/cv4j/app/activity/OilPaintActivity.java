@@ -1,22 +1,21 @@
 package com.cv4j.app.activity;
 
-import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
-import android.widget.ImageView;
 
 import com.cv4j.app.R;
 import com.cv4j.app.adapter.PaintAdapter;
 import com.cv4j.app.app.BaseActivity;
-import com.cv4j.core.filters.OilPaintFilter;
-import com.cv4j.rxjava.RxImageData;
+import com.cv4j.app.fragment.PaintFragment;
 import com.safframework.injectview.annotations.InjectExtra;
 import com.safframework.injectview.annotations.InjectView;
 import com.safframework.injectview.annotations.OnClick;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Tony Shen on 2017/5/7.
@@ -36,6 +35,8 @@ public class OilPaintActivity extends BaseActivity {
     @InjectExtra(key = "Title")
     String title;
 
+    List<Fragment> mList = new ArrayList();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,7 +49,10 @@ public class OilPaintActivity extends BaseActivity {
 
         toolbar.setTitle("< "+title);
 
-        mViewPager.setAdapter(new PaintAdapter(this, this.getSupportFragmentManager()));
+        mList.add(PaintFragment.newInstance(0));
+        mList.add(PaintFragment.newInstance(1));
+        mList.add(PaintFragment.newInstance(2));
+        mViewPager.setAdapter(new PaintAdapter(this, this.getSupportFragmentManager(),mList));
         mTabLayout.setupWithViewPager(mViewPager);
     }
 

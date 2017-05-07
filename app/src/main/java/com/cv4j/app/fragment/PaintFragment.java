@@ -13,10 +13,10 @@ import com.cv4j.app.R;
 import com.cv4j.app.app.BaseFragment;
 import com.cv4j.core.filters.CommonFilter;
 import com.cv4j.core.filters.OilPaintFilter;
+import com.cv4j.core.filters.StrokeAreaFilter;
 import com.cv4j.rxjava.RxImageData;
 import com.safframework.injectview.Injector;
 import com.safframework.injectview.annotations.InjectView;
-import com.safframework.log.L;
 
 /**
  * Created by Tony Shen on 2017/5/7.
@@ -31,6 +31,7 @@ public class PaintFragment extends BaseFragment {
 
     private final static int DEFAULT_TYPE = 0;
     private final static int OIL_PAINT_TYPE = 1;
+    private final static int PENCIL_PAINT_TYPE = 2;
 
     private int mType;
 
@@ -47,10 +48,8 @@ public class PaintFragment extends BaseFragment {
         super.onCreate(savedInstanceState);
         Bundle bundle = getArguments();
         if (bundle != null) {
-            mType = bundle.getInt("PAINT_TYPE");
+            mType = bundle.getInt(PAINT_TYPE);
         }
-
-        L.i("mType="+mType);
     }
 
     @Override
@@ -71,6 +70,10 @@ public class PaintFragment extends BaseFragment {
 
             case OIL_PAINT_TYPE:
                 filter = new OilPaintFilter();
+                break;
+
+            case PENCIL_PAINT_TYPE:
+                filter = new StrokeAreaFilter();
                 break;
 
             default:
