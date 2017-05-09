@@ -30,9 +30,11 @@ The target is to set up a high quality and real-time image process and machine l
 |MosaicFilter||
 |MotionFilter||
 |NatureFilter||
+|OilPaintFilter||
 |SepiaToneFilter||
 |SinCityFilter||
 |SpotlightFilter||
+|StrokeAreaFilter||
 |VignetteFilter||
 |WaterFilter||
 |WhiteImageFilter||

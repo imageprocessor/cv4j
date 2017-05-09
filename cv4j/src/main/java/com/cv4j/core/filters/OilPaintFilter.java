@@ -12,13 +12,13 @@ public class OilPaintFilter extends BaseFilter {
     private int radius = 15; // default value
     private int intensity = 40; // default value
 
+    public OilPaintFilter() {
+        this(15, 40);
+    }
+
     public OilPaintFilter(int radius, int graylevel) {
         this.radius = radius;
         this.intensity = graylevel;
-    }
-
-    public OilPaintFilter() {
-        this(15, 40);
     }
 
     public int getRadius() {
@@ -48,13 +48,14 @@ public class OilPaintFilter extends BaseFilter {
         int[] ravg = new int[intensity+1];
         int[] gavg = new int[intensity+1];
         int[] bavg = new int[intensity+1];
-        for(int i=0; i<=intensity; i++)
-        {
+
+        for(int i=0; i<=intensity; i++) {
             intensityCount[i] = 0;
             ravg[i] = 0;
             gavg[i] = 0;
             bavg[i] = 0;
         }
+
         for(int row=0; row<height; row++) {
             int ta = 0, tr = 0, tg = 0, tb = 0;
             for(int col=0; col<width; col++) {
