@@ -1,5 +1,6 @@
 package com.cv4j.rxjava;
 
+import android.app.Dialog;
 import android.graphics.Bitmap;
 import android.util.Log;
 import android.widget.ImageView;
@@ -17,6 +18,7 @@ import io.reactivex.Flowable;
 import io.reactivex.FlowableTransformer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
+import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
@@ -35,6 +37,7 @@ public class RxImageData {
     ImageView imageView;
     List<CommonFilter> filters;
     WrappedCV4JImage wrappedCV4JImage;
+    Dialog mDialog;
 
     private RxImageData(byte[] bytes) {
         this(new CV4JImage(bytes));
@@ -67,6 +70,19 @@ public class RxImageData {
     public static RxImageData image(CV4JImage image) {
 
         return new RxImageData(image);
+    }
+
+    public RxImageData dialog(Dialog dialog) {
+
+        if (dialog==null) {
+
+            Log.e("RxImageData","dialog is null");
+            return this;
+        }
+
+        this.mDialog = dialog;
+        this.mDialog.show();
+        return this;
     }
 
     /**
@@ -121,6 +137,11 @@ public class RxImageData {
             this.flowable.compose(RxImageData.toMain()).subscribe(new Consumer<WrappedCV4JImage>() {
                 @Override
                 public void accept(@NonNull WrappedCV4JImage wrapped) throws Exception {
+                    if (mDialog!=null) {
+                        mDialog.dismiss();
+                        mDialog = null;
+                    }
+
                     imageView.setImageBitmap(wrapped.image.toBitmap());
                 }
             });
@@ -163,6 +184,12 @@ public class RxImageData {
             }).compose(RxImageData.toMain()).subscribe(new Consumer<ImageProcessor>() {
                 @Override
                 public void accept(@NonNull ImageProcessor processor) throws Exception {
+
+                    if (mDialog!=null) {
+                        mDialog.dismiss();
+                        mDialog = null;
+                    }
+
                     imageView.setImageBitmap(processor.getImage().toBitmap());
                 }
             });
@@ -182,6 +209,11 @@ public class RxImageData {
             }).compose(RxImageData.toMain()).subscribe(new Consumer<ImageProcessor>() {
                 @Override
                 public void accept(@NonNull ImageProcessor processor) throws Exception {
+
+                    if (mDialog!=null) {
+                        mDialog.dismiss();
+                        mDialog = null;
+                    }
                     imageView.setImageBitmap((processor.getImage().toBitmap()));
                 }
             });

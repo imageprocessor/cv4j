@@ -1,5 +1,6 @@
 package com.cv4j.app.activity;
 
+import android.app.ProgressDialog;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -41,6 +42,8 @@ public class GaussianBlurActivity extends BaseActivity {
     Resources res;
     Bitmap bitmap;
 
+    ProgressDialog progDailog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,6 +60,9 @@ public class GaussianBlurActivity extends BaseActivity {
         toolbar.setTitle("< "+title);
         res = getResources();
         bitmap = BitmapFactory.decodeResource(res, R.drawable.test_filters);
+
+        progDailog = ProgressDialog.show(this, "Loading", "Please wait...", true);
+        progDailog.setCancelable(false);
     }
 
     private void useRenderScript() {
@@ -68,6 +74,7 @@ public class GaussianBlurActivity extends BaseActivity {
         filter.setSigma(10);
 
         RxImageData.bitmap(bitmap)
+                .dialog(progDailog)
                 .addFilter(filter)
                 .into(image2);
     }
