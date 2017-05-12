@@ -15,7 +15,7 @@ The target is to set up a high quality and real-time image process and machine l
 | ------------- |:-------------:| :-------------:|
 |BoxBlurFilter|盒子模糊，支持水平与垂直经向模糊，模糊半径通常为奇数1、3、5、7、9、11、15|快速模糊算法|
 |CarveFilter|浮雕效果, 支持两种浮雕类型，根据boolean参数决定使用哪一种|像素差值计算
-|ColorFilter|颜色匹配，支持12中颜色风格转换， 基于查找表实现，速度极快|LUT加速计算|
+|ColorFilter|颜色匹配，支持12种颜色风格转换(相当于12个滤镜)， 基于查找表实现，速度极快|LUT加速计算|
 |ConBriFilter|调整图像对比度与亮度，默认是提升对比，降低亮度，默认值分别为1.2， 0.7|对比度与亮度调整|
 |EmbossFilter|轧花效果，基于跟浮雕效果类似，但是更加灵活，可以执行更多像素值校正|轧花效果|
 |ExposureFilter|曝光效果，基于图像像素值取反，有一种类似光学相机曝光照片的效果|光爆效果
@@ -29,7 +29,7 @@ The target is to set up a high quality and real-time image process and machine l
 |MeansBinaryFilter|黑白效果， 基于图像均值实现图像二值化效果|黑白效果|
 |MosaicFilter|马赛克效果，基于积分图实现的图像马赛克效果，速度快效果好，支持矩形马赛克|马赛克效果|
 |MotionFilter|移动效果，基于模糊与几何形变实现的图像模糊移动效果|移动效果|
-|NatureFilter|自然系滤镜,根据参数选择，总计有八种自然风格的颜色滤镜|自然系效果|
+|NatureFilter|自然系滤镜,根据参数选择，总计有八种自然风格的颜色滤镜(相当于8个滤镜)|自然系效果|
 |OilPaintFilter|油画效果，基于轮廓与颜色分布实现的油画效果，逼真模拟秋日风情|油画效果|
 |SepiaToneFilter|怀旧风格， 经典的图像怀旧风格滤镜，一秒生成|怀旧风格|
 |SinCityFilter|邪恶之城，基于像素值局部变化的滤镜，可以根据输入参数调整阈值范围与对比颜色值|邪恶之城|
