@@ -39,13 +39,13 @@ public class USMFilter extends GaussianBlurFilter {
 		int r1=0, g1=0, b1=0;
 		int r2=0, g2=0, b2=0;
 		for(int i=0; i<total; i++) {
-			r1 = R[i]&0xff;
-			g1 = G[i]&0xff;
-			b1 = B[i]&0xff;
+			r1 = R1[i]&0xff;
+			g1 = G1[i]&0xff;
+			b1 = B1[i]&0xff;
 			
-			r2 = R1[i]&0xff;
-			g2 = G1[i]&0xff;
-			b2 = B1[i]&0xff;
+			r2 = R[i]&0xff;
+			g2 = G[i]&0xff;
+			b2 = B[i]&0xff;
 			
 			r = (int)((r1-weight*r2)/(1-weight));
 			g = (int)((g1-weight*g2)/(1-weight));
