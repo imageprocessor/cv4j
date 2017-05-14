@@ -8,11 +8,24 @@ import com.cv4j.core.datamodel.ImageProcessor;
 
 public class CalcHistogram {
 
-    public void calcHist(ImageProcessor src, int bins, int[][] hist) {
+    public void calcHist(ImageProcessor src, int bins, int[][] hist, boolean norm) {
         int numChannels = src.getChannels();
         for(int i=0; i<numChannels; i++) {
             byte[] data = src.toByte(i);
             hist[i] = getHistogram(data, bins);
+        }
+
+        if(!norm) return;
+        float min = 10000000, max = 0;
+        for(int i=0; i<numChannels; i++) {
+            for(int j=0; j<bins; j++) {
+                min = Math.min(hist[i][j], min);
+                max = Math.max(hist[i][j], max);
+            }
+            float delta = max -min;
+            for(int j=0; j<bins; j++) {
+                hist[i][j] = (int)(((hist[i][j] - min)/delta)*255);
+            }
         }
     }
 
