@@ -11,7 +11,6 @@ import android.widget.ImageView;
 
 import com.cv4j.app.R;
 import com.cv4j.app.app.BaseFragment;
-import com.cv4j.core.filters.CommonFilter;
 import com.cv4j.core.filters.OilPaintFilter;
 import com.cv4j.core.filters.StrokeAreaFilter;
 import com.cv4j.rxjava.RxImageData;
@@ -65,25 +64,19 @@ public class PaintFragment extends BaseFragment {
         Resources res= getResources();
         Bitmap bitmap = BitmapFactory.decodeResource(res, R.drawable.test_oil_paint);
 
-        CommonFilter filter = null;
         switch(mType) {
 
             case OIL_PAINT_TYPE:
-                filter = new OilPaintFilter();
+                RxImageData.bitmap(bitmap).addFilter(new OilPaintFilter()).into(image);
                 break;
 
             case PENCIL_PAINT_TYPE:
-                filter = new StrokeAreaFilter();
+                RxImageData.bitmap(bitmap).addFilter(new StrokeAreaFilter()).into(image);
                 break;
 
             default:
+                image.setImageBitmap(bitmap);
                 break;
-        }
-
-        if (filter!=null) {
-            RxImageData.bitmap(bitmap).addFilter(filter).into(image);
-        } else {
-            image.setImageBitmap(bitmap);
         }
     }
 }
