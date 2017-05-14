@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.cv4j.app.R;
+import com.cv4j.app.activity.HistogramDemoActivity;
 import com.cv4j.app.activity.HistogramEqualizationActivity;
 import com.cv4j.app.app.BaseFragment;
 import com.safframework.injectview.Injector;
@@ -23,6 +24,9 @@ public class HistFragment extends BaseFragment {
     @InjectView(R.id.text1)
     TextView text1;
 
+    @InjectView(R.id.text2)
+    TextView text2;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_hist, container, false);
@@ -36,6 +40,14 @@ public class HistFragment extends BaseFragment {
 
         Intent i = new Intent(mContext,HistogramEqualizationActivity.class);
         i.putExtra("Title",text1.getText().toString());
+        startActivity(i);
+    }
+
+    @OnClick(id=R.id.text2)
+    void clickText2() {
+
+        Intent i = new Intent(mContext, HistogramDemoActivity.class);
+        i.putExtra("Title",text2.getText().toString());
         startActivity(i);
     }
 }
