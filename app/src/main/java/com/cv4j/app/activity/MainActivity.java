@@ -117,6 +117,10 @@ public class MainActivity extends BaseActivity {
             case R.id.drawer_binary:
                 menuManager.show(MenuManager.MenuType.BINARY);
                 break;
+
+            case R.id.drawer_hist:
+                menuManager.show(MenuManager.MenuType.HIST);
+                break;
             default:
                 break;
         }

@@ -6,6 +6,7 @@
     <string name="filters">常用滤镜</string>
     <string name="spatial_conv">空间卷积</string>
     <string name="binary">二值分析</string>
+    <string name="hist">直方图</string>
 
     <string name="finish_by_back_again">再按一次退出程序</string>
 </resources>

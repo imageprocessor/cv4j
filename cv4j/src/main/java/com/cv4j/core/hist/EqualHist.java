@@ -10,7 +10,7 @@ import java.util.Arrays;
 
 public class EqualHist {
 
-    public void Equalization(ByteProcessor src) {
+    public void equalize(ByteProcessor src) {
 
         int width = src.getWidth();
         int height = src.getHeight();

@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentTransaction;
 import com.cv4j.app.R;
 import com.cv4j.app.fragment.BinaryFragment;
 import com.cv4j.app.fragment.FiltersFragment;
+import com.cv4j.app.fragment.HistFragment;
 import com.cv4j.app.fragment.HomeFragment;
 import com.cv4j.app.fragment.IOFragment;
 import com.cv4j.app.fragment.SpitalConvFragment;
@@ -27,7 +28,8 @@ public class MenuManager {
         IO("io读写",true),
         FILTERS("常用过滤器",true),
         SPTIAL_CONV("空间卷积功能",true),
-        BINARY("二值分析",true);
+        BINARY("二值分析",true),
+        HIST("直方图",true);
 
         public final String title;
         public final boolean removed;
@@ -106,6 +108,10 @@ public class MenuManager {
 
             case BINARY:
                 fragment = new BinaryFragment();
+                break;
+
+            case HIST:
+                fragment = new HistFragment();
                 break;
 
             default:

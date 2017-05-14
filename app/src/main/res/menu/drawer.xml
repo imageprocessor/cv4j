@@ -47,6 +47,10 @@
             android:icon="@drawable/menu_general_anno"
             android:title="@string/binary"/>
 
+        <item
+            android:id="@+id/drawer_hist"
+            android:icon="@drawable/menu_general_anno"
+            android:title="@string/hist"/>
 
     </group>
 </menu>

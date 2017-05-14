@@ -1,5 +1,6 @@
 package com.cv4j.app.fragment;
 
+import android.app.ProgressDialog;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -38,6 +39,8 @@ public class IOFragment extends BaseFragment {
 
     RxImageData rxImageData;
 
+    ProgressDialog progDailog;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_io, container, false);
@@ -54,8 +57,10 @@ public class IOFragment extends BaseFragment {
         Bitmap bitmap = BitmapFactory.decodeResource(res, R.drawable.test_io);
         image1.setImageBitmap(bitmap);
 
+        progDailog = ProgressDialog.show(mContext, "Loading", "Please wait...", true);
+        progDailog.setCancelable(false);
         rxImageData = RxImageData.bitmap(bitmap);
-        rxImageData.into(image2);
+        rxImageData.dialog(progDailog).into(image2);
 
         codeView1.setTheme(CodeViewTheme.ANDROIDSTUDIO).fillColor();
 
