@@ -67,11 +67,11 @@ public class PaintFragment extends BaseFragment {
         switch(mType) {
 
             case OIL_PAINT_TYPE:
-                RxImageData.bitmap(bitmap).addFilter(new OilPaintFilter()).into(image);
+                RxImageData.Companion.bitmap(bitmap).addFilter(new OilPaintFilter()).into(image);
                 break;
 
             case PENCIL_PAINT_TYPE:
-                RxImageData.bitmap(bitmap).addFilter(new StrokeAreaFilter()).into(image);
+                RxImageData.Companion.bitmap(bitmap).addFilter(new StrokeAreaFilter()).into(image);
                 break;
 
             default:

@@ -69,7 +69,7 @@ public class ColorFilterActivity extends BaseActivity {
         Resources res = getResources();
         bitmap = BitmapFactory.decodeResource(res, R.drawable.test_color_filter);
 
-        rxImageData = RxImageData.bitmap(bitmap);
+        rxImageData = RxImageData.Companion.bitmap(bitmap);
         rxImageData.addFilter(new ColorFilter()).isUseCache(false).into(image);
 
         colorStyles.put(ColorFilter.AUTUMN_STYLE," 秋天风格 ");
@@ -113,7 +113,7 @@ public class ColorFilterActivity extends BaseActivity {
                     colorFilter.setStyle((int)v.getTag());
 
                     rxImageData.recycle();
-                    rxImageData = rxImageData.bitmap(bitmap);
+                    rxImageData = rxImageData.Companion.bitmap(bitmap);
                     rxImageData.addFilter(colorFilter).isUseCache(false).into(image);
                 }
             });

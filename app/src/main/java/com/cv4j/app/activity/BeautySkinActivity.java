@@ -55,13 +55,13 @@ public class BeautySkinActivity extends BaseActivity {
         Bitmap bitmap = BitmapFactory.decodeResource(res, R.drawable.test_beauty_skin1);
         originImage1.setImageBitmap(bitmap);
 
-        rxImageData = RxImageData.bitmap(bitmap);
+        rxImageData = RxImageData.Companion.bitmap(bitmap);
         rxImageData.addFilter(new BeautySkinFilter()).into(image1);
 
         bitmap = BitmapFactory.decodeResource(res, R.drawable.test_beauty_skin2);
         originImage2.setImageBitmap(bitmap);
 
-        rxImageData = RxImageData.bitmap(bitmap);
+        rxImageData = RxImageData.Companion.bitmap(bitmap);
         rxImageData.addFilter(new BeautySkinFilter()).into(image2);
     }
 
