@@ -215,12 +215,6 @@ class RxImageData private constructor(internal var image: CV4JImage) {
             return RxImageData(image)
         }
 
-        /**
-
-         * @param <T>
-         * *
-         * @return
-        </T> */
         private fun <T> toMain(): FlowableTransformer<T, T> {
 
             return FlowableTransformer { upstream ->

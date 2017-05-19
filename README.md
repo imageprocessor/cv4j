@@ -9,7 +9,7 @@ The target is to set up a high quality and real-time image process and machine l
 目前已经实现的功能：
 ![](cv4j.png)
 
-# 支持的滤镜
+# 常见滤镜
 
 | 滤镜名称        | 作用          | 备注          |
 | ------------- |:-------------:| :-------------:|
@@ -39,6 +39,21 @@ The target is to set up a high quality and real-time image process and machine l
 |WaterFilter|水波纹效果-模拟水波纹扩展效果，在输入图像中|
 |WhiteImageFilter|增白亮度-通过参数可以调整图像亮度，有照片增白效果|增白效果|
 
+# 空间卷积滤镜
+
+| filter       | 名称        | 作用        |
+|:-------------|:-------------| :-------------|
+|ConvolutionHVFilter |卷积|模糊或者降噪|
+|MinMaxFilter|最大最小值滤波|去噪声|
+|SAPNoiseFilter |椒盐噪声|增加噪声|
+|SharpFilter |锐化|增强|
+|MedimaFilter |中值滤波|去噪声|
+|LaplasFilter |拉普拉斯|提取边缘|
+|FindEdgeFilter |寻找边缘|梯度提取|
+|SobelFilter |梯度|获取x、y方向的梯度提取|
+|VarianceFilter |方差滤波|高通滤波|
+|MaerOperatorFilter |马尔操作|高通滤波|
+|USMFilter |USM|增强|
 
 # 联系方式
 cv4j QQ交流群：492962708
