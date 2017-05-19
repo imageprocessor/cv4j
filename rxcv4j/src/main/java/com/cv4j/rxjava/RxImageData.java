@@ -141,7 +141,7 @@ public class RxImageData {
                         mDialog = null;
                     }
 
-                    imageView.setImageBitmap(wrapped.image.toBitmap());
+                    imageView.setImageBitmap(wrapped.getImage().toBitmap());
                 }
             });
         } else if (filters.size() == 1) {
@@ -159,14 +159,14 @@ public class RxImageData {
                             sb.append(imageView.getContext().getClass().getSimpleName());
                         }
 
-                        sb.append(wrap.filters.get(0).getClass().getSimpleName()).append(imageView.getId());
+                        sb.append(wrap.getFilters().get(0).getClass().getSimpleName()).append(imageView.getId());
 
                         // 目前key采用activity name + filter name + imageView id
                         String key = Utils.md5(sb.toString());
 
                         if (memCache.get(key)==null) {
 
-                            ImageProcessor imageProcessor = wrap.filters.get(0).filter(image.getProcessor());
+                            ImageProcessor imageProcessor = wrap.getFilters().get(0).filter(image.getProcessor());
                             memCache.put(key,imageProcessor.getImage().toBitmap());
 
                             return imageProcessor;
@@ -177,7 +177,7 @@ public class RxImageData {
                         }
                     } else {
 
-                        return wrap.filters.get(0).filter(image.getProcessor());
+                        return wrap.getFilters().get(0).filter(image.getProcessor());
                     }
                 }
             }).compose(RxImageData.toMain()).subscribe(new Consumer<ImageProcessor>() {
@@ -198,7 +198,7 @@ public class RxImageData {
             this.flowable.map(new Function<WrappedCV4JImage,List<CommonFilter>>() {
                 @Override
                 public List<CommonFilter> apply(@NonNull WrappedCV4JImage wrap) throws Exception {
-                    return wrap.filters;
+                    return wrap.getFilters();
                 }
             }).map(new Function<List<CommonFilter>,ImageProcessor>() {
                 @Override
