@@ -102,13 +102,13 @@ class RxImageData private constructor(internal var image: CV4JImage) {
         }
 
         if (filters.size == 0) {
-            this.flowable.compose(RxImageData.toMain()).subscribe({ (image) ->
+            this.flowable.compose(RxImageData.toMain()).subscribe({ (cV4JImage) ->
                 if (mDialog != null) {
                     mDialog!!.dismiss()
                     mDialog = null
                 }
 
-                imageView!!.setImageBitmap(image.toBitmap())
+                imageView!!.setImageBitmap(cV4JImage.toBitmap())
             })
         } else if (filters.size == 1) {
             this.flowable
