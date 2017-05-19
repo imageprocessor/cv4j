@@ -1,5 +1,7 @@
 apply plugin: 'com.android.library'
 //apply plugin: 'com.novoda.bintray-release'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 
 def cfg = rootProject.ext.configuration // 配置
 def libs = rootProject.ext.libraries // 库
@@ -36,6 +38,7 @@ dependencies {
     compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
     compile 'io.reactivex.rxjava2:rxjava:2.1.0'
     compile "tony-common:tony-common-utils:${libs.tony_common_utils}"
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
     compile project(':cv4j')
 }
