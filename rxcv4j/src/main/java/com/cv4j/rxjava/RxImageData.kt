@@ -200,17 +200,17 @@ class RxImageData private constructor(internal var image: CV4JImage) {
 
     companion object {
 
-        fun bytes(bytes: ByteArray): RxImageData {
+        @JvmStatic fun bytes(bytes: ByteArray): RxImageData {
 
             return RxImageData(bytes)
         }
 
-        fun bitmap(bitmap: Bitmap): RxImageData {
+        @JvmStatic fun bitmap(bitmap: Bitmap): RxImageData {
 
             return RxImageData(bitmap)
         }
 
-        fun image(image: CV4JImage): RxImageData {
+        @JvmStatic fun image(image: CV4JImage): RxImageData {
 
             return RxImageData(image)
         }
