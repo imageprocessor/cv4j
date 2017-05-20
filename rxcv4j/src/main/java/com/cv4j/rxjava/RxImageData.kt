@@ -32,7 +32,7 @@ class RxImageData private constructor(internal var image: CV4JImage) {
 
     init {
         filters = ArrayList<CommonFilter>()
-        memCache = MemCache.getInstance()
+        memCache = MemCache.instance
 
         wrappedCV4JImage = WrappedCV4JImage(image, filters)
         flowable = Flowable.just(wrappedCV4JImage)
@@ -195,7 +195,7 @@ class RxImageData private constructor(internal var image: CV4JImage) {
      */
     fun recycle() {
 
-        image!!.recycle()
+        image.recycle()
     }
 
     companion object {
