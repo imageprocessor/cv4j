@@ -32,7 +32,7 @@ class RxImageData private constructor(internal var image: CV4JImage) {
 
     init {
         filters = ArrayList<CommonFilter>()
-        memCache = MemCache.getInstance()
+        memCache = MemCache.instance
 
         wrappedCV4JImage = WrappedCV4JImage(image, filters)
         flowable = Flowable.just(wrappedCV4JImage)
@@ -102,13 +102,13 @@ class RxImageData private constructor(internal var image: CV4JImage) {
         }
 
         if (filters.size == 0) {
-            this.flowable.compose(RxImageData.toMain()).subscribe({ (image) ->
+            this.flowable.compose(RxImageData.toMain()).subscribe({ (cV4JImage) ->
                 if (mDialog != null) {
                     mDialog!!.dismiss()
                     mDialog = null
                 }
 
-                imageView!!.setImageBitmap(image.toBitmap())
+                imageView!!.setImageBitmap(cV4JImage.toBitmap())
             })
         } else if (filters.size == 1) {
             this.flowable
@@ -195,32 +195,26 @@ class RxImageData private constructor(internal var image: CV4JImage) {
      */
     fun recycle() {
 
-        image!!.recycle()
+        image.recycle()
     }
 
     companion object {
 
-        fun bytes(bytes: ByteArray): RxImageData {
+        @JvmStatic fun bytes(bytes: ByteArray): RxImageData {
 
             return RxImageData(bytes)
         }
 
-        fun bitmap(bitmap: Bitmap): RxImageData {
+        @JvmStatic fun bitmap(bitmap: Bitmap): RxImageData {
 
             return RxImageData(bitmap)
         }
 
-        fun image(image: CV4JImage): RxImageData {
+        @JvmStatic fun image(image: CV4JImage): RxImageData {
 
             return RxImageData(image)
         }
 
-        /**
-
-         * @param <T>
-         * *
-         * @return
-        </T> */
         private fun <T> toMain(): FlowableTransformer<T, T> {
 
             return FlowableTransformer { upstream ->

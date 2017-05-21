@@ -73,7 +73,7 @@ public class GaussianBlurActivity extends BaseActivity {
         GaussianBlurFilter filter = new GaussianBlurFilter();
         filter.setSigma(10);
 
-        RxImageData.Companion.bitmap(bitmap)
+        RxImageData.bitmap(bitmap)
                 .dialog(progDailog)
                 .addFilter(filter)
                 .into(image2);
