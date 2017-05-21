@@ -1,6 +1,7 @@
 package com.cv4j.core.hist;
 
 import com.cv4j.core.datamodel.ByteProcessor;
+import com.cv4j.image.util.Preconditions;
 
 import java.util.Arrays;
 
@@ -22,8 +23,10 @@ public class EqualHist {
 
         int index = 0;
         byte[] data = src.getGray();
-        for (byte d:data) {
-            inputBins[d & 0xff]++;
+        if (Preconditions.isNotBlank(data)) {
+            for (byte d:data) {
+                inputBins[d & 0xff]++;
+            }
         }
 
         // generate original source image RGB histogram

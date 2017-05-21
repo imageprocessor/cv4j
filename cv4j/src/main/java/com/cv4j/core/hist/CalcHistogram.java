@@ -16,13 +16,15 @@ public class CalcHistogram {
         }
 
         if(!norm) return;
+
         float min = 10000000, max = 0;
+        float delta;
         for(int i=0; i<numChannels; i++) {
             for(int j=0; j<bins; j++) {
                 min = Math.min(hist[i][j], min);
                 max = Math.max(hist[i][j], max);
             }
-            float delta = max -min;
+            delta = max -min;
             for(int j=0; j<bins; j++) {
                 hist[i][j] = (int)(((hist[i][j] - min)/delta)*255);
             }
@@ -31,26 +33,34 @@ public class CalcHistogram {
 
     private int[] getHistogram(byte[] data, int bins) {
         int[] hist = new int[256];
-        for(int i=0; i<data.length; i++) {
+        int length = data.length;
+        for(int i=0; i<length; i++) {
             hist[data[i]&0xff]++;
         }
 
         double numOfGap = 256.0/bins;
         int[] wh = new int[bins];
+
+        double prebin;
+        double currbin;
+        double w1;
+        double w2;
         for(int k=0; k<bins; k++) {
-            double prebin = (k-1)*numOfGap;
-            double currbin = k*numOfGap;
+            prebin = (k-1)*numOfGap;
+            currbin = k*numOfGap;
             int obin = (int)Math.floor(prebin);
             if(obin < 0) {
                 obin = 0;
                 prebin = 0;
             }
             int nbin = (int)Math.floor(currbin);
+
             for(int j=obin; j<=nbin; j++) {
                 wh[k] += hist[j];
             }
-            double w1 = prebin - obin;
-            double w2 = currbin - nbin;
+
+            w1 = prebin - obin;
+            w2 = currbin - nbin;
             if(w1 > 0 && w1 < 1) {
                 wh[k] = (int)(wh[k] - hist[obin]*w1);
             }
