@@ -11,10 +11,10 @@ public class ChainCode extends CourtEdge {
 		super.process(binary);
 		int width = binary.getWidth();
 		int height = binary.getHeight();
-		if(codeMap.length != (width*height))
-		{
+		if(codeMap.length != (width*height)) {
 			throw new CV4JException("chain code map length assert failure");
 		}
+
 		byte[] input = binary.getGray();
 		byte[] output = new byte[width*height];
 		System.arraycopy(input, 0, output, 0, input.length);

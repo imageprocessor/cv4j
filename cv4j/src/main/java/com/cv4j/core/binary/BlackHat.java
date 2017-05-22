@@ -13,12 +13,13 @@ public class BlackHat {
         int width = binary.getWidth();
         int height = binary.getHeight();
         byte[] data = new byte[width*height];
-        System.arraycopy(binary.getGray(), 0, data, 0, data.length);
+        int length = data.length;
+        System.arraycopy(binary.getGray(), 0, data, 0, length);
         MorphClose close = new MorphClose();
         close.process(binary, structureElement);
         byte[] output = binary.getGray();
         int c = 0;
-        for(int i=0; i<data.length; i++) {
+        for(int i=0; i<length; i++) {
             c = output[i]&0xff - data[i]&0xff;
             output[i] = (byte) ((c > 0) ? 255 : 0);
         }
