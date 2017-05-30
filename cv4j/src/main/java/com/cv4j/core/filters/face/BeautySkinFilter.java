@@ -16,6 +16,7 @@ import java.util.Arrays;
  */
 
 public class BeautySkinFilter implements CommonFilter {
+
     @Override
     public ImageProcessor filter(ImageProcessor src) {
         int width = src.getWidth();

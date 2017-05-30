@@ -23,10 +23,6 @@ import com.cv4j.image.util.Tools;
  *
  */
 public class FastSkinDetection implements ISkinDetection {
-	
-	public FastSkinDetection() {
-		
-	}
 
 	@Override
 	public boolean findSkin(int tr, int tg, int tb) {
