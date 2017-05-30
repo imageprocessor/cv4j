@@ -116,11 +116,11 @@ class RxImageData private constructor(internal var image: CV4JImage) {
                         if (useCache) {
 
                             val sb = StringBuilder()
-                            if (imageView!!.getContext() != null) {
-                                sb.append(imageView!!.getContext().javaClass.simpleName)
+                            if (imageView!!.context!= null) {
+                                sb.append(imageView!!.context.javaClass.simpleName)
                             }
 
-                            sb.append(filters1[0].javaClass.simpleName).append(imageView!!.getId())
+                            sb.append(filters1[0].javaClass.simpleName).append(imageView!!.id)
 
                             // 目前key采用activity name + filter name + imageView id
                             val key = Utils.md5(sb.toString())
