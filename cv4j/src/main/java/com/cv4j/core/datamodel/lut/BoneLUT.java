@@ -1,10 +1,6 @@
 package com.cv4j.core.datamodel.lut;
 
 /**
- * Created by Tony Shen on 2017/3/15.
- */
-
-/**
  * The filter which is a grayscale colormap with a higher value for the blue component.
  * This colormap is useful for adding an "electronic" look to grayscale images.
  * <p>

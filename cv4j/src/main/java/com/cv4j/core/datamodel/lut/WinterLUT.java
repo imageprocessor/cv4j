@@ -14,8 +14,6 @@ package com.cv4j.core.datamodel.lut;
  */
 public class WinterLUT {
 
-
-
     public static int[][] WINTER_LUT = new int[][]{
             {0, 0, 254}, {1, 1, 255}, {0, 2, 253}, {0, 4, 253}, {0, 4, 253},
             {1, 5, 252}, {0, 6, 250}, {1, 7, 251}, {0, 8, 251}, {0, 9, 252},
