@@ -1,24 +1,40 @@
 package com.cv4j.core.filters.face;
 
 /**
- * based on RGB Color Model, statistic skin detection algorithm
+ * Based on RGB Color Model, statistic skin detection algorithm
  * 
  * @author gloomy fish
  *
  */
 public class DefaultSkinDetection implements ISkinDetection{
 
-// RGB Color model pixel skin detection method
-// (R, G, B) is classified as skin if:
-// R > 95 and G > 40 and B > 20 and
-// max(R, G, B) - min(R, G, B) > 15 and
-// |R-G| > 15 and R > G and R > B
-//===============================================
+	/**
+	 * RGB Color model pixel skin detection method. <p>
+	 *
+	 * @param tr the value R of RGB color space
+	 * @param tg the value G of RGB color space
+	 * @param tb the value B of RGB color space
+	 * @return whether the color is skin's color
+	 *
+	 * @see #isSkin(int, int, int)
+	 */
 	@Override
 	public boolean findSkin(int tr, int tg, int tb) {
 		return isSkin(tr, tg, tb);
 	}
 
+	/**
+	 * RGB Color model pixel skin detection method. <p>
+	 * (R, G, B) is classified as skin if: <br>
+	 * R > 95 and G > 40 and B > 20 <br>
+	 * and max(R, G, B) - min(R, G, B) > 15 <br>
+	 * and |R-G| > 15 and R > G and R > B <br>
+	 *
+	 * @param tr the value R of RGB color space
+	 * @param tg the value G of RGB color space
+	 * @param tb the value B of RGB color space
+	 * @return whether the color is skin's color
+	 */
 	@Override
 	public boolean isSkin(int tr, int tg, int tb) {
 		int max = Math.max(tr, Math.max(tg, tb));

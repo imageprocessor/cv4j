@@ -21,7 +21,7 @@ public class BeautySkinFilter implements CommonFilter {
     public ImageProcessor filter(ImageProcessor src) {
         int width = src.getWidth();
         int height = src.getHeight();
-        int length = width*height;
+        int length = width * height;
         byte[] R = new byte[length];
         byte[] G = new byte[length];
         byte[] B = new byte[length];
@@ -34,21 +34,21 @@ public class BeautySkinFilter implements CommonFilter {
 
         ISkinDetection skinDetector = new DefaultSkinDetection();
         byte[] mask = new byte[length];
-        Arrays.fill(mask, (byte)0);
+        Arrays.fill(mask, (byte) 0);
         int r = 0, g = 0, b = 0;
-        for(int i=0; i<R.length; i++) {
-            r = R[i]&0xff;
-            g = G[i]&0xff;
-            b = B[i]&0xff;
-            if(!skinDetector.isSkin(r, g, b)) {
-                mask[i] = (byte)255;
+        for (int i = 0; i < R.length; i++) {
+            r = R[i] & 0xff;
+            g = G[i] & 0xff;
+            b = B[i] & 0xff;
+            if (!skinDetector.isSkin(r, g, b)) {
+                mask[i] = (byte) 255;
             }
         }
         Erode erode = new Erode();
         erode.process(new ByteProcessor(mask, width, height), new Size(5));
-        for(int i=0; i<mask.length; i++) {
-            int c = mask[i]&0xff;
-            if(c > 0) {
+        for (int i = 0; i < mask.length; i++) {
+            int c = mask[i] & 0xff;
+            if (c > 0) {
                 src.toByte(0)[i] = R[i];
                 src.toByte(1)[i] = G[i];
                 src.toByte(2)[i] = B[i];
@@ -56,20 +56,20 @@ public class BeautySkinFilter implements CommonFilter {
         }
 
         int c = 0;
-        for(int i=0; i<R.length; i++) {
+        for (int i = 0; i < R.length; i++) {
             r = R[i] & 0xff;
             g = G[i] & 0xff;
             b = B[i] & 0xff;
-            c = (int)(0.299 *r + 0.587*g + 0.114*b);
-            mask[i] = (byte)c;
+            c = (int) (0.299 * r + 0.587 * g + 0.114 * b);
+            mask[i] = (byte) c;
         }
 
         GradientFilter gradientFilter = new GradientFilter();
         int[] gradient = gradientFilter.gradient(new ByteProcessor(mask, width, height));
-        Arrays.fill(mask, (byte)0);
-        for(int i=0; i<R.length; i++) {
-            if(gradient[i] > 35) {
-                mask[i] = (byte)255;
+        Arrays.fill(mask, (byte) 0);
+        for (int i = 0; i < R.length; i++) {
+            if (gradient[i] > 35) {
+                mask[i] = (byte) 255;
             }
         }
         gradient = null;
@@ -80,11 +80,11 @@ public class BeautySkinFilter implements CommonFilter {
         ii.process(width, height);
         byte[] blurmask = new byte[mask.length];
         int offset = 0;
-        for (int row = 1; row < height-1; row++) {
+        for (int row = 1; row < height - 1; row++) {
             offset = row * width;
-            for (int col = 1; col < width-1; col++) {
+            for (int col = 1; col < width - 1; col++) {
                 int sr = ii.getBlockSum(col, row, 5, 5);
-                blurmask[offset + col] = (byte)(sr/25);
+                blurmask[offset + col] = (byte) (sr / 25);
             }
         }
 
@@ -93,17 +93,17 @@ public class BeautySkinFilter implements CommonFilter {
         ii = null;
         float w = 0.0f;
         int wc = 0;
-        for(int i=0; i<blurmask.length; i++) {
-            wc = blurmask[i]&0xff;
-            w = wc/255.0f;
+        for (int i = 0; i < blurmask.length; i++) {
+            wc = blurmask[i] & 0xff;
+            w = wc / 255.0f;
 
-            r = (int)((R[i]&0xff)*w+(src.toByte(0)[i]&0xff)*(1.0f-w));
-            g = (int)((G[i]&0xff)*w+(src.toByte(1)[i]&0xff)*(1.0f-w));
-            b = (int)((B[i]&0xff)*w+(src.toByte(2)[i]&0xff)*(1.0f-w));
+            r = (int) ((R[i] & 0xff) * w + (src.toByte(0)[i] & 0xff) * (1.0f - w));
+            g = (int) ((G[i] & 0xff) * w + (src.toByte(1)[i] & 0xff) * (1.0f - w));
+            b = (int) ((B[i] & 0xff) * w + (src.toByte(2)[i] & 0xff) * (1.0f - w));
 
-            src.toByte(0)[i] = (byte)r;
-            src.toByte(1)[i] = (byte)g;
-            src.toByte(2)[i] = (byte)b;
+            src.toByte(0)[i] = (byte) r;
+            src.toByte(1)[i] = (byte) g;
+            src.toByte(2)[i] = (byte) b;
         }
         R = null;
         G = null;
