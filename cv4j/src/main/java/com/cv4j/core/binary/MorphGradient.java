@@ -8,9 +8,9 @@ import com.cv4j.core.datamodel.Size;
  */
 
 public class MorphGradient {
-    public static int INTERNAL_GRADIENT = 1;
-    public static int EXTERNAL_GRADIENT = 2;
-    public static int BASIC_GRADIENT = 3;
+    public static final int INTERNAL_GRADIENT = 1;
+    public static final int EXTERNAL_GRADIENT = 2;
+    public static final int BASIC_GRADIENT = 3;
 
     /***
      *
