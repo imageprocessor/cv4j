@@ -1,4 +1,4 @@
-# Contributing to cv4j
+# Contributing to CV4J
 
 If you would like to contribute code you can do so through GitHub by forking the repository and sending a pull request targeting the branch `master`.
 
@@ -14,7 +14,7 @@ If you are adding a new file it should have a header like this:
 
 ```
 /**
- * Copyright (c) 2017-present, cv4j Contributors.
+ * Copyright (c) 2017-present, CV4J Contributors.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
