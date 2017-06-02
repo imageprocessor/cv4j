@@ -12,7 +12,7 @@ import android.widget.TextView;
 import com.cv4j.app.R;
 import com.cv4j.core.filters.CommonFilter;
 import com.cv4j.rxjava.RxImageData;
-import com.safframwork.tony.common.utils.Preconditions;
+import com.safframework.tony.common.utils.Preconditions;
 
 import java.util.List;
 

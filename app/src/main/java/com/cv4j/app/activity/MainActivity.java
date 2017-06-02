@@ -17,7 +17,7 @@ import com.cv4j.app.fragment.HomeFragment;
 import com.cv4j.app.menu.MenuManager;
 import com.cv4j.app.utils.DoubleClickExitUtils;
 import com.safframework.injectview.annotations.InjectView;
-import com.safframwork.tony.common.utils.Preconditions;
+import com.safframework.tony.common.utils.Preconditions;
 
 
 public class MainActivity extends BaseActivity {
