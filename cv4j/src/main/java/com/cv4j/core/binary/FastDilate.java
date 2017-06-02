@@ -42,6 +42,8 @@ public class FastDilate {
                     }
                     c |=data[row*width+offset];
                 }
+
+                // TODO: this seems never happen
                 if(c == 255){
                     output[row*width+col] = (byte)255;
                 }
