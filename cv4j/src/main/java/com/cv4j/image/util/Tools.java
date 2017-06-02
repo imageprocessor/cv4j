@@ -390,13 +390,10 @@ public class Tools {
 
     public static void release(Object... objects) {
 
-        if (objects != null && objects.length > 0) {
+        if (Preconditions.isNotBlank(objects)) {
 
             for (Object obj : objects) {
-
-                if (obj != null) {
-                    obj = null;
-                }
+                obj = null;
             }
         }
     }

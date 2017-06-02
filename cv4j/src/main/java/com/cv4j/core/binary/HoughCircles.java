@@ -1,7 +1,6 @@
 package com.cv4j.core.binary;
 
 import com.cv4j.core.datamodel.ByteProcessor;
-import com.cv4j.core.datamodel.Line;
 import com.cv4j.core.datamodel.Vec3i;
 
 import java.util.Arrays;
@@ -57,7 +56,7 @@ public class HoughCircles {
 
         // find maximum for each space
         int[] tempCircle = new int[3];
-        int[] output = new int[width * height];
+//        int[] output = new int[width * height];
 
         // find the center and R for each circle
         for(int i=0; i<numOfR; i++) {
