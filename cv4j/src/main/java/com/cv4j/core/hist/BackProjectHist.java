@@ -61,7 +61,7 @@ public class BackProjectHist {
                 bp[offset + x + 3] = (byte) t1;
             }
         }
-//        backProjection.putGray(bp);
 
+//        backProjection.putGray(bp);
     }
 }
