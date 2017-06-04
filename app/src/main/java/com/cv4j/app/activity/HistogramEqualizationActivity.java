@@ -81,7 +81,7 @@ public class HistogramEqualizationActivity extends BaseActivity {
         CalcHistogram calcHistogram = new CalcHistogram();
         int bins = 127;
         int[][] hist = new int[imageProcessor.getChannels()][bins];
-        calcHistogram.calcHist(imageProcessor,bins,hist,true);
+        calcHistogram.calcRGBHist(imageProcessor,bins,hist,true);
         Bitmap bm = Bitmap.createBitmap(512,512, Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(bm);
         paint.setColor(Color.BLACK);

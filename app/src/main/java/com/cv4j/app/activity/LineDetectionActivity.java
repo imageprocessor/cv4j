@@ -19,6 +19,7 @@ import com.cv4j.core.datamodel.CV4JImage;
 import com.cv4j.core.datamodel.Line;
 import com.safframework.injectview.annotations.InjectExtra;
 import com.safframework.injectview.annotations.InjectView;
+import com.safframework.injectview.annotations.OnClick;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -77,5 +78,11 @@ public class LineDetectionActivity extends BaseActivity {
             canvas.drawLine(line.x1,line.y1,line.x2,line.y2,paint);
         }
         image2.setImageBitmap(bm2);
+    }
+
+    @OnClick(id= R.id.toolbar)
+    void clickToolbar() {
+
+        finish();
     }
 }

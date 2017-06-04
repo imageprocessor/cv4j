@@ -19,6 +19,12 @@ import com.cv4j.exception.CV4JException;
 
 public class CompareHist {
 
+    /**
+     * 0 到 1 之间取值
+     * @param source
+     * @param target
+     * @return
+     */
     public double bhattacharyya(int[] source, int[] target) {
         if(source.length != target.length) {
             throw new CV4JException("number of histogram bins is not same...");
@@ -37,7 +43,7 @@ public class CompareHist {
         for (int i = 0; i < len; i++)
         {
             hist1[i] = source[i] / sum1;
-            hist1[i] = target[i] / sum2;
+            hist2[i] = target[i] / sum2;
         }
 
         for(int i=0; i<len; i++ ) {
@@ -72,7 +78,7 @@ public class CompareHist {
         for (int i = 0; i < len; i++)
         {
             hist1[i] = source[i] / sum1;
-            hist1[i] = target[i] / sum2;
+            hist2[i] = target[i] / sum2;
         }
         double m1 = sum1 / len;
         double m2 = sum2 / len;
@@ -91,6 +97,12 @@ public class CompareHist {
         return similarity / len;
     }
 
+    /**
+     * -1 到 1 之间取值
+     * @param source
+     * @param target
+     * @return
+     */
     public double ncc(int[] source, int[] target) {
         if(source.length != target.length) {
             throw new CV4JException("number of histogram bins is not same...");
@@ -109,7 +121,7 @@ public class CompareHist {
         for (int i = 0; i < len; i++)
         {
             hist1[i] = source[i] / sum1;
-            hist1[i] = target[i] / sum2;
+            hist2[i] = target[i] / sum2;
         }
         double m1 = sum1 / len;
         double m2 = sum2 / len;

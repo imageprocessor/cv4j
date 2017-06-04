@@ -24,7 +24,7 @@ public class BackProjectHist {
     public void backProjection(ByteProcessor src, ByteProcessor backProjection, int bins, int[] histData, int[] range) {
         CalcHistogram calcHist = new CalcHistogram();
         int[][] hist = new int[1][bins];
-        calcHist.calcHist(src, bins, hist, true);
+        calcHist.calcHSVHist(src, bins, hist, true);
         byte[] data = src.getGray();
         byte[] bp = backProjection.getGray();
         int width = src.getWidth();
