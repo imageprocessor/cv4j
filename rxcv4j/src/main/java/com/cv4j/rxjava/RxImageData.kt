@@ -115,12 +115,15 @@ class RxImageData private constructor(internal var image: CV4JImage) {
 
         if (filters.size == 0) {
             this.flowable.compose(RxImageData.toMain()).subscribe({ (cV4JImage) ->
+                imageView!!.setImageBitmap(cV4JImage.toBitmap())
+            }, {
+                t ->
+                t.printStackTrace()
+            }, {
                 if (mDialog != null) {
                     mDialog!!.dismiss()
                     mDialog = null
                 }
-
-                imageView!!.setImageBitmap(cV4JImage.toBitmap())
             })
         } else if (filters.size == 1) {
             this.flowable
@@ -155,13 +158,15 @@ class RxImageData private constructor(internal var image: CV4JImage) {
                     })
                     .compose(RxImageData.toMain())
                     .subscribe({ processor ->
-
+                        imageView!!.setImageBitmap(processor.image.toBitmap())
+                    }, {
+                        t -> t.printStackTrace()
+                    }, {
                         if (mDialog != null) {
                             mDialog!!.dismiss()
                             mDialog = null
                         }
-                        imageView!!.setImageBitmap(processor.image.toBitmap())
-            })
+                    })
 
         } else {
 
@@ -169,11 +174,14 @@ class RxImageData private constructor(internal var image: CV4JImage) {
                     .map { filter(image.processor) }
                     .compose(RxImageData.toMain())
                     .subscribe({ processor ->
+                        imageView!!.setImageBitmap(processor.image.toBitmap())
+                    }, {
+                        t -> t.printStackTrace()
+                    }, {
                         if (mDialog != null) {
                             mDialog!!.dismiss()
                             mDialog = null
                         }
-                        imageView!!.setImageBitmap(processor.image.toBitmap())
                     })
         }
     }
