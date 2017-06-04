@@ -45,6 +45,10 @@ public class CalcHistogram {
         }
     }
 
+    public void calcHSVHist(ImageProcessor src, int bins, int[][] hist, boolean norm) {
+        calcHSVHist(src,bins,hist,norm,new int[][]{{0, 180},{0,256},{0,256}});
+    }
+
     public void calcHSVHist(ImageProcessor src, int bins, int[][] hist, boolean norm, int[][] ranges) {
         if(src.getChannels() == 1) {
             calcRGBHist(src,bins,hist,norm);
