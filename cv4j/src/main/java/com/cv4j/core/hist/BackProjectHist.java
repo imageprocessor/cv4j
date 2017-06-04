@@ -32,9 +32,10 @@ public class BackProjectHist {
         int offset = 0;
 
         // setup look up table
-        float delta = 256.0f / bins;
-        int[] lutHist = new int[256];
-        for (int i = 0; i < 256; i++) {
+        int dr = range[1] - range[0];
+        float delta = ((float)dr) / bins;
+        int[] lutHist = new int[dr];
+        for (int i = 0; i < dr; i++) {
             int hidx = (int) (i / delta);
             if (hidx < bins)
                 lutHist[i] = hist[0][hidx];
