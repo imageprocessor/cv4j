@@ -78,7 +78,7 @@ public class Tools {
      *
      * @param x   the X interpolation parameter 0..1
      * @param y   the y interpolation parameter 0..1
-     * @param rgb array of four ARGB values in the order NW, NE, SW, SE
+     * @param R G B array of four ARGB values in the order NW, NE, SW, SE
      * @return the interpolated value
      */
     public static int bilinearInterpolate(float x, float y, int nw, int ne, int sw, int se) {
@@ -163,6 +163,57 @@ public class Tools {
             i >>>= 4;
         }
         return new String(buf);
+    }
+
+    public static void rgb2hsv(byte[][] rgb, byte[][] hsv) {
+        byte[] R = rgb[0];
+        byte[] G = rgb[1];
+        byte[] B = rgb[2];
+        int len = R.length;
+        for(int i=0; i<len; i++) {
+            int r = R[i]&0xff;
+            int g = G[i]&0xff;
+            int b = B[i]&0xff;
+            int[] result = rgb2hsv(r, g, b);
+            hsv[0][i] = (byte)result[0];
+            hsv[1][i] = (byte)result[1];
+            hsv[2][i] = (byte)result[2];
+        }
+    }
+
+    public static int[] rgb2hsv(int r, int g, int b)
+    {
+        double delta, min;
+        double h = 0, s, v;
+
+        min = Math.min(Math.min(r, g), b);
+        v = Math.max(Math.max(r, g), b);
+        delta = v - min;
+
+        if (v == 0.0)
+            s = 0;
+        else
+            s = delta / v;
+
+        if (s == 0)
+            h = 0.0;
+
+        else
+        {
+            if (r == v)
+                h = (g - b) / delta;
+            else if (g == v)
+                h = 2 + (b - r) / delta;
+            else if (b == v)
+                h = 4 + (r - g) / delta;
+
+            h *= 60;
+
+            if (h < 0.0)
+                h = h + 360;
+        }
+
+        return new int[]{(int)(h/2.0), (int)(s*255), (int)(v / 255)*255};
     }
 
     public static double[] getMinMax(final double[] a) {

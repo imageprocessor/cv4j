@@ -16,16 +16,46 @@
 package com.cv4j.core.hist;
 
 import com.cv4j.core.datamodel.ImageProcessor;
+import com.cv4j.exception.CV4JException;
 
 public class CalcHistogram {
+    public final static int COLOR_RGB = 1;
+    public final static int COLOR_HSV = 2;
 
-    public void calcHist(ImageProcessor src, int bins, int[][] hist, boolean norm) {
+    public void calcRGBHist(ImageProcessor src, int bins, int[][] hist, boolean norm) {
         int numChannels = src.getChannels();
         for(int i=0; i<numChannels; i++) {
             byte[] data = src.toByte(i);
             hist[i] = getHistogram(data, bins);
         }
+        if(!norm) return;
 
+        float min = 10000000, max = 0;
+        float delta;
+        for(int i=0; i<numChannels; i++) {
+            for(int j=0; j<bins; j++) {
+                min = Math.min(hist[i][j], min);
+                max = Math.max(hist[i][j], max);
+            }
+            delta = max -min;
+            for(int j=0; j<bins; j++) {
+                hist[i][j] = (int)(((hist[i][j] - min)/delta)*255);
+            }
+        }
+    }
+
+    public void calcHSVHist(ImageProcessor src, int bins, int[][] hist, boolean norm) {
+        if(src.getChannels() == 1) {
+            throw new CV4JException("The color space could not convert to HSV color space...");
+        }
+        int numChannels = src.getChannels();
+        int width = src.getWidth();
+        int height = src.getHeight();
+        byte[][] hsv = new byte[numChannels][width*height];
+        for(int i=0; i<numChannels; i++) {
+            byte[] data = hsv[i];
+            hist[i] = getHistogram(data, bins);
+        }
         if(!norm) return;
 
         float min = 10000000, max = 0;
