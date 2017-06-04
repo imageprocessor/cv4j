@@ -15,5 +15,114 @@
  */
 package com.cv4j.core.hist;
 
+import com.cv4j.exception.CV4JException;
+
 public class CompareHist {
+
+    public double bhattacharyya(int[] source, int[] target) {
+        if(source.length != target.length) {
+            throw new CV4JException("number of histogram bins is not same...");
+        }
+        int len = source.length;
+        double[] mixedData = new double[len];
+        // start to normalize the histogram data
+        double[] hist1 = new double[len];
+        double[] hist2 = new double[len];
+        double sum1=0, sum2=0;
+        for (int i = 0; i < len; i++)
+        {
+            sum1 += source[i];
+            sum2 += target[i];
+        }
+        for (int i = 0; i < len; i++)
+        {
+            hist1[i] = source[i] / sum1;
+            hist1[i] = target[i] / sum2;
+        }
+
+        for(int i=0; i<len; i++ ) {
+            mixedData[i] = Math.sqrt(hist1[i] * hist2[i]);
+        }
+
+        // The values of Bhattacharyya Coefficient ranges from 0 to 1,
+        double similarity = 0;
+        for(int i=0; i<mixedData.length; i++ ) {
+            similarity += mixedData[i];
+        }
+
+        // The degree of similarity
+        return similarity;
+    }
+
+    public double covariance(int[] source, int[] target) {
+        if(source.length != target.length) {
+            throw new CV4JException("number of histogram bins is not same...");
+        }
+        int len = source.length;
+        double[] mixedData = new double[len];
+        // start to normalize the histogram data
+        double[] hist1 = new double[len];
+        double[] hist2 = new double[len];
+        double sum1=0, sum2=0;
+        for (int i = 0; i < len; i++)
+        {
+            sum1 += source[i];
+            sum2 += target[i];
+        }
+        for (int i = 0; i < len; i++)
+        {
+            hist1[i] = source[i] / sum1;
+            hist1[i] = target[i] / sum2;
+        }
+        double m1 = sum1 / len;
+        double m2 = sum2 / len;
+
+        for(int i=0; i<len; i++ ) {
+            mixedData[i] = (hist1[i] - m1)*(hist2[i]-m2);
+        }
+
+        // The values of Bhattacharyya Coefficient ranges from 0 to 1,
+        double similarity = 0;
+        for(int i=0; i<mixedData.length; i++ ) {
+            similarity += mixedData[i];
+        }
+
+        // The degree of similarity
+        return similarity / len;
+    }
+
+    public double ncc(int[] source, int[] target) {
+        if(source.length != target.length) {
+            throw new CV4JException("number of histogram bins is not same...");
+        }
+        int len = source.length;
+        double[] mixedData = new double[len];
+        // start to normalize the histogram data
+        double[] hist1 = new double[len];
+        double[] hist2 = new double[len];
+        double sum1=0, sum2=0;
+        for (int i = 0; i < len; i++)
+        {
+            sum1 += source[i];
+            sum2 += target[i];
+        }
+        for (int i = 0; i < len; i++)
+        {
+            hist1[i] = source[i] / sum1;
+            hist1[i] = target[i] / sum2;
+        }
+        double m1 = sum1 / len;
+        double m2 = sum2 / len;
+        sum1 = 0;
+        sum2 = 0;
+        double sum3 = 0;
+        for(int i=0; i<len; i++ ) {
+            sum3 += ((hist1[i] - m1)*(hist2[i]-m2));
+            sum1 += ((hist1[i] - m1)*(hist1[i]-m1));
+            sum2 += ((hist2[i] - m2)*(hist2[i]-m2));
+        }
+        double ncc = 0.0;
+        ncc = sum3 / Math.sqrt(sum1*sum2);
+        return ncc;
+    }
 }
