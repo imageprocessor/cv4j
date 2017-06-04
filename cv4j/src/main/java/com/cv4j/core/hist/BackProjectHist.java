@@ -25,9 +25,6 @@ import java.util.Arrays;
 public class BackProjectHist {
 
     public void backProjection(ColorProcessor src, ByteProcessor backProjection, int bins, int[] histData) {
-        CalcHistogram calcHist = new CalcHistogram();
-        int[][] hist = new int[3][bins];
-        calcHist.calcHSVHist(src, bins, hist, true, new int[][]{{0, 180},{0,256},{0,256}});
         byte[] R = src.getRed();
         byte[] G = src.getGreen();
         byte[] B = src.getBlue();
@@ -45,7 +42,7 @@ public class BackProjectHist {
         for (int i = 0; i < 180; i++) {
             int hidx = (int) (i / delta);
             if (hidx < bins)
-                lutHist[i] = hist[0][hidx];
+                lutHist[i] = histData[hidx];
         }
 
         // back project stage
