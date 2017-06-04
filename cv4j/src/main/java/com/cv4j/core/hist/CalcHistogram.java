@@ -25,7 +25,7 @@ public class CalcHistogram {
         int numChannels = src.getChannels();
         for(int i=0; i<numChannels; i++) {
             byte[] data = src.toByte(i);
-            hist[i] = getHistogram(data, bins);
+            hist[i] = getHistogram(data, bins, new int[]{0, 256});
         }
         if(!norm) return;
 
@@ -43,44 +43,45 @@ public class CalcHistogram {
         }
     }
 
-    public void calcHSVHist(ImageProcessor src, int bins, int[][] hist, boolean norm) {
+    public void calcHSVHist(ImageProcessor src, int bins, int[][] hist, boolean norm, int[][] ranges) {
         if(src.getChannels() == 1) {
             calcRGBHist(src,bins,hist,norm);
             return;
         }
 
-        int numChannels = src.getChannels();
         int width = src.getWidth();
         int height = src.getHeight();
-        byte[][] hsv = new byte[numChannels][width*height];
-        for(int i=0; i<numChannels; i++) {
+        byte[][] hsv = new byte[3][width*height];
+        for(int i=0; i<3; i++) {
             byte[] data = hsv[i];
-            hist[i] = getHistogram(data, bins);
+            hist[i] = getHistogram(data, bins, ranges[i]);
         }
         if(!norm) return;
 
         float min = 10000000, max = 0;
         float delta;
-        for(int i=0; i<numChannels; i++) {
+        for(int i=0; i<3; i++) {
             for(int j=0; j<bins; j++) {
                 min = Math.min(hist[i][j], min);
                 max = Math.max(hist[i][j], max);
             }
             delta = max -min;
+            int dr = ranges[i][1] - ranges[i][0];
             for(int j=0; j<bins; j++) {
-                hist[i][j] = (int)(((hist[i][j] - min)/delta)*255);
+                hist[i][j] = (int)(((hist[i][j] - min)/delta)*dr);
             }
         }
     }
 
-    private int[] getHistogram(byte[] data, int bins) {
-        int[] hist = new int[256];
+    private int[] getHistogram(byte[] data, int bins, int[] range) {
+        int dr = range[1] - range[0];
+        int[] hist = new int[dr];
         int length = data.length;
         for(int i=0; i<length; i++) {
             hist[data[i]&0xff]++;
         }
 
-        double numOfGap = 256.0/bins;
+        double numOfGap = dr/bins;
         int[] wh = new int[bins];
 
         double prebin;
