@@ -48,7 +48,7 @@ public class CalcHistogram {
             calcRGBHist(src,bins,hist,norm);
             return;
         }
-        
+
         int numChannels = src.getChannels();
         int width = src.getWidth();
         int height = src.getHeight();

@@ -64,7 +64,7 @@ public class CompareHistActivity extends BaseActivity {
         CalcHistogram calcHistogram = new CalcHistogram();
         int bins = 180;
         source = new int[imageProcessor.getChannels()][bins];
-        calcHistogram.calcRGBHist(imageProcessor,bins,source,true);
+        calcHistogram.calcHSVHist(imageProcessor,bins,source,true);
 
         if (imageProcessor instanceof ByteProcessor) {
             EqualHist equalHist = new EqualHist();
@@ -72,7 +72,7 @@ public class CompareHistActivity extends BaseActivity {
             image1.setImageBitmap(cv4jImage.getProcessor().getImage().toBitmap());
 
             target = new int[imageProcessor.getChannels()][bins];
-            calcHistogram.calcRGBHist(imageProcessor,bins,target,true);
+            calcHistogram.calcHSVHist(imageProcessor,bins,target,true);
         }
 
         CompareHist compareHist = new CompareHist();
