@@ -16,7 +16,6 @@
 package com.cv4j.core.hist;
 
 import com.cv4j.core.datamodel.ImageProcessor;
-import com.cv4j.exception.CV4JException;
 
 public class CalcHistogram {
     public final static int COLOR_RGB = 1;
@@ -46,8 +45,10 @@ public class CalcHistogram {
 
     public void calcHSVHist(ImageProcessor src, int bins, int[][] hist, boolean norm) {
         if(src.getChannels() == 1) {
-            throw new CV4JException("The color space could not convert to HSV color space...");
+            calcRGBHist(src,bins,hist,norm);
+            return;
         }
+        
         int numChannels = src.getChannels();
         int width = src.getWidth();
         int height = src.getHeight();
