@@ -15,7 +15,9 @@
  */
 package com.cv4j.core.hist;
 
+import com.cv4j.core.datamodel.ColorProcessor;
 import com.cv4j.core.datamodel.ImageProcessor;
+import com.cv4j.image.util.Tools;
 
 public class CalcHistogram {
     public final static int COLOR_RGB = 1;
@@ -52,6 +54,10 @@ public class CalcHistogram {
         int width = src.getWidth();
         int height = src.getHeight();
         byte[][] hsv = new byte[3][width*height];
+        byte[] R = ((ColorProcessor)src).getRed();
+        byte[] G = ((ColorProcessor)src).getGreen();
+        byte[] B = ((ColorProcessor)src).getBlue();
+        Tools.rgb2hsv(new byte[][]{R, G, B}, hsv);
         for(int i=0; i<3; i++) {
             byte[] data = hsv[i];
             hist[i] = getHistogram(data, bins, ranges[i]);

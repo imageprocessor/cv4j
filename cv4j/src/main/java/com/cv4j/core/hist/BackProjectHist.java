@@ -16,26 +16,33 @@
 package com.cv4j.core.hist;
 
 import com.cv4j.core.datamodel.ByteProcessor;
+import com.cv4j.core.datamodel.ColorProcessor;
+import com.cv4j.core.datamodel.ImageProcessor;
+import com.cv4j.image.util.Tools;
 
 import java.util.Arrays;
 
 public class BackProjectHist {
 
-    public void backProjection(ByteProcessor src, ByteProcessor backProjection, int bins, int[] histData, int[] range) {
+    public void backProjection(ColorProcessor src, ByteProcessor backProjection, int bins, int[] histData) {
         CalcHistogram calcHist = new CalcHistogram();
         int[][] hist = new int[3][bins];
         calcHist.calcHSVHist(src, bins, hist, true, new int[][]{{0, 180},{0,256},{0,256}});
-        byte[] data = src.getGray();
+        byte[] R = src.getRed();
+        byte[] G = src.getGreen();
+        byte[] B = src.getBlue();
+        byte[][] hsv = new byte[3][R.length];
+        Tools.rgb2hsv(new byte[][]{R, G, B}, hsv);
+        byte[] data = hsv[0]; // H channel...
         byte[] bp = backProjection.getGray();
         int width = src.getWidth();
         int height = src.getHeight();
         int offset = 0;
 
         // setup look up table
-        int dr = range[1] - range[0];
-        float delta = ((float)dr) / bins;
-        int[] lutHist = new int[dr];
-        for (int i = 0; i < dr; i++) {
+        float delta = (180.0f) / bins;
+        int[] lutHist = new int[180];
+        for (int i = 0; i < 180; i++) {
             int hidx = (int) (i / delta);
             if (hidx < bins)
                 lutHist[i] = hist[0][hidx];
