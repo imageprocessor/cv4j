@@ -48,7 +48,7 @@ public class CalcHistogram {
             calcRGBHist(src,bins,hist,norm);
             return;
         }
-        
+
         int width = src.getWidth();
         int height = src.getHeight();
         byte[][] hsv = new byte[3][width*height];
