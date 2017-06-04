@@ -93,6 +93,13 @@ public class CV4JImage implements ImageData, Serializable{
         input = null;
     }
 
+    public CV4JImage(int width,int height) {
+
+        this.width = width;
+        this.height = height;
+        processor = new ByteProcessor(new byte[width*height],width,height);
+        ((ByteProcessor)processor).setCallBack(this);
+    }
 
     public ImageProcessor getProcessor() {
         return this.processor;

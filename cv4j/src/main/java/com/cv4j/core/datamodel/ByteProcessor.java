@@ -80,6 +80,7 @@ public class ByteProcessor implements ImageProcessor {
         return pixels;
     }
     public ImageData getImage() {
+
         return this.image;
     }
 

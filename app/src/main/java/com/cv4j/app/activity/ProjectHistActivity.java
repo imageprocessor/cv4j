@@ -11,7 +11,9 @@ import com.cv4j.app.R;
 import com.cv4j.app.app.BaseActivity;
 import com.cv4j.core.datamodel.ByteProcessor;
 import com.cv4j.core.datamodel.CV4JImage;
+import com.cv4j.core.datamodel.ColorProcessor;
 import com.cv4j.core.hist.BackProjectHist;
+import com.cv4j.core.hist.CalcHistogram;
 import com.safframework.injectview.annotations.InjectExtra;
 import com.safframework.injectview.annotations.InjectView;
 
@@ -54,12 +56,26 @@ public class ProjectHistActivity extends BaseActivity {
         sampleImage.setImageBitmap(bitmap2);
 
         CV4JImage cv4jImage = new CV4JImage(bitmap1);
+        ColorProcessor colorProcessor = (ColorProcessor)cv4jImage.getProcessor();
 
         BackProjectHist backProjectHist = new BackProjectHist();
 
-        int w = cv4jImage.getProcessor().getWidth();
-        int h = cv4jImage.getProcessor().getHeight();
-        ByteProcessor byteProcessor = new ByteProcessor(new byte[w*h],w,h);
-//        backProjectHist.backProjection(cv4jImage.getProcessor(),byteProcessor,32,);
+        int w = colorProcessor.getWidth();
+        int h = colorProcessor.getHeight();
+
+        CV4JImage resultCV4JImage = new CV4JImage(w,h);
+        ByteProcessor byteProcessor = (ByteProcessor)resultCV4JImage.getProcessor();
+
+         // sample
+        CV4JImage sample = new CV4JImage(bitmap2);
+        ColorProcessor sampleProcessor = (ColorProcessor)sample.getProcessor();
+        CalcHistogram calcHistogram = new CalcHistogram();
+        int bins = 32;
+        int[][] hist = new int[sampleProcessor.getChannels()][bins];
+        calcHistogram.calcHSVHist(sampleProcessor,bins,hist,true);
+
+        backProjectHist.backProjection(colorProcessor,byteProcessor,bins,hist[0]);
+
+        result.setImageBitmap(byteProcessor.getImage().toBitmap());
     }
 }
