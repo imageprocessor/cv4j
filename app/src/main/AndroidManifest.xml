@@ -93,6 +93,11 @@
             android:name=".activity.CompareHistActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"/>
+
+        <activity
+            android:name=".activity.ProjectHistActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"/>
     </application>
 
     <uses-permission android:name="android.permission.INTERNET"/>

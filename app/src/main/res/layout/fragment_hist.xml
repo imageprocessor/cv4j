@@ -32,4 +32,13 @@
         android:background="@drawable/textview_border"
         android:gravity="center"
         android:text="直方图比较"/>
+
+    <TextView
+        android:id="@+id/text4"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_margin="10dp"
+        android:background="@drawable/textview_border"
+        android:gravity="center"
+        android:text="直方图投影"/>
 </LinearLayout>
