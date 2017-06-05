@@ -26,6 +26,7 @@ import io.reactivex.Flowable
 import io.reactivex.FlowableTransformer
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import org.jetbrains.annotations.NotNull
 import java.util.*
 
 class RxImageData private constructor(internal var image: CV4JImage) {
@@ -98,7 +99,13 @@ class RxImageData private constructor(internal var image: CV4JImage) {
      * RxImageData.bitmap(bitmap).addFilter(new ColorFilter()).into(view);
      * @param imageview
      */
-    fun into(imageview: ImageView) {
+    fun into(imageview: ImageView?) {
+
+        if (imageview == null) {
+
+            Log.e("RxImageData", "imageview is null")
+            return
+        }
 
         this.imageView = imageview
         render()
@@ -187,7 +194,7 @@ class RxImageData private constructor(internal var image: CV4JImage) {
     }
 
 
-    fun filter(imageData: ImageProcessor): ImageProcessor {
+    private fun filter(imageData: ImageProcessor): ImageProcessor {
 
         if (filters.size > 0) {
             return filter(imageData, filters.size)
@@ -196,7 +203,7 @@ class RxImageData private constructor(internal var image: CV4JImage) {
         return imageData
     }
 
-    fun filter(imageData: ImageProcessor, size: Int): ImageProcessor {
+    private fun filter(imageData: ImageProcessor, size: Int): ImageProcessor {
         var imageData = imageData
 
         if (size == 1) {
@@ -220,17 +227,17 @@ class RxImageData private constructor(internal var image: CV4JImage) {
 
     companion object {
 
-        @JvmStatic fun bytes(bytes: ByteArray): RxImageData {
+        @JvmStatic fun bytes(@NotNull bytes: ByteArray): RxImageData {
 
             return RxImageData(bytes)
         }
 
-        @JvmStatic fun bitmap(bitmap: Bitmap): RxImageData {
+        @JvmStatic fun bitmap(@NotNull bitmap: Bitmap): RxImageData {
 
             return RxImageData(bitmap)
         }
 
-        @JvmStatic fun image(image: CV4JImage): RxImageData {
+        @JvmStatic fun image(@NotNull image: CV4JImage): RxImageData {
 
             return RxImageData(image)
         }
