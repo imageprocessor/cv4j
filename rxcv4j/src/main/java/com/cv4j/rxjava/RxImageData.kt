@@ -29,7 +29,7 @@ import io.reactivex.schedulers.Schedulers
 import org.jetbrains.annotations.NotNull
 import java.util.*
 
-class RxImageData private constructor(internal var image: CV4JImage) {
+class RxImageData private constructor(internal var image: CV4JImage?) {
     internal var flowable: Flowable<WrappedCV4JImage>
     internal var memCache: MemCache
     internal var useCache = true
@@ -39,9 +39,9 @@ class RxImageData private constructor(internal var image: CV4JImage) {
     internal var wrappedCV4JImage: WrappedCV4JImage
     internal var mDialog: Dialog? = null
 
-    private constructor(bytes: ByteArray) : this(CV4JImage(bytes)) {}
+    private constructor(bytes: ByteArray?) : this(CV4JImage(bytes)) {}
 
-    private constructor(bitmap: Bitmap) : this(CV4JImage(bitmap)) {}
+    private constructor(bitmap: Bitmap?) : this(CV4JImage(bitmap)) {}
 
     init {
         filters = ArrayList<CommonFilter>()
@@ -122,7 +122,7 @@ class RxImageData private constructor(internal var image: CV4JImage) {
 
         if (filters.size == 0) {
             this.flowable.compose(RxImageData.toMain()).subscribe({ (cV4JImage) ->
-                imageView!!.setImageBitmap(cV4JImage.toBitmap())
+                imageView!!.setImageBitmap(cV4JImage!!.toBitmap())
             }, {
                 t ->
                 t.printStackTrace()
@@ -149,18 +149,18 @@ class RxImageData private constructor(internal var image: CV4JImage) {
 
                             if (memCache.get(key) == null) {
 
-                                val imageProcessor = filters1[0].filter(image.processor)
+                                val imageProcessor = filters1[0].filter(image!!.processor)
                                 memCache.put(key, imageProcessor.image.toBitmap())
 
                                 imageProcessor
                             } else {
 
-                                image.processor.image.setBitmap(memCache.get(key))
-                                image.processor
+                                image!!.processor.image.setBitmap(memCache.get(key))
+                                image!!.processor
                             }
                         } else {
 
-                            filters1[0].filter(image.processor)
+                            filters1[0].filter(image!!.processor)
                         }
                     })
                     .compose(RxImageData.toMain())
@@ -178,7 +178,7 @@ class RxImageData private constructor(internal var image: CV4JImage) {
         } else {
 
             this.flowable.map({ (image1, filters1) -> filters1 })
-                    .map { filter(image.processor) }
+                    .map { filter(image!!.processor) }
                     .compose(RxImageData.toMain())
                     .subscribe({ processor ->
                         imageView!!.setImageBitmap(processor.image.toBitmap())
@@ -222,7 +222,7 @@ class RxImageData private constructor(internal var image: CV4JImage) {
      */
     fun recycle() {
 
-        image.recycle()
+        image!!.recycle()
     }
 
     companion object {
@@ -232,7 +232,7 @@ class RxImageData private constructor(internal var image: CV4JImage) {
             return RxImageData(bytes)
         }
 
-        @JvmStatic fun bitmap(@NotNull bitmap: Bitmap): RxImageData {
+        @JvmStatic fun bitmap(@NotNull bitmap: Bitmap?): RxImageData {
 
             return RxImageData(bitmap)
         }
