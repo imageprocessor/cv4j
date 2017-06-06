@@ -33,6 +33,7 @@
         android:gravity="center"
         android:text="Rxjava来操作滤镜"/>
 
+
     <TextView
         android:id="@+id/text4"
         android:layout_width="match_parent"
@@ -40,7 +41,7 @@
         android:layout_margin="10dp"
         android:background="@drawable/textview_border"
         android:gravity="center"
-        android:text="显示多个滤镜的效果"/>
+        android:text="基于DSL方式实现滤镜(只适用于Kotlin)"/>
 
     <TextView
         android:id="@+id/text5"
@@ -49,7 +50,7 @@
         android:layout_margin="10dp"
         android:background="@drawable/textview_border"
         android:gravity="center"
-        android:text="彩色滤镜效果"/>
+        android:text="显示多个滤镜的效果"/>
 
     <TextView
         android:id="@+id/text6"
@@ -58,7 +59,7 @@
         android:layout_margin="10dp"
         android:background="@drawable/textview_border"
         android:gravity="center"
-        android:text="高斯模糊"/>
+        android:text="彩色滤镜效果"/>
 
     <TextView
         android:id="@+id/text7"
@@ -67,7 +68,7 @@
         android:layout_margin="10dp"
         android:background="@drawable/textview_border"
         android:gravity="center"
-        android:text="人脸磨皮"/>
+        android:text="高斯模糊"/>
 
     <TextView
         android:id="@+id/text8"
@@ -76,6 +77,16 @@
         android:layout_margin="10dp"
         android:background="@drawable/textview_border"
         android:gravity="center"
+        android:text="人脸磨皮"/>
+
+    <TextView
+        android:id="@+id/text9"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_margin="10dp"
+        android:background="@drawable/textview_border"
+        android:gravity="center"
         android:text="画风效果"/>
+
 
 </LinearLayout>

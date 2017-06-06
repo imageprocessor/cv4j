@@ -2,6 +2,8 @@
 <manifest package="com.cv4j.app"
           xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -18,87 +20,75 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-
         <activity
             android:name=".activity.SelectFilterActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"/>
-
         <activity
             android:name=".activity.CompositeFilersActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"/>
-
         <activity
             android:name=".activity.UseFilterWithRxActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"/>
-
+        <activity
+            android:name=".activity.DslActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.GridViewFilterActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"/>
-
         <activity
             android:name=".activity.ColorFilterActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"/>
-
         <activity
             android:name=".activity.GaussianBlurActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"/>
-
         <activity
             android:name=".activity.MorphologyActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"/>
-
         <activity
             android:name=".activity.CoinsActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"/>
-
         <activity
             android:name=".activity.ContourAnalysisActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"/>
-
         <activity
             android:name=".activity.LineDetectionActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"/>
-
         <activity
             android:name=".activity.BeautySkinActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"/>
-
         <activity
             android:name=".activity.PaintActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"/>
-
         <activity
             android:name=".activity.HistogramEqualizationActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"/>
-
         <activity
             android:name=".activity.HistogramDemoActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"/>
-
         <activity
             android:name=".activity.CompareHistActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"/>
-
         <activity
             android:name=".activity.ProjectHistActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"/>
+
     </application>
 
-    <uses-permission android:name="android.permission.INTERNET"/>
 </manifest>

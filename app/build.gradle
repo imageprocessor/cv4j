@@ -1,6 +1,8 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.hujiang.android-aspectjx'
 apply plugin: 'com.neenbedankt.android-apt'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 
 def cfg = rootProject.ext.configuration // 配置
 def libs = rootProject.ext.libraries // 库
@@ -50,19 +52,22 @@ dependencies {
     })
     compile "com.android.support:appcompat-v7:${libs.supportVersion}"
     compile "com.android.support:design:${libs.supportVersion}"
-    testCompile 'junit:junit:4.12'
 
     compile project(':rxcv4j')
 
     compile "com.safframework.log:saf-log:${libs.saf_log}"
     compile "com.safframework:saf-aop:${libs.saf_aop}"
 
+
+
+
+
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     compile 'com.safframework.injectview:saf-injectview:1.1.0'
-    apt 'com.safframework.injectview:saf-injectview-compiler:1.1.0'
-
     compile 'thereisnospon.codeview:codeview:0.3.1'
-
-    compile "tony-common:tony-common-utils:1.1.0"
-
+    compile 'tony-common:tony-common-utils:1.1.0'
     compile 'com.github.tiagohm.MarkdownView:library:0.13.1'
+    compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha4'
+    testCompile 'junit:junit:4.12'
+    apt 'com.safframework.injectview:saf-injectview-compiler:1.1.0'
 }

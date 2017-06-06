@@ -17,6 +17,7 @@ package com.cv4j.rxjava
 
 import android.graphics.Bitmap
 import android.widget.ImageView
+import com.cv4j.core.datamodel.CV4JImage
 import com.cv4j.core.filters.CommonFilter
 
 /**
@@ -25,6 +26,10 @@ import com.cv4j.core.filters.CommonFilter
 class Wrapper {
 
     var bitmap:Bitmap? = null
+
+    var cv4jImage: CV4JImage? = null
+
+    var bytes:ByteArray? = null
 
     var useCache:Boolean = true
 
@@ -43,5 +48,28 @@ fun cv4j(init: Wrapper.() -> Unit) {
 
 private fun render(wrap: Wrapper) {
 
-    RxImageData.bitmap(wrap.bitmap).addFilter(wrap.filter).isUseCache(wrap.useCache).into(wrap.imageView)
+    if (wrap.bitmap!=null) {
+
+        if (wrap.filter!=null) {
+            RxImageData.bitmap(wrap.bitmap).addFilter(wrap.filter).isUseCache(wrap.useCache).into(wrap.imageView)
+        } else {
+            RxImageData.bitmap(wrap.bitmap).isUseCache(wrap.useCache).into(wrap.imageView)
+        }
+
+    } else if (wrap.cv4jImage!=null) {
+
+        if (wrap.filter!=null) {
+            RxImageData.image(wrap.cv4jImage).addFilter(wrap.filter).isUseCache(wrap.useCache).into(wrap.imageView)
+        } else {
+            RxImageData.image(wrap.cv4jImage).isUseCache(wrap.useCache).into(wrap.imageView)
+        }
+    } else if (wrap.bytes!=null) {
+
+        if (wrap.filter!=null) {
+            RxImageData.bytes(wrap.bytes).addFilter(wrap.filter).isUseCache(wrap.useCache).into(wrap.imageView)
+        } else {
+            RxImageData.bytes(wrap.bytes).isUseCache(wrap.useCache).into(wrap.imageView)
+        }
+    }
+
 }
