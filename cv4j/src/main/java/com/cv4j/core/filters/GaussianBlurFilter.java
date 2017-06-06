@@ -129,6 +129,5 @@ public class GaussianBlurFilter extends BaseFilter {
             double v = (kernel[i]/sum);
             kernel[i] = (float)v;
         }
-        return;
     }
 }

@@ -15,6 +15,7 @@
  */
 package com.cv4j.rxjava
 
+import android.app.Dialog
 import android.graphics.Bitmap
 import android.widget.ImageView
 import com.cv4j.core.datamodel.CV4JImage
@@ -36,6 +37,8 @@ class Wrapper {
     var imageView: ImageView? = null
 
     var filter: CommonFilter? = null
+
+    var dialog: Dialog? = null
 }
 
 fun cv4j(init: Wrapper.() -> Unit) {
@@ -51,24 +54,24 @@ private fun render(wrap: Wrapper) {
     if (wrap.bitmap!=null) {
 
         if (wrap.filter!=null) {
-            RxImageData.bitmap(wrap.bitmap).addFilter(wrap.filter).isUseCache(wrap.useCache).into(wrap.imageView)
+            RxImageData.bitmap(wrap.bitmap).dialog(wrap.dialog).addFilter(wrap.filter).isUseCache(wrap.useCache).into(wrap.imageView)
         } else {
-            RxImageData.bitmap(wrap.bitmap).isUseCache(wrap.useCache).into(wrap.imageView)
+            RxImageData.bitmap(wrap.bitmap).dialog(wrap.dialog).isUseCache(wrap.useCache).into(wrap.imageView)
         }
 
     } else if (wrap.cv4jImage!=null) {
 
         if (wrap.filter!=null) {
-            RxImageData.image(wrap.cv4jImage).addFilter(wrap.filter).isUseCache(wrap.useCache).into(wrap.imageView)
+            RxImageData.image(wrap.cv4jImage).dialog(wrap.dialog).addFilter(wrap.filter).isUseCache(wrap.useCache).into(wrap.imageView)
         } else {
-            RxImageData.image(wrap.cv4jImage).isUseCache(wrap.useCache).into(wrap.imageView)
+            RxImageData.image(wrap.cv4jImage).dialog(wrap.dialog).isUseCache(wrap.useCache).into(wrap.imageView)
         }
     } else if (wrap.bytes!=null) {
 
         if (wrap.filter!=null) {
-            RxImageData.bytes(wrap.bytes).addFilter(wrap.filter).isUseCache(wrap.useCache).into(wrap.imageView)
+            RxImageData.bytes(wrap.bytes).dialog(wrap.dialog).addFilter(wrap.filter).isUseCache(wrap.useCache).into(wrap.imageView)
         } else {
-            RxImageData.bytes(wrap.bytes).isUseCache(wrap.useCache).into(wrap.imageView)
+            RxImageData.bytes(wrap.bytes).dialog(wrap.dialog).isUseCache(wrap.useCache).into(wrap.imageView)
         }
     }
 

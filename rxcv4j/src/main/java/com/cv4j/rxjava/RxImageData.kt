@@ -55,7 +55,6 @@ class RxImageData private constructor(internal var image: CV4JImage?) {
 
         if (dialog == null) {
 
-            Log.e("RxImageData", "dialog is null")
             return this
         }
 
