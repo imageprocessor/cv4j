@@ -227,7 +227,7 @@ class RxImageData private constructor(internal var image: CV4JImage?) {
 
     companion object {
 
-        @JvmStatic fun bytes(@NotNull bytes: ByteArray): RxImageData {
+        @JvmStatic fun bytes(@NotNull bytes: ByteArray?): RxImageData {
 
             return RxImageData(bytes)
         }
@@ -237,7 +237,7 @@ class RxImageData private constructor(internal var image: CV4JImage?) {
             return RxImageData(bitmap)
         }
 
-        @JvmStatic fun image(@NotNull image: CV4JImage): RxImageData {
+        @JvmStatic fun image(@NotNull image: CV4JImage?): RxImageData {
 
             return RxImageData(image)
         }
