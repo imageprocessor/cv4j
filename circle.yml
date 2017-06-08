@@ -1,0 +1,42 @@
+#
+# Build configuration for Circle CI
+#
+
+general:
+    artifacts:
+        - /home/ubuntu/cv4j/app/build/outputs/apk/
+
+machine:
+    environment:
+        ANDROID_HOME: /usr/local/android-sdk-linux
+
+dependencies:
+    pre:
+        # Android SDK Platform 24
+        - if [ ! -d "/usr/local/android-sdk-linux/platforms/android-24" ]; then echo y | android update sdk --no-ui --all --filter "android-24"; fi
+        # Android SDK Build-tools, revision 25.0.0
+        - if [ ! -d "/usr/local/android-sdk-linux/build-tools/25.0.0" ]; then echo y | android update sdk --no-ui --all --filter "build-tools-25.0.0"; fi
+        # Android Support Repository, revision 25.1.1 / Local Maven repository for Support Libraries
+        - if [ ! -d "/usr/local/android-sdk-linux/extras/android/m2repository/com/android/support/support-v4/25.1.1" ]; then echo y | android update sdk --no-ui --all --filter "extra-android-m2repository"; fi
+        # Google Support Repository, revision 40 / Local Maven repository for Support Libraries
+        # - if [ ! -d "/usr/local/android-sdk-linux/extras/google/m2repository/com/google/firebase/firebase-core/10.2.0" ]; then echo y | android update sdk --no-ui --all --filter "extra-google-m2repository"; fi
+        # Android Tools latest (has sdkmanager)
+        - if [ ! -d "/usr/local/android-sdk-linux/tools/bin/sdkmanager" ]; then echo y | android update sdk --no-ui --all --filter "tools"; fi
+        # ConstraintLayout
+        - if [ ! -d "/usr/local/android-sdk-linux/extras/m2repository/com/android/support/constraint/constraint-layout/1.0.2" ]; then echo y | /usr/local/android-sdk-linux/tools/bin/sdkmanager "extras;m2repository;com;android;support;constraint;constraint-layout;1.0.2"; fi
+        # ConstraintLayout Solver
+        - if [ ! -d "/usr/local/android-sdk-linux/extras/m2repository/com/android/support/constraint/constraint-layout-solver/1.0.2" ]; then echo y | /usr/local/android-sdk-linux/tools/bin/sdkmanager "extras;m2repository;com;android;support;constraint;constraint-layout-solver;1.0.2"; fi
+        #- cp --force licenses/* $ANDROID_HOME/licenses; ls -l $ANDROID_HOME/licenses
+    cache_directories:
+        - /usr/local/android-sdk-linux/platforms/android-24
+        - /usr/local/android-sdk-linux/build-tools/25.0.0
+        - /usr/local/android-sdk-linux/extras/android/m2repository
+        - /usr/local/android-sdk-linux/extras/google/m2repository
+    override:
+        - echo y | android update sdk --no-ui --all --filter tools,platform-tools,build-tools-25.0.0,android-25,extra-google-m2repository,extra-google-google_play_services,extra-android-support
+        - chmod +x gradlew
+        - ANDROID_HOME=/usr/local/android-sdk-linux ./gradlew dependencies || true
+
+test:
+  override:
+    - ./gradlew assembleDebug
