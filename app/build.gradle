@@ -67,7 +67,7 @@ dependencies {
     compile 'thereisnospon.codeview:codeview:0.3.1'
     compile 'tony-common:tony-common-utils:1.1.0'
     compile 'com.github.tiagohm.MarkdownView:library:0.13.1'
-    compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha4'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
     testCompile 'junit:junit:4.12'
     apt 'com.safframework.injectview:saf-injectview-compiler:1.1.0'
 }
