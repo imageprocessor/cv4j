@@ -59,7 +59,7 @@ public class IOFragment extends BaseFragment {
 
         progDailog = ProgressDialog.show(mContext, "Loading", "Please wait...", true);
         progDailog.setCancelable(false);
-        rxImageData = RxImageData.Companion.bitmap(bitmap);
+        rxImageData = RxImageData.bitmap(bitmap);
         rxImageData.dialog(progDailog).into(image2);
 
         codeView1.setTheme(CodeViewTheme.ANDROIDSTUDIO).fillColor();

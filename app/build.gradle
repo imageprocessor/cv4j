@@ -57,17 +57,15 @@ dependencies {
 
     compile "com.safframework.log:saf-log:${libs.saf_log}"
     compile "com.safframework:saf-aop:${libs.saf_aop}"
-
-
-
+    compile 'com.safframework.injectview:saf-injectview:1.1.0'
+    apt 'com.safframework.injectview:saf-injectview-compiler:1.1.0'
+    compile 'tony-common:tony-common-utils:1.1.0'
 
 
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    compile 'com.safframework.injectview:saf-injectview:1.1.0'
+
     compile 'thereisnospon.codeview:codeview:0.3.1'
-    compile 'tony-common:tony-common-utils:1.1.0'
     compile 'com.github.tiagohm.MarkdownView:library:0.13.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     testCompile 'junit:junit:4.12'
-    apt 'com.safframework.injectview:saf-injectview-compiler:1.1.0'
 }
