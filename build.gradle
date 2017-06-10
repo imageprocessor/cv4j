@@ -30,7 +30,7 @@ buildscript {
         classpath 'com.android.tools.build:gradle:2.2.3'
         classpath 'com.hujiang.aspectjx:gradle-android-plugin-aspectjx:1.0.8'
         classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
-        classpath 'com.novoda:bintray-release:+'
+        classpath 'com.novoda:bintray-release:0.4.0'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlin_version}"
 
         // NOTE: Do not place your application dependencies here; they belong
@@ -56,6 +56,10 @@ task clean(type: Delete) {
     delete rootProject.buildDir
 }
 
+// 上传jecnter时使用
 //tasks.getByPath(":cv4j:checkstyle").enabled = false
 //tasks.getByPath(":cv4j:releaseAndroidJavadocs").enabled = false
+//tasks.getByPath(":cv4j:bintrayUpload").enabled = false
 //tasks.getByPath(":rxcv4j:lint").enabled = false
+//tasks.getByPath(":rxcv4j:releaseAndroidJavadocs").enabled = false
+//tasks.getByPath(":rxcv4j:bintrayUpload").enabled = false

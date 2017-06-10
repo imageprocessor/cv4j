@@ -6,6 +6,28 @@ The target is to set up a high quality and real-time image process and machine l
 
 ![](logo.png)
 
+# 最新版本
+
+模块|cv4j|rxcv4j
+---|:-------------:|:-------------:
+最新版本|0.0.1|0.0.1|
+
+# 下载和使用
+## 1.单独下载cv4j
+
+```groovy
+compile 'com.cv4j:cv4j:0.0.1'
+```
+
+## 2.下载rxcv4j
+
+rxcv4j是对cv4j使用RxJava2.x进行的封装，如果下载该模块的话无需再下载cv4j。
+
+```groovy
+compile 'com.cv4j:rxcv4j:0.0.1'
+```
+
+
 目前已经实现的功能：
 ![](cv4j.png)
 
