@@ -13,9 +13,9 @@ ext {
     libraries = [
             supportVersion    : "25.1.1",
             saf_log           : "1.0.5",
-            saf_aop           : "1.1.0",
+            saf_aop           : "1.1.1",
 
-            tony_common_utils   : "1.0.2"
+            tony_common_utils   : "1.1.0"
     ]
 }
 

@@ -18,7 +18,7 @@ package com.cv4j.rxjava
 import android.graphics.Bitmap
 import android.os.Build
 import android.support.v4.util.LruCache
-import com.safframwork.tony.common.utils.Preconditions
+import com.safframework.tony.common.utils.Preconditions
 
 class MemCache private constructor() {
 
