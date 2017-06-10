@@ -16,6 +16,7 @@ import com.cv4j.core.hist.BackProjectHist;
 import com.cv4j.core.hist.CalcHistogram;
 import com.safframework.injectview.annotations.InjectExtra;
 import com.safframework.injectview.annotations.InjectView;
+import com.safframework.injectview.annotations.OnClick;
 
 /**
  * Created by Tony Shen on 2017/6/4.
@@ -77,5 +78,11 @@ public class ProjectHistActivity extends BaseActivity {
         backProjectHist.backProjection(colorProcessor,byteProcessor,bins,hist[0]);
 
         result.setImageBitmap(byteProcessor.getImage().toBitmap());
+    }
+
+    @OnClick(id= R.id.toolbar)
+    void clickToolbar() {
+
+        finish();
     }
 }
