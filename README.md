@@ -10,7 +10,7 @@ The target is to set up a high quality and real-time image process and machine l
 
 模块|cv4j|rxcv4j
 ---|:-------------:|:-------------:
-最新版本|[![Download](https://img.shields.io/badge/Download-0.0.1-red.svg)](https://bintray.com/fengzhizi715/maven/cv4j/_latestVersion)|[![Download](https://img.shields.io/badge/Download-0.0.1-red.svg)](https://bintray.com/fengzhizi715/maven/rxcv4j/_latestVersion)
+最新版本|[![Download](https://img.shields.io/badge/Download-0.1.0-red.svg)](https://bintray.com/fengzhizi715/maven/cv4j/_latestVersion)|[![Download](https://img.shields.io/badge/Download-0.1.0-red.svg)](https://bintray.com/fengzhizi715/maven/rxcv4j/_latestVersion)
 
 
 # 下载和使用
@@ -22,7 +22,7 @@ compile 'com.cv4j:cv4j:0.1.0'
 
 ## 2.下载rxcv4j
 
-rxcv4j 是对使用 RxJava2.x 进行的封装，如果下载该模块的话无需再下载cv4j。
+rxcv4j 是使用 RxJava2.x 进行的封装，如果下载该模块的话无需再下载cv4j。
 
 ```groovy
 compile 'com.cv4j:rxcv4j:0.1.0'
