@@ -14,6 +14,7 @@ import com.cv4j.core.datamodel.CV4JImage;
 import com.cv4j.core.datamodel.ColorProcessor;
 import com.cv4j.core.hist.BackProjectHist;
 import com.cv4j.core.hist.CalcHistogram;
+import com.cv4j.image.util.Tools;
 import com.safframework.injectview.annotations.InjectExtra;
 import com.safframework.injectview.annotations.InjectView;
 import com.safframework.injectview.annotations.OnClick;
@@ -75,7 +76,12 @@ public class ProjectHistActivity extends BaseActivity {
         int[][] hist = new int[sampleProcessor.getChannels()][bins];
         calcHistogram.calcHSVHist(sampleProcessor,bins,hist,true);
 
-        backProjectHist.backProjection(colorProcessor,byteProcessor,bins,hist[0]);
+        byte[][] source = new byte[][]{colorProcessor.getRed(),colorProcessor.getGreen(),colorProcessor.getBlue()};
+        byte[][] target = new byte[3][w*h];
+
+        Tools.rgb2hsv(source,target);
+        ByteProcessor hsvByteProcessor = new ByteProcessor(target[0],w,h);
+        backProjectHist.backProjection(hsvByteProcessor,byteProcessor,hist[0],new int[]{0,180});
 
         result.setImageBitmap(byteProcessor.getImage().toBitmap());
     }

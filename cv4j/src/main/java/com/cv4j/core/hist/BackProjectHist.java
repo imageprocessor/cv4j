@@ -16,10 +16,6 @@
 package com.cv4j.core.hist;
 
 import com.cv4j.core.datamodel.ByteProcessor;
-import com.cv4j.core.datamodel.ColorProcessor;
-import com.cv4j.image.util.Tools;
-
-import java.util.Arrays;
 
 public class BackProjectHist {
 
