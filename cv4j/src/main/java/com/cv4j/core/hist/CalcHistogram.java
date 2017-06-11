@@ -24,6 +24,9 @@ public class CalcHistogram {
     public final static int COLOR_HSV = 2;
 
     public void calcRGBHist(ImageProcessor src, int bins, int[][] hist, boolean norm) {
+
+        if (src == null) return;
+
         int numChannels = src.getChannels();
         for(int i=0; i<numChannels; i++) {
             byte[] data = src.toByte(i);
@@ -50,6 +53,9 @@ public class CalcHistogram {
     }
 
     public void calcHSVHist(ImageProcessor src, int bins, int[][] hist, boolean norm, int[][] ranges) {
+
+        if (src == null) return;
+
         if(src.getChannels() == 1) {
             calcRGBHist(src,bins,hist,norm);
             return;

@@ -24,6 +24,8 @@ public class EqualHist {
 
     public void equalize(ByteProcessor src) {
 
+        if (src == null) return;
+
         int width = src.getWidth();
         int height = src.getHeight();
 

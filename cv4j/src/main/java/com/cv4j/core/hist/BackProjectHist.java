@@ -20,6 +20,9 @@ import com.cv4j.core.datamodel.ByteProcessor;
 public class BackProjectHist {
 
     public void backProjection(ByteProcessor src, ByteProcessor backProjection, int[] hist, int[] ranges) {
+
+        if (src == null || backProjection ==null) return;
+
         int bins = hist.length;
         int dr = ranges[1] - ranges[0] + 1;
         double gap = dr / bins;

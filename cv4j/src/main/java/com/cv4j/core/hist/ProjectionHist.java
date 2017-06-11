@@ -17,6 +17,8 @@ package com.cv4j.core.hist;
 
 import com.cv4j.core.datamodel.ByteProcessor;
 
+import static android.R.attr.width;
+
 public class ProjectionHist {
     public final static int X_DIRECTION = 1;
     public final static int Y_DIRECTION = 2;
@@ -29,6 +31,9 @@ public class ProjectionHist {
      * @param output
      */
     public void projection(ByteProcessor src, int direction, int bins, double[] output) {
+
+        if (src == null) return;
+
         // calculate Y Projection
         int width = src.getWidth();
         int height = src.getHeight();
