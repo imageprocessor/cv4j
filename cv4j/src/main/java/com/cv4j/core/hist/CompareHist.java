@@ -67,24 +67,18 @@ public class CompareHist {
         int len = source.length;
         double[] mixedData = new double[len];
         // start to normalize the histogram data
-        double[] hist1 = new double[len];
-        double[] hist2 = new double[len];
         double sum1=0, sum2=0;
         for (int i = 0; i < len; i++)
         {
             sum1 += source[i];
             sum2 += target[i];
         }
-        for (int i = 0; i < len; i++)
-        {
-            hist1[i] = source[i] / sum1;
-            hist2[i] = target[i] / sum2;
-        }
+
         double m1 = sum1 / len;
         double m2 = sum2 / len;
 
         for(int i=0; i<len; i++ ) {
-            mixedData[i] = (hist1[i] - m1)*(hist2[i]-m2);
+            mixedData[i] = (source[i] - m1)*(target[i]-m2);
         }
 
         // The values of Bhattacharyya Coefficient ranges from 0 to 1,
@@ -110,28 +104,22 @@ public class CompareHist {
         int len = source.length;
         double[] mixedData = new double[len];
         // start to normalize the histogram data
-        double[] hist1 = new double[len];
-        double[] hist2 = new double[len];
         double sum1=0, sum2=0;
         for (int i = 0; i < len; i++)
         {
             sum1 += source[i];
             sum2 += target[i];
         }
-        for (int i = 0; i < len; i++)
-        {
-            hist1[i] = source[i] / sum1;
-            hist2[i] = target[i] / sum2;
-        }
+
         double m1 = sum1 / len;
         double m2 = sum2 / len;
         sum1 = 0;
         sum2 = 0;
         double sum3 = 0;
         for(int i=0; i<len; i++ ) {
-            sum3 += ((hist1[i] - m1)*(hist2[i]-m2));
-            sum1 += ((hist1[i] - m1)*(hist1[i]-m1));
-            sum2 += ((hist2[i] - m2)*(hist2[i]-m2));
+            sum3 += ((source[i] - m1)*(target[i]-m2));
+            sum1 += ((source[i] - m1)*(source[i]-m1));
+            sum2 += ((target[i] - m2)*(target[i]-m2));
         }
         double ncc = 0.0;
         ncc = sum3 / Math.sqrt(sum1*sum2);
