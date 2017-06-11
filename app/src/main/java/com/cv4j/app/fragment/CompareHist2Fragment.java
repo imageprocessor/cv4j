@@ -51,7 +51,7 @@ public class CompareHist2Fragment extends BaseFragment {
         image1.setImageBitmap(bitmap);
 
         CV4JImage cv4jImage = new CV4JImage(bitmap);
-        ImageProcessor imageProcessor = cv4jImage.convert2Gray().getProcessor();
+        ImageProcessor imageProcessor = cv4jImage.getProcessor();
 
         int[][] source = null;
 

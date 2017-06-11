@@ -53,27 +53,36 @@ public class CompareHist3Fragment extends BaseFragment {
         image1.setImageBitmap(bitmap2);
 
         CV4JImage cv4jImage1 = new CV4JImage(bitmap1);
-        ImageProcessor imageProcessor1 = cv4jImage1.convert2Gray().getProcessor();
+        ImageProcessor imageProcessor1 = cv4jImage1.getProcessor();
 
         CV4JImage cv4jImage2 = new CV4JImage(bitmap2);
-        ImageProcessor imageProcessor2 = cv4jImage2.convert2Gray().getProcessor();
+        ImageProcessor imageProcessor2 = cv4jImage2.getProcessor();
 
         int[][] source = null;
         int[][] target = null;
 
         CalcHistogram calcHistogram = new CalcHistogram();
-        int bins = 180;
+        int bins = 256;
         source = new int[imageProcessor1.getChannels()][bins];
-        calcHistogram.calcHSVHist(imageProcessor1,bins,source,true);
+        calcHistogram.calcRGBHist(imageProcessor1,bins,source,true);
 
         target = new int[imageProcessor2.getChannels()][bins];
-        calcHistogram.calcHSVHist(imageProcessor2,bins,target,true);
+        calcHistogram.calcRGBHist(imageProcessor2,bins,target,true);
 
         CompareHist compareHist = new CompareHist();
         StringBuilder sb = new StringBuilder();
-        sb.append("巴氏距离:").append(compareHist.bhattacharyya(source[0],target[0])).append("\r\n")
-                .append("协方差:").append(compareHist.covariance(source[0],target[0])).append("\r\n")
-                .append("相关性因子:").append(compareHist.ncc(source[0],target[0]));
+
+        double sum1=0,sum2=0,sum3=0;
+
+        for (int i=0;i<3;i++) {
+            sum1 += compareHist.bhattacharyya(source[i],target[i]);
+            sum2 += compareHist.covariance(source[i],target[i]);
+            sum3 += compareHist.ncc(source[i],target[i]);
+        }
+
+        sb.append("巴氏距离:").append(sum1/3).append("\r\n")
+                .append("协方差:").append(sum2/3).append("\r\n")
+                .append("相关性因子:").append(sum3/3);
 
         result.setText(sb.toString());
     }
