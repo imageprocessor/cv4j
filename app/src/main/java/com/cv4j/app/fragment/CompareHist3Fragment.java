@@ -46,8 +46,8 @@ public class CompareHist3Fragment extends BaseFragment {
     private void initData() {
 
         Resources res = getResources();
-        final Bitmap bitmap1 = BitmapFactory.decodeResource(res, R.drawable.test_io);
-        final Bitmap bitmap2 = BitmapFactory.decodeResource(res, R.drawable.test_hist2);
+        final Bitmap bitmap1 = BitmapFactory.decodeResource(res, R.drawable.test_compare_hist1);
+        final Bitmap bitmap2 = BitmapFactory.decodeResource(res, R.drawable.test_compare_hist2);
 
         image0.setImageBitmap(bitmap1);
         image1.setImageBitmap(bitmap2);
