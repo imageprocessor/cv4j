@@ -23,45 +23,30 @@ import java.util.Arrays;
 
 public class BackProjectHist {
 
-    public void backProjection(ColorProcessor src, ByteProcessor backProjection, int bins, int[] histData) {
-        byte[] R = src.getRed();
-        byte[] G = src.getGreen();
-        byte[] B = src.getBlue();
-        byte[][] hsv = new byte[3][R.length];
-        Tools.rgb2hsv(new byte[][]{R, G, B}, hsv);
-        byte[] data = hsv[0]; // H channel...
-        byte[] bp = backProjection.getGray();
-        int width = src.getWidth();
-        int height = src.getHeight();
-        int offset = 0;
+    public void backProjection(ByteProcessor src, ByteProcessor backProjection, int[] hist, int[] ranges) {
+        int bins = hist.length;
+        int dr = ranges[1] - ranges[0] + 1;
+        double gap = dr / bins;
+        byte[] input = src.getGray();
+        byte[] output = backProjection.getGray();
+        int w = src.getWidth();
+        int h = src.getHeight();
 
-        // setup look up table
-        float delta = (180.0f) / bins;
-        int[] lutHist = new int[180];
-        for (int i = 0; i < 180; i++) {
-            int hidx = (int) (i / delta);
+        int[] lutHist = new int[dr];
+        for (int i = 0; i < dr; i++) {
+            int hidx = (int) (i / gap);
             if (hidx < bins)
-                lutHist[i] = histData[hidx];
+                lutHist[i] = hist[hidx];
         }
 
-        // back project stage
-        Arrays.fill(bp, (byte) 0);
-        for (int row = 0; row < height; row++) {
-            int t0 = 0, t1 = 0;
-            offset = row * width;
-            for (int x = 0; x < width - 4; x += 4) {
-                t0 = lutHist[data[offset + x] & 0xff];
-                t1 = lutHist[data[offset + x + 1] & 0xff];
-                bp[offset + x] = (byte) t0;
-                bp[offset + x + 1] = (byte) t1;
-
-                t0 = lutHist[data[offset + x + 2] & 0xff];
-                t1 = lutHist[data[offset + x + 3] & 0xff];
-                bp[offset + x + 2] = (byte) t0;
-                bp[offset + x + 3] = (byte) t1;
+        int index = 0;
+        int pv = 0;
+        for(int row=0; row<h; row++) {
+            for(int col=0; col<w; col++) {
+                index = row*w + col;
+                pv = input[index]&0xff;
+                output[index] = (byte)lutHist[pv];
             }
         }
-
-//        backProjection.putGray(bp);
     }
 }
