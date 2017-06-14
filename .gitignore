@@ -36,6 +36,11 @@ captures/
 .idea/gradle.xml
 .idea/dictionaries
 .idea/libraries
+.idea/misc.xml
+.idea/runConfigurations.xml
+.idea/modules.xml
+.idea/vcs.xml
+
 .DS_Store
 
 # Keystore files
