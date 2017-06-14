@@ -23,8 +23,24 @@ import static com.cv4j.image.util.Tools.clamp;
 
 public class FindEdgeFilter extends BaseFilter {
 
-	public static int[] sobel_y = new int[] { -1, -2, -1, 0, 0, 0, 1, 2, 1 };
-	public static int[] sobel_x = new int[] { -1, 0, 1, -2, 0, 2, -1, 0, 1 };
+	/**
+	 * The horizontal Sobel operator filter is used for edge detection
+	 * <p>
+	 * This is a 3x3 filter:<br>
+	 * -1 -2 -1 <br>
+	 *  0  0  0 <br>
+	 *  1  2  1 <br>
+	 */
+	public static final int[] sobel_x = new int[] { -1, -2, -1, 0, 0, 0, 1, 2, 1 };
+	/**
+	 * Vertical Sobel operator filters for edge detection
+	 * <p>
+	 * This is a 3x3 filter:<br>
+	 * -1  0  1 <br>
+	 * -2  0  2 <br>
+	 * -1  0  1 <br>
+	 */
+	public static final int[] sobel_y = new int[] { -1, 0, 1, -2, 0, 2, -1, 0, 1 };
 
 	@Override
 	public ImageProcessor doFilter(ImageProcessor src) {
@@ -60,7 +76,7 @@ public class FindEdgeFilter extends BaseFilter {
 			offset = row * width;
 			for (int col = 1; col < width - 1; col++) {
 				// red
-				yr = k0 * (R[offset - width + col - 1]& 0xff)
+				yr = k0 * (R[offset - width + col - 1] & 0xff)
 						+ k1 * (R[offset - width + col] & 0xff)
 						+ k2 * (R[offset - width + col + 1] & 0xff)
 						+ k3 * (R[offset + col - 1] & 0xff)
