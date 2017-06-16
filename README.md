@@ -87,3 +87,6 @@ cv4j的系列文章：http://www.jianshu.com/nb/10401400
 
 # ChangeLog
 [版本更新记录](CHANGELOG.md)
+
+# Contributing
+[Pull requests](https://help.github.com/categories/collaborating-with-issues-and-pull-requests/) are welcome; see the [contributor guidelines](CONTRIBUTING.md) for details.
