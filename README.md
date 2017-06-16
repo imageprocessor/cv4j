@@ -84,3 +84,6 @@ cv4j QQ交流群：492962708
 cv4j slack协同管理：[Join the Slack team for cv4j](https://cv4j.slack.com/join/shared_invite/MTg5MDE1NDk2NDA1LTE0OTU4NzM2MjAtMjI3YTg0YzkyMA)
 
 cv4j的系列文章：http://www.jianshu.com/nb/10401400
+
+# ChangeLog
+[版本更新记录](CHANGELOG.md)
