@@ -77,6 +77,32 @@ public class VarianceFilter extends BaseFilter {
 		return src;
 	}
 
+	private void getNewPixels(int[] output, byte[] input) {
+		int size = radius * 2 + 1;
+		int total = size * size;
+		int r = 0, g = 0, b = 0;
+		for (int row = 0; row < height; row++) {
+			for (int col = 0; col < width; col++) {
+
+				// 统计滤波器 -方差
+				int[] subpixels = new int[total];
+				int index = 0;
+				for (int i = -radius; i <= radius; i++) {
+					int roffset = row + i;
+					roffset = (roffset < 0) ? 0 : (roffset >= height ? height - 1 : roffset);
+					for (int j = -radius; j <= radius; j++) {
+						int coffset = col + j;
+						coffset = (coffset < 0) ? 0 : (coffset >= width ? width - 1 : coffset);
+						subpixels[index] = input[roffset * width + coffset] & 0xff;
+						index++;
+					}
+				}
+				r = calculateVar(subpixels[0]); // red
+				output[row * width + col] = (byte)Tools.clamp(r);
+			}
+		}
+	}
+
 	private int calculateVar(int[] data) {
 		int sum1=0, sum2=0;
 		for(int i=0; i<data.length; i++) {
