@@ -16,36 +16,91 @@
 package com.cv4j.core.hist;
 
 import com.cv4j.core.datamodel.ByteProcessor;
+import com.cv4j.core.datamodel.ColorProcessor;
+import com.cv4j.core.datamodel.ImageProcessor;
 
 public class BackProjectHist {
 
-    public void backProjection(ByteProcessor src, ByteProcessor backProjection, int[] hist, int[] ranges) {
+    public void backProjection(ImageProcessor src, ByteProcessor backProjection, int[] mHist) {
 
-        if (src == null || backProjection ==null) return;
+        int width = src.getWidth();
+        int height = src.getHeight();
+        byte[] R = ((ColorProcessor)src).getRed();
+        byte[] G = ((ColorProcessor)src).getGreen();
+        byte[] B = ((ColorProcessor)src).getBlue();
 
-        int bins = hist.length;
-        int dr = ranges[1] - ranges[0] + 1;
-        double gap = dr / bins;
-        byte[] input = src.getGray();
-        byte[] output = backProjection.getGray();
-        int w = src.getWidth();
-        int h = src.getHeight();
+        // 计算直方图
+        int bins = mHist.length;
+        int[] iHist = CalcHistogram.calculateNormHist(src, mHist.length);
 
-        int[] lutHist = new int[dr];
-        for (int i = 0; i < dr; i++) {
-            int hidx = (int) (i / gap);
-            if (hidx < bins)
-                lutHist[i] = hist[hidx];
+        // 计算比率脂肪图 R
+        float[] rHist = new float[iHist.length];
+        for(int i=0; i<iHist.length; i++) {
+            float a = mHist[i];
+            float b = iHist[i];
+            rHist[i] = a / b;
         }
 
+        // 根据像素值查找R，得到分布概率权重
         int index = 0;
-        int pv = 0;
-        for(int row=0; row<h; row++) {
-            for(int col=0; col<w; col++) {
-                index = row*w + col;
-                pv = input[index]&0xff;
-                output[index] = (byte)lutHist[pv];
+        int bidx = 0;
+        int tr=0, tg=0, tb=0;
+        int level = 256 / bins;
+        float[] rimage = new float[width*height];
+        for(int row=0; row<height; row++) {
+            for(int col=0; col<width; col++) {
+                index = row * width + col;
+                tr = R[index]&0xff;
+                tg = G[index]&0xff;
+                tb = B[index]&0xff;
+                bidx = (tr / level) + (tg / level)*bins + (tb / level)*bins*bins;
+                rimage[index] = Math.min(1, rHist[bidx]);
             }
         }
+
+        // 计算卷积
+        int offset = 0;
+        float sum = 0;
+        float[] output = new float[width*height];
+        System.arraycopy(rimage, 0, output, 0, output.length);
+        for(int row=1; row<height-1; row++) {
+            offset = width * row;
+            for(int col=1; col<width-1; col++) {
+                sum += rimage[offset+col];
+                sum += rimage[offset+col-1];
+                sum += rimage[offset+col+1];
+                sum += rimage[offset+width+col];
+                sum += rimage[offset+width+col-1];
+
+                sum += rimage[offset+width+col+1];
+                sum += rimage[offset-width+col];
+                sum += rimage[offset-width+col-1];
+                sum += rimage[offset-width+col+1];
+                output[offset+col] = sum / 9.0f;
+                sum = 0f; // for next
+            }
+        }
+
+        // 归一化
+        float min = 1000;
+        float max = 0;
+        for(int i=0; i<output.length; i++) {
+            min = Math.min(min, output[i]);
+            max = Math.max(max, output[i]);
+        }
+        float delta = max - min;
+        for(int i=0; i<output.length; i++) {
+            output[i] =  ((output[i] - min)/delta)*255;
+        }
+
+        // 阈值二值化显示
+        for(int i=0; i<output.length; i++) {
+            int pv = (int)output[i];
+            if(pv < 50) pv = 0;
+            R[i] = (byte)pv;
+            G[i] = (byte)pv;
+            B[i] = (byte)pv;
+        }
+
     }
 }

@@ -23,6 +23,27 @@ public class CalcHistogram {
     public final static int COLOR_RGB = 1;
     public final static int COLOR_HSV = 2;
 
+    public static int[] calculateNormHist(ImageProcessor src, int bins) {
+        int width = src.getWidth();
+        int height = src.getHeight();
+        int len = width * height;
+        byte[] R = ((ColorProcessor)src).getRed();
+        byte[] G = ((ColorProcessor)src).getGreen();
+        byte[] B = ((ColorProcessor)src).getBlue();
+        int level = 256 / bins;
+        int[] hist = new int[bins*bins*bins];
+        int r=0, g=0, b=0;
+        int index = 0;
+        for(int i=0; i<len; i++) {
+            r = R[i]&0xff;
+            g = G[i]&0xff;
+            b = B[i]&0xff;
+            index = (r / level) +  (g / level)*bins + (b / level)*bins*bins;
+            hist[index]++;
+        }
+        return hist;
+    }
+
     public void calcRGBHist(ImageProcessor src, int bins, int[][] hist, boolean norm) {
 
         if (src == null) return;
