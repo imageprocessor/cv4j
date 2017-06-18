@@ -21,7 +21,7 @@ import com.cv4j.core.datamodel.ImageProcessor;
 
 public class BackProjectHist {
 
-    public void backProjection(ImageProcessor src, ByteProcessor backProjection, int[] mHist) {
+    public void backProjection(ImageProcessor src, ByteProcessor backProjection, int[] mHist, int bins) {
 
         int width = src.getWidth();
         int height = src.getHeight();
@@ -30,8 +30,7 @@ public class BackProjectHist {
         byte[] B = ((ColorProcessor)src).getBlue();
 
         // 计算直方图
-        int bins = mHist.length;
-        int[] iHist = CalcHistogram.calculateNormHist(src, mHist.length);
+        int[] iHist = CalcHistogram.calculateNormHist(src, bins);
 
         // 计算比率脂肪图 R
         float[] rHist = new float[iHist.length];
