@@ -96,9 +96,7 @@ public class BackProjectHist {
         for(int i=0; i<output.length; i++) {
             int pv = (int)output[i];
             if(pv < 50) pv = 0;
-            R[i] = (byte)pv;
-            G[i] = (byte)pv;
-            B[i] = (byte)pv;
+            backProjection.getGray()[i] = (byte)pv;
         }
 
     }
