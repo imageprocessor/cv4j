@@ -29,7 +29,7 @@ public class GaussianBlurFilter extends BaseFilter {
     private float[] kernel;
     private double sigma = 2;
     ExecutorService mExecutor;
-    CompletionService<Void> service;;
+    CompletionService<Void> service;
 
     public GaussianBlurFilter() {
         kernel = new float[0];

@@ -18,10 +18,19 @@ package com.cv4j.core.spatial.conv;
 import com.cv4j.core.datamodel.ColorProcessor;
 import com.cv4j.core.datamodel.ImageProcessor;
 import com.cv4j.core.filters.BaseFilter;
+import com.cv4j.image.util.TaskUtils;
 import com.cv4j.image.util.Tools;
 
+import java.util.concurrent.Callable;
+import java.util.concurrent.CompletionService;
+import java.util.concurrent.ExecutorCompletionService;
+import java.util.concurrent.ExecutorService;
+
 public class VarianceFilter extends BaseFilter {
+
 	private int radius;
+	ExecutorService mExecutor;
+	CompletionService<Void> service;
 
 	public VarianceFilter() {
 		radius = 1;
@@ -40,44 +49,37 @@ public class VarianceFilter extends BaseFilter {
 		int numOfPixels = width * height;
 		byte[][] output = new byte[3][numOfPixels];
 
-		int size = radius * 2 + 1;
-		int total = size * size;
-		int r = 0, g = 0, b = 0;
-		for (int row = 0; row < height; row++) {
-			for (int col = 0; col < width; col++) {
+		int dims = src.getChannels();
+		mExecutor = TaskUtils.newFixedThreadPool("cv4j",dims);
+		service = new ExecutorCompletionService<>(mExecutor);
 
-				// 统计滤波器 -方差
-				int[][] subpixels = new int[3][total];
-				int index = 0;
-				for (int i = -radius; i <= radius; i++) {
-					int roffset = row + i;
-					roffset = (roffset < 0) ? 0 : (roffset >= height ? height - 1 : roffset);
-					for (int j = -radius; j <= radius; j++) {
-						int coffset = col + j;
-						coffset = (coffset < 0) ? 0 : (coffset >= width ? width - 1 : coffset);
-						subpixels[0][index] = R[roffset * width + coffset] & 0xff;
-						subpixels[1][index] = G[roffset * width + coffset] & 0xff;
-						subpixels[2][index] = B[roffset * width + coffset] & 0xff;
-						index++;
-					}
+		for (int i = 0;i<dims;i++) {
+			final byte[] realOutput = output[i];
+			final byte[] input = src.toByte(i);
+			service.submit(new Callable<Void>() {
+				public Void call() throws Exception {
+					getNewPixels(realOutput,input);
+					return null;
 				}
-				
-				r = calculateVar(subpixels[0]); // red
-				g = calculateVar(subpixels[1]); // green
-				b = calculateVar(subpixels[2]); // blue
+			});
+		}
 
-				output[0][row * width + col] = (byte)Tools.clamp(r);
-				output[1][row * width + col] = (byte)Tools.clamp(g);
-				output[2][row * width + col] = (byte)Tools.clamp(b);
+		for (int i = 0; i < dims; i++) {
+			try {
+				service.take();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
 			}
 		}
+
+		mExecutor.shutdown();
 
 		((ColorProcessor) src).putRGB(output[0], output[1], output[2]);
 		output = null;
 		return src;
 	}
 
-	private void getNewPixels(int[] output, byte[] input) {
+	private void getNewPixels(byte[] output, byte[] input) {
 		int size = radius * 2 + 1;
 		int total = size * size;
 		int r = 0, g = 0, b = 0;
@@ -97,7 +99,7 @@ public class VarianceFilter extends BaseFilter {
 						index++;
 					}
 				}
-				r = calculateVar(subpixels[0]); // red
+				r = calculateVar(subpixels); // red
 				output[row * width + col] = (byte)Tools.clamp(r);
 			}
 		}
