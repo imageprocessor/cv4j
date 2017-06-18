@@ -95,7 +95,10 @@ public class BackProjectHist {
         // 阈值二值化显示
         for(int i=0; i<output.length; i++) {
             int pv = (int)output[i];
-            if(pv < 50) pv = 0;
+
+            if (pv>10)
+                pv = 255;
+
             backProjection.getGray()[i] = (byte)pv;
         }
 
