@@ -59,20 +59,20 @@ public class ProjectHistActivity extends BaseActivity {
         CV4JImage cv4jImage = new CV4JImage(bitmap1);
         ColorProcessor colorProcessor = (ColorProcessor)cv4jImage.getProcessor();
 
-        BackProjectHist backProjectHist = new BackProjectHist();
-
         int w = colorProcessor.getWidth();
         int h = colorProcessor.getHeight();
 
+        // 反向投影结果
         CV4JImage resultCV4JImage = new CV4JImage(w,h);
         ByteProcessor byteProcessor = (ByteProcessor)resultCV4JImage.getProcessor();
 
          // sample
         CV4JImage sample = new CV4JImage(bitmap2);
         ColorProcessor sampleProcessor = (ColorProcessor)sample.getProcessor();
-        CalcHistogram calcHistogram = new CalcHistogram();
+
         int bins = 16;
 
+        BackProjectHist backProjectHist = new BackProjectHist();
         backProjectHist.backProjection(colorProcessor,byteProcessor,CalcHistogram.calculateNormHist(sampleProcessor,bins),bins);
 
         result.setImageBitmap(byteProcessor.getImage().toBitmap());
