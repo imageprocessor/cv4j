@@ -52,7 +52,7 @@ public class PaintActivity extends BaseActivity {
         mList.add(PaintFragment.newInstance(0));
         mList.add(PaintFragment.newInstance(1));
         mList.add(PaintFragment.newInstance(2));
-        mViewPager.setAdapter(new PaintAdapter(this, this.getSupportFragmentManager(),mList));
+        mViewPager.setAdapter(new PaintAdapter(this.getSupportFragmentManager(),mList));
         mTabLayout.setupWithViewPager(mViewPager);
     }
 

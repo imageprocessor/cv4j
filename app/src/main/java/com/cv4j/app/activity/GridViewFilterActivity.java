@@ -66,8 +66,7 @@ public class GridViewFilterActivity extends BaseActivity {
         GridLayoutManager manager = new GridLayoutManager(GridViewFilterActivity.this, 3);
         manager.setRecycleChildrenOnDetach(true);
         recyclerview.setLayoutManager(manager);
-        recyclerview.setAdapter(new GridViewFilterAdapter(GridViewFilterActivity.this,
-                list,bitmap));
+        recyclerview.setAdapter(new GridViewFilterAdapter(list,bitmap));
         recyclerview.addItemDecoration(new DividerGridItemDecoration(GridViewFilterActivity.this));
         recyclerview.setRecycledViewPool(myPool);
     }

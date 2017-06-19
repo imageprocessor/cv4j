@@ -1,6 +1,5 @@
 package com.cv4j.app.adapter;
 
-import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -17,7 +16,7 @@ public class CompareHistAdapter extends FragmentPagerAdapter {
 
     private List<Fragment> mList;
 
-    public CompareHistAdapter(Context context, FragmentManager fm, List<Fragment> list) {
+    public CompareHistAdapter(FragmentManager fm, List<Fragment> list) {
         super(fm);
         this.mList = list;
     }

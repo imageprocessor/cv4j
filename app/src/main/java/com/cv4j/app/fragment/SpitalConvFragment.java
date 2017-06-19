@@ -62,8 +62,7 @@ public class SpitalConvFragment extends BaseFragment {
         GridLayoutManager manager = new GridLayoutManager(mContext, 3);
         manager.setRecycleChildrenOnDetach(true);
         recyclerview.setLayoutManager(manager);
-        recyclerview.setAdapter(new SpitalConvAdapter(mContext,
-                list,bitmap));
+        recyclerview.setAdapter(new SpitalConvAdapter(list,bitmap));
         recyclerview.addItemDecoration(new DividerGridItemDecoration(mContext));
         recyclerview.setRecycledViewPool(myPool);
     }

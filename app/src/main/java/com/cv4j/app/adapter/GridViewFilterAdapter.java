@@ -1,6 +1,5 @@
 package com.cv4j.app.adapter;
 
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.support.annotation.LayoutRes;
 import android.support.v7.widget.RecyclerView;
@@ -23,11 +22,9 @@ import java.util.List;
 public class GridViewFilterAdapter extends RecyclerView.Adapter<GridViewFilterAdapter.ViewHolder> {
 
     private List<String> mList;
-    private Context mContext;
     private Bitmap mBitmap;
 
-    public GridViewFilterAdapter(Context context, List<String> data, Bitmap bitmap) {
-        mContext = context;
+    public GridViewFilterAdapter(List<String> data, Bitmap bitmap) {
         mList = data;
         mBitmap = bitmap;
     }

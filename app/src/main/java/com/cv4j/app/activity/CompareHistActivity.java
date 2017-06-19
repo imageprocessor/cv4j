@@ -54,7 +54,7 @@ public class CompareHistActivity extends BaseActivity {
         mList.add(new CompareHist1Fragment());
         mList.add(new CompareHist2Fragment());
         mList.add(new CompareHist3Fragment());
-        mViewPager.setAdapter(new CompareHistAdapter(this, this.getSupportFragmentManager(),mList));
+        mViewPager.setAdapter(new CompareHistAdapter(this.getSupportFragmentManager(),mList));
         mTabLayout.setupWithViewPager(mViewPager);
     }
 

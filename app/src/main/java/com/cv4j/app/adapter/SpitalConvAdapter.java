@@ -1,6 +1,5 @@
 package com.cv4j.app.adapter;
 
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.support.annotation.LayoutRes;
 import android.support.v7.widget.RecyclerView;
@@ -25,12 +24,11 @@ import java.util.Map;
 public class SpitalConvAdapter extends RecyclerView.Adapter<SpitalConvAdapter.ViewHolder> {
 
     private List<String> mList;
-    private Context mContext;
     private Bitmap mBitmap;
     private Map<Integer,String> map;
 
-    public SpitalConvAdapter(Context context, List<String> data, Bitmap bitmap) {
-        mContext = context;
+    public SpitalConvAdapter(List<String> data, Bitmap bitmap) {
+
         mList = data;
         mBitmap = bitmap;
         map = new HashMap<>();

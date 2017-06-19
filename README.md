@@ -2,6 +2,7 @@
 
 [![License](https://img.shields.io/badge/license-Apache%202-lightgrey.svg)](https://www.apache.org/licenses/LICENSE-2.0.html)
 [![CircleCI](https://circleci.com/gh/imageprocessor/cv4j.svg?style=svg)](https://circleci.com/gh/imageprocessor/cv4j)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/c5acad8d039445408b17642957a5d736)](https://www.codacy.com/app/fengzhizi715/cv4j?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=imageprocessor/cv4j&amp;utm_campaign=Badge_Grade)
 
 The target is to set up a high quality and real-time image process and machine learning library which is implemented in pure java. The framework can run application on java desktop and android platform.
 
