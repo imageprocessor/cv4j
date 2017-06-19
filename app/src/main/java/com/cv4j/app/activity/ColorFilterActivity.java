@@ -45,11 +45,11 @@ public class ColorFilterActivity extends BaseActivity {
     @InjectExtra(key = "Title")
     String title;
 
-    Bitmap bitmap;
+    private Bitmap bitmap;
 
-    Map colorStyles = new HashMap();
+    private Map colorStyles = new HashMap();
 
-    RxImageData rxImageData;
+    private RxImageData rxImageData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -78,9 +78,9 @@ public class GridViewFilterAdapter extends RecyclerView.Adapter<GridViewFilterAd
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        ImageView image;
+        private ImageView image;
 
-        TextView text;
+        private TextView text;
 
         public ViewHolder(ViewGroup parent, @LayoutRes int resId) {
             super(LayoutInflater.from(parent.getContext()).inflate(resId, parent, false));
