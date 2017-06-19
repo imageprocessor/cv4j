@@ -35,11 +35,11 @@ public class GridViewFilterActivity extends BaseActivity {
     @InjectExtra(key = "Title")
     String title;
 
-    Bitmap bitmap;
+    private Bitmap bitmap;
 
-    String[] filterNames;
+    private String[] filterNames;
 
-    List<String> list = new ArrayList<>();
+    private List<String> list = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

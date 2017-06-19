@@ -39,10 +39,10 @@ public class GaussianBlurActivity extends BaseActivity {
     @InjectExtra(key = "Title")
     String title;
 
-    Resources res;
-    Bitmap bitmap;
+    private Resources res;
+    private Bitmap bitmap;
 
-    ProgressDialog progDailog;
+    private ProgressDialog progDailog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

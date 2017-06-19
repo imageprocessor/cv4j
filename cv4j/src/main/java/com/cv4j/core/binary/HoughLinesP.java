@@ -167,7 +167,6 @@ public class HoughLinesP {
 			lineMap.put(labels[i], tempLines.get(i));
 		}
 		lines.addAll(lineMap.values());
-		return;
 	}
 
 	// 变换极坐标为平面坐标，并绘制
