@@ -61,7 +61,7 @@ public class GeoMoments {
     private double moments(List<PixelNode> pixelList, int p, int q)
     {
         double mpq = 0.0;
-        int index = 0;
+
         for(PixelNode pixel : pixelList) {
             int row = pixel.row;
             int col = pixel.col;

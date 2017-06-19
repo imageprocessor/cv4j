@@ -245,7 +245,7 @@ public class Threshold {
         int m1=0, m2=0;
         int sum1=0, sum2=0;
         int count1=0, count2=0;
-        int count = 0 ;
+//        int count = 0 ;
         int[] data = gray.toInt(0);
         while(true) {
             for(int i=0; i<data.length; i++) {

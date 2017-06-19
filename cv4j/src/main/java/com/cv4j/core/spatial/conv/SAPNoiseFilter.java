@@ -18,6 +18,8 @@ package com.cv4j.core.spatial.conv;
 import com.cv4j.core.datamodel.ImageProcessor;
 import com.cv4j.core.filters.BaseFilter;
 
+import java.util.Random;
+
 public class SAPNoiseFilter extends BaseFilter {
 	private float precent;
 	
@@ -36,10 +38,7 @@ public class SAPNoiseFilter extends BaseFilter {
 	@Override
 	public ImageProcessor doFilter(ImageProcessor src) {
 
-
-		int total = width*height;
-
-		java.util.Random random = new java.util.Random();
+		Random random = new Random();
 		int numOfSalt = (int)(width*height*precent);
 		int row=0, col=0, index=0;
 		for(int i=0; i<numOfSalt; i++) {
@@ -59,7 +58,7 @@ public class SAPNoiseFilter extends BaseFilter {
 		return src;
 	}
 
-	private int getPosition(int min, int max, java.util.Random random) {
+	private int getPosition(int min, int max, Random random) {
 		return random.nextInt(max-min);
 	}
 

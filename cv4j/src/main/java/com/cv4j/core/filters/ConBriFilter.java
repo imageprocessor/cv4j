@@ -32,7 +32,6 @@ public class ConBriFilter extends BaseFilter  {
 	public ImageProcessor doFilter(ImageProcessor src) {
         
         // calculate RED, GREEN, BLUE means of pixel
-		int index = 0;
 		int[] rgbmeans = new int[3];
 		double redSum = 0, greenSum = 0, blueSum = 0;
 		int total = height * width;
