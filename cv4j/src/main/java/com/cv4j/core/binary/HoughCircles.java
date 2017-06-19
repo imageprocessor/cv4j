@@ -49,7 +49,7 @@ public class HoughCircles {
         }
 
         int x0, y0;
-        double t;
+//        double t;
         double[] coslut = setupCosLUT();
         double[] sinlut = setupSinLUT();
 

@@ -469,16 +469,6 @@ public class Tools {
         }
     }
 
-    public static void release(Object... objects) {
-
-        if (Preconditions.isNotBlank(objects)) {
-
-            for (Object obj : objects) {
-                obj = null;
-            }
-        }
-    }
-
     public static int[] rgbToYcrCb(int tr, int tg, int tb) {
         double sum = tr + tg + tb;
         double r = ((double) tr) / sum;

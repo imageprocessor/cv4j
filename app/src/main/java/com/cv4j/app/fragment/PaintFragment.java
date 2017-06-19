@@ -28,7 +28,6 @@ public class PaintFragment extends BaseFragment {
 
     private final static String PAINT_TYPE = "type";
 
-    private final static int DEFAULT_TYPE = 0;
     private final static int OIL_PAINT_TYPE = 1;
     private final static int PENCIL_PAINT_TYPE = 2;
 
