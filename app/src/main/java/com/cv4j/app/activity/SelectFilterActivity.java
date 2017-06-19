@@ -43,8 +43,6 @@ public class SelectFilterActivity extends BaseActivity {
 
     private Bitmap bitmap;
 
-    private String[] filterNames;
-
     private List<String> list = new ArrayList<>();
 
     private ArrayAdapter adapter;
@@ -65,7 +63,7 @@ public class SelectFilterActivity extends BaseActivity {
     private void initData() {
         Resources res = getResources();
 
-        filterNames = res.getStringArray(R.array.filterNames);
+        String[] filterNames = res.getStringArray(R.array.filterNames);
         bitmap = BitmapFactory.decodeResource(res, R.drawable.test_filters);
         image.setImageBitmap(bitmap);
 

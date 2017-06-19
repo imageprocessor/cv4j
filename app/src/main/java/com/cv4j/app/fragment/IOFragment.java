@@ -37,9 +37,9 @@ public class IOFragment extends BaseFragment {
     @InjectView(R.id.codeview2)
     CodeView codeView2;
 
-    RxImageData rxImageData;
+    private RxImageData rxImageData;
 
-    ProgressDialog progDailog;
+    private ProgressDialog progDailog;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -77,5 +77,11 @@ public class IOFragment extends BaseFragment {
         code.append("RxImageData.bitmap(bitmap).into(image2);");
 
         codeView2.showCode(code.toString());
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        rxImageData.recycle();
     }
 }
