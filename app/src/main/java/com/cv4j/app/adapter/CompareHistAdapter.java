@@ -15,13 +15,10 @@ public class CompareHistAdapter extends FragmentPagerAdapter {
 
     private static final int PAGE_COUNT = 3;
 
-    private Context mContext;
-
     private List<Fragment> mList;
 
     public CompareHistAdapter(Context context, FragmentManager fm, List<Fragment> list) {
         super(fm);
-        this.mContext = context;
         this.mList = list;
     }
 
