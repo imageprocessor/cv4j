@@ -60,7 +60,8 @@ public class ConnectedAreaLabel {
 		Arrays.fill(labels, -1);
 		int[] pixels = new int[width * height];
 		Arrays.fill(pixels, -1);
-		int ul=-1, ll = -1;
+		int ul=-1;
+		int ll = -1;
 		int currlabel = 0;
 		int[] twoLabels = new int[2];
 		for (int row = ymin; row < height; row++) {

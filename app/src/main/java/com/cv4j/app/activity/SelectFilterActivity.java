@@ -41,13 +41,13 @@ public class SelectFilterActivity extends BaseActivity {
     @InjectExtra(key = "Title")
     String title;
 
-    Bitmap bitmap;
+    private Bitmap bitmap;
 
-    String[] filterNames;
+    private String[] filterNames;
 
-    List<String> list = new ArrayList<>();
+    private List<String> list = new ArrayList<>();
 
-    ArrayAdapter adapter;
+    private ArrayAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
