@@ -28,12 +28,9 @@ import io.reactivex.functions.Function;
 
 public class RxHist {
 
-    private CV4JImage image;
     private Flowable flowable;
 
     private RxHist(CV4JImage image) {
-
-        this.image = image;
         flowable = Flowable.just(image);
     }
 

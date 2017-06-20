@@ -20,18 +20,13 @@ import com.cv4j.core.datamodel.ImageProcessor;
 import com.cv4j.image.util.Tools;
 
 public class WaterFilter extends BaseFilter {
+	
 	private float wavelength = 16;
-
-	public float getWavelength() {
-		return wavelength;
-	}
-
 	private float amplitude = 10;
 	private float phase = 0;
 	private float centreX = 0.5f;
 	private float centreY = 0.5f;
 	private float radius = 50;
-
 	private float radius2 = 0;
 	private float icentreX;
 	private float icentreY;
@@ -46,6 +41,10 @@ public class WaterFilter extends BaseFilter {
 	
 	public void setWavelength(float wavelength) {
 		this.wavelength = wavelength;
+	}
+
+	public float getWavelength() {
+		return wavelength;
 	}
 
 	@Override
