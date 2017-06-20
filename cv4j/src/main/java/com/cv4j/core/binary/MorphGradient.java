@@ -17,6 +17,7 @@ package com.cv4j.core.binary;
 
 import com.cv4j.core.datamodel.ByteProcessor;
 import com.cv4j.core.datamodel.Size;
+import com.cv4j.exception.CV4JException;
 
 public class MorphGradient {
 
@@ -119,7 +120,7 @@ public class MorphGradient {
                 data[i] = (byte)(data[i]&0xff - ero[i]&0xff);
             }
         } else {
-            throw new RuntimeException("Unknown Gradient type, not supported...");
+            throw new CV4JException("Unknown Gradient type, not supported...");
         }
     }
 }

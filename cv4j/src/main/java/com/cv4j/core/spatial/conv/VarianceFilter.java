@@ -29,8 +29,8 @@ import java.util.concurrent.ExecutorService;
 public class VarianceFilter extends BaseFilter {
 
 	private int radius;
-	ExecutorService mExecutor;
-	CompletionService<Void> service;
+	private ExecutorService mExecutor;
+	private CompletionService<Void> service;
 
 	public VarianceFilter() {
 		radius = 1;

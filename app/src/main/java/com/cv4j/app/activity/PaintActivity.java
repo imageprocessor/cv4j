@@ -35,7 +35,7 @@ public class PaintActivity extends BaseActivity {
     @InjectExtra(key = "Title")
     String title;
 
-    List<Fragment> mList = new ArrayList();
+    private List<Fragment> mList = new ArrayList();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

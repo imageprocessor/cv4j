@@ -28,7 +28,7 @@ import java.util.List;
 
 public class CompositeFilters {
 
-    List<CommonFilter> lists;
+    private List<CommonFilter> lists;
 
     public CompositeFilters() {
 

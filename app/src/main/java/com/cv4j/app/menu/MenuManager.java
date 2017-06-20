@@ -143,11 +143,7 @@ public class MenuManager {
      */
     public boolean isFragmentExist(MenuType type) {
         Fragment fragment = (Fragment) fragmentManager.findFragmentByTag(type.getTitle());
-        if (fragment != null) {
-            return true;
-        }
-
-        return false;
+        return fragment != null;
     }
 
     /**
