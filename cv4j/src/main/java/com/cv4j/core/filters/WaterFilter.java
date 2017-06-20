@@ -20,7 +20,7 @@ import com.cv4j.core.datamodel.ImageProcessor;
 import com.cv4j.image.util.Tools;
 
 public class WaterFilter extends BaseFilter {
-	
+
 	private float wavelength = 16;
 	private float amplitude = 10;
 	private float phase = 0;

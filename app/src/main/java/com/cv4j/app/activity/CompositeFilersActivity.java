@@ -44,8 +44,6 @@ public class CompositeFilersActivity extends BaseActivity {
     @InjectExtra(key = "Title")
     String title;
 
-    Bitmap bitmap;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,7 +59,7 @@ public class CompositeFilersActivity extends BaseActivity {
 
     private void initData() {
         Resources res = getResources();
-        bitmap = BitmapFactory.decodeResource(res, R.drawable.test_filters);
+        Bitmap bitmap = BitmapFactory.decodeResource(res, R.drawable.test_filters);
 
         CV4JImage ci1 = new CV4JImage(bitmap);
         image1.setImageBitmap(new NatureFilter().filter(ci1.getProcessor()).getImage().toBitmap());

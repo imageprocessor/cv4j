@@ -37,7 +37,7 @@ public class GridViewFilterActivity extends BaseActivity {
 
     private List<String> list = new ArrayList<>();
 
-    static RecyclerView.RecycledViewPool myPool = new RecyclerView.RecycledViewPool();
+    private static RecyclerView.RecycledViewPool myPool = new RecyclerView.RecycledViewPool();
 
     static {
         myPool.setMaxRecycledViews(0, 10);
