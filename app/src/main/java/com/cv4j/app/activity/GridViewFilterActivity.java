@@ -35,10 +35,6 @@ public class GridViewFilterActivity extends BaseActivity {
     @InjectExtra(key = "Title")
     String title;
 
-    private Bitmap bitmap;
-
-    private String[] filterNames;
-
     private List<String> list = new ArrayList<>();
 
     @Override
@@ -57,8 +53,8 @@ public class GridViewFilterActivity extends BaseActivity {
 
     private void initData() {
         Resources res = getResources();
-        filterNames = res.getStringArray(R.array.filterNames);
-        bitmap = BitmapFactory.decodeResource(res, R.drawable.test_mm);
+        String[] filterNames = res.getStringArray(R.array.filterNames);
+        Bitmap bitmap = BitmapFactory.decodeResource(res, R.drawable.test_mm);
         for (String filter:filterNames) {
             list.add(filter);
         }
