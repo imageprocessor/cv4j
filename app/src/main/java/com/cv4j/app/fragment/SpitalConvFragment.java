@@ -31,10 +31,9 @@ public class SpitalConvFragment extends BaseFragment {
     @InjectView(R.id.recyclerview)
     GridRecyclerView recyclerview;
 
-    List<String> list = new ArrayList<>();
-
-
-    static RecyclerView.RecycledViewPool myPool = new RecyclerView.RecycledViewPool();
+    private List<String> list = new ArrayList<>();
+    
+    private static RecyclerView.RecycledViewPool myPool = new RecyclerView.RecycledViewPool();
 
     static {
         myPool.setMaxRecycledViews(0, 10);

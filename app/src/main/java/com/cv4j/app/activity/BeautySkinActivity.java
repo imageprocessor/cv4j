@@ -39,7 +39,7 @@ public class BeautySkinActivity extends BaseActivity {
     @InjectExtra(key = "Title")
     String title;
 
-    RxImageData rxImageData;
+    private RxImageData rxImageData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
