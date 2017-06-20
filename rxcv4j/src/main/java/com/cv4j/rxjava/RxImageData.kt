@@ -59,7 +59,7 @@ class RxImageData private constructor(internal var image: CV4JImage?) {
         }
 
         this.mDialog = dialog
-        this.mDialog!!.show()
+        this.mDialog?.show()
         return this
     }
 
@@ -121,13 +121,13 @@ class RxImageData private constructor(internal var image: CV4JImage?) {
 
         if (filters.size == 0) {
             this.flowable.compose(RxImageData.toMain()).subscribe({ (cV4JImage) ->
-                imageView!!.setImageBitmap(cV4JImage!!.toBitmap())
+                imageView?.setImageBitmap(cV4JImage?.toBitmap())
             }, {
                 t ->
                 t.printStackTrace()
             }, {
                 if (mDialog != null) {
-                    mDialog!!.dismiss()
+                    mDialog?.dismiss()
                     mDialog = null
                 }
             })
@@ -137,18 +137,18 @@ class RxImageData private constructor(internal var image: CV4JImage?) {
                         if (useCache) {
 
                             val sb = StringBuilder()
-                            if (imageView!!.context!= null) {
+                            if (imageView?.context!= null) {
                                 sb.append(imageView!!.context.javaClass.simpleName)
                             }
 
-                            sb.append(filters1[0].javaClass.simpleName).append(imageView!!.id)
+                            sb.append(filters1[0].javaClass.simpleName).append(imageView?.id)
 
                             // 目前key采用activity name + filter name + imageView id
                             val key = Utils.md5(sb.toString())
 
                             if (memCache.get(key) == null) {
 
-                                val imageProcessor = filters1[0].filter(image!!.processor)
+                                val imageProcessor = filters1[0].filter(image?.processor)
                                 memCache.put(key, imageProcessor.image.toBitmap())
 
                                 imageProcessor
@@ -159,17 +159,17 @@ class RxImageData private constructor(internal var image: CV4JImage?) {
                             }
                         } else {
 
-                            filters1[0].filter(image!!.processor)
+                            filters1[0].filter(image?.processor)
                         }
                     })
                     .compose(RxImageData.toMain())
                     .subscribe({ processor ->
-                        imageView!!.setImageBitmap(processor.image.toBitmap())
+                        imageView?.setImageBitmap(processor.image.toBitmap())
                     }, {
                         t -> t.printStackTrace()
                     }, {
                         if (mDialog != null) {
-                            mDialog!!.dismiss()
+                            mDialog?.dismiss()
                             mDialog = null
                         }
                     })
@@ -180,12 +180,12 @@ class RxImageData private constructor(internal var image: CV4JImage?) {
                     .map { filter(image!!.processor) }
                     .compose(RxImageData.toMain())
                     .subscribe({ processor ->
-                        imageView!!.setImageBitmap(processor.image.toBitmap())
+                        imageView?.setImageBitmap(processor.image.toBitmap())
                     }, {
                         t -> t.printStackTrace()
                     }, {
                         if (mDialog != null) {
-                            mDialog!!.dismiss()
+                            mDialog?.dismiss()
                             mDialog = null
                         }
                     })
