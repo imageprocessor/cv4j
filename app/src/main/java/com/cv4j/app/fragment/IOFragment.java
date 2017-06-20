@@ -38,12 +38,14 @@ public class IOFragment extends BaseFragment {
     CodeView codeView2;
 
     private RxImageData rxImageData;
+    private ProgressDialog dialog;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_io, container, false);
         Injector.injectInto(this, v);
 
+        dialog = ProgressDialog.show(mContext, "Loading", "Please wait...", true);
         initData();
 
         return v;
@@ -55,10 +57,8 @@ public class IOFragment extends BaseFragment {
         Bitmap bitmap = BitmapFactory.decodeResource(res, R.drawable.test_io);
         image1.setImageBitmap(bitmap);
 
-        ProgressDialog progDailog = ProgressDialog.show(mContext, "Loading", "Please wait...", true);
-        progDailog.setCancelable(false);
         rxImageData = RxImageData.bitmap(bitmap);
-        rxImageData.dialog(progDailog).into(image2);
+        rxImageData.dialog(dialog).into(image2);
 
         codeView1.setTheme(CodeViewTheme.ANDROIDSTUDIO).fillColor();
 

@@ -68,7 +68,7 @@ public class MenuManager {
 
 
     public boolean show(MenuType type) {
-        if (curType == type) {
+        if (curType.equals(type)) {
             return true;
         } else {
             hide(curType);
