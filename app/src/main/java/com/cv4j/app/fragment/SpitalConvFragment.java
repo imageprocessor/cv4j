@@ -31,11 +31,14 @@ public class SpitalConvFragment extends BaseFragment {
     @InjectView(R.id.recyclerview)
     GridRecyclerView recyclerview;
 
-    Bitmap bitmap;
-
-    String[] filterNames;
-
     List<String> list = new ArrayList<>();
+
+
+    static RecyclerView.RecycledViewPool myPool = new RecyclerView.RecycledViewPool();
+
+    static {
+        myPool.setMaxRecycledViews(0, 10);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -50,9 +53,9 @@ public class SpitalConvFragment extends BaseFragment {
     private void initData() {
 
         Resources res = getResources();
-        bitmap = BitmapFactory.decodeResource(res, R.drawable.test_spital_conv);
+        Bitmap bitmap = BitmapFactory.decodeResource(res, R.drawable.test_spital_conv);
 
-        filterNames = res.getStringArray(R.array.spatialConvNames);
+        String[] filterNames = res.getStringArray(R.array.spatialConvNames);
         if (Preconditions.isNotBlank(filterNames)) {
             for (String filter:filterNames) {
                 list.add(filter);
@@ -66,11 +69,4 @@ public class SpitalConvFragment extends BaseFragment {
         recyclerview.addItemDecoration(new DividerGridItemDecoration(mContext));
         recyclerview.setRecycledViewPool(myPool);
     }
-
-    static RecyclerView.RecycledViewPool myPool = new RecyclerView.RecycledViewPool();
-
-    static {
-        myPool.setMaxRecycledViews(0, 10);
-    }
-
 }

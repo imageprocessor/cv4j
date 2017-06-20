@@ -37,6 +37,12 @@ public class GridViewFilterActivity extends BaseActivity {
 
     private List<String> list = new ArrayList<>();
 
+    static RecyclerView.RecycledViewPool myPool = new RecyclerView.RecycledViewPool();
+
+    static {
+        myPool.setMaxRecycledViews(0, 10);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,9 +79,4 @@ public class GridViewFilterActivity extends BaseActivity {
         finish();
     }
 
-    static RecyclerView.RecycledViewPool myPool = new RecyclerView.RecycledViewPool();
-
-    static {
-        myPool.setMaxRecycledViews(0, 10);
-    }
 }

@@ -39,8 +39,6 @@ public class IOFragment extends BaseFragment {
 
     private RxImageData rxImageData;
 
-    private ProgressDialog progDailog;
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_io, container, false);
@@ -57,7 +55,7 @@ public class IOFragment extends BaseFragment {
         Bitmap bitmap = BitmapFactory.decodeResource(res, R.drawable.test_io);
         image1.setImageBitmap(bitmap);
 
-        progDailog = ProgressDialog.show(mContext, "Loading", "Please wait...", true);
+        ProgressDialog progDailog = ProgressDialog.show(mContext, "Loading", "Please wait...", true);
         progDailog.setCancelable(false);
         rxImageData = RxImageData.bitmap(bitmap);
         rxImageData.dialog(progDailog).into(image2);

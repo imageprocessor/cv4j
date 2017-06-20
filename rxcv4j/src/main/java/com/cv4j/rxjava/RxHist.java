@@ -28,8 +28,8 @@ import io.reactivex.functions.Function;
 
 public class RxHist {
 
-    CV4JImage image;
-    Flowable flowable;
+    private CV4JImage image;
+    private Flowable flowable;
 
     private RxHist(CV4JImage image) {
 
