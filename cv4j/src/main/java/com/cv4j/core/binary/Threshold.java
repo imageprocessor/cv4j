@@ -31,6 +31,8 @@ public class Threshold {
     public static final int THRESH_TRIANGLE = 3;
     /**based on 1D mean shift, CV4J custom binary method, sometimes it is very slow...*/
     public static final int THRESH_MEANSHIFT = 4;
+    /** it is not reasonable method to convert binary image */
+    public static final int THRESH_VALUE = -1;
 
     /**
      *
@@ -60,6 +62,8 @@ public class Threshold {
         }
         else if(type == THRESH_MEANSHIFT) {
             tvalue = shift(gray);
+        } else if(THRESH_VALUE == type){
+            tvalue = thresh;
         }
 
         byte[] data = gray.getGray();

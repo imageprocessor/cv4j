@@ -179,7 +179,9 @@ public class ConnectedAreaLabel {
 
 			// return each label rectangle
 			if(drawBounding && rectangles != null) {
-				rectangles.add(boundingRect(pixelList));
+				Rect bounding = boundingRect(pixelList);
+				bounding.labelIdx = key.intValue();
+				rectangles.add(bounding);
 			}
 			number++;
 		}

@@ -21,6 +21,7 @@ public class Rect {
     public int y;
     public int width;
     public int height;
+    public int labelIdx; // just use it for ccl
 
     public Point tl() {
         return new Point(x, y);
