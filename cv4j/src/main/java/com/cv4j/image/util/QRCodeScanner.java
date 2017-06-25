@@ -129,13 +129,16 @@ public class QRCodeScanner {
 
         int sum=0;
         int v1=0, v2=0;
+        float[] data = new float[cx *height];
         for(int row=0; row<height; row++) {
             for(int col=0; col<cx; col++) {
                 v1 = image[row*width+ col]&0xff;
                 v2 = image[row*width+(width-1-col)]&0xff;
-                sum += Math.abs(v1-v2);
+                //sum += Math.abs(v1-v2);
+                data[row*cx+col] = Math.abs(v1-v2);
             }
         }
+        float[] mdev = Tools.calcMeansAndDev(data);
         return (sum / 255) <= 10;
     }
 
