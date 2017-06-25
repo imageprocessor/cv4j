@@ -84,8 +84,9 @@ public class QRCodeScanner {
         }
         else if (blocks.length == 6 || blocks.length == 3) {
             for (int i = 0; i < blocks.length-1; i++) {
-                int idx1 = blocks[i].tl().y*width + blocks[i].tl().x;
+
                 for (int j = i + 1; j < blocks.length; j++) {
+                    int idx1 = blocks[i].tl().y*width + blocks[i].tl().x;
                     int idx2 = blocks[j].tl().y*width + blocks[j].tl().x;
                     if (idx2 < idx1){
                         Rect temp = blocks[i];

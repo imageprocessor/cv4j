@@ -73,7 +73,7 @@ public class DetectQRActivity extends BaseActivity {
     private void initData() {
         toolbar.setTitle("< "+title);
         Resources res= getResources();
-        bitmap = BitmapFactory.decodeResource(res, R.drawable.qrcode_04);
+        bitmap = BitmapFactory.decodeResource(res, R.drawable.qrcode_01);
         imageView.setImageBitmap(bitmap);
     }
 
