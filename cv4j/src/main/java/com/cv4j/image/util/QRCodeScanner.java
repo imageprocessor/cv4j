@@ -63,6 +63,8 @@ public class QRCodeScanner {
         float h = 0;
         float rate = 0;
         List<Rect> qrRects = new ArrayList<>();
+        int minArea = -1;
+        int delta = 0;
         for(Rect roi : rectList) {
             w = roi.width;
             h = roi.height;
@@ -80,10 +82,10 @@ public class QRCodeScanner {
             rect.width= blocks[0].width + 10;
             rect.height = blocks[0].height + 10;
         }
-        else if (blocks.length == 3) {
-            for (int i = 0; i < 2; i++) {
+        else if (blocks.length == 6 || blocks.length == 3) {
+            for (int i = 0; i < blocks.length-1; i++) {
                 int idx1 = blocks[i].tl().y*width + blocks[i].tl().x;
-                for (int j = i + 1; j < 3; j++) {
+                for (int j = i + 1; j < blocks.length; j++) {
                     int idx2 = blocks[j].tl().y*width + blocks[j].tl().x;
                     if (idx2 < idx1){
                         Rect temp = blocks[i];
@@ -95,8 +97,11 @@ public class QRCodeScanner {
             rect.x = blocks[0].x - 5;
             rect.y = blocks[0].y - 5;
             rect.width = blocks[1].width + (blocks[1].x - blocks[0].x) + 10;
-            rect.height = (blocks[2].height + blocks[2].y - blocks[0].y) + 10;
-
+            if(blocks.length == 3) {
+                rect.height = (blocks[2].height + blocks[2].y - blocks[0].y) + 10;
+            } else {
+                rect.height = (blocks[4].height + blocks[4].y - blocks[0].y) + 10;
+            }
         } else {
             rect.width = 0;
             rect.height = 0;
@@ -127,22 +132,19 @@ public class QRCodeScanner {
             offset = 1;
         }
 
-        int sum=0;
         int v1=0, v2=0;
         float[] data = new float[cx *height];
         for(int row=0; row<height; row++) {
             for(int col=0; col<cx; col++) {
                 v1 = image[row*width+ col]&0xff;
                 v2 = image[row*width+(width-1-col)]&0xff;
-                //sum += Math.abs(v1-v2);
                 data[row*cx+col] = Math.abs(v1-v2);
             }
         }
+
         float[] mdev = Tools.calcMeansAndDev(data);
         Log.i("QRCodeScanner","mdev[0]="+mdev[0]);
         Log.i("QRCodeScanner","mdev[1]="+mdev[1]);
-//        return (sum / 255) <= 10;
-
         return mdev[0] <= 10;
     }
 
