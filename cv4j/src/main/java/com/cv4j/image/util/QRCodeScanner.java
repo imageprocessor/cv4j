@@ -40,11 +40,12 @@ public class QRCodeScanner {
         mOpen.process(src, new Size(4, 24)); // Y
         saveDebugImage(src.getImage().toBitmap());
         src.getImage().resetBitmap();
-        mOpen.process(copy, new Size(24, 4)); // X
 
+        mOpen.process(copy, new Size(24, 4)); // X
         CV4JImage cv4JImage = new CV4JImage(width,height);
         ((ByteProcessor)cv4JImage.getProcessor()).putGray(copy.getGray());
         saveDebugImage(cv4JImage.toBitmap());
+
         for(int i=0; i<data.length; i++) {
             int pv = src.getGray()[i]&0xff;
             if(pv == 255) {
@@ -53,6 +54,7 @@ public class QRCodeScanner {
         }
         src.putGray(copy.getGray());
         saveDebugImage(src.getImage().toBitmap());
+
         ConnectedAreaLabel ccal = new ConnectedAreaLabel();
         List<Rect> rectList = new ArrayList<>();
         int[] labelMask = new int[width*height];

@@ -42,13 +42,17 @@ public class FastErode {
 
 		// X Direction
 		int xr = structureElement.cols/2;
+		int shift = 0;
+		if(structureElement.cols % 2 == 0) {
+			shift = 1;
+		}
 		byte c = (byte)0;
 		int offset = 0;
 		for(int row=0; row<height; row++) {
 			for(int col=0; col<width; col++) {
 				c = data[row*width+col];
 				if((c&0xff) == 0)continue;
-				for(int x=-xr; x<=xr; x++) {
+				for(int x=-xr; x<=(xr-shift); x++) {
 					if(x==0)continue;
 					offset = x + col;
 					if(offset < 0) {
@@ -68,13 +72,17 @@ public class FastErode {
 		
 		// Y Direction
 		int yr = structureElement.rows/2;
+		shift = 0;
+		if(structureElement.rows % 2 == 0) {
+			shift = 1;
+		}
 		c = 0;
 		offset = 0;
 		for(int col=0; col<width; col++) {
 			for(int row=0; row<height; row++) {
 				c = data[row*width+col];
 				if((c&0xff) == 0)continue;
-				for(int y=-yr; y<=yr; y++) {
+				for(int y=-yr; y<=(yr-shift); y++) {
 					if(y == 0)continue;
 					offset = y + row;
 					if(offset < 0) {

@@ -27,9 +27,9 @@ public class MorphOpen {
      * @param structureElement
      */
     public void process(ByteProcessor binary, Size structureElement) {
-        Erode erode = new Erode();
-        Dilate dilate = new Dilate();
-        erode.process(binary, structureElement);
-        dilate.process(binary, structureElement);
+        FastErode erode = new FastErode();
+        FastDilate dilate = new FastDilate();
+        erode.process(binary, structureElement, 1);
+        dilate.process(binary, structureElement, 1);
     }
 }
