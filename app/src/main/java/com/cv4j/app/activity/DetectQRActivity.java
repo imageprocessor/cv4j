@@ -83,7 +83,7 @@ public class DetectQRActivity extends BaseActivity {
         CV4JImage cv4JImage = new CV4JImage(bitmap);
 
         QRCodeScanner qrCodeScanner = new QRCodeScanner();
-        Rect rect = qrCodeScanner.findQRCodeBounding(cv4JImage.getProcessor());
+        Rect rect = qrCodeScanner.findQRCodeBounding(cv4JImage.getProcessor(),1,6);
 
         Bitmap bm = bitmap.copy(Bitmap.Config.ARGB_8888, true);
         Canvas canvas = new Canvas(bm);

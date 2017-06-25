@@ -25,7 +25,7 @@ import java.util.List;
 
 public class QRCodeScanner {
 
-    public Rect findQRCodeBounding(ImageProcessor image) {
+    public Rect findQRCodeBounding(ImageProcessor image,int n1,int n2) {
         Rect rect = new Rect();
         image = image.getImage().convert2Gray().getProcessor();
         ByteProcessor src = ((ByteProcessor)image);
@@ -37,11 +37,11 @@ public class QRCodeScanner {
         byte[] data = new byte[width*height];
         System.arraycopy(src.getGray(), 0, data, 0, data.length);
         ByteProcessor copy = new ByteProcessor(data, width, height);
-        mOpen.process(src, new Size(4, 24)); // Y
+        mOpen.process(src, new Size(n1, n2)); // Y
         saveDebugImage(src.getImage().toBitmap());
         src.getImage().resetBitmap();
 
-        mOpen.process(copy, new Size(24, 4)); // X
+        mOpen.process(copy, new Size(n2, n1)); // X
         CV4JImage cv4JImage = new CV4JImage(width,height);
         ((ByteProcessor)cv4JImage.getProcessor()).putGray(copy.getGray());
         saveDebugImage(cv4JImage.toBitmap());
@@ -139,7 +139,11 @@ public class QRCodeScanner {
             }
         }
         float[] mdev = Tools.calcMeansAndDev(data);
-        return (sum / 255) <= 10;
+        Log.i("QRCodeScanner","mdev[0]="+mdev[0]);
+        Log.i("QRCodeScanner","mdev[1]="+mdev[1]);
+//        return (sum / 255) <= 10;
+
+        return mdev[0] <= 10;
     }
 
     private void saveDebugImage(Bitmap bitmap) {
