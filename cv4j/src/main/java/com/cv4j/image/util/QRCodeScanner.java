@@ -119,11 +119,6 @@ public class QRCodeScanner {
                 sum += Math.abs(v1-v2);
             }
         }
-        sum = sum / 255;
-        if(sum > 10) {
-            return false;
-        } else {
-            return true;
-        }
+        return (sum / 255) <= 10;
     }
 }
