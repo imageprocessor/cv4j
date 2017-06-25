@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.cv4j.app.R;
 import com.cv4j.app.activity.CoinsActivity;
 import com.cv4j.app.activity.ContourAnalysisActivity;
+import com.cv4j.app.activity.DetectQRActivity;
 import com.cv4j.app.activity.LineDetectionActivity;
 import com.cv4j.app.activity.MorphologyActivity;
 import com.cv4j.app.app.BaseFragment;
@@ -34,6 +35,9 @@ public class BinaryFragment extends BaseFragment {
 
     @InjectView(R.id.text4)
     TextView text4;
+
+    @InjectView(R.id.text5)
+    TextView text5;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -72,6 +76,14 @@ public class BinaryFragment extends BaseFragment {
 
         Intent i = new Intent(mContext,LineDetectionActivity.class);
         i.putExtra("Title",text4.getText().toString());
+        startActivity(i);
+    }
+
+    @OnClick(id=R.id.text5)
+    void clickText5() {
+
+        Intent i = new Intent(mContext,DetectQRActivity.class);
+        i.putExtra("Title",text5.getText().toString());
         startActivity(i);
     }
 }

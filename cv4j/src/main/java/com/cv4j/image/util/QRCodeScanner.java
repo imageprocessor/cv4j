@@ -1,13 +1,21 @@
 package com.cv4j.image.util;
 
+import android.graphics.Bitmap;
+import android.os.Environment;
+import android.util.Log;
+
 import com.cv4j.core.binary.ConnectedAreaLabel;
 import com.cv4j.core.binary.MorphOpen;
 import com.cv4j.core.binary.Threshold;
 import com.cv4j.core.datamodel.ByteProcessor;
+import com.cv4j.core.datamodel.CV4JImage;
 import com.cv4j.core.datamodel.ImageProcessor;
 import com.cv4j.core.datamodel.Rect;
 import com.cv4j.core.datamodel.Size;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +27,7 @@ public class QRCodeScanner {
 
     public Rect findQRCodeBounding(ImageProcessor image) {
         Rect rect = new Rect();
-        image.getImage().convert2Gray();
+        image = image.getImage().convert2Gray().getProcessor();
         ByteProcessor src = ((ByteProcessor)image);
         int width = src.getWidth();
         int height = src.getHeight();
@@ -30,7 +38,13 @@ public class QRCodeScanner {
         System.arraycopy(src.getGray(), 0, data, 0, data.length);
         ByteProcessor copy = new ByteProcessor(data, width, height);
         mOpen.process(src, new Size(4, 24)); // Y
+        saveDebugImage(src.getImage().toBitmap());
+        src.getImage().resetBitmap();
         mOpen.process(copy, new Size(24, 4)); // X
+
+        CV4JImage cv4JImage = new CV4JImage(width,height);
+        ((ByteProcessor)cv4JImage.getProcessor()).putGray(copy.getGray());
+        saveDebugImage(cv4JImage.toBitmap());
         for(int i=0; i<data.length; i++) {
             int pv = src.getGray()[i]&0xff;
             if(pv == 255) {
@@ -38,6 +52,7 @@ public class QRCodeScanner {
             }
         }
         src.putGray(copy.getGray());
+        saveDebugImage(src.getImage().toBitmap());
         ConnectedAreaLabel ccal = new ConnectedAreaLabel();
         List<Rect> rectList = new ArrayList<>();
         int[] labelMask = new int[width*height];
@@ -115,10 +130,31 @@ public class QRCodeScanner {
         for(int row=0; row<height; row++) {
             for(int col=0; col<cx; col++) {
                 v1 = image[row*width+ col]&0xff;
-                v2 = image[row*width-1-col]&0xff;
+                v2 = image[row*width+(width-1-col)]&0xff;
                 sum += Math.abs(v1-v2);
             }
         }
         return (sum / 255) <= 10;
+    }
+
+    private void saveDebugImage(Bitmap bitmap) {
+
+        File filedir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "myOcrImages");
+        String name = String.valueOf(System.currentTimeMillis()) + "_ocr.jpg";
+        File tempFile = new File(filedir.getAbsoluteFile()+File.separator, name);
+        FileOutputStream output = null;
+        try {
+            output = new FileOutputStream(tempFile);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, output);
+        }catch (IOException ioe) {
+            Log.e("DEBUG-ERR", ioe.getMessage());
+        } finally {
+            try {
+                output.flush();
+                output.close();
+            } catch (IOException e) {
+                Log.i("DEBUG-INFO", e.getMessage());
+            }
+        }
     }
 }
