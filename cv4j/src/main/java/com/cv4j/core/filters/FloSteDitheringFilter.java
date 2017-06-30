@@ -43,10 +43,12 @@ public class FloSteDitheringFilter implements CommonFilter {
 
 	@Override
 	public ImageProcessor filter(ImageProcessor src) {
+
         if(src instanceof ColorProcessor) {
             src.getImage().convert2Gray();
             src = src.getImage().getProcessor();
         }
+
 		int width = src.getWidth();
         int height = src.getHeight();
         byte[] GRAY = ((ByteProcessor)src).getGray();

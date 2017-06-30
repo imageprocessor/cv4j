@@ -73,11 +73,19 @@ public class DistanceTransform {
 	}
 	
 	private boolean dt(byte[] input, byte[] output, int[] distmap, int level, int width, int height) {
+
 		boolean stop = true;
-		int p1=0, p2=0, p3=0;
-		int p4=0, p5=0, p6=0;
-		int p7=0, p8=0, p9=0;
+		int p1=0;
+		int p2=0;
+		int p3=0;
+		int p4=0;
+		int p5=0;
+		int p6=0;
+		int p7=0;
+		int p8=0;
+		int p9=0;
 		int offset = 0;
+
 		for(int row=1; row<height-1; row++) {
 			offset = row*width;
 			for(int col=1; col<width-1; col++) {

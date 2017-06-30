@@ -51,9 +51,18 @@ public class USMFilter extends GaussianBlurFilter {
 		// 高斯模糊
 		super.doFilter(src);
 
-		int r=0, g=0, b=0;
-		int r1=0, g1=0, b1=0;
-		int r2=0, g2=0, b2=0;
+		int r=0;
+		int g=0;
+		int b=0;
+
+		int r1=0;
+		int g1=0;
+		int b1=0;
+
+		int r2=0;
+		int g2=0;
+		int b2=0;
+
 		for(int i=0; i<total; i++) {
 			r1 = R1[i]&0xff;
 			g1 = G1[i]&0xff;
