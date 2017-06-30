@@ -41,7 +41,7 @@ class DslActivity : AppCompatActivity() {
     private fun initData() {
 
         title = intent.extras.getString("Title")
-        toolbar!!.title = "< " + title
+        toolbar?.title = "< " + title
 
         cv4j {
             bitmap = BitmapFactory.decodeResource(resources, R.drawable.test_io)
@@ -51,7 +51,7 @@ class DslActivity : AppCompatActivity() {
             imageView = image
         }
 
-        codeView!!.setTheme(CodeViewTheme.ANDROIDSTUDIO).fillColor()
+        codeView?.setTheme(CodeViewTheme.ANDROIDSTUDIO)?.fillColor()
 
         val code = StringBuilder()
         code.append("cv4j {")
@@ -64,9 +64,9 @@ class DslActivity : AppCompatActivity() {
                 .append("\r\n")
                 .append("}")
 
-        codeView!!.showCode(code.toString())
+        codeView?.showCode(code.toString())
 
-        toolbar!!.setOnClickListener {
+        toolbar?.setOnClickListener {
             finish()
         }
     }
