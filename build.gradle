@@ -21,7 +21,7 @@ ext {
 
 buildscript {
     System.properties['com.android.build.gradle.overrideVersionCheck'] = 'true'
-    ext.kotlin_version = '1.1.0'
+    ext.kotlin_version = '1.1.2-4'
 
     repositories {
         jcenter()
