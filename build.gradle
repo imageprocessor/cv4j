@@ -12,7 +12,7 @@ ext {
 
     libraries = [
             supportVersion    : "25.1.1",
-            saf_log           : "1.0.5",
+            saf_log           : "1.0.8",
             saf_aop           : "1.1.1",
 
             tony_common_utils   : "1.1.0"
@@ -21,7 +21,7 @@ ext {
 
 buildscript {
     System.properties['com.android.build.gradle.overrideVersionCheck'] = 'true'
-    ext.kotlin_version = '1.1.0'
+    ext.kotlin_version = '1.1.2-4'
 
     repositories {
         jcenter()

@@ -23,9 +23,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.ImageView;
 
@@ -37,10 +35,6 @@ import com.cv4j.image.util.QRCodeScanner;
 import com.safframework.injectview.annotations.InjectExtra;
 import com.safframework.injectview.annotations.InjectView;
 import com.safframework.injectview.annotations.OnClick;
-
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
 
 /**
  * Created by Tony Shen on 2017/6/25.
@@ -73,7 +67,7 @@ public class DetectQRActivity extends BaseActivity {
     private void initData() {
         toolbar.setTitle("< "+title);
         Resources res= getResources();
-        bitmap = BitmapFactory.decodeResource(res, R.drawable.qrcode_01);
+        bitmap = BitmapFactory.decodeResource(res, R.drawable.qrcode_04);
         imageView.setImageBitmap(bitmap);
     }
 
@@ -89,9 +83,10 @@ public class DetectQRActivity extends BaseActivity {
         Canvas canvas = new Canvas(bm);
         Paint paint = new Paint();
         paint.setColor(Color.RED);
+        paint.setStrokeWidth((float) 10.0);
         paint.setStyle(Paint.Style.STROKE);
 
-        android.graphics.Rect androidRect = new android.graphics.Rect(rect.x,rect.y,rect.br().x,rect.br().y);
+        android.graphics.Rect androidRect = new android.graphics.Rect(rect.x-20,rect.y-20,rect.br().x+20,rect.br().y+20);
         canvas.drawRect(androidRect,paint);
         imageView.setImageBitmap(bm);
     }
@@ -100,25 +95,5 @@ public class DetectQRActivity extends BaseActivity {
     void clickToolbar() {
 
         finish();
-    }
-
-    private void saveDebugImage(Bitmap bitmap) {
-        File filedir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "myOcrImages");
-        String name = String.valueOf(System.currentTimeMillis()) + "_ocr.jpg";
-        File tempFile = new File(name);
-        FileOutputStream output = null;
-        try {
-            output = new FileOutputStream(tempFile);
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, output);
-        }catch (IOException ioe) {
-            Log.e("DEBUG-ERR", ioe.getMessage());
-        } finally {
-            try {
-                output.flush();
-                output.close();
-            } catch (IOException e) {
-                Log.i("DEBUG-INFO", e.getMessage());
-            }
-        }
     }
 }

@@ -93,7 +93,6 @@ public class Tools {
      *
      * @param x   the X interpolation parameter 0..1
      * @param y   the y interpolation parameter 0..1
-     * @param R G B array of four ARGB values in the order NW, NE, SW, SE
      * @return the interpolated value
      */
     public static int bilinearInterpolate(float x, float y, int nw, int ne, int sw, int se) {
@@ -312,8 +311,9 @@ public class Tools {
      */
     public static double parseDouble(String s, double defaultValue) {
         if (s == null) return defaultValue;
+
         try {
-            defaultValue = Double.parseDouble(s);
+            return Double.parseDouble(s);
         } catch (NumberFormatException e) {
         }
         return defaultValue;

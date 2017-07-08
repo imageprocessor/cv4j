@@ -61,6 +61,8 @@ dependencies {
     apt 'com.safframework.injectview:saf-injectview-compiler:1.1.0'
     compile 'tony-common:tony-common-utils:1.1.0'
 
+    compile 'com.safframework:saf-permission:1.0.0'
+
 
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 

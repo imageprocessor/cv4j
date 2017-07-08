@@ -1,7 +1,20 @@
+/*
+ * Copyright (c) 2017 - present, CV4J Contributors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.cv4j.image.util;
 
-import android.graphics.Bitmap;
-import android.os.Environment;
 import android.util.Log;
 
 import com.cv4j.core.binary.ConnectedAreaLabel;
@@ -13,15 +26,8 @@ import com.cv4j.core.datamodel.ImageProcessor;
 import com.cv4j.core.datamodel.Rect;
 import com.cv4j.core.datamodel.Size;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
-/**
- * Created by gloomy fish on 2017/6/25.
- */
 
 public class QRCodeScanner {
 
@@ -38,13 +44,11 @@ public class QRCodeScanner {
         System.arraycopy(src.getGray(), 0, data, 0, data.length);
         ByteProcessor copy = new ByteProcessor(data, width, height);
         mOpen.process(src, new Size(n1, n2)); // Y
-        saveDebugImage(src.getImage().toBitmap());
         src.getImage().resetBitmap();
 
         mOpen.process(copy, new Size(n2, n1)); // X
         CV4JImage cv4JImage = new CV4JImage(width,height);
         ((ByteProcessor)cv4JImage.getProcessor()).putGray(copy.getGray());
-        saveDebugImage(cv4JImage.toBitmap());
 
         for(int i=0; i<data.length; i++) {
             int pv = src.getGray()[i]&0xff;
@@ -53,9 +57,8 @@ public class QRCodeScanner {
             }
         }
         src.putGray(copy.getGray());
-        saveDebugImage(src.getImage().toBitmap());
-
         ConnectedAreaLabel ccal = new ConnectedAreaLabel();
+        ccal.setFilterNoise(true);
         List<Rect> rectList = new ArrayList<>();
         int[] labelMask = new int[width*height];
         ccal.process(src, labelMask, rectList, true);
@@ -143,27 +146,6 @@ public class QRCodeScanner {
         float[] mdev = Tools.calcMeansAndDev(data);
         Log.i("QRCodeScanner","mdev[0]="+mdev[0]);
         Log.i("QRCodeScanner","mdev[1]="+mdev[1]);
-        return mdev[0] <= 10;
-    }
-
-    private void saveDebugImage(Bitmap bitmap) {
-
-        File filedir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "myOcrImages");
-        String name = String.valueOf(System.currentTimeMillis()) + "_ocr.jpg";
-        File tempFile = new File(filedir.getAbsoluteFile()+File.separator, name);
-        FileOutputStream output = null;
-        try {
-            output = new FileOutputStream(tempFile);
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, output);
-        }catch (IOException ioe) {
-            Log.e("DEBUG-ERR", ioe.getMessage());
-        } finally {
-            try {
-                output.flush();
-                output.close();
-            } catch (IOException e) {
-                Log.i("DEBUG-INFO", e.getMessage());
-            }
-        }
+        return mdev[0] <= 9;
     }
 }
