@@ -35,9 +35,10 @@ public class JPEGLosslessDecoderWrapper {
 	 */
 	public static CV4JImage readImage(byte[] data) throws IOException{
 		JPEGLosslessDecoder decoder = new JPEGLosslessDecoder(data);
+
+		int[][] decoded = decoder.decode();
 		int width = decoder.getDimX();
 		int height = decoder.getDimY();
-		int[][] decoded = decoder.decode();
 
 		int[] pixels = new int[width*height];
 		if(decoder.getNumComponents() == 3) {

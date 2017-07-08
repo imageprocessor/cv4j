@@ -50,15 +50,6 @@ public class CV4JImage implements ImageData, Serializable{
         input = null;
     }
 
-    public CV4JImage(int width, int height, int[] pixels) {
-        if (bitmap == null) {
-            throw new CV4JException("bitmap is null");
-        }
-        processor = new ColorProcessor(pixels,width, height);
-        ((ColorProcessor)processor).setCallBack(this);
-        pixels = null;
-    }
-
     public CV4JImage(InputStream inputStream) {
         if (inputStream == null) {
             throw new CV4JException("inputStream is null");
@@ -108,6 +99,17 @@ public class CV4JImage implements ImageData, Serializable{
         this.height = height;
         processor = new ByteProcessor(new byte[width*height],width,height);
         ((ByteProcessor)processor).setCallBack(this);
+    }
+
+    public CV4JImage(int width, int height, int[] pixels) {
+
+        this.width = width;
+        this.height = height;
+
+        Log.i("fuck","this.width="+this.width+" this.height="+this.height);
+        processor = new ColorProcessor(pixels,width, height);
+        ((ColorProcessor)processor).setCallBack(this);
+        pixels = null;
     }
 
     public ImageProcessor getProcessor() {
