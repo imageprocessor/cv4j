@@ -26,6 +26,17 @@ public class ImageCodecs {
             }
         } else if (filePath.endsWith(".png") || filePath.endsWith(".PNG")) {
             // TODO: zhigang
+            PngReader pngr = new PngReader(new File(filePath));
+            System.out.println(pngr.toString());
+            int channels = pngr.imgInfo.channels;
+            if (channels < 3 || pngr.imgInfo.bitDepth != 8)
+                throw new RuntimeException("This method is for RGB8/RGBA8 images");
+
+            ImageInfo info = pngr.getImgInfo();
+            int width = info.cols;
+            int height = info.rows;
+            int dims = info.channels;
+            
         }
         return image;
     }
