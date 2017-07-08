@@ -36,7 +36,7 @@ public class ImageCodecs {
 
         File file = new File(filePath);
 
-        if (!file.isFile()) return null;
+        if (!file.exists() || !file.isFile()) return null;
 
         CV4JImage image = null;
 
@@ -48,7 +48,9 @@ public class ImageCodecs {
 
             }
         } else if (filePath.endsWith(".png") || filePath.endsWith(".PNG")) {
+
             PngReader pngr = new PngReader(file);
+
             int channels = pngr.imgInfo.channels;
             if (channels < 3 || pngr.imgInfo.bitDepth != 8)
                 throw new CV4JException("This method is for RGB8/RGBA8 images");
