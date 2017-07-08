@@ -50,6 +50,15 @@ public class CV4JImage implements ImageData, Serializable{
         input = null;
     }
 
+    public CV4JImage(int width, int height, int[] pixels) {
+        if (bitmap == null) {
+            throw new CV4JException("bitmap is null");
+        }
+        processor = new ColorProcessor(pixels,width, height);
+        ((ColorProcessor)processor).setCallBack(this);
+        pixels = null;
+    }
+
     public CV4JImage(InputStream inputStream) {
         if (inputStream == null) {
             throw new CV4JException("inputStream is null");
