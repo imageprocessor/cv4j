@@ -36,7 +36,29 @@ public class ImageCodecs {
             int width = info.cols;
             int height = info.rows;
             int dims = info.channels;
-            
+            int r = 0, g = 0, b = 0;
+            int index = 0;
+            int[] pixels = new int[width * height];
+            for (int row = 0; row < height; row++) {
+                ImageLineInt line = (ImageLineInt) pngr.readRow(row);
+                int[] data = line.getScanline();
+                for (int col = 0; col < width; col++) {
+                    if (dims == 3) {
+                        r = data[col*dims];
+                        g = data[col*dims + 1];
+                        b = data[col*dims + 2];
+                        pixels[row * width + col] =
+                                ((255 & 0xff) << 24) | ((r & 0xff) << 16) | ((g & 0xff) << 8) | (b & 0xff);
+                    } else if (dims == 4) {
+                        r = data[col*dims + 1];
+                        g = data[col*dims + 2];
+                        b = data[col*dims + 3];
+                        pixels[row * width + col] =
+                                ((255 & 0xff) << 24) | ((r & 0xff) << 16) | ((g & 0xff) << 8) | (b & 0xff);
+                    }
+                }
+            }
+            image = new CV4JImage(width, height, pixels);
         }
         return image;
     }
