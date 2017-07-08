@@ -31,15 +31,14 @@ public class ImageCodecs {
     }
 
     private static byte[] getBytesFromFile(File file) {
+
+        if (file == null) return null;
+
         byte[] ret = null;
 
         FileInputStream in = null;
         ByteArrayOutputStream out = null;
         try {
-            if (file == null) {
-                return null;
-            }
-
             in = new FileInputStream(file);
             out = new ByteArrayOutputStream(4096);
             byte[] b = new byte[4096];
