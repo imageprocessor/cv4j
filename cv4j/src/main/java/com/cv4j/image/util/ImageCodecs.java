@@ -15,42 +15,47 @@ import edu.uthscsa.ric.volume.formats.jpeg.JPEGLosslessDecoderWrapper;
 
 public class ImageCodecs {
 
-    public static CV4JImage imread(String filePath) {
+    public static CV4JImage read(String filePath) {
         CV4JImage image = null;
-        if(filePath.endsWith(".jpg")||filePath.endsWith(".JPG")
+        if (filePath.endsWith(".jpg") || filePath.endsWith(".JPG")
                 || filePath.endsWith(".JPEG") || filePath.endsWith(".jpeg")) {
             try {
                 image = JPEGLosslessDecoderWrapper.readImage(getBytesFromFile(new File(filePath)));
             } catch (IOException ioe) {
 
             }
-        } else if(filePath.endsWith(".png")||filePath.endsWith(".PNG")) {
+        } else if (filePath.endsWith(".png") || filePath.endsWith(".PNG")) {
             // TODO: zhigang
         }
         return image;
     }
 
-    public static byte[] getBytesFromFile(File file) {
+    private static byte[] getBytesFromFile(File file) {
         byte[] ret = null;
+
+        FileInputStream in = null;
+        ByteArrayOutputStream out = null;
         try {
             if (file == null) {
-                // log.error("helper:the file is null!");
                 return null;
             }
-            FileInputStream in = new FileInputStream(file);
-            ByteArrayOutputStream out = new ByteArrayOutputStream(4096);
+
+            in = new FileInputStream(file);
+            out = new ByteArrayOutputStream(4096);
             byte[] b = new byte[4096];
             int n;
             while ((n = in.read(b)) != -1) {
                 out.write(b, 0, n);
             }
-            in.close();
-            out.close();
+
             ret = out.toByteArray();
         } catch (IOException e) {
-            // log.error("helper:get bytes from file process error!");
             e.printStackTrace();
+        } finally {
+            IOUtils.closeQuietly(in);
+            IOUtils.closeQuietly(out);
         }
+
         return ret;
     }
 }
