@@ -31,8 +31,14 @@ import edu.uthscsa.ric.volume.formats.jpeg.JPEGLosslessDecoderWrapper;
 public class ImageCodecs {
 
     public static CV4JImage read(String filePath) {
-        CV4JImage image = null;
+
+        if(filePath == null) return null;
+
         File file = new File(filePath);
+
+        if (!file.isFile()) return null;
+
+        CV4JImage image = null;
 
         if (filePath.endsWith(".jpg") || filePath.endsWith(".JPG")
                 || filePath.endsWith(".JPEG") || filePath.endsWith(".jpeg")) {
