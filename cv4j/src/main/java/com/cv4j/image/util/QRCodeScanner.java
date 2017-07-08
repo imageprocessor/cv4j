@@ -63,8 +63,6 @@ public class QRCodeScanner {
         float h = 0;
         float rate = 0;
         List<Rect> qrRects = new ArrayList<>();
-        int minArea = -1;
-        int delta = 0;
         for(Rect roi : rectList) {
             w = roi.width;
             h = roi.height;
@@ -84,7 +82,6 @@ public class QRCodeScanner {
         }
         else if (blocks.length == 6 || blocks.length == 3) {
             for (int i = 0; i < blocks.length-1; i++) {
-
                 for (int j = i + 1; j < blocks.length; j++) {
                     int idx1 = blocks[i].tl().y*width + blocks[i].tl().x;
                     int idx2 = blocks[j].tl().y*width + blocks[j].tl().x;
