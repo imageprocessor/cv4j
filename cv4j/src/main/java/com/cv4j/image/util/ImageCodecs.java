@@ -26,7 +26,6 @@ import java.io.IOException;
 import ar.com.hjg.pngj.ImageInfo;
 import ar.com.hjg.pngj.ImageLineInt;
 import ar.com.hjg.pngj.PngReader;
-import edu.uthscsa.ric.volume.formats.jpeg.JPEGLosslessDecoderWrapper;
 
 public class ImageCodecs {
 
@@ -42,11 +41,9 @@ public class ImageCodecs {
 
         if (filePath.endsWith(".jpg") || filePath.endsWith(".JPG")
                 || filePath.endsWith(".JPEG") || filePath.endsWith(".jpeg")) {
-            try {
-                image = JPEGLosslessDecoderWrapper.readImage(getBytesFromFile(file));
-            } catch (IOException ioe) {
 
-            }
+            // TODO: jpeg
+
         } else if (filePath.endsWith(".png") || filePath.endsWith(".PNG")) {
 
             PngReader pngr = new PngReader(file);
