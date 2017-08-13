@@ -20,7 +20,7 @@ The target is to set up a high quality and real-time image process and machine l
 ## 1.单独下载cv4j
 
 ```groovy
-compile 'com.cv4j:cv4j:0.1.0'
+compile 'com.cv4j:cv4j:0.1.1'
 ```
 
 ## 2.下载rxcv4j
@@ -28,7 +28,7 @@ compile 'com.cv4j:cv4j:0.1.0'
 rxcv4j 是使用 RxJava2.x 进行的封装，如果下载该模块的话无需再下载cv4j。
 
 ```groovy
-compile 'com.cv4j:rxcv4j:0.1.0'
+compile 'com.cv4j:rxcv4j:0.1.1'
 ```
 
 
