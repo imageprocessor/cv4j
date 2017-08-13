@@ -67,7 +67,14 @@ public class GaussianBackProjection {
                 pr = (float)((1.0 / (rmdev[1]*Math.sqrt(2 * Math.PI)))*Math.exp(-(Math.pow((red - rmdev[0]), 2)) / (2 * Math.pow(rmdev[1], 2))));
                 pg = (float)((1.0 / (gmdev[1]*Math.sqrt(2 * Math.PI)))*Math.exp(-(Math.pow((green - gmdev[0]),2)) / (2 * Math.pow(gmdev[1], 2))));
                 sum = pr*pg;
+
+                if(Float.isNaN(sum)){
+                    result[index] = 0;
+                    continue;
+                }
+
                 result[index] = sum;
+
             }
         }
 
