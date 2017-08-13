@@ -13,7 +13,7 @@ The target is to set up a high quality and real-time image process and machine l
 
 模块|cv4j|rxcv4j
 ---|:-------------:|:-------------:
-最新版本|[![Download](https://img.shields.io/badge/Download-0.1.0-red.svg)](https://bintray.com/fengzhizi715/maven/cv4j/_latestVersion)|[![Download](https://img.shields.io/badge/Download-0.1.0-red.svg)](https://bintray.com/fengzhizi715/maven/rxcv4j/_latestVersion)
+最新版本|[ ![Download](https://api.bintray.com/packages/fengzhizi715/maven/cv4j/images/download.svg) ](https://bintray.com/fengzhizi715/maven/cv4j/_latestVersion)|[ ![Download](https://api.bintray.com/packages/fengzhizi715/maven/rxcv4j/images/download.svg) ](https://bintray.com/fengzhizi715/maven/rxcv4j/_latestVersion)
 
 
 # 下载和使用
