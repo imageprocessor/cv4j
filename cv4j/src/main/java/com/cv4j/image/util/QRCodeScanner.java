@@ -146,6 +146,6 @@ public class QRCodeScanner {
         float[] mdev = Tools.calcMeansAndDev(data);
         Log.i("QRCodeScanner","mdev[0]="+mdev[0]);
         Log.i("QRCodeScanner","mdev[1]="+mdev[1]);
-        return mdev[0] <= 9;
+        return mdev[0] <= 20;
     }
 }
