@@ -57,7 +57,7 @@ public class GaussianBackProjection {
         float[] result = new float[width*height];
         for (int row = 0; row < height; row++) {
             for (int col = 0; col < width; col++) {
-                index = row*mw + col;
+                index = row*width + col;
                 b = src.toByte(2)[index]&0xff;
                 g = src.toByte(1)[index]&0xff;
                 r = src.toByte(0)[index]&0xff;
