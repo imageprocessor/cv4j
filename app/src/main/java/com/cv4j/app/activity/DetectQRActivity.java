@@ -16,24 +16,22 @@
 
 package com.cv4j.app.activity;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
-import android.widget.Button;
-import android.widget.ImageView;
 
 import com.cv4j.app.R;
+import com.cv4j.app.adapter.QRAdapter;
 import com.cv4j.app.app.BaseActivity;
-import com.cv4j.core.datamodel.CV4JImage;
-import com.cv4j.core.datamodel.Rect;
-import com.cv4j.image.util.QRCodeScanner;
+import com.cv4j.app.fragment.QRFragment;
 import com.safframework.injectview.annotations.InjectExtra;
 import com.safframework.injectview.annotations.InjectView;
 import com.safframework.injectview.annotations.OnClick;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Tony Shen on 2017/6/25.
@@ -41,11 +39,11 @@ import com.safframework.injectview.annotations.OnClick;
 
 public class DetectQRActivity extends BaseActivity {
 
-    @InjectView(R.id.image)
-    ImageView imageView;
+    @InjectView(R.id.tablayout)
+    TabLayout mTabLayout;
 
-    @InjectView(R.id.detect_btn)
-    Button detectButton;
+    @InjectView(R.id.viewpager)
+    ViewPager mViewPager;
 
     @InjectView(R.id.toolbar)
     Toolbar toolbar;
@@ -53,7 +51,7 @@ public class DetectQRActivity extends BaseActivity {
     @InjectExtra(key = "Title")
     String title;
 
-    private Bitmap bitmap;
+    private List<Fragment> mList = new ArrayList();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,28 +63,13 @@ public class DetectQRActivity extends BaseActivity {
 
     private void initData() {
         toolbar.setTitle("< "+title);
-        bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.qr_applepay);
-        imageView.setImageBitmap(bitmap);
-    }
 
-    @OnClick(id= R.id.detect_btn)
-    void clickDetectButton() {
+        for(int i=0;i<4;i++) {
+            mList.add(QRFragment.newInstance(i));
+        }
 
-        CV4JImage cv4JImage = new CV4JImage(bitmap);
-
-        QRCodeScanner qrCodeScanner = new QRCodeScanner();
-        Rect rect = qrCodeScanner.findQRCodeBounding(cv4JImage.getProcessor(),1,6);
-
-        Bitmap bm = bitmap.copy(Bitmap.Config.ARGB_8888, true);
-        Canvas canvas = new Canvas(bm);
-        Paint paint = new Paint();
-        paint.setColor(Color.RED);
-        paint.setStrokeWidth((float) 10.0);
-        paint.setStyle(Paint.Style.STROKE);
-
-        android.graphics.Rect androidRect = new android.graphics.Rect(rect.x-20,rect.y-20,rect.br().x+20,rect.br().y+20);
-        canvas.drawRect(androidRect,paint);
-        imageView.setImageBitmap(bm);
+        mViewPager.setAdapter(new QRAdapter(this.getSupportFragmentManager(),mList));
+        mTabLayout.setupWithViewPager(mViewPager);
     }
 
     @OnClick(id= R.id.toolbar)
