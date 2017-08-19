@@ -85,19 +85,19 @@ public class QRFragment extends BaseFragment {
 
         switch(mIndex) {
 
-            case 1:
+            case 0:
                 bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.qr_1);
                 break;
 
-            case 2:
+            case 1:
                 bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.qr_applepay);
                 break;
 
-            case 3:
+            case 2:
                 bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.qr_jiazhigang);
                 break;
 
-            case 4:
+            case 3:
                 bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.qr_tony);
                 break;
 
