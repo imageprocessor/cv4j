@@ -32,6 +32,7 @@ import java.util.List;
 public class QRCodeScanner {
 
     public Rect findQRCodeBounding(ImageProcessor image,int n1,int n2) {
+
         Rect rect = new Rect();
         image = image.getImage().convert2Gray().getProcessor();
         ByteProcessor src = ((ByteProcessor)image);
@@ -43,10 +44,10 @@ public class QRCodeScanner {
         byte[] data = new byte[width*height];
         System.arraycopy(src.getGray(), 0, data, 0, data.length);
         ByteProcessor copy = new ByteProcessor(data, width, height);
-        mOpen.process(src, new Size(n1, n2)); // Y
+        mOpen.process(src, new Size(n1, n2)); // Y方向开操作
         src.getImage().resetBitmap();
 
-        mOpen.process(copy, new Size(n2, n1)); // X
+        mOpen.process(copy, new Size(n2, n1)); // X方向开操作
         CV4JImage cv4JImage = new CV4JImage(width,height);
         ((ByteProcessor)cv4JImage.getProcessor()).putGray(copy.getGray());
 
@@ -57,6 +58,8 @@ public class QRCodeScanner {
             }
         }
         src.putGray(copy.getGray());
+
+        // 联通组件查找连接区域
         ConnectedAreaLabel ccal = new ConnectedAreaLabel();
         ccal.setFilterNoise(true);
         List<Rect> rectList = new ArrayList<>();
@@ -87,6 +90,8 @@ public class QRCodeScanner {
         // find RQ code bounding
         Rect[] blocks = qrRects.toArray(new Rect[0]);
         Log.i("QRCode Finder", "blocks.length : " + blocks.length);
+
+        // 二维码很小的情况
         if (blocks.length == 1) {
             rect.x = blocks[0].x-5;
             rect.y = blocks[0].y- 5;
@@ -162,7 +167,7 @@ public class QRCodeScanner {
         Log.i("QRCodeScanner","mdev[0]="+mdev[0]);
         Log.i("QRCodeScanner","mdev[1]="+mdev[1]);
 
-        //
+        // 黑色跟白色的像素数目比
         float rate = Math.min(bcount, wcount)/Math.max(bcount, wcount);
 
         return mdev[0] <= 20 && rate > 0.50f;
