@@ -16,7 +16,6 @@
 
 package com.cv4j.app.activity;
 
-import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -66,24 +65,7 @@ public class DetectQRActivity extends BaseActivity {
 
     private void initData() {
         toolbar.setTitle("< "+title);
-        Resources res= getResources();
-
-        BitmapFactory.Options options = new BitmapFactory.Options();
-        options.inJustDecodeBounds = true;
-        BitmapFactory.decodeResource(getResources(), R.drawable.tony, options);
-        int w = options.outWidth;
-        int h = options.outHeight;
-        int inSample = 1;
-        if(w > 1000 || h > 1000) {
-            while(Math.max(w/inSample, h/inSample) > 1000) {
-                inSample *=2;
-            }
-        }
-        options.inJustDecodeBounds = false;
-        options.inSampleSize = inSample;
-        options.inPreferredConfig = Bitmap.Config.ARGB_8888;
-        bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.tony, options);
-
+        bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.qr_applepay);
         imageView.setImageBitmap(bitmap);
     }
 

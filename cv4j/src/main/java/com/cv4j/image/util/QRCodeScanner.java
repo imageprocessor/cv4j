@@ -82,7 +82,7 @@ public class QRCodeScanner {
             w = roi.width;
             h = roi.height;
             rate = (float)Math.abs(w / h  - 1.0);
-            if(rate < 0.05 && isRect(roi, labelMask, width, height)) {
+            if(rate < 0.05 && isRect(roi, labelMask, width, height,true)) {
                 qrRects.add(roi);
             }
         }
@@ -91,14 +91,38 @@ public class QRCodeScanner {
         Rect[] blocks = qrRects.toArray(new Rect[0]);
         Log.i("QRCode Finder", "blocks.length : " + blocks.length);
 
+        if (Preconditions.isBlank(blocks)) {
+
+            for(Rect roi : rectList) {
+
+                if (roi == null) continue;
+
+                if((roi.width > width/4 || roi .width < 10) || (roi.height < 10 || roi.height > height/4))
+                    continue;
+
+                if((roi.x < 10 || roi.x > width -10)|| (roi.y < 10 || roi.y > height-10))
+                    continue;
+
+                w = roi.width;
+                h = roi.height;
+                rate = (float)Math.abs(w / h  - 1.0);
+                if(rate < 0.05 && isRect(roi, labelMask, width, height,false)) {
+                    qrRects.add(roi);
+                }
+            }
+
+            // find RQ code bounding
+            blocks = qrRects.toArray(new Rect[0]);
+            Log.i("QRCode Finder", "blocks.length : " + blocks.length);
+        }
+
         // 二维码很小的情况
         if (blocks.length == 1) {
             rect.x = blocks[0].x-5;
             rect.y = blocks[0].y- 5;
             rect.width= blocks[0].width + 10;
             rect.height = blocks[0].height + 10;
-        }
-        else if (blocks.length == 6 || blocks.length == 3) {
+        } else if (blocks.length == 6 || blocks.length == 3) {
             for (int i = 0; i < blocks.length-1; i++) {
                 for (int j = i + 1; j < blocks.length; j++) {
                     int idx1 = blocks[i].tl().y*width + blocks[i].tl().x;
@@ -125,7 +149,7 @@ public class QRCodeScanner {
         return rect;
     }
 
-    private boolean isRect(Rect roi, int[] labelMask, int w, int h) {
+    private boolean isRect(Rect roi, int[] labelMask, int w, int h, boolean useRate) {
         int ox = roi.x;
         int oy = roi.y;
         int width = roi.width;
@@ -167,9 +191,14 @@ public class QRCodeScanner {
         Log.i("QRCodeScanner","mdev[0]="+mdev[0]);
         Log.i("QRCodeScanner","mdev[1]="+mdev[1]);
 
-        // 黑色跟白色的像素数目比
-        float rate = Math.min(bcount, wcount)/Math.max(bcount, wcount);
+        if (useRate) {
+            // 黑色跟白色的像素数目比
+            float rate = Math.min(bcount, wcount)/Math.max(bcount, wcount);
 
-        return mdev[0] <= 20 && rate > 0.50f;
+            return mdev[0] <= 20 && rate > 0.50f;
+        } else {
+
+            return mdev[0] <= 20;
+        }
     }
 }
