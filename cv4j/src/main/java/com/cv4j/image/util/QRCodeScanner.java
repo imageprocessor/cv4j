@@ -67,6 +67,8 @@ public class QRCodeScanner {
         float rate = 0;
         List<Rect> qrRects = new ArrayList<>();
         for(Rect roi : rectList) {
+            if(roi.width > width/4 || roi.height > height/4)
+                continue;
             w = roi.width;
             h = roi.height;
             rate = (float)Math.abs(w / h  - 1.0);
