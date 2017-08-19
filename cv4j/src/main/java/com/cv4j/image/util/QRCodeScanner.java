@@ -38,7 +38,7 @@ public class QRCodeScanner {
         int width = src.getWidth();
         int height = src.getHeight();
         Threshold t = new Threshold();
-        t.process(src, Threshold.THRESH_VALUE, Threshold.METHOD_THRESH_BINARY_INV, 20);
+        t.process(src, Threshold.THRESH_OTSU, Threshold.METHOD_THRESH_BINARY_INV, 20);
         MorphOpen mOpen = new MorphOpen();
         byte[] data = new byte[width*height];
         System.arraycopy(src.getGray(), 0, data, 0, data.length);
@@ -67,8 +67,15 @@ public class QRCodeScanner {
         float rate = 0;
         List<Rect> qrRects = new ArrayList<>();
         for(Rect roi : rectList) {
-            if(roi.width > width/4 || roi.height > height/4)
+
+            if (roi == null) continue;
+
+            if((roi.width > width/4 || roi .width < 10) || (roi.height < 10 || roi.height > height/4))
                 continue;
+
+            if((roi.x < 10 || roi.x > width -10)|| (roi.y < 10 || roi.y > height-10))
+                continue;
+
             w = roi.width;
             h = roi.height;
             rate = (float)Math.abs(w / h  - 1.0);
@@ -79,6 +86,7 @@ public class QRCodeScanner {
 
         // find RQ code bounding
         Rect[] blocks = qrRects.toArray(new Rect[0]);
+        Log.i("QRCode Finder", "blocks.length : " + blocks.length);
         if (blocks.length == 1) {
             rect.x = blocks[0].x-5;
             rect.y = blocks[0].y- 5;
@@ -120,14 +128,19 @@ public class QRCodeScanner {
 
         byte[] image = new byte[width*height];
         int label = roi.labelIdx;
+        float bcount = 0, wcount = 0;
         for(int row=oy; row<(oy + height); row++) {
             for(int col=ox; col<(ox + width); col++) {
                 int v = labelMask[row*w + col];
                 if(v == label) {
                     image[(row - oy) * width + col - ox] = (byte)255;
+                    wcount++;
+                } else {
+                    bcount++;
                 }
             }
         }
+
 
         int cx = width / 2;
         int offset = 0;
@@ -148,6 +161,10 @@ public class QRCodeScanner {
         float[] mdev = Tools.calcMeansAndDev(data);
         Log.i("QRCodeScanner","mdev[0]="+mdev[0]);
         Log.i("QRCodeScanner","mdev[1]="+mdev[1]);
-        return mdev[0] <= 20;
+
+        //
+        float rate = Math.min(bcount, wcount)/Math.max(bcount, wcount);
+
+        return mdev[0] <= 20 && rate > 0.50f;
     }
 }
