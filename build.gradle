@@ -57,9 +57,9 @@ task clean(type: Delete) {
 }
 
 // 上传jecnter时使用
-tasks.getByPath(":cv4j:checkstyle").enabled = false
-tasks.getByPath(":cv4j:releaseAndroidJavadocs").enabled = false
-tasks.getByPath(":cv4j:bintrayUpload").enabled = true
-tasks.getByPath(":rxcv4j:lint").enabled = false
-tasks.getByPath(":rxcv4j:releaseAndroidJavadocs").enabled = false
-tasks.getByPath(":rxcv4j:bintrayUpload").enabled = true
+//tasks.getByPath(":cv4j:checkstyle").enabled = false
+//tasks.getByPath(":cv4j:releaseAndroidJavadocs").enabled = false
+//tasks.getByPath(":cv4j:bintrayUpload").enabled = true
+//tasks.getByPath(":rxcv4j:lint").enabled = false
+//tasks.getByPath(":rxcv4j:releaseAndroidJavadocs").enabled = false
+//tasks.getByPath(":rxcv4j:bintrayUpload").enabled = false
