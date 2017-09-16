@@ -25,13 +25,9 @@ import java.util.Arrays;
 import java.util.List;
 
 public class TemplateMatch {
-    public static final int TM_SQDIFF = 1;
     public static final int TM_SQDIFF_NORMED = 2;
-    public static final int TM_CCORR = 3;
     public static final int TM_CCORR_NORMED = 4;
-    public static final int TM_CCOEFF = 5;
     public static final int TM_CCOEFF_NORMED = 6;
-
 
     /***
      *
@@ -65,38 +61,15 @@ public class TemplateMatch {
             }
 
         } else if(target.getChannels() == 1 && tpl.getChannels() == 1) {
-            byte[] data = ((ByteProcessor)target).getGray();
-            byte[] tdata = ((ByteProcessor)tpl).getGray();
-            float[] meansdev = Tools.calcMeansAndDev(((ByteProcessor)tpl).toFloat(0));
-            double[] tDiff = calculateDiff(tdata, meansdev[0]);
-            for(int row=offy; row<height-offy; row++) {
-                for(int col=offx; col<width-offx; col++) {
-                    int wrow = 0;
-                    Arrays.fill(tplmask, 0);
-                    for(int subrow = -raidus_height; subrow <= raidus_height; subrow++ )
-                    {
-                        int wcol = 0;
-                        for(int subcol = -raidus_width; subcol <= raidus_width; subcol++ )
-                        {
-                            if(wrow >= th || wcol >= tw)
-                            {
-                                continue;
-                            }
-                            tplmask[wrow * tw + wcol] = data[(row+subrow)*width + (col+subcol)]&0xff;
-                            wcol++;
-                        }
-                        wrow++;
-                    }
-                    // calculate the ncc
-                    float[] _meansDev = Tools.calcMeansAndDev(tplmask);
-                    double[] diff = calculateDiff(tplmask, _meansDev[0]);
-                    double ncc = calculateNcc(tDiff, diff, _meansDev[1], meansdev[1]);
-                    result[(row-offy)*rw + (col-offx)] = ncc;
-                }
+            if(method == TM_CCORR_NORMED) {
+                generateNCCResult(target, tpl, result, tplmask);
+            } else if (method == TM_SQDIFF_NORMED) {
+                // TODO:zhigang
             }
+
+
         } else {
-            // do nothing and throw exception later on...
-            System.err.println("\nERR:could not match input image type...\n");
+            throw new IllegalStateException("\nERR:Image Type is not same...\n");
         }
         return new FloatProcessor(result, rw, rh);
     }
@@ -168,6 +141,46 @@ public class TemplateMatch {
         } else {
             // do nothing and throw exception later on...
             System.err.println("\nERR:could not match input image type...\n");
+        }
+    }
+
+    private void generateNCCResult(ImageProcessor target, ImageProcessor tpl, float[] result, int[] tplmask) {
+        int width = target.getWidth();
+        int height = target.getHeight();
+        int tw = tpl.getWidth();
+        int th = tpl.getHeight();
+        int offx = tpl.getWidth()/2+1;
+        int offy = tpl.getHeight()/2+1;
+        int raidus_width = tpl.getWidth() / 2;
+        int raidus_height = tpl.getHeight()/2;
+        byte[] data = ((ByteProcessor)target).getGray();
+        byte[] tdata = ((ByteProcessor)tpl).getGray();
+        float[] meansdev = Tools.calcMeansAndDev(((ByteProcessor)tpl).toFloat(0));
+        double[] tDiff = calculateDiff(tdata, meansdev[0]);
+        for(int row=offy; row<height-offy; row++) {
+            for(int col=offx; col<width-offx; col++) {
+                int wrow = 0;
+                Arrays.fill(tplmask, 0);
+                for(int subrow = -raidus_height; subrow <= raidus_height; subrow++ )
+                {
+                    int wcol = 0;
+                    for(int subcol = -raidus_width; subcol <= raidus_width; subcol++ )
+                    {
+                        if(wrow >= th || wcol >= tw)
+                        {
+                            continue;
+                        }
+                        tplmask[wrow * tw + wcol] = data[(row+subrow)*width + (col+subcol)]&0xff;
+                        wcol++;
+                    }
+                    wrow++;
+                }
+                // calculate the ncc
+                float[] _meansDev = Tools.calcMeansAndDev(tplmask);
+                double[] diff = calculateDiff(tplmask, _meansDev[0]);
+                double ncc = calculateNcc(tDiff, diff, _meansDev[1], meansdev[1]);
+                result[(row-offy)*rw + (col-offx)] = ncc;
+            }
         }
     }
 
