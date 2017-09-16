@@ -280,6 +280,42 @@ public class Tools {
     }
 
     /**
+     * 获取图中最大与最小值的位置信息， 0 - 最小值位置， 1 - 最大值位置
+     * @param a
+     * @param width
+     * @param height
+     * @return
+     */
+    public static Point[] getMinMaxLoc(final float[] a, int width, int height) {
+        double min = Double.MAX_VALUE;
+        double max = -Double.MAX_VALUE;
+        double value;
+        int minIndex = 0;
+        int maxIndex = 0;
+        int index = 0;
+        for (float anA : a) {
+            value = anA;
+            if (value < min) {
+                min = value;
+                minIndex = index;
+            }
+            if (value > max) {
+                max = value;
+                maxIndex = index;
+            }
+            index++;
+        }
+        Point[] minAndMax = new Point[2];
+        minAndMax[0] = new Point();
+        minAndMax[0].y = minIndex / width;
+        minAndMax[0].x = minIndex % width;
+        minAndMax[1] = new Point();
+        minAndMax[1].y = maxIndex / width;
+        minAndMax[1].x = maxIndex % width;
+        return minAndMax;
+    }
+
+    /**
      * Converts the float array 'a' to a double array.
      */
     public static double[] toDouble(float[] a) {

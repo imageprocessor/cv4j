@@ -161,7 +161,7 @@ public class TemplateMatch {
 
         int rw = width - offx*2;
         int rh = height - offy*2;
-        
+
         for(int row=offy; row<height-offy; row++) {
             for(int col=offx; col<width-offx; col++) {
                 int wrow = 0;
@@ -194,7 +194,6 @@ public class TemplateMatch {
         for(int i=0; i<diffs.length; i++) {
             diffs[i] = (int)(pixels[i] & 0xff) - mean;
         }
-
         return diffs;
     }
 
@@ -203,7 +202,6 @@ public class TemplateMatch {
         for(int i=0; i<diffs.length; i++) {
             diffs[i] = pixels[i] - mean;
         }
-
         return diffs;
     }
 
