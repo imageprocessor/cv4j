@@ -82,7 +82,7 @@ public class TemplateMatch {
      *                TM_CCOEFF\TM_CCOEFF_NORMED
      * @param threhold
      */
-    public void match(ImageProcessor target, ImageProcessor tpl, List<Point> locations, int method,int threhold) {
+    public void match(ImageProcessor target, ImageProcessor tpl, List<Point> locations, int method,double threhold) {
         int width = target.getWidth();
         int height = target.getHeight();
         int tw = tpl.getWidth();
