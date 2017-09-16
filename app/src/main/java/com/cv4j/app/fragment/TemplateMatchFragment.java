@@ -28,13 +28,16 @@ import android.widget.ImageView;
 import com.cv4j.app.R;
 import com.cv4j.app.app.BaseFragment;
 import com.cv4j.core.datamodel.CV4JImage;
+import com.cv4j.core.datamodel.FloatProcessor;
 import com.cv4j.core.datamodel.ImageProcessor;
 import com.cv4j.core.datamodel.Point;
 import com.cv4j.core.tpl.TemplateMatch;
 import com.safframework.injectview.Injector;
 import com.safframework.injectview.annotations.InjectView;
+import com.safframework.log.L;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by tony on 2017/9/16.
@@ -77,7 +80,8 @@ public class TemplateMatchFragment extends BaseFragment {
         ImageProcessor templateProcessor = templateCV4J.convert2Gray().getProcessor();
 
         TemplateMatch match = new TemplateMatch();
-        match.match(targetImageProcessor,templateProcessor,new ArrayList<Point>(),TemplateMatch.TM_SQDIFF_NORMED,0.5);
 
+        FloatProcessor floatProcessor = match.match(targetImageProcessor,templateProcessor,TemplateMatch.TM_CCORR_NORMED);
+//        floatProcessor.
     }
 }

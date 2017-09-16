@@ -47,6 +47,16 @@ public class FloatProcessor implements ImageProcessor {
         return 1;
     }
 
+    @Override
+    public void getPixel(int row, int col, byte[] rgb) {
+
+    }
+
+    @Override
+    public int[] getPixels() {
+        return new int[0];
+    }
+
     public void getPixel(int row, int col, float[] rgb) {
         int index = row*width + col;
         if(rgb != null && rgb.length == 1) {
