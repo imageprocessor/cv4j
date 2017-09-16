@@ -121,6 +121,11 @@ public class MainActivity extends BaseActivity {
             case R.id.drawer_hist:
                 menuManager.show(MenuManager.MenuType.HIST);
                 break;
+
+            case R.id.drawer_template_match:
+                menuManager.show(MenuManager.MenuType.TEMPLATE_MATCH);
+                break;
+
             default:
                 break;
         }

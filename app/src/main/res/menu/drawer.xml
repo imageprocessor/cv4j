@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright (C) 2015 Antonio Leiva
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,40 +16,44 @@
 
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <group
-        android:checkableBehavior="single">
+    <group android:checkableBehavior="single">
 
         <item
             android:id="@+id/drawer_cv4j"
             android:checked="true"
             android:icon="@drawable/menu_safinfo"
-            android:title="@string/cv4j"/>
+            android:title="@string/cv4j" />
 
         <item
             android:id="@+id/drawer_io"
             android:checked="true"
             android:icon="@drawable/menu_safinfo"
-            android:title="@string/io"/>
+            android:title="@string/io" />
 
         <item
             android:id="@+id/drawer_filters"
             android:icon="@drawable/menu_general_anno"
-            android:title="@string/filters"/>
+            android:title="@string/filters" />
 
         <item
             android:id="@+id/drawer_spatial_conv"
             android:icon="@drawable/menu_general_anno"
-            android:title="@string/spatial_conv"/>
+            android:title="@string/spatial_conv" />
 
         <item
             android:id="@+id/drawer_binary"
             android:icon="@drawable/menu_general_anno"
-            android:title="@string/binary"/>
+            android:title="@string/binary" />
 
         <item
             android:id="@+id/drawer_hist"
             android:icon="@drawable/menu_general_anno"
-            android:title="@string/hist"/>
+            android:title="@string/hist" />
+
+        <item
+            android:id="@+id/drawer_template_match"
+            android:icon="@drawable/menu_general_anno"
+            android:title="@string/template_match" />
 
     </group>
 </menu>
