@@ -102,6 +102,7 @@ public class TemplateMatchFragment extends BaseFragment {
 
             Paint paint = new Paint();
             paint.setStyle(Paint.Style.STROKE);
+            paint.setStrokeWidth((float) 4.0);
             paint.setColor(Color.RED);
             canvas.drawRect(rect,paint);
             resultImage.setImageBitmap(resultBitmap);
