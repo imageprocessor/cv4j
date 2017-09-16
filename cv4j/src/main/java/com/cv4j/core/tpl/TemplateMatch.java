@@ -158,6 +158,10 @@ public class TemplateMatch {
         byte[] tdata = ((ByteProcessor)tpl).getGray();
         float[] meansdev = Tools.calcMeansAndDev(((ByteProcessor)tpl).toFloat(0));
         double[] tDiff = calculateDiff(tdata, meansdev[0]);
+
+        int rw = width - offx*2;
+        int rh = height - offy*2;
+        
         for(int row=offy; row<height-offy; row++) {
             for(int col=offx; col<width-offx; col++) {
                 int wrow = 0;
