@@ -18,6 +18,11 @@ package com.cv4j.core.tpl;
 import com.cv4j.core.datamodel.ByteProcessor;
 import com.cv4j.core.datamodel.ColorProcessor;
 import com.cv4j.core.datamodel.ImageProcessor;
+import com.cv4j.core.datamodel.Point;
+import com.cv4j.image.util.Tools;
+
+import java.util.Arrays;
+import java.util.List;
 
 public class TemplateMatch {
     public static final int TM_SQDIFF = 1;
@@ -31,11 +36,12 @@ public class TemplateMatch {
      *
      * @param target - source image contain template or not
      * @param tpl - template
-     * @param location, left-upper corner with match template location
+     * @param locations, left-upper corner with match template location
      * @param method, support TM_SQDIFF\TM_SQDIFF_NORMED\TM_CCORR\TM_CCORR_NORMED
      *                TM_CCOEFF\TM_CCOEFF_NORMED
+     * @param threhold
      */
-    public void match(ImageProcessor target, ImageProcessor tpl, List<Point> locations, int method) {
+    public void match(ImageProcessor target, ImageProcessor tpl, List<Point> locations, int method,int threhold) {
         int width = target.getWidth();
         int height = target.getHeight();
         int tw = tpl.getWidth();
@@ -43,7 +49,7 @@ public class TemplateMatch {
         int offx = tpl.getWidth()/2+1;
         int offy = tpl.getHeight()/2+1;
         int raidus_width = tpl.getWidth() / 2;
-        int raidus_height = tpl.getHeight()/2
+        int raidus_height = tpl.getHeight()/2;
         int[] tplmask = new int[tpl.getWidth() * tpl.getHeight()];
         Arrays.fill(tplmask, 0);
         if(target.getChannels() == 3 && tpl.getChannels() == 3) {
@@ -74,13 +80,13 @@ public class TemplateMatch {
                             {
                                 continue;
                             }
-                            windowPixels[wrow * tw + wcol] = data[(row+subrow)*width + (col+subcol)];
+                            tplmask[wrow * tw + wcol] = data[(row+subrow)*width + (col+subcol)]&0xff;
                             wcol++;
                         }
                         wrow++;
                     }
                     // calculate the ncc
-                    double[] _meansDev = Tools.calcMeansAndDev(tplmask);
+                    float[] _meansDev = Tools.calcMeansAndDev(tplmask);
                     double[] diff = calculateDiff(tplmask, _meansDev[0]);
                     double ncc = calculateNcc(tDiff, diff, _meansDev[1], meansdev[1]);
                     if(ncc > threhold) {
@@ -98,10 +104,21 @@ public class TemplateMatch {
     }
 
     private double[] calculateDiff(byte[] pixels, float mean) {
-        double[] diffs = new diffs[pixels.length];
+        double[] diffs = new double[pixels.length];
         for(int i=0; i<diffs.length; i++) {
-            diffs[i] = pixels[i]&0xff - mean;
+            diffs[i] = (int)(pixels[i] & 0xff) - mean;
         }
+
+        return diffs;
+    }
+
+    private double[] calculateDiff(int[] pixels, float mean) {
+        double[] diffs = new double[pixels.length];
+        for(int i=0; i<diffs.length; i++) {
+            diffs[i] = pixels[i] - mean;
+        }
+
+        return diffs;
     }
 
     private double calculateNcc(double[] tDiff, double[] diff, double dev1, double dev2) {

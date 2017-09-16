@@ -84,6 +84,21 @@ public class Tools {
         return new float[] { means, sdValue };
     }
 
+    public static float[] calcMeansAndDev(int[] data) {
+        float sum = 0;
+        for(int i=0; i<data.length; i++) {
+            sum += data[i];
+        }
+        float means = sum / data.length;
+        double powSum = 0.0;
+        for (int d=0; d<data.length; d++) {
+            powSum += Math.pow((data[d] - means), 2);
+        }
+
+        float sdValue = (float)Math.sqrt(powSum / (data.length - 1.0d));
+        return new float[] { means, sdValue };
+    }
+
     public static int clamp(int x, int a, int b) {
         return (x < a) ? a : (x > b) ? b : x;
     }
