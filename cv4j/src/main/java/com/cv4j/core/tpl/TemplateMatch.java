@@ -184,7 +184,7 @@ public class TemplateMatch {
                 float[] _meansDev = Tools.calcMeansAndDev(tplmask);
                 double[] diff = calculateDiff(tplmask, _meansDev[0]);
                 double ncc = calculateNcc(tDiff, diff, _meansDev[1], meansdev[1]);
-                result[(row-offy)*rw + (col-offx)] = ncc;
+                result[(row-offy)*rw + (col-offx)] = (float) ncc;
             }
         }
     }

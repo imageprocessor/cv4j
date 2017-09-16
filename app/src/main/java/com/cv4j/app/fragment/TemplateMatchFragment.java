@@ -19,6 +19,10 @@ package com.cv4j.app.fragment;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,6 +36,7 @@ import com.cv4j.core.datamodel.FloatProcessor;
 import com.cv4j.core.datamodel.ImageProcessor;
 import com.cv4j.core.datamodel.Point;
 import com.cv4j.core.tpl.TemplateMatch;
+import com.cv4j.image.util.Tools;
 import com.safframework.injectview.Injector;
 import com.safframework.injectview.annotations.InjectView;
 import com.safframework.log.L;
@@ -52,7 +57,7 @@ public class TemplateMatchFragment extends BaseFragment {
     ImageView templateImage;
 
     @InjectView(R.id.result)
-    ImageView result;
+    ImageView resultImage;
 
 
     @Override
@@ -82,6 +87,24 @@ public class TemplateMatchFragment extends BaseFragment {
         TemplateMatch match = new TemplateMatch();
 
         FloatProcessor floatProcessor = match.match(targetImageProcessor,templateProcessor,TemplateMatch.TM_CCORR_NORMED);
-//        floatProcessor.
+        Point[] points = Tools.getMinMaxLoc(floatProcessor.getGray(),floatProcessor.getWidth(),floatProcessor.getHeight());
+
+
+        Point resultPoint = null;
+        if (points!=null) {
+            resultPoint = points[1];
+
+            Bitmap resultBitmap = bitmap1.copy(Bitmap.Config.ARGB_8888, true);
+            Canvas canvas = new Canvas(resultBitmap);
+
+            Rect rect = new Rect();
+            rect.set(resultPoint.x,resultPoint.y,resultPoint.x+templateProcessor.getWidth(),resultPoint.y+templateProcessor.getHeight());
+
+            Paint paint = new Paint();
+            paint.setStyle(Paint.Style.STROKE);
+            paint.setColor(Color.RED);
+            canvas.drawRect(rect,paint);
+            resultImage.setImageBitmap(resultBitmap);
+        }
     }
 }

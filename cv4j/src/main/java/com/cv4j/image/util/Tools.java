@@ -21,6 +21,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.support.annotation.NonNull;
 
+import com.cv4j.core.datamodel.Point;
 import com.cv4j.core.datamodel.Rect;
 
 import java.io.BufferedReader;
