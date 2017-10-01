@@ -109,8 +109,8 @@ public class TemplateMatch {
             byte[] tdata = ((ByteProcessor)tpl).getGray();
             float[] meansdev = Tools.calcMeansAndDev(((ByteProcessor)tpl).toFloat(0));
             double[] tDiff = calculateDiff(tdata, meansdev[0]);
-            for(int row=offy; row<height-offy; row++) {
-                for(int col=offx; col<width-offx; col++) {
+            for(int row=offy; row<height-offy; row+=2) {
+                for(int col=offx; col<width-offx; col+=2) {
                     int wrow = 0;
                     Arrays.fill(tplmask, 0);
                     for(int subrow = -raidus_height; subrow <= raidus_height; subrow++ )
