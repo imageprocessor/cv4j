@@ -63,6 +63,10 @@ dependencies {
 
     compile 'com.safframework:saf-permission:1.0.0'
 
+    compile ('com.safframework.utils:saf-kotlin-utils:0.0.2.6',{
+        exclude group: 'com.android.support', module: 'appcompat-v7'
+        exclude group: 'tony-common', module: 'tony-common-utils'
+    })
 
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 

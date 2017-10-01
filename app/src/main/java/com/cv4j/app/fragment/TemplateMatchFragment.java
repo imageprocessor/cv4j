@@ -40,9 +40,18 @@ import com.cv4j.image.util.Tools;
 import com.safframework.injectview.Injector;
 import com.safframework.injectview.annotations.InjectView;
 import com.safframework.log.L;
+import com.safframework.utils.RxJavaUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Function;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by tony on 2017/9/16.
@@ -72,17 +81,17 @@ public class TemplateMatchFragment extends BaseFragment {
     private void initData() {
 
         Resources res = getResources();
-        Bitmap bitmap1 = BitmapFactory.decodeResource(res, R.drawable.test_tpl_target);
+        final Bitmap bitmap1 = BitmapFactory.decodeResource(res, R.drawable.test_tpl_target);
         targetImage.setImageBitmap(bitmap1);
 
         Bitmap bitmap2 = BitmapFactory.decodeResource(res, R.drawable.tpl);
         templateImage.setImageBitmap(bitmap2);
 
         CV4JImage targetCV4J = new CV4JImage(bitmap1);
-        ImageProcessor targetImageProcessor = targetCV4J.convert2Gray().getProcessor();
+        final ImageProcessor targetImageProcessor = targetCV4J.convert2Gray().getProcessor();
 
         CV4JImage templateCV4J = new CV4JImage(bitmap2);
-        ImageProcessor templateProcessor = templateCV4J.convert2Gray().getProcessor();
+        final ImageProcessor templateProcessor = templateCV4J.convert2Gray().getProcessor();
 
         TemplateMatch match = new TemplateMatch();
 
@@ -98,7 +107,9 @@ public class TemplateMatchFragment extends BaseFragment {
             Canvas canvas = new Canvas(resultBitmap);
 
             Rect rect = new Rect();
-            rect.set(resultPoint.x,resultPoint.y,resultPoint.x+templateProcessor.getWidth(),resultPoint.y+templateProcessor.getHeight());
+            int sx = resultPoint.x + templateProcessor.getWidth()/2;
+            int sy = resultPoint.y - templateProcessor.getHeight()/2;
+            rect.set(sx,sy,sx+templateProcessor.getWidth(),sy+templateProcessor.getHeight());
 
             Paint paint = new Paint();
             paint.setStyle(Paint.Style.STROKE);
