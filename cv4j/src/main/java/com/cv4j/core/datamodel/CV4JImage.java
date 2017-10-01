@@ -106,7 +106,6 @@ public class CV4JImage implements ImageData, Serializable{
         this.width = width;
         this.height = height;
 
-        Log.i("fuck","this.width="+this.width+" this.height="+this.height);
         processor = new ColorProcessor(pixels,width, height);
         ((ColorProcessor)processor).setCallBack(this);
         pixels = null;
