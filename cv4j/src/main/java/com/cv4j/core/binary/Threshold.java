@@ -16,6 +16,7 @@
 package com.cv4j.core.binary;
 
 import com.cv4j.core.datamodel.ByteProcessor;
+import com.cv4j.core.datamodel.IntIntegralImage;
 
 public class Threshold {
     /** binary image */
@@ -31,6 +32,8 @@ public class Threshold {
     public static final int THRESH_TRIANGLE = 3;
     /**based on 1D mean shift, CV4J custom binary method, sometimes it is very slow...*/
     public static final int THRESH_MEANSHIFT = 4;
+    /**based local mean threshold method, CV4J custom binary method, sometimes it is very slow...*/
+    public static final int ADAPTIVE_C_MEANS_THRESH = 5;
     /** it is not reasonable method to convert binary image */
     public static final int THRESH_VALUE = -1;
 
@@ -41,6 +44,40 @@ public class Threshold {
      */
     public void process(ByteProcessor gray, int type) {
         process(gray, type, METHOD_THRESH_BINARY, 0);
+    }
+
+    public void adaptiveThresh(ByteProcessor gray, int type, int blockSize, int constant, int method) {
+        int width = gray.getWidth();
+        int height = gray.getHeight();
+
+        // 图像灰度化
+
+        // per-calculate integral image
+        IntIntegralImage grayii = new IntIntegralImage();
+        byte[] binary_data = gray.getGray();
+        grayii.setImage(binary_data);
+        grayii.process(width, height);
+        int yr = blockSize;
+        int xr = blockSize;
+        int index = 0;
+        int size = (yr * 2 + 1)*(xr * 2 + 1);
+        for (int row = 0; row < height; row++) {
+            for (int col = 0; col < width; col++) {
+                index = row * width + col;
+
+                // 计算均值
+                int sr = grayii.getBlockSum(col, row, (yr * 2 + 1), (xr * 2 + 1));
+                int mean = sr / size;
+                int pixel = binary_data[index]&0xff;
+
+                // 二值化
+                if(pixel > (mean-constant)) {
+                    binary_data[row * width + col] = (byte)255;
+                } else {
+                    binary_data[row * width + col] = (byte)0;
+                }
+            }
+        }
     }
 
     /**
