@@ -122,23 +122,21 @@ class RxImageData private constructor(internal var image: CV4JImage?) {
 
         if (filters.size == 0) {
             this.flowable.compose(RxJavaUtils.flowableToMain())
+                    .doFinally({
+                        dismissDiaog()
+                    })
                     .subscribe({ (cV4JImage) ->
-                imageView?.setImageBitmap(cV4JImage?.toBitmap())
-            }, {
-                t -> t.printStackTrace()
-            }, {
-                if (mDialog != null) {
-                    mDialog?.dismiss()
-                    mDialog = null
-                }
-            })
+                        imageView?.setImageBitmap(cV4JImage?.toBitmap())
+                    }, { t ->
+                        t.printStackTrace()
+                    })
         } else if (filters.size == 1) {
             this.flowable
                     .map({ (image1, filters1) ->
                         if (useCache) {
 
                             val sb = StringBuilder()
-                            if (imageView?.context!= null) {
+                            if (imageView?.context != null) {
                                 sb.append(imageView!!.context.javaClass.simpleName)
                             }
 
@@ -164,15 +162,13 @@ class RxImageData private constructor(internal var image: CV4JImage?) {
                         }
                     })
                     .compose(RxJavaUtils.flowableToMain())
+                    .doFinally({
+                        dismissDiaog()
+                    })
                     .subscribe({ processor ->
                         imageView?.setImageBitmap(processor.image.toBitmap())
-                    }, {
-                        t -> t.printStackTrace()
-                    }, {
-                        if (mDialog != null) {
-                            mDialog?.dismiss()
-                            mDialog = null
-                        }
+                    }, { t ->
+                        t.printStackTrace()
                     })
 
         } else {
@@ -180,15 +176,13 @@ class RxImageData private constructor(internal var image: CV4JImage?) {
             this.flowable.map({ (image1, filters1) -> filters1 })
                     .map { filter(image!!.processor) }
                     .compose(RxJavaUtils.flowableToMain())
+                    .doFinally({
+                        dismissDiaog()
+                    })
                     .subscribe({ processor ->
                         imageView?.setImageBitmap(processor.image.toBitmap())
-                    }, {
-                        t -> t.printStackTrace()
-                    }, {
-                        if (mDialog != null) {
-                            mDialog?.dismiss()
-                            mDialog = null
-                        }
+                    }, { t ->
+                        t.printStackTrace()
                     })
         }
     }
@@ -215,6 +209,13 @@ class RxImageData private constructor(internal var image: CV4JImage?) {
         imageData = filter.filter(imageData)
 
         return filter(imageData, size - 1)
+    }
+
+    private fun dismissDiaog() {
+        if (mDialog != null) {
+            mDialog!!.dismiss()
+            mDialog = null
+        }
     }
 
     /**
