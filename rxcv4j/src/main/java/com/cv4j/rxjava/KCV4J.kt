@@ -53,26 +53,16 @@ private fun render(wrap: Wrapper) {
 
     if (wrap.bitmap!=null) {
 
-        if (wrap.filter!=null) {
-            RxImageData.bitmap(wrap.bitmap).dialog(wrap.dialog).addFilter(wrap.filter).isUseCache(wrap.useCache).into(wrap.imageView)
-        } else {
-            RxImageData.bitmap(wrap.bitmap).dialog(wrap.dialog).isUseCache(wrap.useCache).into(wrap.imageView)
-        }
+        RxImageData.bitmap(wrap.bitmap).dialog(wrap.dialog).addFilter(wrap.filter).isUseCache(wrap.useCache).into(wrap.imageView)
 
     } else if (wrap.cv4jImage!=null) {
 
-        if (wrap.filter!=null) {
-            RxImageData.image(wrap.cv4jImage).dialog(wrap.dialog).addFilter(wrap.filter).isUseCache(wrap.useCache).into(wrap.imageView)
-        } else {
-            RxImageData.image(wrap.cv4jImage).dialog(wrap.dialog).isUseCache(wrap.useCache).into(wrap.imageView)
-        }
+        RxImageData.image(wrap.cv4jImage).dialog(wrap.dialog).addFilter(wrap.filter).isUseCache(wrap.useCache).into(wrap.imageView)
+
     } else if (wrap.bytes!=null) {
 
-        if (wrap.filter!=null) {
-            RxImageData.bytes(wrap.bytes).dialog(wrap.dialog).addFilter(wrap.filter).isUseCache(wrap.useCache).into(wrap.imageView)
-        } else {
-            RxImageData.bytes(wrap.bytes).dialog(wrap.dialog).isUseCache(wrap.useCache).into(wrap.imageView)
-        }
+        RxImageData.bytes(wrap.bytes).dialog(wrap.dialog).addFilter(wrap.filter).isUseCache(wrap.useCache).into(wrap.imageView)
+
     }
 
 }

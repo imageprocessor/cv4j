@@ -173,7 +173,8 @@ class RxImageData private constructor(internal var image: CV4JImage?) {
 
         } else {
 
-            this.flowable.map({ (image1, filters1) -> filters1 })
+            this.flowable
+                    .map({ (image1, filters1) -> filters1 })
                     .map { filter(image!!.processor) }
                     .compose(RxJavaUtils.flowableToMain())
                     .doFinally({
