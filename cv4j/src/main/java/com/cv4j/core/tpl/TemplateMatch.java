@@ -26,6 +26,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class TemplateMatch {
+
     public static final int TM_SQDIFF_NORMED = 2;
     public static final int TM_CCORR_NORMED = 4;
     public static final int TM_CCOEFF_NORMED = 6;
@@ -208,8 +209,7 @@ public class TemplateMatch {
     private double calculateNcc(double[] tDiff, double[] diff, double dev1, double dev2) {
         double sum = 0.0d;
         double count = diff.length;
-        for(int i=0; i<diff.length; i++)
-        {
+        for(int i=0; i<diff.length; i++) {
             sum += ((tDiff[i] * diff[i])/(dev1 * dev2));
         }
         return (sum / count);
