@@ -189,14 +189,7 @@ class RxImageData private constructor(internal var image: CV4JImage?) {
     }
 
 
-    private fun filter(imageData: ImageProcessor): ImageProcessor {
-
-        if (filters.size > 0) {
-            return filter(imageData, filters.size)
-        }
-
-        return imageData
-    }
+    private fun filter(imageData: ImageProcessor): ImageProcessor = if (filters.size > 0) filter(imageData, filters.size) else imageData
 
     private fun filter(imageData: ImageProcessor, size: Int): ImageProcessor {
         var imageData = imageData
@@ -213,6 +206,7 @@ class RxImageData private constructor(internal var image: CV4JImage?) {
     }
 
     private fun dismissDiaog() {
+
         if (mDialog != null) {
             mDialog!!.dismiss()
             mDialog = null
