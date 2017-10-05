@@ -22,6 +22,7 @@ import android.widget.ImageView
 import com.cv4j.core.datamodel.CV4JImage
 import com.cv4j.core.datamodel.ImageProcessor
 import com.cv4j.core.filters.CommonFilter
+import com.safframework.utils.RxJavaUtils
 import io.reactivex.Flowable
 import io.reactivex.FlowableTransformer
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -120,11 +121,11 @@ class RxImageData private constructor(internal var image: CV4JImage?) {
         }
 
         if (filters.size == 0) {
-            this.flowable.compose(RxImageData.toMain()).subscribe({ (cV4JImage) ->
+            this.flowable.compose(RxJavaUtils.flowableToMain())
+                    .subscribe({ (cV4JImage) ->
                 imageView?.setImageBitmap(cV4JImage?.toBitmap())
             }, {
-                t ->
-                t.printStackTrace()
+                t -> t.printStackTrace()
             }, {
                 if (mDialog != null) {
                     mDialog?.dismiss()
@@ -162,7 +163,7 @@ class RxImageData private constructor(internal var image: CV4JImage?) {
                             filters1[0].filter(image?.processor)
                         }
                     })
-                    .compose(RxImageData.toMain())
+                    .compose(RxJavaUtils.flowableToMain())
                     .subscribe({ processor ->
                         imageView?.setImageBitmap(processor.image.toBitmap())
                     }, {
@@ -178,7 +179,7 @@ class RxImageData private constructor(internal var image: CV4JImage?) {
 
             this.flowable.map({ (image1, filters1) -> filters1 })
                     .map { filter(image!!.processor) }
-                    .compose(RxImageData.toMain())
+                    .compose(RxJavaUtils.flowableToMain())
                     .subscribe({ processor ->
                         imageView?.setImageBitmap(processor.image.toBitmap())
                     }, {
@@ -242,14 +243,6 @@ class RxImageData private constructor(internal var image: CV4JImage?) {
         fun image(@NotNull image: CV4JImage?): RxImageData {
 
             return RxImageData(image)
-        }
-
-        private fun <T> toMain(): FlowableTransformer<T, T> {
-
-            return FlowableTransformer { upstream ->
-                upstream.subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-            }
         }
     }
 }
