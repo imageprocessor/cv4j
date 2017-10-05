@@ -21,7 +21,6 @@ import com.cv4j.core.datamodel.Size;
 import com.safframework.injectview.annotations.InjectExtra;
 import com.safframework.injectview.annotations.InjectView;
 import com.safframework.injectview.annotations.OnClick;
-
 import java.util.Random;
 
 /**
