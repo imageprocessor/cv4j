@@ -15,6 +15,9 @@ ext {
             saf_log           : "1.2.0",
             saf_aop           : "1.1.4",
 
+            rxandroid         : "2.0.1",
+            rxjava            : "2.1.5",
+
             tony_common_utils   : "1.1.0"
     ]
 }
