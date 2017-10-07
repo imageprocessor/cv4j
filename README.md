@@ -28,7 +28,7 @@ compile 'com.cv4j:cv4j:0.1.1.2'
 rxcv4j 是使用 RxJava2.x 进行的封装，如果下载该模块的话无需再下载cv4j。
 
 ```groovy
-compile 'com.cv4j:rxcv4j:0.1.1'
+compile 'com.cv4j:rxcv4j:0.1.1.1'
 ```
 
 

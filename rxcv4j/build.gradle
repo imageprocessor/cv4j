@@ -70,7 +70,7 @@ publish{
     userOrg = 'fengzhizi715'
     groupId = 'com.cv4j'
     artifactId = 'rxcv4j'
-    publishVersion = '0.1.1'
+    publishVersion = '0.1.1.1'
     desc = 'this is a rxjava library for cv4j'
     website = 'https://github.com/imageprocessor/cv4j'
 }
