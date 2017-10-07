@@ -192,15 +192,17 @@ public class TemplateMatch {
 
     private double[] calculateDiff(byte[] pixels, float mean) {
         double[] diffs = new double[pixels.length];
-        for(int i=0; i<diffs.length; i++) {
-            diffs[i] = (int)(pixels[i] & 0xff) - mean;
+        int length = diffs.length;
+        for (int i = 0; i < length; i++) {
+            diffs[i] = (int) (pixels[i] & 0xff) - mean;
         }
         return diffs;
     }
 
     private double[] calculateDiff(int[] pixels, float mean) {
         double[] diffs = new double[pixels.length];
-        for(int i=0; i<diffs.length; i++) {
+        int length = diffs.length;
+        for (int i = 0; i < length; i++) {
             diffs[i] = pixels[i] - mean;
         }
         return diffs;
@@ -209,8 +211,8 @@ public class TemplateMatch {
     private double calculateNcc(double[] tDiff, double[] diff, double dev1, double dev2) {
         double sum = 0.0d;
         double count = diff.length;
-        for(int i=0; i<diff.length; i++) {
-            sum += ((tDiff[i] * diff[i])/(dev1 * dev2));
+        for (int i = 0; i < diff.length; i++) {
+            sum += ((tDiff[i] * diff[i]) / (dev1 * dev2));
         }
         return (sum / count);
     }

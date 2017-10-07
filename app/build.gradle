@@ -57,9 +57,10 @@ dependencies {
 
     compile "com.safframework.log:saf-log:${libs.saf_log}"
     compile "com.safframework:saf-aop:${libs.saf_aop}"
-    compile 'com.safframework.injectview:saf-injectview:1.1.0'
-    apt 'com.safframework.injectview:saf-injectview-compiler:1.1.0'
-    compile 'tony-common:tony-common-utils:1.1.0'
+    compile "com.safframework.injectview:saf-injectview:${libs.saf_injectview}"
+    apt "com.safframework.injectview:saf-injectview-compiler:${libs.saf_injectview_compiler}"
+
+    compile "tony-common:tony-common-utils:${libs.tony_common_utils}"
 
     compile 'com.safframework:saf-permission:1.0.0'
 
