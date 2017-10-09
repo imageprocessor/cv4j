@@ -64,6 +64,7 @@ class RxThreshold private constructor(image: CV4JImage) {
 
     companion object {
 
+        @JvmStatic
         fun image(image: CV4JImage): RxThreshold {
 
             return RxThreshold(image)
