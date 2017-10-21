@@ -87,12 +87,14 @@ public class TemplateMatch2 {
     
     
 	private int[] getROI(int w, int h, int tw, int th, int y, int x, byte[] pixels) {
+		int offx = x - tw / 2;
+		int offy = y - th / 2;
 		int[] roidata = new int[tw*th];
-		for(int row=y; row<th+y; row++) {
+		for(int row=offy; row<th+offy; row++) {
 			int index1 = row*w;
-			int index2 = (row-y)*tw;
-			for(int col=x; col<tw+x; col++) {
-				roidata[index2+col-x] = pixels[index1+col]&0xff;
+			int index2 = (row-offy)*tw;
+			for(int col=offx; col<tw+offx; col++) {
+				roidata[index2+col-offx] = pixels[index1+col]&0xff;
 			}
 		}
 		return roidata;
