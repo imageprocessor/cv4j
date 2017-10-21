@@ -94,5 +94,11 @@ public class FloatProcessor implements ImageProcessor {
     public byte[] toByte(int index) {
         throw new IllegalStateException("Invalid data type, not support this type!!!");
     }
+	
+	public void addArray(float[] fa) {
+    	for(int i=0; i<fa.length; i++) {
+    		GRAY[i] += fa[i];
+    	}
+    }
 
 }
