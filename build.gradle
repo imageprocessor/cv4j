@@ -2,7 +2,7 @@
 ext {
     configuration = [
             package          : "com.cv4j",
-            buildToolsVersion: "25.0.0",
+            buildToolsVersion: "25.0.2",
             compileVersion   : 24,
             minSdk           : 9,
             targetSdk        : 24,
