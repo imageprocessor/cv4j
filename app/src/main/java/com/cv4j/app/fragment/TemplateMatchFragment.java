@@ -36,6 +36,7 @@ import com.cv4j.core.datamodel.FloatProcessor;
 import com.cv4j.core.datamodel.ImageProcessor;
 import com.cv4j.core.datamodel.Point;
 import com.cv4j.core.tpl.TemplateMatch;
+import com.cv4j.core.tpl.TemplateMatch2;
 import com.cv4j.image.util.Tools;
 import com.safframework.injectview.Injector;
 import com.safframework.injectview.annotations.InjectView;
@@ -93,7 +94,7 @@ public class TemplateMatchFragment extends BaseFragment {
         CV4JImage templateCV4J = new CV4JImage(bitmap2);
         final ImageProcessor templateProcessor = templateCV4J.convert2Gray().getProcessor();
 
-        TemplateMatch match = new TemplateMatch();
+        TemplateMatch2 match = new TemplateMatch2();
 
         FloatProcessor floatProcessor = match.match(targetImageProcessor,templateProcessor,TemplateMatch.TM_CCORR_NORMED);
         Point[] points = Tools.getMinMaxLoc(floatProcessor.getGray(),floatProcessor.getWidth(),floatProcessor.getHeight());
@@ -101,7 +102,7 @@ public class TemplateMatchFragment extends BaseFragment {
 
         Point resultPoint = null;
         if (points!=null) {
-            resultPoint = points[1];
+            resultPoint = points[0];
 
             Bitmap resultBitmap = bitmap1.copy(Bitmap.Config.ARGB_8888, true);
             Canvas canvas = new Canvas(resultBitmap);
