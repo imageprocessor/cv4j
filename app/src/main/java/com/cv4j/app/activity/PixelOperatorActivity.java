@@ -17,14 +17,21 @@
 package com.cv4j.app.activity;
 
 import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.widget.ImageView;
 
 import com.cv4j.app.R;
 import com.cv4j.app.app.BaseActivity;
+import com.cv4j.core.datamodel.CV4JImage;
+import com.cv4j.core.datamodel.ImageProcessor;
+import com.cv4j.core.pixels.Operator;
 import com.safframework.injectview.annotations.InjectExtra;
 import com.safframework.injectview.annotations.InjectView;
+import com.safframework.injectview.annotations.OnClick;
+import com.safframework.log.L;
 
 /**
  * Created by tony on 2017/11/5.
@@ -59,5 +66,27 @@ public class PixelOperatorActivity extends BaseActivity {
 
         toolbar.setTitle("< "+title);
         Resources res = getResources();
+
+        final Bitmap bitmap1 = BitmapFactory.decodeResource(res, R.drawable.pixel_test_1);
+        image1.setImageBitmap(bitmap1);
+
+        final Bitmap bitmap2 = BitmapFactory.decodeResource(res, R.drawable.pixel_test_2);
+        image2.setImageBitmap(bitmap2);
+
+        CV4JImage cv4jImage1 = new CV4JImage(bitmap1);
+        ImageProcessor imageProcessor1 = cv4jImage1.getProcessor();
+
+        CV4JImage cv4jImage2 = new CV4JImage(bitmap2);
+        ImageProcessor imageProcessor2 = cv4jImage2.getProcessor();
+
+        ImageProcessor imageProcessor = Operator.add(imageProcessor1,imageProcessor2);
+        CV4JImage resultCV4JImage = new CV4JImage(imageProcessor.getWidth(), imageProcessor.getHeight(), imageProcessor.getPixels());
+        result.setImageBitmap(resultCV4JImage.getProcessor().getImage().toBitmap());
+    }
+
+    @OnClick(id= R.id.toolbar)
+    void clickToolbar() {
+
+        finish();
     }
 }
