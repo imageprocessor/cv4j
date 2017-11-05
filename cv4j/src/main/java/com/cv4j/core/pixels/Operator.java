@@ -4,6 +4,7 @@ import com.cv4j.core.datamodel.ByteProcessor;
 import com.cv4j.core.datamodel.ColorProcessor;
 import com.cv4j.core.datamodel.ImageProcessor;
 import com.cv4j.core.datamodel.Rect;
+import com.cv4j.image.util.Preconditions;
 import com.cv4j.image.util.Tools;
 
 public class Operator {
@@ -225,15 +226,14 @@ public class Operator {
 		}
 		return dst;
 	}
-	
-	
-	private static boolean checkParams(ImageProcessor src1, ImageProcessor src2) {
-		if(src1.getChannels() == src2.getChannels() && src1.getWidth() == src2.getWidth() && 
-				src1.getHeight() == src2.getHeight()) {
-			return true;
-		} else {
-			return false;
-		}
-	}
 
+
+	private static boolean checkParams(ImageProcessor src1, ImageProcessor src2) {
+
+		return Preconditions.isNotBlank(src1)
+				&& Preconditions.isNotBlank(src2)
+				&& src1.getChannels() == src2.getChannels()
+				&& src1.getWidth() == src2.getWidth()
+				&& src1.getHeight() == src2.getHeight();
+	}
 }
