@@ -54,6 +54,13 @@ public class PixelOperatorActivity extends BaseActivity {
     @InjectExtra(key = "Title")
     String title;
 
+    @InjectExtra(key = "Type")
+    int type;
+
+    public static final int ADD = 1;
+    public static final int SUBSTRACT = 2;
+    public static final int MULTIPLE = 3;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,7 +86,27 @@ public class PixelOperatorActivity extends BaseActivity {
         CV4JImage cv4jImage2 = new CV4JImage(bitmap2);
         ImageProcessor imageProcessor2 = cv4jImage2.getProcessor();
 
-        ImageProcessor imageProcessor = Operator.add(imageProcessor1,imageProcessor2);
+        ImageProcessor imageProcessor = null;
+
+        switch (type) {
+
+            case ADD:
+                imageProcessor = Operator.add(imageProcessor1,imageProcessor2);
+                break;
+
+            case SUBSTRACT:
+                imageProcessor = Operator.substract(imageProcessor1,imageProcessor2);
+                break;
+
+            case MULTIPLE:
+                imageProcessor = Operator.multiple(imageProcessor1,imageProcessor2);
+                break;
+
+            default:
+                imageProcessor = Operator.add(imageProcessor1,imageProcessor2);
+                break;
+        }
+
         CV4JImage resultCV4JImage = new CV4JImage(imageProcessor.getWidth(), imageProcessor.getHeight(), imageProcessor.getPixels());
         result.setImageBitmap(resultCV4JImage.getProcessor().getImage().toBitmap());
     }

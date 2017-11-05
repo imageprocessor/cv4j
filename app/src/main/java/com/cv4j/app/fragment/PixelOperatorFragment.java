@@ -39,6 +39,12 @@ public class PixelOperatorFragment extends BaseFragment {
     @InjectView(R.id.text1)
     TextView text1;
 
+    @InjectView(R.id.text2)
+    TextView text2;
+
+    @InjectView(R.id.text3)
+    TextView text3;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_pixel_operator, container, false);
@@ -52,6 +58,25 @@ public class PixelOperatorFragment extends BaseFragment {
 
         Intent i = new Intent(mContext,PixelOperatorActivity.class);
         i.putExtra("Title",text1.getText().toString());
+        i.putExtra("Type",PixelOperatorActivity.ADD);
+        startActivity(i);
+    }
+
+    @OnClick(id=R.id.text2)
+    void clickText2() {
+
+        Intent i = new Intent(mContext,PixelOperatorActivity.class);
+        i.putExtra("Title",text2.getText().toString());
+        i.putExtra("Type",PixelOperatorActivity.SUBSTRACT);
+        startActivity(i);
+    }
+
+    @OnClick(id=R.id.text3)
+    void clickText3() {
+
+        Intent i = new Intent(mContext,PixelOperatorActivity.class);
+        i.putExtra("Title",text3.getText().toString());
+        i.putExtra("Type",PixelOperatorActivity.MULTIPLE);
         startActivity(i);
     }
 
