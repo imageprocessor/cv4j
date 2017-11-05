@@ -227,7 +227,6 @@ public class Operator {
 		return dst;
 	}
 
-
 	private static boolean checkParams(ImageProcessor src1, ImageProcessor src2) {
 
 		return Preconditions.isNotBlank(src1)

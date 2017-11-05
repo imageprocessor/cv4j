@@ -10,6 +10,7 @@ import com.cv4j.app.fragment.FiltersFragment;
 import com.cv4j.app.fragment.HistFragment;
 import com.cv4j.app.fragment.HomeFragment;
 import com.cv4j.app.fragment.IOFragment;
+import com.cv4j.app.fragment.PixelOperatorFragment;
 import com.cv4j.app.fragment.SpitalConvFragment;
 import com.cv4j.app.fragment.TemplateMatchFragment;
 
@@ -31,7 +32,8 @@ public class MenuManager {
         SPTIAL_CONV("空间卷积功能",true),
         BINARY("二值分析",true),
         HIST("直方图",true),
-        TEMPLATE_MATCH("模版匹配",true);
+        TEMPLATE_MATCH("模版匹配",true),
+        PIXEL_OPERATOR("模版匹配",true);
 
         public final String title;
         public final boolean removed;
@@ -118,6 +120,10 @@ public class MenuManager {
 
             case TEMPLATE_MATCH:
                 fragment = new TemplateMatchFragment();
+                break;
+
+            case PIXEL_OPERATOR:
+                fragment = new PixelOperatorFragment();
                 break;
 
             default:
