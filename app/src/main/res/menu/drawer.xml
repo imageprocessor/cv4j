@@ -55,5 +55,10 @@
             android:icon="@drawable/menu_general_anno"
             android:title="@string/template_match" />
 
+        <item
+            android:id="@+id/drawer_pixel_operator"
+            android:icon="@drawable/menu_general_anno"
+            android:title="@string/pixel_operator" />
+
     </group>
 </menu>

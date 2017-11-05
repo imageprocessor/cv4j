@@ -126,6 +126,10 @@ public class MainActivity extends BaseActivity {
                 menuManager.show(MenuManager.MenuType.TEMPLATE_MATCH);
                 break;
 
+            case R.id.drawer_pixel_operator:
+                menuManager.show(MenuManager.MenuType.PIXEL_OPERATOR);
+                break;
+
             default:
                 break;
         }
