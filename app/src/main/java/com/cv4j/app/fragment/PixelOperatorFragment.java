@@ -45,6 +45,21 @@ public class PixelOperatorFragment extends BaseFragment {
     @InjectView(R.id.text3)
     TextView text3;
 
+    @InjectView(R.id.text4)
+    TextView text4;
+
+    @InjectView(R.id.text5)
+    TextView text5;
+
+    @InjectView(R.id.text6)
+    TextView text6;
+
+    @InjectView(R.id.text7)
+    TextView text7;
+
+    @InjectView(R.id.text8)
+    TextView text8;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_pixel_operator, container, false);
@@ -80,4 +95,48 @@ public class PixelOperatorFragment extends BaseFragment {
         startActivity(i);
     }
 
+    @OnClick(id=R.id.text4)
+    void clickText4() {
+
+        Intent i = new Intent(mContext,PixelOperatorActivity.class);
+        i.putExtra("Title",text4.getText().toString());
+        i.putExtra("Type",PixelOperatorActivity.DIVISION);
+        startActivity(i);
+    }
+
+    @OnClick(id=R.id.text5)
+    void clickText5() {
+
+        Intent i = new Intent(mContext,PixelOperatorActivity.class);
+        i.putExtra("Title",text5.getText().toString());
+        i.putExtra("Type",PixelOperatorActivity.BITWISE_AND);
+        startActivity(i);
+    }
+
+    @OnClick(id=R.id.text6)
+    void clickText6() {
+
+        Intent i = new Intent(mContext,PixelOperatorActivity.class);
+        i.putExtra("Title",text6.getText().toString());
+        i.putExtra("Type",PixelOperatorActivity.BITWISE_OR);
+        startActivity(i);
+    }
+
+    @OnClick(id=R.id.text7)
+    void clickText7() {
+
+        Intent i = new Intent(mContext,PixelOperatorActivity.class);
+        i.putExtra("Title",text5.getText().toString());
+        i.putExtra("Type",PixelOperatorActivity.BITWISE_NOT);
+        startActivity(i);
+    }
+
+    @OnClick(id=R.id.text8)
+    void clickText8() {
+
+        Intent i = new Intent(mContext,PixelOperatorActivity.class);
+        i.putExtra("Title",text6.getText().toString());
+        i.putExtra("Type",PixelOperatorActivity.BITWISE_XOR);
+        startActivity(i);
+    }
 }

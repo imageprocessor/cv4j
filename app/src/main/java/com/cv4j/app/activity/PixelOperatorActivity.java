@@ -31,8 +31,6 @@ import com.cv4j.core.pixels.Operator;
 import com.safframework.injectview.annotations.InjectExtra;
 import com.safframework.injectview.annotations.InjectView;
 import com.safframework.injectview.annotations.OnClick;
-import com.safframework.log.L;
-
 /**
  * Created by tony on 2017/11/5.
  */
@@ -60,6 +58,11 @@ public class PixelOperatorActivity extends BaseActivity {
     public static final int ADD = 1;
     public static final int SUBSTRACT = 2;
     public static final int MULTIPLE = 3;
+    public static final int DIVISION = 4;
+    public static final int BITWISE_AND = 5;
+    public static final int BITWISE_OR = 6;
+    public static final int BITWISE_NOT = 7;
+    public static final int BITWISE_XOR = 8;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,6 +103,26 @@ public class PixelOperatorActivity extends BaseActivity {
 
             case MULTIPLE:
                 imageProcessor = Operator.multiple(imageProcessor1,imageProcessor2);
+                break;
+
+            case DIVISION:
+                imageProcessor = Operator.division(imageProcessor1,imageProcessor2);
+                break;
+
+            case BITWISE_AND:
+                imageProcessor = Operator.bitwise_and(imageProcessor1,imageProcessor2);
+                break;
+
+            case BITWISE_OR:
+                imageProcessor = Operator.bitwise_or(imageProcessor1,imageProcessor2);
+                break;
+
+            case BITWISE_NOT:
+                imageProcessor = Operator.bitwise_not(imageProcessor1);
+                break;
+
+            case BITWISE_XOR:
+                imageProcessor = Operator.bitwise_xor(imageProcessor1,imageProcessor2);
                 break;
 
             default:
