@@ -23,6 +23,12 @@ public class ByteProcessor implements ImageProcessor {
     private int[] hist;
     private ImageData image;
 
+    public ByteProcessor(int width, int height) {
+        this.width = width;
+        this.height = height;
+        this.GRAY = new byte[width*height];
+    }
+    
     public ByteProcessor(byte[] data, int width, int height) {
         this.width = width;
         this.height = height;

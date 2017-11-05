@@ -25,6 +25,16 @@ public class ColorProcessor implements ImageProcessor {
 
     private int width;
     private int height;
+    
+    public ColorProcessor(int width, int height) {
+        this.width = width;
+        this.height = height;
+        int size = width * height;
+        R = new byte[size];
+        G = new byte[size];
+        B = new byte[size];
+    }
+
 
     public ColorProcessor(int[] pixels, int width, int height) {
         this.width = width;
