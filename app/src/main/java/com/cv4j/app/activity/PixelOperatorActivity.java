@@ -27,6 +27,7 @@ import com.cv4j.app.R;
 import com.cv4j.app.app.BaseActivity;
 import com.cv4j.core.datamodel.CV4JImage;
 import com.cv4j.core.datamodel.ImageProcessor;
+import com.cv4j.core.datamodel.Rect;
 import com.cv4j.core.pixels.Operator;
 import com.safframework.injectview.annotations.InjectExtra;
 import com.safframework.injectview.annotations.InjectView;
@@ -63,6 +64,8 @@ public class PixelOperatorActivity extends BaseActivity {
     public static final int BITWISE_OR = 6;
     public static final int BITWISE_NOT = 7;
     public static final int BITWISE_XOR = 8;
+    public static final int ADD_WEIGHT = 9;
+    public static final int SUB_IMAGE = 10;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -123,6 +126,19 @@ public class PixelOperatorActivity extends BaseActivity {
 
             case BITWISE_XOR:
                 imageProcessor = Operator.bitwise_xor(imageProcessor1,imageProcessor2);
+                break;
+
+            case ADD_WEIGHT:
+                imageProcessor = Operator.addWeight(imageProcessor1,2.0f,imageProcessor2,1.0f,4);
+                break;
+
+            case SUB_IMAGE:
+                Rect rect = new Rect();
+                rect.x = 100;
+                rect.y = 100;
+                rect.width = 300;
+                rect.height = 400;
+                imageProcessor = Operator.subImage(imageProcessor1,rect);
                 break;
 
             default:

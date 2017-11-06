@@ -60,6 +60,12 @@ public class PixelOperatorFragment extends BaseFragment {
     @InjectView(R.id.text8)
     TextView text8;
 
+    @InjectView(R.id.text9)
+    TextView text9;
+
+    @InjectView(R.id.text10)
+    TextView text10;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_pixel_operator, container, false);
@@ -126,7 +132,7 @@ public class PixelOperatorFragment extends BaseFragment {
     void clickText7() {
 
         Intent i = new Intent(mContext,PixelOperatorActivity.class);
-        i.putExtra("Title",text5.getText().toString());
+        i.putExtra("Title",text7.getText().toString());
         i.putExtra("Type",PixelOperatorActivity.BITWISE_NOT);
         startActivity(i);
     }
@@ -135,8 +141,26 @@ public class PixelOperatorFragment extends BaseFragment {
     void clickText8() {
 
         Intent i = new Intent(mContext,PixelOperatorActivity.class);
-        i.putExtra("Title",text6.getText().toString());
+        i.putExtra("Title",text8.getText().toString());
         i.putExtra("Type",PixelOperatorActivity.BITWISE_XOR);
+        startActivity(i);
+    }
+
+    @OnClick(id=R.id.text9)
+    void clickText9() {
+
+        Intent i = new Intent(mContext,PixelOperatorActivity.class);
+        i.putExtra("Title",text9.getText().toString());
+        i.putExtra("Type",PixelOperatorActivity.ADD_WEIGHT);
+        startActivity(i);
+    }
+
+    @OnClick(id=R.id.text10)
+    void clickText10() {
+
+        Intent i = new Intent(mContext,PixelOperatorActivity.class);
+        i.putExtra("Title",text10.getText().toString());
+        i.putExtra("Type",PixelOperatorActivity.SUB_IMAGE);
         startActivity(i);
     }
 }
