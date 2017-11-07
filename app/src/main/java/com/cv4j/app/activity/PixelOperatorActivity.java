@@ -134,10 +134,10 @@ public class PixelOperatorActivity extends BaseActivity {
 
             case SUB_IMAGE:
                 Rect rect = new Rect();
-                rect.x = 100;
-                rect.y = 100;
-                rect.width = 300;
-                rect.height = 400;
+                rect.x = 0;
+                rect.y = 0;
+                rect.width = 200;
+                rect.height = 200;
                 imageProcessor = Operator.subImage(imageProcessor1,rect);
                 break;
 
@@ -146,8 +146,10 @@ public class PixelOperatorActivity extends BaseActivity {
                 break;
         }
 
-        CV4JImage resultCV4JImage = new CV4JImage(imageProcessor.getWidth(), imageProcessor.getHeight(), imageProcessor.getPixels());
-        result.setImageBitmap(resultCV4JImage.getProcessor().getImage().toBitmap());
+        if (imageProcessor!=null) {
+            CV4JImage resultCV4JImage = new CV4JImage(imageProcessor.getWidth(), imageProcessor.getHeight(), imageProcessor.getPixels());
+            result.setImageBitmap(resultCV4JImage.getProcessor().getImage().toBitmap());
+        }
     }
 
     @OnClick(id= R.id.toolbar)
