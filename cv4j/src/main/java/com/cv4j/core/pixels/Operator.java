@@ -216,7 +216,7 @@ public class Operator {
 		int index = 0;
 		for(int row=rect.y; row < (rect.y+rect.height); row++) {
 			for(int col=rect.x; col < (rect.x+rect.width); col++) {
-				index = row*w + col;
+				index = row*image.getWidth() + col;
 				for(int n=0; n<channels; n++) {
 					a = image.toByte(n)[index]&0xff;
 					index = (row - rect.y)*w + (col - rect.x);
