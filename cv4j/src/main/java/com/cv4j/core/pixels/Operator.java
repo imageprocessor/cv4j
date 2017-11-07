@@ -214,10 +214,10 @@ public class Operator {
 		ImageProcessor dst = (channels == 3) ? new ColorProcessor(w, h) : new ByteProcessor(w, h);
 		int a=0;
 		int index = 0;
-		for(int row=rect.y; row < (rect.y+rect.height); row++) {
-			for(int col=rect.x; col < (rect.x+rect.width); col++) {
-				index = row*image.getWidth() + col;
-				for(int n=0; n<channels; n++) {
+		for(int n=0; n<channels; n++) {
+			for(int row=rect.y; row < (rect.y+rect.height); row++) {
+				for(int col=rect.x; col < (rect.x+rect.width); col++) {
+					index = row*image.getWidth() + col;
 					a = image.toByte(n)[index]&0xff;
 					index = (row - rect.y)*w + (col - rect.x);
 					dst.toByte(n)[index] = (byte)a;
