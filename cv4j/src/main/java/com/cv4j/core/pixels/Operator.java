@@ -4,6 +4,7 @@ import com.cv4j.core.datamodel.ByteProcessor;
 import com.cv4j.core.datamodel.ColorProcessor;
 import com.cv4j.core.datamodel.ImageProcessor;
 import com.cv4j.core.datamodel.Rect;
+import com.cv4j.exception.CV4JException;
 import com.cv4j.image.util.Preconditions;
 import com.cv4j.image.util.Tools;
 
@@ -200,30 +201,37 @@ public class Operator {
 		}
 		return dst;
 	}
-	
+
 	/**
 	 * ROI sub image by rect.x, rect.y, rect.width, rect.height
 	 * @param image
 	 * @param rect
 	 * @return
+	 * @throws CV4JException
 	 */
-	public static ImageProcessor subImage(ImageProcessor image, Rect rect) {
+	public static ImageProcessor subImage(ImageProcessor image, Rect rect) throws CV4JException{
 		int channels = image.getChannels();
 		int w = rect.width;
 		int h = rect.height;
 		ImageProcessor dst = (channels == 3) ? new ColorProcessor(w, h) : new ByteProcessor(w, h);
 		int a=0;
 		int index = 0;
-		for(int n=0; n<channels; n++) {
-			for(int row=rect.y; row < (rect.y+rect.height); row++) {
-				for(int col=rect.x; col < (rect.x+rect.width); col++) {
-					index = row*image.getWidth() + col;
-					a = image.toByte(n)[index]&0xff;
-					index = (row - rect.y)*w + (col - rect.x);
-					dst.toByte(n)[index] = (byte)a;
+
+		try {
+			for(int n=0; n<channels; n++) {
+				for(int row=rect.y; row < (rect.y+rect.height); row++) {
+					for(int col=rect.x; col < (rect.x+rect.width); col++) {
+						index = row*image.getWidth() + col;
+						a = image.toByte(n)[index]&0xff;
+						index = (row - rect.y)*w + (col - rect.x);
+						dst.toByte(n)[index] = (byte)a;
+					}
 				}
 			}
+		} catch (ArrayIndexOutOfBoundsException e) {
+			throw new CV4JException("数组越界了");
 		}
+
 		return dst;
 	}
 
