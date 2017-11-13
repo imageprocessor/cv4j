@@ -32,6 +32,7 @@ import com.cv4j.core.pixels.Operator;
 import com.cv4j.exception.CV4JException;
 import com.safframework.injectview.annotations.InjectExtra;
 import com.safframework.injectview.annotations.InjectView;
+import com.safframework.injectview.annotations.OnClick;
 
 /**
  * Created by tony on 2017/11/13.
@@ -88,5 +89,11 @@ public class SubImageActivity extends BaseActivity {
             CV4JImage resultCV4JImage = new CV4JImage(resultImageProcessor.getWidth(), resultImageProcessor.getHeight(), resultImageProcessor.getPixels());
             result.setImageBitmap(resultCV4JImage.getProcessor().getImage().toBitmap());
         }
+    }
+
+    @OnClick(id= R.id.toolbar)
+    void clickToolbar() {
+
+        finish();
     }
 }

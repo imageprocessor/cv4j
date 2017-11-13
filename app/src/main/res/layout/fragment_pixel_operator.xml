@@ -85,7 +85,7 @@
         android:layout_margin="10dp"
         android:background="@drawable/textview_border"
         android:gravity="center"
-        android:text="加权操作"/>
+        android:text="像素混合"/>
 
     <TextView
         android:id="@+id/text10"
@@ -94,6 +94,6 @@
         android:layout_margin="10dp"
         android:background="@drawable/textview_border"
         android:gravity="center"
-        android:text="子图操作"/>
+        android:text="提取图像中的ROI"/>
 
 </LinearLayout>
