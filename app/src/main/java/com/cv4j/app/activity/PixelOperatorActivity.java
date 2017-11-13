@@ -29,6 +29,7 @@ import com.cv4j.core.datamodel.CV4JImage;
 import com.cv4j.core.datamodel.ImageProcessor;
 import com.cv4j.core.datamodel.Rect;
 import com.cv4j.core.pixels.Operator;
+import com.cv4j.exception.CV4JException;
 import com.safframework.injectview.annotations.InjectExtra;
 import com.safframework.injectview.annotations.InjectView;
 import com.safframework.injectview.annotations.OnClick;
@@ -133,12 +134,18 @@ public class PixelOperatorActivity extends BaseActivity {
                 break;
 
             case SUB_IMAGE:
+
                 Rect rect = new Rect();
                 rect.x = 0;
                 rect.y = 0;
-                rect.width = 200;
-                rect.height = 200;
-                imageProcessor = Operator.subImage(imageProcessor1,rect);
+                rect.width = 300;
+                rect.height = 300;
+
+                try {
+                    imageProcessor = Operator.subImage(imageProcessor1,rect);
+                } catch (CV4JException e) {
+                }
+
                 break;
 
             default:

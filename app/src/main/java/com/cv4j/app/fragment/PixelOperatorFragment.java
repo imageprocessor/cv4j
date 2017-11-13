@@ -25,6 +25,7 @@ import android.widget.TextView;
 
 import com.cv4j.app.R;
 import com.cv4j.app.activity.PixelOperatorActivity;
+import com.cv4j.app.activity.SubImageActivity;
 import com.cv4j.app.app.BaseFragment;
 import com.safframework.injectview.Injector;
 import com.safframework.injectview.annotations.InjectView;
@@ -158,9 +159,8 @@ public class PixelOperatorFragment extends BaseFragment {
     @OnClick(id=R.id.text10)
     void clickText10() {
 
-        Intent i = new Intent(mContext,PixelOperatorActivity.class);
+        Intent i = new Intent(mContext,SubImageActivity.class);
         i.putExtra("Title",text10.getText().toString());
-        i.putExtra("Type",PixelOperatorActivity.SUB_IMAGE);
         startActivity(i);
     }
 }

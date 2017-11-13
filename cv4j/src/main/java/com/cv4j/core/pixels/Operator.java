@@ -8,7 +8,7 @@ import com.cv4j.exception.CV4JException;
 import com.cv4j.image.util.Preconditions;
 import com.cv4j.image.util.Tools;
 
-public class Operator {
+public final class Operator {
 	
 	public static ImageProcessor add(ImageProcessor image1, ImageProcessor image2) {
 		if(!checkParams(image1, image2)) {
