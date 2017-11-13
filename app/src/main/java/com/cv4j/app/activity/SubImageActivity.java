@@ -64,7 +64,7 @@ public class SubImageActivity extends BaseActivity {
         toolbar.setTitle("< "+title);
         Resources res = getResources();
 
-        final Bitmap bitmap = BitmapFactory.decodeResource(res, R.drawable.pixel_test_1);
+        final Bitmap bitmap = BitmapFactory.decodeResource(res, R.drawable.pixel_test_3);
         image.setImageBitmap(bitmap);
 
         CV4JImage cv4jImage = new CV4JImage(bitmap);
@@ -72,10 +72,10 @@ public class SubImageActivity extends BaseActivity {
 
 
         Rect rect = new Rect();
-        rect.x = 0;
-        rect.y = 0;
+        rect.x = 300;
+        rect.y = 200;
         rect.width = 300;
-        rect.height = 300;
+        rect.height = 450;
 
         ImageProcessor resultImageProcessor = null;
 
