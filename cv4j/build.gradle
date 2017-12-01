@@ -101,7 +101,7 @@ publish{
     userOrg = 'fengzhizi715'
     groupId = 'com.cv4j'
     artifactId = 'cv4j'
-    publishVersion = '0.1.1.2'
+    publishVersion = '0.1.1.3'
     desc = 'this is a computer vision library for android'
     website = 'https://github.com/imageprocessor/cv4j'
 }
