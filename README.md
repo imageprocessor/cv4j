@@ -20,7 +20,7 @@ The target is to set up a high quality and real-time image process and machine l
 ## 1.单独下载cv4j
 
 ```groovy
-compile 'com.cv4j:cv4j:0.1.1.2'
+compile 'com.cv4j:cv4j:0.1.1.3'
 ```
 
 ## 2.下载rxcv4j
