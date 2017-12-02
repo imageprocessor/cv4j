@@ -25,6 +25,7 @@ import android.widget.TextView;
 
 import com.cv4j.app.R;
 import com.cv4j.app.activity.PixelOperatorActivity;
+import com.cv4j.app.activity.PrincipalColorExtractorActivity;
 import com.cv4j.app.activity.SubImageActivity;
 import com.cv4j.app.app.BaseFragment;
 import com.safframework.injectview.Injector;
@@ -66,6 +67,9 @@ public class PixelOperatorFragment extends BaseFragment {
 
     @InjectView(R.id.text10)
     TextView text10;
+
+    @InjectView(R.id.text11)
+    TextView text11;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -161,6 +165,14 @@ public class PixelOperatorFragment extends BaseFragment {
 
         Intent i = new Intent(mContext,SubImageActivity.class);
         i.putExtra("Title",text10.getText().toString());
+        startActivity(i);
+    }
+
+    @OnClick(id=R.id.text11)
+    void clickText11() {
+
+        Intent i = new Intent(mContext,PrincipalColorExtractorActivity.class);
+        i.putExtra("Title",text11.getText().toString());
         startActivity(i);
     }
 }

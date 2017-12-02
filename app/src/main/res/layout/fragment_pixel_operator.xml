@@ -96,4 +96,13 @@
         android:gravity="center"
         android:text="提取图像中的ROI"/>
 
+    <TextView
+        android:id="@+id/text11"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_margin="10dp"
+        android:background="@drawable/textview_border"
+        android:gravity="center"
+        android:text="提取图像中的主色彩"/>
+
 </LinearLayout>

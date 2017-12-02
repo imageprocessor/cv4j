@@ -19,10 +19,10 @@ ext {
 
             saf_injectview          : "1.1.0",
             saf_injectview_compiler : "1.1.0",
-            saf_log                 : "1.2.0",
+            saf_log                 : "1.5.0",
             saf_aop                 : "1.1.4",
 
-            tony_common_utils       : "1.1.0"
+            tony_common_utils       : "1.2.2"
     ]
 }
 
