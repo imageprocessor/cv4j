@@ -1,3 +1,18 @@
+/*
+ * Copyright (c) 2017-present, CV4J Contributors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.cv4j.core.pixels;
 
 import java.util.ArrayList;
@@ -101,16 +116,15 @@ public class PrincipalColorExtractor {
         }
         return colors;
 	}
-	
+
 	private boolean isStop(double[][] oldClusterCenterColors, double[][] newClusterCenterColors) {
 		boolean stop = false;
-		for(int i=0; i<oldClusterCenterColors.length; i++)
-		{
-			if(oldClusterCenterColors[i][0]  == newClusterCenterColors[i][0] && 
-					oldClusterCenterColors[i][1]  == newClusterCenterColors[i][1] &&
-					oldClusterCenterColors[i][2]  == newClusterCenterColors[i][2]) 
-			{
+		for (int i = 0; i < oldClusterCenterColors.length; i++) {
+			if (oldClusterCenterColors[i][0] == newClusterCenterColors[i][0] &&
+					oldClusterCenterColors[i][1] == newClusterCenterColors[i][1] &&
+					oldClusterCenterColors[i][2] == newClusterCenterColors[i][2]) {
 				stop = true;
+				break;
 			}
 		}
 		return stop;
@@ -205,9 +219,9 @@ public class PrincipalColorExtractor {
 	}
 
 	/**
-	 * 
-	 * @param point
-	 * @param cluster
+	 *
+	 * @param p
+	 * @param c
 	 * @return distance value
 	 */
 	private double calculateEuclideanDistance(ClusterPoint p, ClusterCenter c) 
