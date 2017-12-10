@@ -5,6 +5,9 @@ import com.cv4j.core.datamodel.ColorProcessor;
 import com.cv4j.core.datamodel.ImageProcessor;
 
 public class Flip {
+
+	public final static int FLIP_VERTICAL = -1;
+	public final static int FLIP_HORIZONTAL = 1;
 	
 	public static void flip(ImageProcessor processor, int option) {
 		int width = processor.getWidth();
@@ -17,9 +20,9 @@ public class Flip {
         for(int row=0; row<height; row++) {
         	for(int col=0; col<width; col++) {
         		index1 = row*width+col;
-        		if(option == 1) {
+        		if(option == FLIP_HORIZONTAL) {
         			index2 = row*width + width-col-1;
-        		} else if(option == -1){
+        		} else if(option == FLIP_VERTICAL){
         			index2 = (height-row-1)*width + col;
         		} else {
         			throw new IllegalArgumentException("invalid option : " + option);

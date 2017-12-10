@@ -27,7 +27,7 @@ import com.cv4j.app.R;
 import com.cv4j.app.app.BaseActivity;
 import com.cv4j.core.datamodel.CV4JImage;
 import com.cv4j.core.datamodel.ImageProcessor;
-import com.cv4j.core.pixels.Resize;
+import com.cv4j.core.pixels.Flip;
 import com.safframework.injectview.annotations.InjectExtra;
 import com.safframework.injectview.annotations.InjectView;
 import com.safframework.injectview.annotations.OnClick;
@@ -36,13 +36,16 @@ import com.safframework.injectview.annotations.OnClick;
  * Created by tony on 2017/12/10.
  */
 
-public class ResizeActivity extends BaseActivity {
+public class FlipActivity extends BaseActivity {
 
     @InjectView(R.id.image)
     ImageView image;
 
-    @InjectView(R.id.result_image)
-    ImageView result;
+    @InjectView(R.id.result_image1)
+    ImageView result1;
+
+    @InjectView(R.id.result_image2)
+    ImageView result2;
 
     @InjectView(R.id.toolbar)
     Toolbar toolbar;
@@ -53,7 +56,7 @@ public class ResizeActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_resize);
+        setContentView(R.layout.activity_flip);
 
         initData();
     }
@@ -69,13 +72,21 @@ public class ResizeActivity extends BaseActivity {
         CV4JImage cv4jImage = new CV4JImage(bitmap);
         ImageProcessor imageProcessor = cv4jImage.getProcessor();
 
-        Resize resize = new Resize(0.75f);
-
-        imageProcessor = resize.resize(imageProcessor,Resize.NEAREST_INTEPOLATE);
+        Flip.flip(imageProcessor,Flip.FLIP_HORIZONTAL);
 
         if (imageProcessor!=null) {
             CV4JImage resultCV4JImage = new CV4JImage(imageProcessor.getWidth(), imageProcessor.getHeight(), imageProcessor.getPixels());
-            result.setImageBitmap(resultCV4JImage.getProcessor().getImage().toBitmap());
+            result1.setImageBitmap(resultCV4JImage.getProcessor().getImage().toBitmap());
+        }
+
+        cv4jImage = new CV4JImage(bitmap);
+        ImageProcessor imageProcessor2 = cv4jImage.getProcessor();
+
+        Flip.flip(imageProcessor2,Flip.FLIP_VERTICAL);
+
+        if (imageProcessor2!=null) {
+            CV4JImage resultCV4JImage = new CV4JImage(imageProcessor2.getWidth(), imageProcessor2.getHeight(), imageProcessor2.getPixels());
+            result2.setImageBitmap(resultCV4JImage.getProcessor().getImage().toBitmap());
         }
     }
 
