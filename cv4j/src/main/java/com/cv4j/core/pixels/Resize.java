@@ -58,12 +58,12 @@ public class Resize {
 		ImageProcessor dst = (channels == 3) ? new ColorProcessor(w, h) : new ByteProcessor(w, h);
 		int index = 0;
 		for (int row = 0; row < h; row++) {
-			int srcRow = Math.round(((float)row)*yrate);
+			int srcRow = Math.round(((float)row)/yrate);
 			if(srcRow >=height) {
 				srcRow = height - 1;
 			}
 			for (int col = 0; col < w; col++) {
-				int srcCol = Math.round(((float)col)*xrate);
+				int srcCol = Math.round(((float)col)/xrate);
 				if(srcCol >= width) {
 					srcCol = width - 1;
 				}
@@ -77,7 +77,7 @@ public class Resize {
 		return dst;
 	}
 	
-	public ImageProcessor biline(ImageProcessor processor) {
+	private ImageProcessor biline(ImageProcessor processor) {
 		int width = processor.getWidth();
 		int height = processor.getHeight();
 		int w = (int)(width * xrate);
@@ -86,13 +86,13 @@ public class Resize {
 		ImageProcessor dst = (channels == 3) ? new ColorProcessor(w, h) : new ByteProcessor(w, h);
 		int index = 0;
 		for(int row=0; row<h; row++) {
-			double srcRow = ((float)row)*yrate;
+			double srcRow = ((float)row)/yrate;
 			// 获取整数部分坐标 row Index
 			double j = Math.floor(srcRow);
 			// 获取行的小数部分坐标
 			double t = srcRow - j; 
 			for(int col=0; col<w; col++) {
-				double srcCol = ((float)col)*xrate;
+				double srcCol = ((float)col)/xrate;
 				// 获取整数部分坐标 column Index
 				double k = Math.floor(srcCol);
 				// 获取列的小数部分坐标
