@@ -70,7 +70,7 @@ public class Resize {
 				int index2 = row * w + col;
 				index = srcRow * width + srcCol;
 				for(int i=0; i<channels; i++) {
-					dst.toByte(i)[index2] = processor.toByte(index)[i];
+					dst.toByte(i)[index2] = processor.toByte(i)[index];
 				}			
 			}
 		}
@@ -144,7 +144,7 @@ public class Resize {
     	int channels = processor.getChannels();
     	int[] rgb = new int[channels];
     	for(int i=0; i<channels; i++) {
-    		rgb[i] = processor.toByte(index)[i]&0xff; 		
+    		rgb[i] = processor.toByte(i)[index]&0xff; 		
     	}
 		return rgb;	
 	}
