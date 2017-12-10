@@ -69,6 +69,11 @@ public class Tools {
         float p = (c > 255 ? 255 : ((c < 0) ? 0 : c));
         return (int) p;
     }
+	
+	public static int clamp(double c) {
+    	double p = (c > 255 ? 255 : ((c < 0) ? 0 : c));
+        return (int) p;
+    }
 
     public static float[] calcMeansAndDev(float[] data) {
         float sum = 0;
