@@ -66,7 +66,6 @@ public class PixelOperatorActivity extends BaseActivity {
     public static final int BITWISE_NOT = 7;
     public static final int BITWISE_XOR = 8;
     public static final int ADD_WEIGHT = 9;
-    public static final int SUB_IMAGE = 10;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -131,21 +130,6 @@ public class PixelOperatorActivity extends BaseActivity {
 
             case ADD_WEIGHT:
                 imageProcessor = Operator.addWeight(imageProcessor1,2.0f,imageProcessor2,1.0f,4);
-                break;
-
-            case SUB_IMAGE:
-
-                Rect rect = new Rect();
-                rect.x = 0;
-                rect.y = 0;
-                rect.width = 300;
-                rect.height = 300;
-
-                try {
-                    imageProcessor = Operator.subImage(imageProcessor1,rect);
-                } catch (CV4JException e) {
-                }
-
                 break;
 
             default:

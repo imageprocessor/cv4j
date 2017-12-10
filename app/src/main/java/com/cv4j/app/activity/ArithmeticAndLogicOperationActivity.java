@@ -18,10 +18,12 @@ package com.cv4j.app.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
 
 import com.cv4j.app.R;
 import com.cv4j.app.app.BaseActivity;
+import com.safframework.injectview.annotations.InjectExtra;
 import com.safframework.injectview.annotations.InjectView;
 import com.safframework.injectview.annotations.OnClick;
 
@@ -58,10 +60,22 @@ public class ArithmeticAndLogicOperationActivity extends BaseActivity {
     @InjectView(R.id.text9)
     TextView text9;
 
+    @InjectView(R.id.toolbar)
+    Toolbar toolbar;
+
+    @InjectExtra(key = "Title")
+    String title;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_arithmetic_and_logic_operator);
+
+        initData();
+    }
+
+    private void initData() {
+        toolbar.setTitle("< "+title);
     }
 
     @OnClick(id=R.id.text1)
@@ -134,5 +148,20 @@ public class ArithmeticAndLogicOperationActivity extends BaseActivity {
         i.putExtra("Title",text8.getText().toString());
         i.putExtra("Type",PixelOperatorActivity.BITWISE_XOR);
         startActivity(i);
+    }
+
+    @OnClick(id=R.id.text9)
+    void clickText9() {
+
+        Intent i = new Intent(this,PixelOperatorActivity.class);
+        i.putExtra("Title",text8.getText().toString());
+        i.putExtra("Type",PixelOperatorActivity.ADD_WEIGHT);
+        startActivity(i);
+    }
+
+    @OnClick(id= R.id.toolbar)
+    void clickToolbar() {
+
+        finish();
     }
 }
