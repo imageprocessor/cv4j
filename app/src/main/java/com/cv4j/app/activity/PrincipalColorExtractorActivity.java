@@ -33,6 +33,7 @@ import com.cv4j.core.datamodel.Scalar;
 import com.cv4j.core.pixels.PrincipalColorExtractor;
 import com.safframework.injectview.annotations.InjectExtra;
 import com.safframework.injectview.annotations.InjectView;
+import com.safframework.injectview.annotations.OnClick;
 import com.safframework.log.L;
 
 import java.util.List;
@@ -103,5 +104,11 @@ public class PrincipalColorExtractorActivity extends BaseActivity {
 
         Scalar scalar4 = scalars.get(4);
         result4.setBackgroundColor(Color.rgb(scalar4.red, scalar4.green, scalar4.blue));
+    }
+
+    @OnClick(id= R.id.toolbar)
+    void clickToolbar() {
+
+        finish();
     }
 }

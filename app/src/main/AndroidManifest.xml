@@ -100,6 +100,10 @@
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".activity.ArithmeticAndLogicOperationActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".activity.SubImageActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait" />

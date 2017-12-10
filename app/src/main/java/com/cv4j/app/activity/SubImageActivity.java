@@ -65,7 +65,7 @@ public class SubImageActivity extends BaseActivity {
         toolbar.setTitle("< "+title);
         Resources res = getResources();
 
-        final Bitmap bitmap = BitmapFactory.decodeResource(res, R.drawable.test_hist2);
+        final Bitmap bitmap = BitmapFactory.decodeResource(res, R.drawable.pixel_test_3);
         image.setImageBitmap(bitmap);
 
         CV4JImage cv4jImage = new CV4JImage(bitmap);
