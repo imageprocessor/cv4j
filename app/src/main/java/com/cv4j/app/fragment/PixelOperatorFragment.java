@@ -27,6 +27,7 @@ import com.cv4j.app.R;
 import com.cv4j.app.activity.ArithmeticAndLogicOperationActivity;
 import com.cv4j.app.activity.PixelOperatorActivity;
 import com.cv4j.app.activity.PrincipalColorExtractorActivity;
+import com.cv4j.app.activity.ResizeActivity;
 import com.cv4j.app.activity.SubImageActivity;
 import com.cv4j.app.app.BaseFragment;
 import com.safframework.injectview.Injector;
@@ -48,6 +49,9 @@ public class PixelOperatorFragment extends BaseFragment {
     @InjectView(R.id.text3)
     TextView text3;
 
+    @InjectView(R.id.text4)
+    TextView text4;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_pixel_operator, container, false);
@@ -65,7 +69,7 @@ public class PixelOperatorFragment extends BaseFragment {
     }
 
     @OnClick(id=R.id.text2)
-    void clickText10() {
+    void clickText2() {
 
         Intent i = new Intent(mContext,SubImageActivity.class);
         i.putExtra("Title",text2.getText().toString());
@@ -73,10 +77,18 @@ public class PixelOperatorFragment extends BaseFragment {
     }
 
     @OnClick(id=R.id.text3)
-    void clickText11() {
+    void clickText3() {
 
         Intent i = new Intent(mContext,PrincipalColorExtractorActivity.class);
         i.putExtra("Title",text3.getText().toString());
+        startActivity(i);
+    }
+
+    @OnClick(id=R.id.text4)
+    void clickText4() {
+
+        Intent i = new Intent(mContext,ResizeActivity.class);
+        i.putExtra("Title",text4.getText().toString());
         startActivity(i);
     }
 }

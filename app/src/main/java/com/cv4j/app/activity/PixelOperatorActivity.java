@@ -27,12 +27,11 @@ import com.cv4j.app.R;
 import com.cv4j.app.app.BaseActivity;
 import com.cv4j.core.datamodel.CV4JImage;
 import com.cv4j.core.datamodel.ImageProcessor;
-import com.cv4j.core.datamodel.Rect;
 import com.cv4j.core.pixels.Operator;
-import com.cv4j.exception.CV4JException;
 import com.safframework.injectview.annotations.InjectExtra;
 import com.safframework.injectview.annotations.InjectView;
 import com.safframework.injectview.annotations.OnClick;
+
 /**
  * Created by tony on 2017/11/5.
  */

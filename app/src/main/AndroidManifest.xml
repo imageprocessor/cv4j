@@ -111,6 +111,10 @@
             android:name=".activity.PrincipalColorExtractorActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.ResizeActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait" />
 
     </application>
 
