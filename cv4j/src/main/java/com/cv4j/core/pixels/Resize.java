@@ -70,7 +70,7 @@ public class Resize {
 				int index2 = row * w + col;
 				index = srcRow * width + srcCol;
 				for(int i=0; i<channels; i++) {
-					dst.toByte(index2)[i] = processor.toByte(index)[i];
+					dst.toByte(i)[index2] = processor.toByte(index)[i];
 				}			
 			}
 		}
@@ -108,7 +108,7 @@ public class Resize {
 				index = row * w + col;
 				for(int i=0; i<channels; i++) {
 					int pv = (int)(p1[i] * a + p2[i] * b + p3[i] * c + p4[i] * d);
-					dst.toByte(index)[i] = (byte)Tools.clamp(pv);
+					dst.toByte(i)[index] = (byte)Tools.clamp(pv);
 				}	
 			}
 		}
