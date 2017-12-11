@@ -24,11 +24,11 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.cv4j.app.R;
-import com.cv4j.app.activity.ArithmeticAndLogicOperationActivity;
+import com.cv4j.app.activity.pixels.ArithmeticAndLogicOperationActivity;
 import com.cv4j.app.activity.FlipActivity;
-import com.cv4j.app.activity.PrincipalColorExtractorActivity;
-import com.cv4j.app.activity.ResizeActivity;
-import com.cv4j.app.activity.SubImageActivity;
+import com.cv4j.app.activity.pixels.PrincipalColorExtractorActivity;
+import com.cv4j.app.activity.pixels.ResizeActivity;
+import com.cv4j.app.activity.pixels.SubImageActivity;
 import com.cv4j.app.app.BaseFragment;
 import com.safframework.injectview.Injector;
 import com.safframework.injectview.annotations.InjectView;

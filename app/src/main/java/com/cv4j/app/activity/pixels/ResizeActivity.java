@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.cv4j.app.activity;
+package com.cv4j.app.activity.pixels;
 
 import android.content.res.Resources;
 import android.graphics.Bitmap;

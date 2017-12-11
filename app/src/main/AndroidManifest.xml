@@ -96,23 +96,23 @@
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.PixelOperatorActivity"
+            android:name=".activity.pixels.PixelOperatorActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.ArithmeticAndLogicOperationActivity"
+            android:name=".activity.pixels.ArithmeticAndLogicOperationActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.SubImageActivity"
+            android:name=".activity.pixels.SubImageActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.PrincipalColorExtractorActivity"
+            android:name=".activity.pixels.PrincipalColorExtractorActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.ResizeActivity"
+            android:name=".activity.pixels.ResizeActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait" />
         <activity
