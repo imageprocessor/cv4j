@@ -1,25 +1,14 @@
-/*
- * Copyright (c) 2017-present, CV4J Contributors.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 package com.cv4j.core.pixels;
 
 import com.cv4j.core.datamodel.ByteProcessor;
 import com.cv4j.core.datamodel.ColorProcessor;
 import com.cv4j.core.datamodel.ImageProcessor;
 import com.cv4j.core.datamodel.Scalar;
-
+/**
+ * 
+ * @author gloomy fish
+ *
+ */
 public class NormRotate {
 	private Scalar background;
 	public NormRotate() {
@@ -33,12 +22,20 @@ public class NormRotate {
 
 	public ImageProcessor rotate(ImageProcessor processor, float degree, Scalar bgColor) {
 		this.background = bgColor;
-		int width = processor.getWidth();
+        if(Math.floor(degree/90) == 1){
+        	processor = rotate90(processor, 90);
+        	degree = degree - 90;
+        } else if(Math.floor(degree/90) == 2) {
+        	processor = rotate90(processor, 180);
+        	degree = degree - 180;
+        }
+        else if(Math.floor(degree/90) == 3) {
+        	processor = rotate90(processor, 270);
+        	degree = degree - 270;
+        }
+        int width = processor.getWidth();
         int height = processor.getHeight();
         int ch = processor.getChannels();
-        if(degree == 90.0 || degree == 180.0 || degree == 270.0) {
-        	return rotate90(processor, degree);
-        }
         double angle = (degree/180.0d) * Math.PI;
         int outw = (int)(width*Math.cos(angle)+height*Math.sin(angle)); 
         int outh = (int)(height*Math.cos(angle)+width*Math.sin(angle));
@@ -130,7 +127,7 @@ public class NormRotate {
         		index = row * width + col;
         		if(degree == 90)
         		{
-        			index2 = outw * col + (height - 1- row);
+        			index2 = outw * (width - 1 - col) + row;
         		}
         		else if(degree == 180)
         		{
@@ -139,7 +136,7 @@ public class NormRotate {
         		}
         		else if(degree == 270)
         		{
-        			index2 = outw * (width - 1 - col) + row;
+        			index2 = outw * col + (height - 1- row);
         		}
         		for(int i=0; i<ch; i++) {
         			dst.toByte(i)[index2] = processor.toByte(i)[index];
