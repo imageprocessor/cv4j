@@ -18,6 +18,7 @@ package com.cv4j.core.pixels;
 import com.cv4j.core.datamodel.ByteProcessor;
 import com.cv4j.core.datamodel.ColorProcessor;
 import com.cv4j.core.datamodel.ImageProcessor;
+import com.cv4j.exception.CV4JException;
 
 public class Flip {
 
@@ -40,7 +41,7 @@ public class Flip {
         		} else if(option == FLIP_VERTICAL){
         			index2 = (height-row-1)*width + col;
         		} else {
-        			throw new IllegalArgumentException("invalid option : " + option);
+        			throw new CV4JException("invalid option : " + option);
         		}
         		for(int i=0; i<ch; i++) {
         			output[i][index2] = processor.toByte(i)[index1];

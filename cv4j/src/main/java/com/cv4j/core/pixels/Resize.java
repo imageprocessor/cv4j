@@ -18,6 +18,7 @@ package com.cv4j.core.pixels;
 import com.cv4j.core.datamodel.ByteProcessor;
 import com.cv4j.core.datamodel.ColorProcessor;
 import com.cv4j.core.datamodel.ImageProcessor;
+import com.cv4j.exception.CV4JException;
 import com.cv4j.image.util.Tools;
 
 public class Resize {
@@ -45,7 +46,7 @@ public class Resize {
 		} else if(type == BILINE_INTEPOLATE) {
 			return biline(processor);
 		} else {
-			throw new RuntimeException("Unsupported resize type...");
+			throw new CV4JException("Unsupported resize type...");
 		}
 	}
 
