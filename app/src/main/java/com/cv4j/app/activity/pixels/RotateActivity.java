@@ -25,6 +25,11 @@ import android.widget.ImageView;
 
 import com.cv4j.app.R;
 import com.cv4j.app.app.BaseActivity;
+import com.cv4j.core.datamodel.CV4JImage;
+import com.cv4j.core.datamodel.ImageProcessor;
+import com.cv4j.core.datamodel.Scalar;
+import com.cv4j.core.pixels.FastRotate;
+import com.cv4j.core.pixels.NormRotate;
 import com.safframework.injectview.annotations.InjectExtra;
 import com.safframework.injectview.annotations.InjectView;
 import com.safframework.injectview.annotations.OnClick;
@@ -38,6 +43,9 @@ public class RotateActivity extends BaseActivity {
     @InjectView(R.id.image)
     ImageView image;
 
+    @InjectView(R.id.result_image)
+    ImageView result;
+
     @InjectView(R.id.toolbar)
     Toolbar toolbar;
 
@@ -47,7 +55,7 @@ public class RotateActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_flip);
+        setContentView(R.layout.activity_rotate);
 
         initData();
     }
@@ -59,6 +67,17 @@ public class RotateActivity extends BaseActivity {
 
         final Bitmap bitmap = BitmapFactory.decodeResource(res, R.drawable.pixel_test_1);
         image.setImageBitmap(bitmap);
+
+        CV4JImage cv4jImage = new CV4JImage(bitmap);
+        ImageProcessor imageProcessor = cv4jImage.getProcessor();
+
+        NormRotate normRotate = new NormRotate();
+        imageProcessor = normRotate.rotate(imageProcessor,120, Scalar.rgb(255,0,0));
+
+        if (imageProcessor!=null) {
+            CV4JImage resultCV4JImage = new CV4JImage(imageProcessor.getWidth(), imageProcessor.getHeight(), imageProcessor.getPixels());
+            result.setImageBitmap(resultCV4JImage.getProcessor().getImage().toBitmap());
+        }
     }
 
     @OnClick(id= R.id.toolbar)

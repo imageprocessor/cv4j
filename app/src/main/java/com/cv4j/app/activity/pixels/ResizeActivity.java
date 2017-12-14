@@ -27,6 +27,7 @@ import com.cv4j.app.R;
 import com.cv4j.app.app.BaseActivity;
 import com.cv4j.core.datamodel.CV4JImage;
 import com.cv4j.core.datamodel.ImageProcessor;
+import com.cv4j.core.pixels.Flip;
 import com.cv4j.core.pixels.Resize;
 import com.safframework.injectview.annotations.InjectExtra;
 import com.safframework.injectview.annotations.InjectView;
@@ -42,7 +43,10 @@ public class ResizeActivity extends BaseActivity {
     ImageView image;
 
     @InjectView(R.id.result_image)
-    ImageView result;
+    ImageView result1;
+
+    @InjectView(R.id.result_image2)
+    ImageView result2;
 
     @InjectView(R.id.toolbar)
     Toolbar toolbar;
@@ -75,7 +79,19 @@ public class ResizeActivity extends BaseActivity {
 
         if (imageProcessor!=null) {
             CV4JImage resultCV4JImage = new CV4JImage(imageProcessor.getWidth(), imageProcessor.getHeight(), imageProcessor.getPixels());
-            result.setImageBitmap(resultCV4JImage.getProcessor().getImage().toBitmap());
+            result1.setImageBitmap(resultCV4JImage.getProcessor().getImage().toBitmap());
+        }
+
+        cv4jImage = new CV4JImage(bitmap);
+        ImageProcessor imageProcessor2 = cv4jImage.getProcessor();
+
+        resize = new Resize(2f);
+
+        imageProcessor2 = resize.resize(imageProcessor,Resize.BILINE_INTEPOLATE);
+
+        if (imageProcessor2!=null) {
+            CV4JImage resultCV4JImage = new CV4JImage(imageProcessor2.getWidth(), imageProcessor2.getHeight(), imageProcessor2.getPixels());
+            result2.setImageBitmap(resultCV4JImage.getProcessor().getImage().toBitmap());
         }
     }
 
