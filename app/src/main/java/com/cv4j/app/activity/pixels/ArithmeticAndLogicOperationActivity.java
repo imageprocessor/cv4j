@@ -154,7 +154,7 @@ public class ArithmeticAndLogicOperationActivity extends BaseActivity {
     void clickText9() {
 
         Intent i = new Intent(this,PixelOperatorActivity.class);
-        i.putExtra("Title",text8.getText().toString());
+        i.putExtra("Title",text9.getText().toString());
         i.putExtra("Type",PixelOperatorActivity.ADD_WEIGHT);
         startActivity(i);
     }
