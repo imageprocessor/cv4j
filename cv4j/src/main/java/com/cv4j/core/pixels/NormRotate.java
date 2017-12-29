@@ -21,10 +21,8 @@ import com.cv4j.core.datamodel.ImageProcessor;
 import com.cv4j.core.datamodel.Scalar;
 
 public class NormRotate {
-	private Scalar background;
-	public NormRotate() {
 
-	}
+	private Scalar background;
 	
 	public ImageProcessor rotate(ImageProcessor processor, float degree) {
 		background = new Scalar();

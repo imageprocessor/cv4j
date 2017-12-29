@@ -23,6 +23,7 @@ import com.cv4j.core.datamodel.ColorProcessor;
 import com.cv4j.core.datamodel.Scalar;
 
 public class PrincipalColorExtractor {
+
 	private List<ClusterCenter> clusterCenterList;
 	private List<ClusterPoint> pointList;
 	
