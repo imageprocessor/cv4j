@@ -64,7 +64,7 @@ public class TemplateMatch2 {
         float[] result = new float[rw*rh];
         IntIntegralImage ii = new IntIntegralImage();
         ii.setImage(pixels);
-        ii.process(width, height, true);
+        ii.calculate(width, height, true);
         for(int row=offy; row<height-offy; row++) {
             for(int col=offx; col<width-offx; col++) {
             	int[] roi = getROI(width, height, tw, th, row, col, pixels);

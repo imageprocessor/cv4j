@@ -56,7 +56,7 @@ public class Threshold {
         IntIntegralImage grayii = new IntIntegralImage();
         byte[] binary_data = gray.getGray();
         grayii.setImage(binary_data);
-        grayii.process(width, height);
+        grayii.calculate(width, height);
         int yr = blockSize;
         int xr = blockSize;
         int index = 0;
