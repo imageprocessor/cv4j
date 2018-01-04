@@ -21,10 +21,10 @@ import com.cv4j.core.datamodel.IntIntegralImage;
 
 public class MosaicFilter extends BaseFilter {
 	// 窗口半径大小
-	private int r=1;
+	private int r=5;
 
 	public MosaicFilter() {
-		r = 1;
+		r = 5;
 	}
 
 	public int getRadius() {
@@ -44,32 +44,36 @@ public class MosaicFilter extends BaseFilter {
 
 		IntIntegralImage rii = new IntIntegralImage();
 		rii.setImage(R);
-		rii.process(width, height);
+		rii.calculate(width, height);
 		IntIntegralImage gii = new IntIntegralImage();
 		gii.setImage(G);
-		gii.process(width, height);
+		gii.calculate(width, height);
 		IntIntegralImage bii = new IntIntegralImage();
 		bii.setImage(B);
-		bii.process(width, height);
+		bii.calculate(width, height);
 
-		int offset = 0;
+		int x2 = 0, y2 = 0;
+		int x1 = 0, y1 = 0;
+		int index = 0;
 		for (int row = 0; row < height; row++) {
-			offset = row*width;
+			int dy = (row / size);
+			y1 = dy*size;
+			y2 = (y1+size) > height ? (height -1): (y1 + size);
+			index = row*width;
 			for (int col = 0; col < width; col++) {
-				int dy = (row / size);
 				int dx = (col / size);
-				int ny = dy*size+r;
-				int nx = dx*size+r;
-				int sr = rii.getBlockSum(nx, ny, (r * 2 + 1), (r * 2 + 1));
-				int sg = gii.getBlockSum(nx, ny, (r * 2 + 1), (r * 2 + 1));
-				int sb = bii.getBlockSum(nx, ny, (r * 2 + 1), (r * 2 + 1));
-				tr = sr / size;
-				tg = sg / size;
-				tb = sb / size;
-				output[0][offset] = (byte)tr;
-				output[1][offset] = (byte)tg;
-				output[2][offset] = (byte)tb;
-				offset++;
+				x1 = dx*size;
+				x2 = (x1+size) > width ? (width -1): (x1 + size);
+				int sr = rii.getBlockSum(x1, y1, x2, y2);
+				int sg = gii.getBlockSum(x1, y1, x2, y2);
+				int sb = bii.getBlockSum(x1, y1, x2, y2);
+				int num = (x2 - x1)*(y2 - y1);
+				tr = sr / num;
+				tg = sg / num;
+				tb = sb / num;
+				output[0][index+col] = (byte)tr;
+				output[1][index+col] = (byte)tg;
+				output[2][index+col] = (byte)tb;
 			}
 		}
 		((ColorProcessor) src).putRGB(output[0], output[1], output[2]);

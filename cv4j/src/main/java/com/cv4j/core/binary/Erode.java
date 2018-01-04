@@ -50,7 +50,7 @@ public class Erode {
 		int blocksum = structureElement.cols*structureElement.rows*255;
 		for(int i=0; i<iteration; i++) {
 			ii.setImage(input);
-			ii.process(width, height);
+			ii.calculate(width, height);
 			System.arraycopy(input, 0, output, 0, input.length);
 			for(int row=0; row<height; row++) {
 				for(int col=0; col<width; col++) {

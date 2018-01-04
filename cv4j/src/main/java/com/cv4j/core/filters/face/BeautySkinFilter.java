@@ -88,14 +88,21 @@ public class BeautySkinFilter implements CommonFilter {
         // 遮罩层模糊
         IntIntegralImage ii = new IntIntegralImage();
         ii.setImage(mask);
-        ii.process(width, height);
+        ii.calculate(width, height);
         byte[] blurmask = new byte[mask.length];
-        int offset = 0;
-        for (int row = 1; row < height - 1; row++) {
-            offset = row * width;
-            for (int col = 1; col < width - 1; col++) {
-                int sr = ii.getBlockSum(col, row, 5, 5);
-                blurmask[offset + col] = (byte) (sr / 25);
+        int x2 = 0, y2 = 0;
+        int x1 = 0, y1 = 0;
+        int cx = 0, cy = 0;
+        for (int row = 0; row < height - 1; row++) {
+            y2 = (row + 1)>height ? height : (row + 1);
+            y1 = (row - 3) < 0 ? 0 : (row - 3);
+            for (int col = 0; col < width - 1; col++) {
+                x2 = (col + 1)>width ? width : (col + 1);
+                x1 = (col - 3) < 0 ? 0 : (col - 3);
+                cx = (col - 1) < 0 ? 0 : col - 1;
+                cy = (row - 1) < 0 ? 0 : row - 1;
+                int sr = ii.getBlockSum(x1, y1, x2, y2);
+                blurmask[cx*width + cy] = (byte) (sr / 25);
             }
         }
 

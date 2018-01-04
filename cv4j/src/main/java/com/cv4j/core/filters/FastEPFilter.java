@@ -25,16 +25,15 @@ import com.cv4j.image.util.Tools;
  */
 public class FastEPFilter implements CommonFilter {
 
-	private int xr;
-	private int yr;
+	private int ksize;
 	private float sigma;
 	public FastEPFilter() {
 		sigma = 10.0f; // by default
+		ksize = 15;
 	}
-	
-	public void setWinsize(int radius) {
-		this.xr = radius;
-		this.yr = radius;
+
+	public void setWinsize(int winSize) {
+		this.ksize = winSize;
 	}
 
 	public float getSigma() {
@@ -50,8 +49,6 @@ public class FastEPFilter implements CommonFilter {
 		// initialization parameters
 		int width = src.getWidth();
 		int height = src.getHeight();
-		xr = yr = (int)(Math.max(width, height) * 0.02);
-		sigma = 10 + sigma * sigma * 5;
 
 		// start ep process
 		byte[] output = new byte[width*height];
@@ -59,7 +56,7 @@ public class FastEPFilter implements CommonFilter {
 		for(int i=0; i<src.getChannels(); i++) {
 			System.arraycopy(src.toByte(i), 0, output, 0, output.length);
 			ii.setImage(src.toByte(i));
-			ii.process(width, height, true);
+			ii.calculate(width, height, true);
 			processSingleChannel(width, height, ii, output);
 			System.arraycopy(output, 0, src.toByte(i), 0, output.length);
 		}
@@ -69,41 +66,33 @@ public class FastEPFilter implements CommonFilter {
 		return src;
 	}
 
-	public void processSingleChannel(int width, int height, IntIntegralImage input, byte[] output) {
+	public void processSingleChannel(int w, int h, IntIntegralImage ii, byte[] output) {
 		float sigma2 = sigma*sigma;
-		int offset = 0;
-		int wy = (yr * 2 + 1);
-		int wx = (xr * 2 + 1);
-		int r = 0;
-		int size = 0;
-		for (int row = 0; row < height; row++) {
-			offset = row * width;
-			for (int col = 0; col < width; col++) {
-				int swx = col + xr;
-				int swy = row + yr;
-				int nex = col-xr-1;
-				int ney = row-yr-1;
-				if(swx >= width) {
-					swx = width - 1;
-				}
-				if(swy >= height) {
-					swy = height - 1;
-				}
-				if(nex < 0) {
-					nex = 0;
-				}
-				if(ney < 0) {
-					ney = 0;
-				}
-				size = (swx - nex)*(swy - ney);
-				int sr = input.getBlockSum2(ney, nex, swy, swx);
-				float a = input.getBlockSquareSum(col, row, wy, wx);
-				// fix issue, size is not cover the whole block
-				float b = sr / size;
-				float c = (a - (sr*sr)/size)/size;
-				float d = c / (c+sigma2);
-				r = (int)((1-d)*b + d*r);
-				output[offset + col] = (byte) Tools.clamp(r);
+		int radius = ksize / 2;
+		int x2 = 0, y2 = 0;
+		int x1 = 0, y1 = 0;
+		int cx = 0, cy = 0;
+		for (int row = 0; row < h + radius; row++) {
+			y2 = (row + 1)>h ? h : (row + 1);
+			y1 = (row - ksize) < 0 ? 0 : (row - ksize);
+			for (int col = 0; col < w + radius; col++) {
+				x2 = (col + 1)>w ? w : (col + 1);
+				x1 = (col - ksize) < 0 ? 0 : (col - ksize);
+				cx = (col - radius) < 0 ? 0 : col - radius;
+				cy = (row - radius) < 0 ? 0 : row - radius;
+				int num = (x2 - x1)*(y2 - y1);
+				int s = ii.getBlockSum(x1, y1, x2, y2);
+				float var = ii.getBlockSquareSum(x1, y1, x2, y2);
+
+				// 计算系数K
+				float dr = (var - (s*s) / num) / num;
+				float mean = s / num;
+				float kr = dr / (dr + sigma2);
+
+				// 得到滤波后的像素值
+				int r = output[cy*w+cx]&0xff;
+				r = (int)((1 - kr)*mean + kr*r);
+				output[cy*w+cx] = (byte) Tools.clamp(r);
 			}
 		}
 	}
