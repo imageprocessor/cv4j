@@ -31,7 +31,6 @@ import android.widget.ImageView;
 
 import com.cv4j.app.R;
 import com.cv4j.app.app.BaseFragment;
-import com.cv4j.core.datamodel.ByteProcessor;
 import com.cv4j.core.datamodel.CV4JImage;
 import com.cv4j.core.datamodel.FloatProcessor;
 import com.cv4j.core.datamodel.ImageProcessor;
@@ -83,7 +82,7 @@ public class TemplateMatchFragment extends BaseFragment {
 
         TemplateMatch match = new TemplateMatch();
 
-        FloatProcessor floatProcessor = match.match((ByteProcessor) targetImageProcessor,(ByteProcessor)templateProcessor,0);
+        FloatProcessor floatProcessor = match.match(targetImageProcessor,templateProcessor,TemplateMatch.TM_CCORR_NORMED);
         Point[] points = Tools.getMinMaxLoc(floatProcessor.getGray(),floatProcessor.getWidth(),floatProcessor.getHeight());
 
         Point resultPoint = null;
