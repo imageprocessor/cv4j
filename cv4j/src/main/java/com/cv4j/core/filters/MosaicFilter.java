@@ -21,10 +21,10 @@ import com.cv4j.core.datamodel.IntIntegralImage;
 
 public class MosaicFilter extends BaseFilter {
 	// 窗口半径大小
-	private int r=5;
+	private int r=1;
 
 	public MosaicFilter() {
-		r = 5;
+		r = 1;
 	}
 
 	public int getRadius() {

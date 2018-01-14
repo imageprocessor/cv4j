@@ -37,23 +37,9 @@ import com.cv4j.core.datamodel.FloatProcessor;
 import com.cv4j.core.datamodel.ImageProcessor;
 import com.cv4j.core.datamodel.Point;
 import com.cv4j.core.tpl.TemplateMatch;
-import com.cv4j.core.tpl.TemplateMatch2;
 import com.cv4j.image.util.Tools;
 import com.safframework.injectview.Injector;
 import com.safframework.injectview.annotations.InjectView;
-import com.safframework.log.L;
-import com.safframework.utils.RxJavaUtils;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import io.reactivex.Observable;
-import io.reactivex.ObservableEmitter;
-import io.reactivex.ObservableOnSubscribe;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.functions.Consumer;
-import io.reactivex.functions.Function;
-import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by tony on 2017/9/16.
@@ -99,7 +85,6 @@ public class TemplateMatchFragment extends BaseFragment {
 
         FloatProcessor floatProcessor = match.match((ByteProcessor) targetImageProcessor,(ByteProcessor)templateProcessor,0);
         Point[] points = Tools.getMinMaxLoc(floatProcessor.getGray(),floatProcessor.getWidth(),floatProcessor.getHeight());
-
 
         Point resultPoint = null;
         if (points!=null) {
