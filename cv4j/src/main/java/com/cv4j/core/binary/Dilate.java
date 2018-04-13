@@ -57,11 +57,11 @@ public class Dilate {
 			for(int row=0; row<height+(size.rows/2); row++) {
 				y2 = (row + 1)>height ? height : (row + 1);
 				y1 = (row - size.rows) < 0 ? 0 : (row - size.rows);
-				for(int col=0; col<width+(s.cols/2); col++) {
+				for(int col=0; col<width+(size.cols/2); col++) {
 					x2 = (col + 1)>width ? width : (col + 1);
-	                x1 = (col - s.cols) < 0 ? 0 : (col - s.cols);
-	                cx = (col - s.cols/2) < 0 ? 0 : col - s.cols/2;
-	                cy = (row - s.rows/2) < 0 ? 0 : row - s.rows/2;
+	                x1 = (col - size.cols) < 0 ? 0 : (col - size.cols);
+	                cx = (col - size.cols/2) < 0 ? 0 : col - size.cols/2;
+	                cy = (row - size.rows/2) < 0 ? 0 : row - size.rows/2;
 	                int num = (x2 - x1)*(y2 - y1);
 	                int sum = ii.getBlockSum(x1, y1, x2, y2)/num;
 					if(sum > 0 && sum < 255) {
