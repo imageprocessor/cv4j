@@ -38,16 +38,15 @@ public class Dilate {
 	/**
 	 *
 	 * @param binary
-	 * @param structureElement, 3, 5, 7, 9, 11, x y, must be odd
+	 * @param size, 3, 5, 7, 9, 11, x y, must be odd
 	 * @param iteration - 1 as default, better less than 10, for the sake of time consume
      */
-	public void process(ByteProcessor binary, Size structureElement, int iteration){
+	public void process(ByteProcessor binary, Size size, int iteration){
 		int width = binary.getWidth();
 		int height = binary.getHeight();
 		byte[] output = new byte[width*height];
 		byte[] input = binary.getGray();
 		IntIntegralImage ii = new IntIntegralImage();
-		int blocksum = structureElement.cols*structureElement.rows*255;
 		int x2 = 0, y2 = 0;
 		int x1 = 0, y1 = 0;
 		int cx = 0, cy = 0;
@@ -55,16 +54,17 @@ public class Dilate {
 			ii.setImage(input);
 			ii.calculate(width, height);
 			System.arraycopy(input, 0, output, 0, input.length);
-			for(int row=0; row<height+(structureElement.rows/2); row++) {
+			for(int row=0; row<height+(size.rows/2); row++) {
 				y2 = (row + 1)>height ? height : (row + 1);
-				y1 = (row - structureElement.rows) < 0 ? 0 : (row - structureElement.rows);
-				for(int col=0; col<width; col++) {
+				y1 = (row - size.rows) < 0 ? 0 : (row - size.rows);
+				for(int col=0; col<width+(s.cols/2); col++) {
 					x2 = (col + 1)>width ? width : (col + 1);
-					x1 = (col - structureElement.cols) < 0 ? 0 : (col - structureElement.cols);
-					cx = (col - structureElement.cols/2) < 0 ? 0 : col - structureElement.cols/2;
-					cy = (row - structureElement.rows/2) < 0 ? 0 : row - structureElement.rows/2;
-					int sum = ii.getBlockSum(x1, y1, x2, y2);
-					if(sum > 0 && sum < blocksum) {
+	                x1 = (col - s.cols) < 0 ? 0 : (col - s.cols);
+	                cx = (col - s.cols/2) < 0 ? 0 : col - s.cols/2;
+	                cy = (row - s.rows/2) < 0 ? 0 : row - s.rows/2;
+	                int num = (x2 - x1)*(y2 - y1);
+	                int sum = ii.getBlockSum(x1, y1, x2, y2)/num;
+					if(sum > 0 && sum < 255) {
 						output[cy*width+cx] = (byte)255;
 					}
 				}
