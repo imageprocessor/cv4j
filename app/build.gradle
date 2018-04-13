@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'com.hujiang.android-aspectjx'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 def cfg = rootProject.ext.configuration // 配置
 def libs = rootProject.ext.libraries // 库
@@ -58,7 +59,7 @@ dependencies {
     implementation "com.safframework:saf-aop:${libs.saf_aop}"
     implementation "com.safframework.injectview:saf-injectview:${libs.saf_injectview}"
     implementation "com.safframework.injectview:saf-injectview-annotation:${libs.saf_injectview_annotation}"
-    annotationProcessor "com.safframework.injectview:saf-injectview-compiler:${libs.saf_injectview_compiler}"
+    kapt "com.safframework.injectview:saf-injectview-compiler:${libs.saf_injectview_compiler}"
 
     compile "tony-common:tony-common-utils:${libs.tony_common_utils}"
 
