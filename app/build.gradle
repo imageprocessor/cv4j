@@ -1,6 +1,5 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.hujiang.android-aspectjx'
-apply plugin: 'com.neenbedankt.android-apt'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
@@ -56,9 +55,10 @@ dependencies {
     compile project(':rxcv4j')
 
     compile "com.safframework.log:saf-log:${libs.saf_log}"
-    compile "com.safframework:saf-aop:${libs.saf_aop}"
-    compile "com.safframework.injectview:saf-injectview:${libs.saf_injectview}"
-    apt "com.safframework.injectview:saf-injectview-compiler:${libs.saf_injectview_compiler}"
+    implementation "com.safframework:saf-aop:${libs.saf_aop}"
+    implementation "com.safframework.injectview:saf-injectview:${libs.saf_injectview}"
+    implementation "com.safframework.injectview:saf-injectview-annotation:${libs.saf_injectview_annotation}"
+    annotationProcessor "com.safframework.injectview:saf-injectview-compiler:${libs.saf_injectview_compiler}"
 
     compile "tony-common:tony-common-utils:${libs.tony_common_utils}"
 

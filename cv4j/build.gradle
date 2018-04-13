@@ -1,6 +1,6 @@
 apply plugin: 'com.android.library'
 apply plugin: "findbugs"
-apply plugin: 'checkstyle'
+//apply plugin: 'checkstyle'
 apply plugin: 'com.novoda.bintray-release'
 
 def cfg = rootProject.ext.configuration // 配置
@@ -62,23 +62,23 @@ task findbugs(type: FindBugs,dependsOn:'assembleDebug') {
     }
 }
 
-checkstyle {
-    toolVersion '6.1.1'
-    showViolations true
-}
-
-check.dependsOn 'checkstyle'
-
-task checkstyle(type: Checkstyle) {
-    configFile rootProject.file('checkstyle.xml')
-    source 'src/main/java'
-    ignoreFailures false
-    showViolations true
-    include '**/*.java'
-    exclude '**/gen/**'
-
-    classpath = files()
-}
+//checkstyle {
+//    toolVersion '6.1.1'
+//    showViolations true
+//}
+//
+//check.dependsOn 'checkstyle'
+//
+//task checkstyle(type: Checkstyle) {
+//    configFile rootProject.file('checkstyle.xml')
+//    source 'src/main/java'
+//    ignoreFailures false
+//    showViolations true
+//    include '**/*.java'
+//    exclude '**/gen/**'
+//
+//    classpath = files()
+//}
 
 repositories {
     jcenter()
