@@ -73,5 +73,6 @@ task clean(type: Delete) {
 //tasks.getByPath(":rxcv4j:lint").enabled = false
 //tasks.getByPath(":rxcv4j:releaseAndroidJavadocs").enabled = false
 //tasks.getByPath(":rxcv4j:bintrayUpload").enabled = false
-
-tasks.getByPath(":app:transformNativeLibsWithStripDebugSymbolForDebug").enabled = false
+//
+//tasks.getByPath(":app:transformNativeLibsWithStripDebugSymbolForDebug").enabled = false
+//tasks.getByPath(":app:transformNativeLibsWithStripDebugSymbolForRelease").enabled = false

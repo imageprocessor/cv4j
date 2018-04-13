@@ -29,11 +29,11 @@ dependencies:
         #- cp --force licenses/* $ANDROID_HOME/licenses; ls -l $ANDROID_HOME/licenses
     cache_directories:
         - /usr/local/android-sdk-linux/platforms/android-24
-        - /usr/local/android-sdk-linux/build-tools/25.0.0
+        - /usr/local/android-sdk-linux/build-tools/27.0.0
         - /usr/local/android-sdk-linux/extras/android/m2repository
         - /usr/local/android-sdk-linux/extras/google/m2repository
     override:
-        - echo y | android update sdk --no-ui --all --filter tools,platform-tools,build-tools-25.0.0,android-25,extra-google-m2repository,extra-google-google_play_services,extra-android-support
+        - echo y | android update sdk --no-ui --all --filter tools,platform-tools,build-tools-27.0.2,android-27,extra-google-m2repository,extra-google-google_play_services,extra-android-support
         - chmod +x gradlew
         - ANDROID_HOME=/usr/local/android-sdk-linux ./gradlew dependencies || true
 
