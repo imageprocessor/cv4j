@@ -28,10 +28,10 @@ public class FastEPFilter implements CommonFilter {
 	private int ksize;
 	private float sigma;
 	public FastEPFilter() {
-		sigma = 10.0f; // by default
-		ksize = 15;
+		sigma = 20.0f; // by default
+		ksize = 10;
 	}
-
+	
 	public void setWinsize(int winSize) {
 		this.ksize = winSize;
 	}
@@ -83,8 +83,8 @@ public class FastEPFilter implements CommonFilter {
 				int num = (x2 - x1)*(y2 - y1);
 				int s = ii.getBlockSum(x1, y1, x2, y2);
 				float var = ii.getBlockSquareSum(x1, y1, x2, y2);
-
-				// 计算系数K
+				
+				// 计算系数K  
 				float dr = (var - (s*s) / num) / num;
 				float mean = s / num;
 				float kr = dr / (dr + sigma2);

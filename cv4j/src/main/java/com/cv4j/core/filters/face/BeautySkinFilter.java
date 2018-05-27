@@ -27,6 +27,16 @@ import com.cv4j.core.filters.GradientFilter;
 import java.util.Arrays;
 
 public class BeautySkinFilter implements CommonFilter {
+	private float sigma;
+	private float ksize;
+	public BeautySkinFilter(float sigma, float ksize) {
+		this.sigma = sigma;
+		this.ksize = ksize;
+	}
+	
+	public BeautySkinFilter() {
+		this(20, 10);
+	}
 
     @Override
     public ImageProcessor filter(ImageProcessor src) {
@@ -41,6 +51,8 @@ public class BeautySkinFilter implements CommonFilter {
         System.arraycopy(src.toByte(2), 0, B, 0, B.length);
 
         FastEPFilter epFilter = new FastEPFilter();
+        epFilter.setSigma(sigma);
+        epFilter.setWinsize((int)ksize);
         epFilter.filter(src);
 
         ISkinDetection skinDetector = new DefaultSkinDetection();
