@@ -30,7 +30,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class QRCodeScanner {
-
+	/**
+	* image  - input image
+	* n1 - size of morphology structure block size, width, default 1
+	* n2 - size of morphology structure block size, height, default 6
+	*/
     public Rect findQRCodeBounding(ImageProcessor image,int n1,int n2) {
 
         Rect rect = new Rect();
