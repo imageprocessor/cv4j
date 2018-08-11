@@ -34,44 +34,4 @@ public class ClusterPoint {
         this.clusterIndex = -1;
 	}
     
-	public double getX() {
-		return x;
-	}
-
-	public void setX(double x) {
-		this.x = x;
-	}
-
-	public double getY() {
-		return y;
-	}
-
-	public void setY(double y) {
-		this.y = y;
-	}
-
-	public Scalar getPixelColor() {
-		return pixelColor;
-	}
-
-	public void setPixelColor(Scalar pixelColor) {
-		this.pixelColor = pixelColor;
-	}
-
-	public Scalar getOriginalPixelColor() {
-		return originalPixelColor;
-	}
-
-	public void setOriginalPixelColor(Scalar originalPixelColor) {
-		this.originalPixelColor = originalPixelColor;
-	}
-
-	public double getClusterIndex() {
-		return clusterIndex;
-	}
-
-	public void setClusterIndex(double clusterIndex) {
-		this.clusterIndex = clusterIndex;
-	}
-
 }

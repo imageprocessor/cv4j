@@ -58,7 +58,7 @@ public class PrincipalColorExtractor {
 		    int randomNumber2 = random.nextInt(height);
 		    index = randomNumber2 * width + randomNumber1;
 		    ClusterCenter cc = new ClusterCenter(randomNumber1, randomNumber2, R[index]&0xff, G[index]&0xff, B[index]&0xff);
-		    cc.setcIndex(i);
+		    cc.cIndex = i;
 		    clusterCenterList.add(cc); 
 		}
         
@@ -81,7 +81,7 @@ public class PrincipalColorExtractor {
         	{
         		clusterDisValues[j] = calculateEuclideanDistance(pointList.get(i), clusterCenterList.get(j));
         	}
-        	pointList.get(i).setClusterIndex(getCloserCluster(clusterDisValues));
+        	pointList.get(i).clusterIndex = (getCloserCluster(clusterDisValues));
         }
         
         // calculate the old summary
@@ -113,7 +113,7 @@ public class PrincipalColorExtractor {
         List<Scalar> colors = new ArrayList<Scalar>();
         for(ClusterCenter cc : clusterCenterList) {
         	
-        	colors.add(cc.getPixelColor());
+        	colors.add(cc.color);
         }
         return colors;
 	}
@@ -144,7 +144,7 @@ public class PrincipalColorExtractor {
         	{
         		clusterDisValues[j] = calculateEuclideanDistance(pointList.get(i), clusterCenterList.get(j));
         	}
-        	pointList.get(i).setClusterIndex(getCloserCluster(clusterDisValues));
+        	pointList.get(i).clusterIndex = (getCloserCluster(clusterDisValues));
         }
 		
 	}
@@ -159,7 +159,7 @@ public class PrincipalColorExtractor {
 		// clear the points now
 		for(int i=0; i<clusterCenterList.size(); i++)
 		{
-			 clusterCenterList.get(i).setNumOfPoints(0);
+			 clusterCenterList.get(i).numOfPoints = 0;
 		}
 		
 		// recalculate the sum and total of points for each cluster
@@ -168,13 +168,11 @@ public class PrincipalColorExtractor {
 		double[] blueSum = new double[numOfCluster];
 		for(int i=0; i<pointList.size(); i++)
 		{
-			int cIndex = (int)pointList.get(i).getClusterIndex();
-			clusterCenterList.get(cIndex).addPoints();
-    		int ta = pointList.get(i).getPixelColor().alpha;
-            int tr = pointList.get(i).getPixelColor().red;
-            int tg = pointList.get(i).getPixelColor().green;
-            int tb = pointList.get(i).getPixelColor().blue;
-            ta = 255;
+			int cIndex = (int)pointList.get(i).clusterIndex;
+			clusterCenterList.get(cIndex).numOfPoints++;
+            int tr = pointList.get(i).pixelColor.red;
+            int tg = pointList.get(i).pixelColor.green;
+            int tb = pointList.get(i).pixelColor.blue;
 			redSums[cIndex] += tr;
 			greenSum[cIndex] += tg;
 			blueSum[cIndex] += tb;
@@ -183,12 +181,12 @@ public class PrincipalColorExtractor {
 		double[][] oldClusterCentersColors = new double[clusterCenterList.size()][3];
 		for(int i=0; i<clusterCenterList.size(); i++)
 		{
-			double sum  = clusterCenterList.get(i).getNumOfPoints();
-			int cIndex = clusterCenterList.get(i).getcIndex();
+			double sum  = clusterCenterList.get(i).numOfPoints;
+			int cIndex = clusterCenterList.get(i).cIndex;
 			int red = (int)(greenSum[cIndex]/sum);
 			int green = (int)(greenSum[cIndex]/sum);
 			int blue = (int)(blueSum[cIndex]/sum);
-			clusterCenterList.get(i).setPixelColor(new Scalar(red, green, blue));
+			clusterCenterList.get(i).color = new Scalar(red, green, blue);
 			oldClusterCentersColors[i][0] = red;
 			oldClusterCentersColors[i][0] = green;
 			oldClusterCentersColors[i][0] = blue;
@@ -227,12 +225,12 @@ public class PrincipalColorExtractor {
 	 */
 	private double calculateEuclideanDistance(ClusterPoint p, ClusterCenter c) 
 	{
-	    int pr = p.getPixelColor().red;
-	    int pg = p.getPixelColor().green;
-	    int pb = p.getPixelColor().blue;
-	    int cr = c.getPixelColor().red;
-	    int cg = c.getPixelColor().green;
-	    int cb = c.getPixelColor().blue;
+	    int pr = p.pixelColor.red;
+	    int pg = p.pixelColor.green;
+	    int pb = p.pixelColor.blue;
+	    int cr = c.color.red;
+	    int cg = c.color.green;
+	    int cb = c.color.blue;
 	    return Math.sqrt(Math.pow((pr - cr), 2.0) + Math.pow((pg - cg), 2.0) + Math.pow((pb - cb), 2.0));
 	}
 
