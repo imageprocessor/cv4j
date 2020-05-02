@@ -32,25 +32,20 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
-    compile "com.android.support:appcompat-v7:${libs.supportVersion}"
-    testCompile 'junit:junit:4.12'
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    compile "io.reactivex.rxjava2:rxandroid:${libs.rxandroid}"
-    compile "io.reactivex.rxjava2:rxjava:${libs.rxjava}"
-    
-    compile "tony-common:tony-common-utils:${libs.tony_common_utils}"
-    compile ('com.safframework.utils:saf-kotlin-utils:0.0.2.6',{
-        exclude group: 'com.android.support', module: 'appcompat-v7'
-        exclude group: 'tony-common', module: 'tony-common-utils'
-    })
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    testImplementation 'junit:junit:4.12'
 
-    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation "io.reactivex.rxjava2:rxandroid:${libs.rxandroid}"
+    implementation "io.reactivex.rxjava2:rxjava:${libs.rxjava}"
 
-    compile project(':cv4j')
+    implementation "tony-common:tony-common-utils:${libs.tony_common_utils}"
+    implementation 'com.safframework.utils:saf-kotlin-utils:0.2.0'
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+
+    implementation project(':cv4j')
 }
 
 repositories {
