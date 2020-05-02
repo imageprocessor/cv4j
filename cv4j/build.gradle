@@ -1,6 +1,5 @@
 apply plugin: 'com.android.library'
-apply plugin: "findbugs"
-//apply plugin: 'checkstyle'
+//apply plugin: "findbugs"
 apply plugin: 'com.novoda.bintray-release'
 
 def cfg = rootProject.ext.configuration // 配置
@@ -41,43 +40,25 @@ dependencies {
     testCompile 'junit:junit:4.12'
 }
 
-task findbugs(type: FindBugs,dependsOn:'assembleDebug') {
-
-    ignoreFailures= true
-    effort= "default"
-    reportLevel= "high"
-    println( "$project.buildDir")
-    classes = files("$project.buildDir/intermediates/classes")
-    source= fileTree("src/main/java/")
-    classpath= files()
-    reports{
-        xml.enabled=false
-        html.enabled=true
-        xml {
-            destination "$project.buildDir/findbugs.xml"
-        }
-        html{
-            destination "$project.buildDir/findbugs.html"
-        }
-    }
-}
-
-//checkstyle {
-//    toolVersion '6.1.1'
-//    showViolations true
-//}
+//task findbugs(type: FindBugs,dependsOn:'assembleDebug') {
 //
-//check.dependsOn 'checkstyle'
-//
-//task checkstyle(type: Checkstyle) {
-//    configFile rootProject.file('checkstyle.xml')
-//    source 'src/main/java'
-//    ignoreFailures false
-//    showViolations true
-//    include '**/*.java'
-//    exclude '**/gen/**'
-//
-//    classpath = files()
+//    ignoreFailures= true
+//    effort= "default"
+//    reportLevel= "high"
+//    println( "$project.buildDir")
+//    classes = files("$project.buildDir/intermediates/classes")
+//    source= fileTree("src/main/java/")
+//    classpath= files()
+//    reports{
+//        xml.enabled=false
+//        html.enabled=true
+//        xml {
+//            destination "$project.buildDir/findbugs.xml"
+//        }
+//        html{
+//            destination "$project.buildDir/findbugs.html"
+//        }
+//    }
 //}
 
 repositories {
