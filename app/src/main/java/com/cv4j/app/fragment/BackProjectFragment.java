@@ -32,8 +32,6 @@ import com.cv4j.core.datamodel.CV4JImage;
 import com.cv4j.core.datamodel.ColorProcessor;
 import com.cv4j.core.hist.BackProjectHist;
 import com.cv4j.core.hist.CalcHistogram;
-import com.safframework.injectview.Injector;
-import com.safframework.injectview.annotations.InjectView;
 
 /**
  * Created by Tony Shen on 2017/8/13.

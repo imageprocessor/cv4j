@@ -55,6 +55,7 @@ dependencies {
     implementation "io.reactivex.rxjava2:rxjava:${libs.rxjava}"
 
     implementation project(':rxcv4j')
+    implementation project(':cv4j')
 
     implementation "com.safframework.log:saf-log-core:${libs.saf_log}"
 //    implementation "com.safframework:saf-aop:${libs.saf_aop}"
