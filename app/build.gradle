@@ -1,5 +1,5 @@
 apply plugin: 'com.android.application'
-apply plugin: 'com.hujiang.android-aspectjx'
+//apply plugin: 'com.hujiang.android-aspectjx'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
@@ -46,34 +46,29 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
     compile "com.android.support:appcompat-v7:${libs.supportVersion}"
     compile "com.android.support:design:${libs.supportVersion}"
 
-    compile project(':rxcv4j')
+    implementation project(':rxcv4j')
 
-    compile "com.safframework.log:saf-log:${libs.saf_log}"
-    implementation "com.safframework:saf-aop:${libs.saf_aop}"
-    implementation "com.safframework.injectview:saf-injectview:${libs.saf_injectview}"
-    implementation "com.safframework.injectview:saf-injectview-annotation:${libs.saf_injectview_annotation}"
+    implementation "com.safframework.log:saf-log-core:${libs.saf_log}"
+//    implementation "com.safframework:saf-aop:${libs.saf_aop}"
+//    implementation "com.safframework.injectview:saf-injectview:${libs.saf_injectview}"
+//    implementation "com.safframework.injectview:saf-injectview-annotation:${libs.saf_injectview_annotation}"
     kapt "com.safframework.injectview:saf-injectview-compiler:${libs.saf_injectview_compiler}"
 
-    compile "tony-common:tony-common-utils:${libs.tony_common_utils}"
+    implementation "tony-common:tony-common-utils:${libs.tony_common_utils}"
 
-    compile 'com.safframework:saf-permission:1.0.0'
+    implementation 'com.safframework:saf-permission:1.0.0'
 
-    compile ('com.safframework.utils:saf-kotlin-utils:0.0.2.6',{
-        exclude group: 'com.android.support', module: 'appcompat-v7'
-        exclude group: 'tony-common', module: 'tony-common-utils'
-    })
+    implementation 'com.safframework.utils:saf-kotlin-utils:0.2.0'
 
-    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
-    compile 'thereisnospon.codeview:codeview:0.3.1'
-    compile 'com.github.tiagohm.MarkdownView:library:0.13.1'
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
-    testCompile 'junit:junit:4.12'
+    implementation 'thereisnospon.codeview:codeview:0.3.1'
+    implementation 'com.github.tiagohm.MarkdownView:library:0.13.1'
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    testImplementation 'junit:junit:4.12'
 }
