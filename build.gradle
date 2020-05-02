@@ -23,7 +23,7 @@ ext {
             saf_log                   : "2.4.11",
             saf_aop                   : "1.2.0",
 
-            tony_common_utils         : "1.2.5"
+            tony_common_utils         : "1.2.8"
     ]
 }
 
