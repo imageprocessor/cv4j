@@ -5,8 +5,6 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.cv4j.app.R;
-import com.cv4j.app.fragment.SpitalConvFragment;
-import com.cv4j.app.fragment.TemplateMatchFragment;
 
 /**
  * Created by tony on 2016/11/20.

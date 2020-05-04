@@ -24,7 +24,6 @@ import android.support.v7.widget.Toolbar;
 
 import com.cv4j.app.R;
 import com.cv4j.app.adapter.QRAdapter;
-import com.cv4j.app.fragment.QRFragment;
 import com.safframework.injectview.annotations.InjectExtra;
 import com.safframework.injectview.annotations.InjectView;
 import com.safframework.injectview.annotations.OnClick;
