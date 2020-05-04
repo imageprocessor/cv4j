@@ -8,8 +8,6 @@ import android.support.v7.widget.Toolbar;
 
 import com.cv4j.app.R;
 import com.cv4j.app.adapter.ProjectHistAdapter;
-import com.cv4j.app.app.BaseActivity;
-import com.cv4j.app.fragment.BackProjectFragment;
 import com.cv4j.app.fragment.GaussianBackFragment;
 import com.safframework.injectview.annotations.InjectExtra;
 import com.safframework.injectview.annotations.InjectView;

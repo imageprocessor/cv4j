@@ -8,7 +8,6 @@ import android.support.v7.widget.Toolbar;
 import android.widget.ImageView;
 
 import com.cv4j.app.R;
-import com.cv4j.app.app.BaseActivity;
 import com.cv4j.core.datamodel.CV4JImage;
 import com.cv4j.core.filters.CompositeFilters;
 import com.cv4j.core.filters.NatureFilter;

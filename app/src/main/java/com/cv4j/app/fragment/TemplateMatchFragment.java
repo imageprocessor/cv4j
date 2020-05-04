@@ -30,7 +30,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.cv4j.app.R;
-import com.cv4j.app.app.BaseFragment;
 import com.cv4j.core.datamodel.CV4JImage;
 import com.cv4j.core.datamodel.FloatProcessor;
 import com.cv4j.core.datamodel.ImageProcessor;

@@ -12,7 +12,6 @@ import com.cv4j.app.activity.CompareHistActivity;
 import com.cv4j.app.activity.HistogramDemoActivity;
 import com.cv4j.app.activity.HistogramEqualizationActivity;
 import com.cv4j.app.activity.ProjectHistActivity;
-import com.cv4j.app.app.BaseFragment;
 import com.safframework.injectview.Injector;
 import com.safframework.injectview.annotations.InjectView;
 import com.safframework.injectview.annotations.OnClick;

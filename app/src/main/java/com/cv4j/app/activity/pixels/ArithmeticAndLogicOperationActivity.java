@@ -22,7 +22,6 @@ import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
 
 import com.cv4j.app.R;
-import com.cv4j.app.app.BaseActivity;
 import com.safframework.injectview.annotations.InjectExtra;
 import com.safframework.injectview.annotations.InjectView;
 import com.safframework.injectview.annotations.OnClick;

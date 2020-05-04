@@ -25,7 +25,6 @@ import android.support.v7.widget.Toolbar;
 import android.widget.ImageView;
 
 import com.cv4j.app.R;
-import com.cv4j.app.app.BaseActivity;
 import com.cv4j.core.datamodel.CV4JImage;
 import com.cv4j.core.datamodel.ColorProcessor;
 import com.cv4j.core.datamodel.ImageProcessor;
@@ -34,7 +33,6 @@ import com.cv4j.core.pixels.PrincipalColorExtractor;
 import com.safframework.injectview.annotations.InjectExtra;
 import com.safframework.injectview.annotations.InjectView;
 import com.safframework.injectview.annotations.OnClick;
-import com.safframework.log.L;
 
 import java.util.List;
 

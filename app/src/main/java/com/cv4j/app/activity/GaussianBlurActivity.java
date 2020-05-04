@@ -13,7 +13,6 @@ import android.support.v7.widget.Toolbar;
 import android.widget.ImageView;
 
 import com.cv4j.app.R;
-import com.cv4j.app.app.BaseActivity;
 import com.cv4j.core.filters.GaussianBlurFilter;
 import com.cv4j.rxjava.RxImageData;
 import com.safframework.injectview.annotations.InjectExtra;

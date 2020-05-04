@@ -12,7 +12,6 @@ import android.util.SparseIntArray;
 import android.widget.ImageView;
 
 import com.cv4j.app.R;
-import com.cv4j.app.app.BaseActivity;
 import com.cv4j.core.binary.ConnectedAreaLabel;
 import com.cv4j.core.binary.ContourAnalysis;
 import com.cv4j.core.binary.Threshold;

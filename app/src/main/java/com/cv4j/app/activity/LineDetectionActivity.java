@@ -11,7 +11,6 @@ import android.support.v7.widget.Toolbar;
 import android.widget.ImageView;
 
 import com.cv4j.app.R;
-import com.cv4j.app.app.BaseActivity;
 import com.cv4j.core.binary.HoughLinesP;
 import com.cv4j.core.binary.Threshold;
 import com.cv4j.core.datamodel.ByteProcessor;

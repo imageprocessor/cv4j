@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.cv4j.app.R;
-import com.cv4j.app.app.BaseFragment;
 import com.safframework.injectview.Injector;
 import com.safframework.injectview.annotations.InjectView;
 

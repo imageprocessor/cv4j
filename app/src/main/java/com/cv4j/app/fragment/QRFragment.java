@@ -29,7 +29,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import com.cv4j.app.R;
-import com.cv4j.app.app.BaseFragment;
 import com.cv4j.core.datamodel.CV4JImage;
 import com.cv4j.core.datamodel.Rect;
 import com.cv4j.image.util.QRCodeScanner;

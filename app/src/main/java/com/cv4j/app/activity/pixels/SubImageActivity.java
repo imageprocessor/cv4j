@@ -24,7 +24,6 @@ import android.support.v7.widget.Toolbar;
 import android.widget.ImageView;
 
 import com.cv4j.app.R;
-import com.cv4j.app.app.BaseActivity;
 import com.cv4j.core.datamodel.CV4JImage;
 import com.cv4j.core.datamodel.ImageProcessor;
 import com.cv4j.core.datamodel.Rect;

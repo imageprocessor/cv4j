@@ -8,7 +8,6 @@ import android.support.v7.widget.Toolbar;
 
 import com.cv4j.app.R;
 import com.cv4j.app.adapter.CompareHistAdapter;
-import com.cv4j.app.app.BaseActivity;
 import com.cv4j.app.fragment.CompareHist1Fragment;
 import com.cv4j.app.fragment.CompareHist2Fragment;
 import com.cv4j.app.fragment.CompareHist3Fragment;

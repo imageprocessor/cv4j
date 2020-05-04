@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.cv4j.app.R;
-import com.cv4j.app.app.BaseFragment;
 import com.cv4j.core.filters.OilPaintFilter;
 import com.cv4j.core.filters.StrokeAreaFilter;
 import com.cv4j.rxjava.RxImageData;

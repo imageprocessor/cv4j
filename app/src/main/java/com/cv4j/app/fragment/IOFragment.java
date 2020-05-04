@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.cv4j.app.R;
-import com.cv4j.app.app.BaseFragment;
 import com.cv4j.rxjava.RxImageData;
 import com.safframework.injectview.Injector;
 import com.safframework.injectview.annotations.InjectView;

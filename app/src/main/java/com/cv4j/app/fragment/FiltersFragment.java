@@ -17,7 +17,6 @@ import com.cv4j.app.activity.GridViewFilterActivity;
 import com.cv4j.app.activity.PaintActivity;
 import com.cv4j.app.activity.SelectFilterActivity;
 import com.cv4j.app.activity.UseFilterWithRxActivity;
-import com.cv4j.app.app.BaseFragment;
 import com.safframework.injectview.Injector;
 import com.safframework.injectview.annotations.InjectView;
 import com.safframework.injectview.annotations.OnClick;

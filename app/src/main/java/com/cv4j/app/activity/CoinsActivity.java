@@ -11,7 +11,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.cv4j.app.R;
-import com.cv4j.app.app.BaseActivity;
 import com.cv4j.core.binary.ConnectedAreaLabel;
 import com.cv4j.core.binary.Erode;
 import com.cv4j.core.binary.Threshold;

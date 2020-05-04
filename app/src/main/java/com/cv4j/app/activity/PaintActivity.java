@@ -8,7 +8,6 @@ import android.support.v7.widget.Toolbar;
 
 import com.cv4j.app.R;
 import com.cv4j.app.adapter.PaintAdapter;
-import com.cv4j.app.app.BaseActivity;
 import com.cv4j.app.fragment.PaintFragment;
 import com.safframework.injectview.annotations.InjectExtra;
 import com.safframework.injectview.annotations.InjectView;

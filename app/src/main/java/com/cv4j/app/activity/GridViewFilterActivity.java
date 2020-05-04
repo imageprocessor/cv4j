@@ -10,7 +10,6 @@ import android.support.v7.widget.Toolbar;
 
 import com.cv4j.app.R;
 import com.cv4j.app.adapter.GridViewFilterAdapter;
-import com.cv4j.app.app.BaseActivity;
 import com.cv4j.app.ui.DividerGridItemDecoration;
 import com.cv4j.app.ui.GridRecyclerView;
 import com.safframework.injectview.annotations.InjectExtra;

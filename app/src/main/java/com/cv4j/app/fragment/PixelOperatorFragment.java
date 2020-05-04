@@ -30,7 +30,6 @@ import com.cv4j.app.activity.pixels.PrincipalColorExtractorActivity;
 import com.cv4j.app.activity.pixels.ResizeActivity;
 import com.cv4j.app.activity.pixels.RotateActivity;
 import com.cv4j.app.activity.pixels.SubImageActivity;
-import com.cv4j.app.app.BaseFragment;
 import com.safframework.injectview.Injector;
 import com.safframework.injectview.annotations.InjectView;
 import com.safframework.injectview.annotations.OnClick;
