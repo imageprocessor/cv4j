@@ -8,9 +8,6 @@ import android.support.v7.widget.Toolbar;
 
 import com.cv4j.app.R;
 import com.cv4j.app.adapter.CompareHistAdapter;
-import com.cv4j.app.fragment.CompareHist1Fragment;
-import com.cv4j.app.fragment.CompareHist2Fragment;
-import com.cv4j.app.fragment.CompareHist3Fragment;
 import com.safframework.injectview.annotations.InjectExtra;
 import com.safframework.injectview.annotations.InjectView;
 import com.safframework.injectview.annotations.OnClick;

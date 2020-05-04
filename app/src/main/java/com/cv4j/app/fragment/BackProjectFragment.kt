@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import com.cv4j.app.R
 import com.cv4j.app.app.BaseFragment
 import com.cv4j.core.datamodel.ByteProcessor
@@ -52,6 +51,6 @@ class BackProjectFragment : BaseFragment() {
         val bins = 16
         val backProjectHist = BackProjectHist()
         backProjectHist.backProjection(colorProcessor, byteProcessor, CalcHistogram.calculateNormHist(sampleProcessor, bins), bins)
-        result!!.setImageBitmap(byteProcessor.image.toBitmap())
+        result.setImageBitmap(byteProcessor.image.toBitmap())
     }
 }
