@@ -24,15 +24,13 @@ import kotlinx.android.synthetic.main.fragment_compare_hist_2.*
 class CompareHist2Fragment : BaseFragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        val v: View = inflater.inflate(R.layout.fragment_compare_hist_2, container, false)
-
+        val v = inflater.inflate(R.layout.fragment_compare_hist_2, container, false)
         initData()
-
         return v
     }
 
     private fun initData() {
-        val res: Resources = getResources()
+        val res: Resources = resources
         val bitmap = BitmapFactory.decodeResource(res, R.drawable.test_hist2)
         image0.setImageBitmap(bitmap)
         image1.setImageBitmap(bitmap)

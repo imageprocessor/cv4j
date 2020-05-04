@@ -27,14 +27,12 @@ class CompareHist1Fragment : BaseFragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         val v = inflater.inflate(R.layout.fragment_compare_hist_1, container, false)
-
         initData()
-
         return v
     }
 
     private fun initData() {
-        val res: Resources = getResources()
+        val res: Resources = resources
         val bitmap = BitmapFactory.decodeResource(res, R.drawable.test_hist)
         image0.setImageBitmap(bitmap)
         val cv4jImage = CV4JImage(bitmap)
