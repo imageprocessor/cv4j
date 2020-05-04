@@ -19,7 +19,7 @@ open class BaseFragment : Fragment() {
     /**
      * Fragment 所在的 FragmentActivity
      */
-    var mContext: Activity? = null
+    lateinit var mContext: Activity
 
     /**
      * Deprecated on API 23

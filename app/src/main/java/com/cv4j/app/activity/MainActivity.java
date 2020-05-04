@@ -12,7 +12,6 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.cv4j.app.R;
-import com.cv4j.app.fragment.HomeFragment;
 import com.cv4j.app.menu.MenuManager;
 import com.cv4j.app.utils.DoubleClickExitUtils;
 import com.safframework.injectview.annotations.InjectView;
