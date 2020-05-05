@@ -2,22 +2,14 @@ package com.cv4j.app.activity
 
 import android.graphics.BitmapFactory
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.Toolbar
-import android.widget.ImageView
 import com.cv4j.app.R
+import com.cv4j.app.app.BaseActivity
 import com.cv4j.core.filters.NatureFilter
 import com.cv4j.rxjava.cv4j
-import thereisnospon.codeview.CodeView
+import kotlinx.android.synthetic.main.activity_dsl.*
 import thereisnospon.codeview.CodeViewTheme
 
-class DslActivity : AppCompatActivity() {
-
-    var image: ImageView? = null
-
-    var codeView: CodeView? = null
-
-    var toolbar: Toolbar? = null
+class DslActivity : BaseActivity() {
 
     var title: String? = null
 
@@ -25,22 +17,12 @@ class DslActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dsl)
 
-        initViews()
         initData()
-    }
-
-    private fun initViews() {
-
-        image = findViewById(R.id.image) as ImageView?
-
-        toolbar = findViewById(R.id.toolbar) as Toolbar?
-
-        codeView = findViewById(R.id.codeview) as CodeView?
     }
 
     private fun initData() {
 
-        title = intent.extras.getString("Title")
+        title = intent.extras?.getString("Title")
         toolbar?.title = "< " + title
 
         cv4j {
@@ -51,7 +33,7 @@ class DslActivity : AppCompatActivity() {
             imageView = image
         }
 
-        codeView?.setTheme(CodeViewTheme.ANDROIDSTUDIO)?.fillColor()
+        codeview?.setTheme(CodeViewTheme.ANDROIDSTUDIO)?.fillColor()
 
         val code = StringBuilder()
         code.append("cv4j {")
@@ -64,7 +46,7 @@ class DslActivity : AppCompatActivity() {
                 .append("\r\n")
                 .append("}")
 
-        codeView?.showCode(code.toString())
+        codeview?.showCode(code.toString())
 
         toolbar?.setOnClickListener {
             finish()
