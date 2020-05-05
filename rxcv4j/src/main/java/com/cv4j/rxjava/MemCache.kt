@@ -17,7 +17,7 @@ package com.cv4j.rxjava
 
 import android.graphics.Bitmap
 import android.os.Build
-import android.support.v4.util.LruCache
+import androidx.collection.LruCache
 import com.safframework.tony.common.utils.Preconditions
 
 class MemCache private constructor() {
@@ -25,13 +25,12 @@ class MemCache private constructor() {
     init {
         val cacheSize = Runtime.getRuntime().maxMemory().toInt() / 8
         mLruCache = object : LruCache<String, Bitmap>(cacheSize) {
-            override fun sizeOf(key: String?, value: Bitmap?): Int {
+            override fun sizeOf(key: String, value: Bitmap): Int {
                 val bitmapSize = getBitmapSize(value)
                 return if (bitmapSize == 0) 1 else bitmapSize
             }
 
-            override fun entryRemoved(evicted: Boolean, key: String?,
-                                      oldValue: Bitmap?, newValue: Bitmap?) {
+            override fun entryRemoved(evicted: Boolean, key: String, oldValue: Bitmap, newValue: Bitmap?) {
 
                 if (evicted) {
                     if (oldValue != null && !oldValue.isRecycled) {
@@ -81,11 +80,11 @@ class MemCache private constructor() {
         }
     }
 
-    @Synchronized fun put(key: String?, bitmap: Bitmap) {
+    @Synchronized fun put(key: String, bitmap: Bitmap) {
         mLruCache!!.put(key, bitmap)
     }
 
-    operator fun get(key: String?): Bitmap? {
+    operator fun get(key: String): Bitmap? {
         return if (mLruCache == null) null else mLruCache!!.get(key)
     }
 

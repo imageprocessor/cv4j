@@ -1,6 +1,5 @@
 package com.cv4j.app.activity
 
-import android.R
 import android.content.res.Resources
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -9,10 +8,11 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.AdapterView.OnItemSelectedListener
 import android.widget.ArrayAdapter
-import android.widget.ImageView
-import android.widget.Spinner
+import com.cv4j.app.R
+import com.cv4j.app.app.BaseActivity
 import com.cv4j.core.datamodel.CV4JImage
 import com.cv4j.core.filters.CommonFilter
+import kotlinx.android.synthetic.main.activity_select_filter.*
 import java.util.*
 
 /**
@@ -25,52 +25,56 @@ import java.util.*
  */
 
 class SelectFilterActivity : BaseActivity() {
-    @InjectView(R.id.image)
-    var image: ImageView? = null
 
-    @InjectView(R.id.spinner)
-    var spinner: Spinner? = null
-
-    @InjectView(R.id.toolbar)
-    var toolbar: Toolbar? = null
-
-    @InjectExtra(key = "Title")
     var title: String? = null
+
     private var bitmap: Bitmap? = null
     private val list: MutableList<String> = ArrayList()
-    private var adapter: ArrayAdapter<*>? = null
-    protected fun onCreate(savedInstanceState: Bundle?) {
+    private lateinit var adapter: ArrayAdapter<String>
+
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_select_filter)
+
+        intent.extras?.let {
+            title = it.getString("Title","")
+        }?:{
+            title = ""
+        }()
+
+        toolbar.setOnClickListener {
+            finish()
+        }
+
         initViews()
         initData()
     }
 
     private fun initViews() {
-        toolbar.setTitle("< $title")
+        toolbar.title = "< $title"
     }
 
     private fun initData() {
-        val res: Resources = getResources()
+        val res: Resources = resources
         val filterNames = res.getStringArray(R.array.filterNames)
         bitmap = BitmapFactory.decodeResource(res, R.drawable.test_filters)
-        image!!.setImageBitmap(bitmap)
+        image.setImageBitmap(bitmap)
         for (filter in filterNames) {
             list.add(filter)
         }
-        adapter = ArrayAdapter<Any?>(this, R.layout.simple_list_item_1, list)
-        adapter!!.setDropDownViewResource(R.layout.simple_spinner_dropdown_item)
-        spinner!!.adapter = adapter
-        spinner!!.onItemSelectedListener = object : OnItemSelectedListener {
+        adapter = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, list)
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spinner.adapter = adapter
+        spinner.onItemSelectedListener = object : OnItemSelectedListener {
             override fun onItemSelected(adapterView: AdapterView<*>?, view: View, position: Int, l: Long) {
                 if (position == 0) {
-                    image!!.setImageBitmap(bitmap)
+                    image.setImageBitmap(bitmap)
                     return
                 }
 
                 // 清除滤镜
                 image!!.clearColorFilter()
-                val filterName = adapter!!.getItem(position) as String?
+                val filterName = adapter.getItem(position) as String?
                 changeFilter(filterName)
             }
 
@@ -92,17 +96,11 @@ class SelectFilterActivity : BaseActivity() {
         return `object`
     }
 
-    @Trace
     fun changeFilter(filterName: String?) {
         val colorImage = CV4JImage(bitmap)
         val filter = getFilter(filterName) as CommonFilter?
         if (filter != null) {
-            image!!.setImageBitmap(filter.filter(colorImage.processor).image.toBitmap())
+            image.setImageBitmap(filter.filter(colorImage.processor).image.toBitmap())
         }
-    }
-
-    @OnClick(id = R.id.toolbar)
-    fun clickToolbar() {
-        finish()
     }
 }
