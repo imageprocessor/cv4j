@@ -20,8 +20,10 @@ import kotlinx.android.synthetic.main.fragment_binary.*
  */
 class BinaryFragment : BaseFragment() {
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        val v = inflater.inflate(R.layout.fragment_binary, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View = inflater.inflate(R.layout.fragment_binary, container, false)
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         text1.setOnClickListener{
             val i = Intent(mContext, MorphologyActivity::class.java)
@@ -52,7 +54,5 @@ class BinaryFragment : BaseFragment() {
             i.putExtra("Title", text5.text.toString())
             startActivity(i)
         }
-
-        return v
     }
 }
