@@ -1,8 +1,6 @@
 apply plugin: 'com.android.application'
-//apply plugin: 'com.hujiang.android-aspectjx'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
-apply plugin: 'kotlin-kapt'
 
 def cfg = rootProject.ext.configuration // 配置
 def libs = rootProject.ext.libraries // 库
@@ -59,17 +57,9 @@ dependencies {
     implementation project(':cv4j')
 
     implementation "com.safframework.log:saf-log-core:${libs.saf_log}"
-//    implementation "com.safframework:saf-aop:${libs.saf_aop}"
-//    implementation "com.safframework.injectview:saf-injectview:${libs.saf_injectview}"
-//    implementation "com.safframework.injectview:saf-injectview-annotation:${libs.saf_injectview_annotation}"
-//    kapt "com.safframework.injectview:saf-injectview-compiler:${libs.saf_injectview_compiler}"
-
     implementation "tony-common:tony-common-utils:${libs.tony_common_utils}"
-
     implementation 'com.safframework:saf-permission:1.0.0'
-
     implementation 'com.safframework.utils:saf-kotlin-utils:0.2.0'
-
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
     implementation 'thereisnospon.codeview:codeview:0.3.1'

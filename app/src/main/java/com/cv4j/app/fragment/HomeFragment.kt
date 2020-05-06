@@ -20,10 +20,12 @@ import kotlinx.android.synthetic.main.fragment_home.*
 class HomeFragment : BaseFragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        val v: View = inflater.inflate(R.layout.fragment_home, container, false)
+        
+        return inflater.inflate(R.layout.fragment_home, container, false)
+    }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         markdownView.loadMarkdownFromAsset("README.md")
-
-        return v
     }
 }

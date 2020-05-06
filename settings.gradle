@@ -1,3 +1,4 @@
 include ':cv4j'
-//include ':app'
 include ':rxcv4j'
+
+include ':app'
