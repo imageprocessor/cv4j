@@ -25,15 +25,15 @@ import thereisnospon.codeview.CodeViewTheme
 
 class IOFragment : BaseFragment() {
 
-    private var rxImageData: RxImageData? = null
+    private lateinit var rxImageData: RxImageData
     private var dialog: ProgressDialog? = null
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        val v: View = inflater.inflate(R.layout.fragment_io, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View = inflater.inflate(R.layout.fragment_io, container, false)
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         dialog = ProgressDialog.show(mContext, "Loading", "Please wait...", true)
         initData()
-        return v
     }
 
     private fun initData() {
@@ -41,7 +41,7 @@ class IOFragment : BaseFragment() {
         val bitmap = BitmapFactory.decodeResource(res, R.drawable.test_io)
         image1.setImageBitmap(bitmap)
         rxImageData = bitmap(bitmap)
-        rxImageData!!.dialog(dialog).into(image2)
+        rxImageData.dialog(dialog).into(image2)
         codeview1.setTheme(CodeViewTheme.ANDROIDSTUDIO).fillColor()
         var code = StringBuilder()
         code.append("CV4JImage cv4JImage = new CV4JImage(bitmap);")
@@ -56,6 +56,6 @@ class IOFragment : BaseFragment() {
 
     override fun onDestroy() {
         super.onDestroy()
-        rxImageData!!.recycle()
+        rxImageData.recycle()
     }
 }

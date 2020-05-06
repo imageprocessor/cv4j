@@ -24,9 +24,10 @@ import kotlinx.android.synthetic.main.fragment_hist.*
 
 class HistFragment : BaseFragment() {
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        val v = inflater.inflate(R.layout.fragment_hist, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View = inflater.inflate(R.layout.fragment_hist, container, false)
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         text1.setOnClickListener {
             val i = Intent(mContext, HistogramEqualizationActivity::class.java)
             i.putExtra("Title", text1.text.toString())
@@ -50,7 +51,5 @@ class HistFragment : BaseFragment() {
             i.putExtra("Title", text4.text.toString())
             startActivity(i)
         }
-
-        return v
     }
 }

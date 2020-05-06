@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import com.cv4j.app.R
 import com.cv4j.app.activity.pixels.*
 import com.cv4j.app.app.BaseFragment
@@ -22,9 +21,10 @@ import kotlinx.android.synthetic.main.fragment_pixel_operator.*
 
 class PixelOperatorFragment : BaseFragment() {
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        val v = inflater.inflate(R.layout.fragment_pixel_operator, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View = inflater.inflate(R.layout.fragment_pixel_operator, container, false)
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         text1.setOnClickListener {
             val i = Intent(mContext, ArithmeticAndLogicOperationActivity::class.java)
             i.putExtra("Title", text1.text.toString())
@@ -60,7 +60,5 @@ class PixelOperatorFragment : BaseFragment() {
             i.putExtra("Title", text6.text.toString())
             startActivity(i)
         }
-
-        return v
     }
 }

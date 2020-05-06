@@ -11,6 +11,7 @@ import com.cv4j.app.app.BaseFragment
 import com.cv4j.core.filters.OilPaintFilter
 import com.cv4j.core.filters.StrokeAreaFilter
 import com.cv4j.rxjava.RxImageData.Companion.bitmap
+import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_paint.*
 
 /**
@@ -34,10 +35,11 @@ class PaintFragment : BaseFragment() {
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        val v = inflater.inflate(R.layout.fragment_paint, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View = inflater.inflate(R.layout.fragment_paint, container, false)
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         initData()
-        return v
     }
 
     private fun initData() {

@@ -33,8 +33,10 @@ class QRFragment : BaseFragment() {
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        val v = inflater.inflate(R.layout.fragment_qr, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View = inflater.inflate(R.layout.fragment_qr, container, false)
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         detect_btn.setOnClickListener {
             val cv4JImage = CV4JImage(bitmap)
@@ -52,7 +54,6 @@ class QRFragment : BaseFragment() {
         }
 
         initData()
-        return v
     }
 
     private fun initData() {

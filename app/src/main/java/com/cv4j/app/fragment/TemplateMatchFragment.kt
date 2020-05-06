@@ -25,15 +25,15 @@ import kotlinx.android.synthetic.main.fragment_template_match.*
 
 class TemplateMatchFragment : BaseFragment() {
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        val v = inflater.inflate(R.layout.fragment_template_match, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View = inflater.inflate(R.layout.fragment_template_match, container, false)
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         initData()
-        return v
     }
 
     private fun initData() {
-        val res: Resources = getResources()
+        val res: Resources = resources
         val bitmap1 = BitmapFactory.decodeResource(res, R.drawable.test_tpl_target)
         target_image.setImageBitmap(bitmap1)
         val bitmap2 = BitmapFactory.decodeResource(res, R.drawable.tpl)
