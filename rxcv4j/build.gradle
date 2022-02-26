@@ -1,7 +1,8 @@
 apply plugin: 'com.android.library'
-//apply plugin: 'com.novoda.bintray-release'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+
+group = 'com.github.fengzhizi715'
 
 def cfg = rootProject.ext.configuration // 配置
 def libs = rootProject.ext.libraries // 库
@@ -49,12 +50,12 @@ dependencies {
 }
 
 repositories {
-    jcenter()
+    maven { url "https://jitpack.io" }
 }
 
 allprojects {
     repositories {
-        jcenter()
+        maven { url "https://jitpack.io" }
     }
     //加上这些
     tasks.withType(Javadoc) {
