@@ -60,7 +60,7 @@ dependencies {
     implementation project(':rxcv4j')
     implementation project(':cv4j')
 
-    implementation "com.safframework.log:saf-log-core:${libs.saf_log}"
+    implementation "com.github.fengzhizi715.SAF-Kotlin-log:core:${libs.saf_log}"
     implementation "tony-common:tony-common-utils:${libs.tony_common_utils}"
     implementation 'com.safframework:saf-permission:1.0.0'
     implementation 'com.safframework.utils:saf-kotlin-utils:0.2.0'
@@ -71,4 +71,8 @@ dependencies {
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
     testImplementation 'junit:junit:4.12'
 
+}
+
+repositories {
+    maven { url "https://jitpack.io" }
 }
