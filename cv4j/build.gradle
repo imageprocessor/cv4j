@@ -1,6 +1,6 @@
 apply plugin: 'com.android.library'
 //apply plugin: "findbugs"
-apply plugin: 'com.novoda.bintray-release'
+//apply plugin: 'com.novoda.bintray-release'
 
 def cfg = rootProject.ext.configuration // 配置
 def libs = rootProject.ext.libraries // 库
@@ -76,11 +76,11 @@ allprojects {
     }
 }
 
-publish{
-    userOrg = 'fengzhizi715'
-    groupId = 'com.cv4j'
-    artifactId = 'cv4j'
-    publishVersion = '0.1.2'
-    desc = 'this is a computer vision library for android'
-    website = 'https://github.com/imageprocessor/cv4j'
-}
+//publish{
+//    userOrg = 'fengzhizi715'
+//    groupId = 'com.cv4j'
+//    artifactId = 'cv4j'
+//    publishVersion = '0.1.2'
+//    desc = 'this is a computer vision library for android'
+//    website = 'https://github.com/imageprocessor/cv4j'
+//}

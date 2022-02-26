@@ -10,7 +10,7 @@ android {
     buildToolsVersion cfg.buildToolsVersion
     defaultConfig {
         applicationId "com.cv4j.app"
-        minSdkVersion 17
+        minSdkVersion 26
         targetSdkVersion cfg.targetSdk
         versionCode 1
         versionName "1.0"
@@ -34,12 +34,16 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility = "1.7"
-        targetCompatibility = "1.7"
+        sourceCompatibility = "1.8"
+        targetCompatibility = "1.8"
     }
 
     lintOptions {
         abortOnError false
+    }
+
+    buildFeatures {
+        viewBinding true
     }
 }
 

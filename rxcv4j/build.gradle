@@ -1,5 +1,5 @@
 apply plugin: 'com.android.library'
-apply plugin: 'com.novoda.bintray-release'
+//apply plugin: 'com.novoda.bintray-release'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
@@ -65,11 +65,11 @@ allprojects {
     }
 }
 
-publish{
-    userOrg = 'fengzhizi715'
-    groupId = 'com.cv4j'
-    artifactId = 'rxcv4j'
-    publishVersion = '0.1.1.1'
-    desc = 'this is a rxjava library for cv4j'
-    website = 'https://github.com/imageprocessor/cv4j'
-}
+//publish{
+//    userOrg = 'fengzhizi715'
+//    groupId = 'com.cv4j'
+//    artifactId = 'rxcv4j'
+//    publishVersion = '0.1.1.1'
+//    desc = 'this is a rxjava library for cv4j'
+//    website = 'https://github.com/imageprocessor/cv4j'
+//}
