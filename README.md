@@ -16,6 +16,18 @@ The target is to set up a high quality and real-time image process and machine l
 
 
 # 下载和使用
+
+将它添加到项目的 root build.gradle 中：
+
+```groovy
+	allprojects {
+		repositories {
+			...
+			maven { url 'https://jitpack.io' }
+		}
+	}
+```
+
 ## 1.单独下载cv4j
 
 ```groovy
