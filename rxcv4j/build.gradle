@@ -41,8 +41,8 @@ dependencies {
     implementation "io.reactivex.rxjava2:rxandroid:${libs.rxandroid}"
     implementation "io.reactivex.rxjava2:rxjava:${libs.rxjava}"
 
-    implementation "tony-common:tony-common-utils:${libs.tony_common_utils}"
-    implementation 'com.safframework.utils:saf-kotlin-utils:0.2.0'
+    implementation "com.github.fengzhizi715.tony-common:tony-common-utils:${libs.tony_common_utils}"
+    implementation 'com.github.fengzhizi715.SAF-Kotlin-Utils:saf-kotlin-utils:v0.23'
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 

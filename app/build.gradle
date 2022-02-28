@@ -61,9 +61,9 @@ dependencies {
     implementation project(':cv4j')
 
     implementation "com.github.fengzhizi715.SAF-Kotlin-log:core:${libs.saf_log}"
-    implementation "tony-common:tony-common-utils:${libs.tony_common_utils}"
+    implementation "com.github.fengzhizi715.tony-common:tony-common-utils:${libs.tony_common_utils}"
     implementation 'com.safframework:saf-permission:1.0.0'
-    implementation 'com.safframework.utils:saf-kotlin-utils:0.2.0'
+    implementation 'com.github.fengzhizi715.SAF-Kotlin-Utils:saf-kotlin-utils:v0.23'
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
     implementation 'thereisnospon.codeview:codeview:0.3.1'
