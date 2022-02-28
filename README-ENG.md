@@ -2,8 +2,7 @@
 
 [![License](https://img.shields.io/badge/license-Apache%202-lightgrey.svg)](https://www.apache.org/licenses/LICENSE-2.0.html)
 [![Build Status](https://travis-ci.org/imageprocessor/cv4j.svg?branch=master)](https://travis-ci.org/imageprocessor/cv4j)
-[![CircleCI](https://circleci.com/gh/imageprocessor/cv4j.svg?style=svg)](https://circleci.com/gh/imageprocessor/cv4j)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/c5acad8d039445408b17642957a5d736)](https://www.codacy.com/app/fengzhizi715/cv4j?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=imageprocessor/cv4j&amp;utm_campaign=Badge_Grade)
+[![](https://jitpack.io/v/imageprocessor/cv4j.svg)](https://jitpack.io/#imageprocessor/cv4j)
 
 The target is to set up a high quality and real-time image process and machine learning library which is implemented in pure java. The framework can run application on java desktop and android platform.
 
@@ -13,14 +12,13 @@ The target is to set up a high quality and real-time image process and machine l
 
 Module|cv4j|rxcv4j
 ---|:-------------:|:-------------:
-The latest version|[ ![Download](https://api.bintray.com/packages/fengzhizi715/maven/cv4j/images/download.svg) ](https://bintray.com/fengzhizi715/maven/cv4j/_latestVersion)|[ ![Download](https://api.bintray.com/packages/fengzhizi715/maven/rxcv4j/images/download.svg) ](https://bintray.com/fengzhizi715/maven/rxcv4j/_latestVersion)
-
+The latest version|[![](https://jitpack.io/v/imageprocessor/cv4j.svg)](https://jitpack.io/#imageprocessor/cv4j)|[![](https://jitpack.io/v/imageprocessor/cv4j.svg)](https://jitpack.io/#imageprocessor/cv4j)
 
 # Download and use
 ## 1.Download cv4j separately
 
 ```groovy
-compile 'com.cv4j:cv4j:0.1.2'
+implementation 'com.github.imageprocessor.cv4j:cv4j:0.1.2'
 ```
 
 ## 2.Download rxcv4j
@@ -28,7 +26,7 @@ compile 'com.cv4j:cv4j:0.1.2'
 rxcv4j is packaged with RxJava2.x, if you download this module, you don’t need to download cv4j.
 
 ```groovy
-compile 'com.cv4j:rxcv4j:0.1.1.1'
+implementation 'com.github.imageprocessor.cv4j:rxcv4j:0.1.2'
 ```
 
 
